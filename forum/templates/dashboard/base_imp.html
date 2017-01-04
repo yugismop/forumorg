@@ -1,5 +1,5 @@
 {% extends "dashboard/base.html" %}
-{% set company = current_user.data %}
+{% set user = current_user.data %}
 {% macro section_block(name, icon) -%}
 {% if name == 'accueil' %}
 <li {% if request.path == url_for('dashboard') %} class="active"{% endif %}>
@@ -7,7 +7,6 @@
 {% else %}
 <li {% if request.path == url_for('dashboard', page=name) %} class="active"{% endif %}>
   <a href="{{ url_for('dashboard', page=name) }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
-  {% if company.sections.get(name).completed %}<small class="label pull-right bg-green">complété</small>{% endif %}
 {% endif %}
   </a>
 </li>

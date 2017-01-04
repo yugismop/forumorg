@@ -3,12 +3,9 @@ import locale
 import os
 
 from flask import Flask
-from flask_admin import Admin
-from flask_admin.base import MenuLink
 from flask_login import LoginManager
 
-from admin import CompanyView
-from storage import get_companies, init_storage
+from storage import get_users, init_storage
 
 # App init
 app = Flask(__name__)

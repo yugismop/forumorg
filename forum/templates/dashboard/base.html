@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Forum Rhône-Alpes | Gestion</title>
+    <title>Forum Organisation | Gestion</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -43,9 +43,9 @@
         <!-- Logo -->
         <a href="{{ url_for('dashboard') }}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>F</b>R<b>A</b></span>
+            <span class="logo-mini"><b>F</b>O</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Forum</b>Rhône<b>Alpes</b></span>
+            <span class="logo-lg"><b>Forum</b>Organisation</span>
         </a>
 
         <!-- Header Navbar -->
@@ -65,7 +65,7 @@
                             <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image"
                                  alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">{{company.sections.profile.name}}</span>
+                            <span class="hidden-xs">{{company.profile.name}}</span>
                         </a>
                     </li>
                     <!-- Sign Out Menu -->
@@ -92,7 +92,7 @@
                          alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{company.sections.profile.name}}</p>
+                    <p>{{company.profile.name}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> En Ligne</a>
                 </div>

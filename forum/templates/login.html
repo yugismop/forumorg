@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Forum Rhône-Alpes | Se connecter</title>
+    <title>Forum Organisation | Se connecter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -31,8 +31,8 @@
 <body class="hold-transition login-page friendly">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"
-                                              alt="Forum Rhône-Alpes"
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}"
+                                              alt="Forum Organisation"
                                               style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
     </div>
     <!-- /.login-logo -->
@@ -57,8 +57,8 @@
                 {% if error == "blank_fields" %}
                 <span class="text-orange">Veuillez remplir tous les champs.</span>
                 {% endif %}
-                {% if error == "no_company_found" %}
-                <span class="text-blue">Aucune entreprise n'est associée à cet identifiant.</span>
+                {% if error == "no_user_found" %}
+                <span class="text-blue">Aucun utilisateur n'est associé à cet email.</span>
                 {% endif %}
             </div>
             {% endif %}

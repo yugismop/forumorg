@@ -1,7 +1,6 @@
 # Perso
 *.json
 .Python
-!events.json
 
 *.py[co]
 *.DS_*
