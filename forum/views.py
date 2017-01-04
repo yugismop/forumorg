@@ -70,6 +70,37 @@ def update_user():
 def index():
     return render_template('index.html')
 
+# joi
+@app.route('/joi', methods=["GET"])
+def joi():
+    return render_template('joi.html')
+
+
+@app.route('/send_request', methods=["GET"])
+def send_request():
+    #Params
+    email = request.args.get('email')
+    contact_name = request.args.get('nom_complet')
+    company_name = request.args.get('nom')
+    telephone = request.args.get('tel')
+    captcha = request.args.get('captcha')
+
+    # ReCaptcha
+    base_url = 'https://www.google.com/recaptcha/api/siteverify'
+    secret = os.environ.get('RECAPTCHA_SECRET_KEY')
+    res = requests.post(base_url, data={'response':captcha, 'secret':secret}).json()
+    ts, host, success = res.get('challenge_ts'), res.get('hostname'), res.get('success')
+
+    # Logging bots...
+    if ts and not success:
+        print("Bot found from: {} at: {}".format(res.get('hostname'), res.get('challenge_ts')))
+
+    # Sending mail...
+    if success:
+        return send_mail(email, contact_name, company_name, telephone)
+    else:
+        abort(500)
+
 ######## INDEXING ########
 @app.route('/robots.txt')
 def static_from_root():

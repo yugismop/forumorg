@@ -1,0 +1,491 @@
+<html>
+<head>
+
+    <meta charset="utf-8">
+
+    <!-- TITLE OF SITE -->
+    <title>Forum Rhône-Alpes | Accueil</title>
+
+    <!-- META DATA -->
+    <meta name="description"
+          content="Le Forum Rhône-Alpes est le premier salon de recrutement d'élèves ingénieurs de France. La 31ème édition aura lieu les 8 & 9 mars 2017">
+    <meta name="keywords"
+          content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
+    <meta name="author" content="ForumOrganisation">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- =========================
+    FAV AND TOUCH ICONS
+    ============================== -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- =========================
+    STYLESHEETS
+    ============================== -->
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+
+    <!-- EXTERNAL PLUGIN CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}"> <!-- Screenshot Slider -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nivo-lightbox.css') }}"> <!-- Screenshot Slider -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
+    <!-- Nivo Lightbox -->
+
+    <!-- TYPOGRAPHY -->
+    <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- COLORS -->
+    <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
+
+    <!-- RESPONSIVE FIXES -->
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="body-container">
+<div id="page" class="page">    <!-- start page -->
+    <div class="navbar navbar-nemo navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#nemo-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar icon-bar-top"></span>
+                    <span class="icon-bar icon-bar-middle"></span>
+                    <span class="icon-bar icon-bar-bottom"></span>
+                </button>
+
+                <!-- YOUR LOGO -->
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/fo.jpg')}}" alt="Forum Organisation">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="nemo-navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href="{{ url_for('index') }}" id="index">Accueil</a></li>
+                    <li class="active"><a href="#home">JOI</a></li>
+                    <li class=""><a href="{{ url_for('login') }}" id="login">Connexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+<!-- =========================
+     EVENT HOME 1
+============================== -->
+<section class="home event-home-1 video-bg gradient-overlay editBG" id="event-home-1">
+
+    <div class="section-video">
+            <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="">
+                <source src="{{ url_for('static', filename='video/video_joi.mp4') }}"
+                        type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
+            </video>
+        </div>
+
+        s
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 text-center">
+                <div class="logo-home">
+                    <!-- REPLACE WITH YOUR LOGO -->
+                    <br>
+                </div>
+
+                <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">JOI 2017</p>
+
+                <h1 class="heading-text" data-selector="Coming Soon">Journée Objectif Ingénieur</h1>
+                <p class="sub-heading" data-selector="Coming Soon">11 Janvier 2017, Amphi Capelle<br></p>
+
+                <div class="home-download-btn">
+                        
+                <a href="{{ url_for('login') }}" class="btn btn-white btn-lg">Inscris-toi</a>
+
+                </div>
+            </div>
+        </div>  <!-- /.row -->
+    </div>
+</section>
+
+
+
+
+    <!-- =========================
+         APP FEATURES
+    ============================== -->
+     <section class="why app-features-5 padding-120-75 white-bg" id="why" style="outline-offset: -3px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="section-heading text-center">
+
+                        <h2 class="heading-text">Journée Objectif Ingénieur</h2>
+                        <hr class="lines">
+                        <p class="sub-heading"
+                           style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;"
+                           src="{{ url_for('static', filename='images/uploads/maxresdefault.jpg') }}">Qu’est-ce qu’un ingénieur et quel sera ton métier à la sortie ? <br></p>
+
+                    </div> 
+                </div>
+                <div class="col-md-2"></div>
+            </div> 
+
+            <div class="row">
+                <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+
+                    <div class="media media-chained">
+                        <div class="media-left">
+
+                            <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                     width="32" height="32"
+                                     viewBox="0 0 32 32">
+                                    <path d="M32 0l-27.063 11.063 8 8-12.938 12.938 27.063-11.063-8-8zM24.875 20.438l-19.688 8 8.625-8.625 0.813-0.875-0.813-0.875-6.688-6.625 19.688-8-9.438 9.5 0.813 0.875z"></path>
+                                </svg>
+                            </i>
+
+                        </div>
+                        <div class="media-body">
+
+                            <h3 class="title-text"
+                                style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;"
+                                src="images/uploads/maxresdefault.jpg">Ajuste ton projet professionnel<br></h3>
+                            <p>Organisée par Forum Organisation pour les étudiants de 2ème année, cette journée t’offrira un large aperçu des métiers à la sortie de notre école. Plus de 20 ingénieurs en activité viendront témoigner et partager leur expérience. </p>
+
+                        </div>
+                    </div>
+
+                    <div class="media media-chained">
+                        <div class="media-left">
+
+                            <i class="icon svg-gift-regular icon-shape width-75 radius-30 icon-border-1">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                     width="32" height="32"
+                                     viewBox="0 0 32 32">
+                                    <path d="M32 8h-10.188c0.563-0.625 0.938-1.5 0.938-2.438 0-2.125-1.563-3.688-3.688-3.688-1.188 0-2.438 0.563-3.063 1.563-0.625-1-1.813-1.563-3.063-1.563-2.125 0-3.688 1.563-3.688 3.688 0 0.938 0.375 1.813 0.938 2.438h-10.188v4.938h1.25v17.188h29.5v-17.188h1.25zM19.063 3.063c1.375 0 2.5 1.125 2.5 2.5 0 1.313-1.125 2.438-2.5 2.438h-2.438v-2.438c0-1.375 1.125-2.5 2.438-2.5zM10.438 5.563c0-1.375 1.125-2.5 2.5-2.5 1.313 0 2.438 1.125 2.438 2.5v2.438h-2.438c-1.375 0-2.5-1.125-2.5-2.438zM1.25 9.25h14.125v2.438h-14.125zM2.438 12.938h12.938v16h-12.938zM29.563 28.938h-12.938v-16h12.938zM30.75 11.688h-14.125v-2.438h14.125z"></path>
+                                </svg>
+                            </i>
+
+                        </div>
+                        <div class="media-body">
+
+                            <h3 class="title-text">Programme de la journée</h3>
+                            <p>Pour cela, différentes activités, inscrites à ton emploi du temps, auront lieu pendant la journée : conférences le matin et tables rondes l’après-midi </p>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+
+                    <img src="{{ url_for('static', filename='images/amphi.jpg') }}" alt=""
+                         class="img-responsive img-right"
+                         style="border-radius: 0px; border-color: rgb(153, 153, 153); border-style: none; border-width: 1px;">
+
+                </div>
+            </div>  
+        </div> 
+    </section> 
+
+   
+    </section>
+
+
+
+    <section class="descriptions schedule padding-120-75 secondary-bg" id="schedule">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+                <div class="section-heading text-center">
+
+                    <h2 class="heading-text" data-selector="Coming Soon">Planning</h2>
+                    <hr class="lines">
+                    <p class="sub-heading" data-selector="Coming Soon"></p>
+
+                </div> <!-- /.section-heading -->
+            </div>
+        </div>  <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- TAB NAVIGATION -->
+                <!-- <ul class="tab-btn" role="tablist" data-selector="Coming Soon">
+                    <li role="presentation" class="active" data-selector="Coming Soon"><a href="#day-1" aria-controls="day-1" role="tab" data-toggle="tab">Day 1</a></li>
+                    <li role="presentation" data-selector="Coming Soon"><a href="#day-2" aria-controls="day-2" role="tab" data-toggle="tab">Day 2</a></li>
+                </ul> -->
+
+                <!-- TAB PANES -->
+                <div class="schedule-content tab-content">
+                    <!-- DAY 1 -->
+                    <div role="tabpanel" class="tab-pane fade in active" id="day-1">
+
+                        <div class="row"> <!-- OBJECTIVE -->
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="objective-time">
+                                    <p data-selector="Coming Soon">8<sup>H</sup>15-10<sup>H</sup>30<sup></sup></p>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="objective secondary-color-bg">
+                                    <h3 class="title-text">Conférence plénière<br></h3>
+                                    <p><strong>Intervenants </strong>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                François-Xavier Nicolas (IF)<br>
+                                                Michel Arnaud (GE)
+                                            </div>
+                                             <div class="col-md-6">
+                                                Aline Barthélémy (GI)<br>
+                                                Jacques Gruat (GEN)
+                                            </div>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-1"></div>
+                        </div> <!-- /END OBJECTIVE -->
+                        
+                        <br><br>
+
+                        <div class="row"> <!-- OBJECTIVE -->
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="objective-time">
+
+                                    <p data-selector="Coming Soon">10<sup>H</sup>30 - 12<sup>H</sup></p>
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="objective secondary-color-bg">
+                                    <h3 class="title-text" data-selector="Coming Soon">Conférences</h3>
+                                    <p>
+                                        <strong>BS</strong> : Pierre Aeschimann<br>
+                                        <strong>GCU</strong> : Didier Peyrard<br>
+                                        <strong>GEN</strong> : Jacques Gruat et Ophélie Bernon<br>
+                                        <strong>GI </strong>: Aline Barthélémy et Thibaut Flamant<br>
+                                        <strong>GM</strong> : Jean-Paul Boy, Eric Bublex et Christophe Ulrich<br>
+                                        <strong>IF</strong> : FX Nicolas et Antoine Coulet<br>
+                                        <strong>GE</strong> : Michel Arnaud et François Drouin<br>
+                                        <strong>SGM</strong> : Bérengère Bouvier-Jinot et François Chaudoreille<br>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div> <!-- /END OBJECTIVE -->
+
+                        <br><br>
+                        <div class="row"> <!-- OBJECTIVE -->
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="objective-time">
+
+                                    <p data-selector="Coming Soon">14<sup>H</sup> - 15<sup>H</sup>30</p>
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="objective secondary-color-bg">
+                                    <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
+                                        <table style="width:100%">
+                                            <tbody>
+                                            <tr>
+                                                <td><strong>Bureau d'étude</strong></td>
+                                                <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Gestion de carrière</strong></td>
+                                                <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Ingénieur Informatique</strong></td>
+                                                <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Ingénieur Travaux</strong></td>
+                                                <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Chef de Projet</strong></td>
+                                                <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>R&amp;D</strong></td>
+                                                <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Ingénieur Entrepreneur</strong></td>
+                                                <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Audit et Conseil</strong></td>
+                                                <td>Robin Blanchard (GI)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Reconversion d'un ingénieur</strong></td>
+                                                <td>Arnaud Callendret (GE)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Chargé d'affaires</strong></td>
+                                                <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Carrière à l'international</strong></td>
+                                                <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Logistique et Achats</strong></td>
+                                                <td>Jacques Gruat (GEN), Michel Arnaud (GE)</td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div> <!-- /END OBJECTIVE -->
+
+                        <br><br>
+                        <div class="row"> <!-- OBJECTIVE -->
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="objective-time">
+
+                                    <p data-selector="Coming Soon">15<sup>H</sup>30 - 17<sup>H</sup></p>
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="objective secondary-color-bg">
+                                    <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
+                                    <table style="width:100%">
+                                            <tbody>
+                                            <tr>
+                                                <td><strong>Bureau d'étude</strong></td>
+                                                <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Gestion de carrière</strong></td>
+                                                <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Ingénieur Informatique</strong></td>
+                                                <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Ingénieur Travaux</strong></td>
+                                                <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Chef de Projet</strong></td>
+                                                <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>R&amp;D</strong></td>
+                                                <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Ingénieur Entrepreneur</strong></td>
+                                                <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Audit et Conseil</strong></td>
+                                                <td>Robin Blanchard (GI), Michel Arnaud (GE)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Reconversion d'un ingénieur</strong></td>
+                                                <td>Arnaud Callendret (GE), Jacques Gruat (GEN)</td>
+                                            </tr>
+                                             <tr>
+                                                <td><strong>Chargé d'affaires</strong></td>
+                                                <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Carrière à l'international</strong></td>
+                                                <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div> <!-- /END OBJECTIVE -->
+
+                    </div> <!-- /END DAY 1 -->
+
+                   
+                </div>
+            </div>
+        </div>  <!-- /.row -->
+    </div>
+</section>
+
+</div> <!-- /end page -->
+
+</body>
+<style>
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+</style>
+
+<!-- =========================
+     SCRIPTS
+============================== -->
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/nivo-lightbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.localScroll.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fitvids.js') }}"></script>
+<script src="{{ url_for('static', filename='js/matchMedia.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.mixitup.js') }}"></script>
+<script src="{{ url_for('static', filename='js/swiper.jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/application.js') }}"></script>
+<script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
+<script>
+    /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
+    $(document).ready(function() {
+        $("#login").off("click");
+    });
+    $(document).ready(function() {
+        $("#index").off("click");
+    });
+</script>
