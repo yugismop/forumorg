@@ -1,5 +1,6 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Journée Objectif Ingénieur' %}
+{% set events = get_joi() %}
 {% block main %}
 <div class="row">
     <div class="col-xs-12">
@@ -9,7 +10,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-                {% if not user.events.joi|empty_events %}
+                {% if not user.events.joi|empty_event %}
                 <table class="table table-hover">
                     <tbody>
                     <tr>
@@ -46,10 +47,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Ajouter une participation</h3>
+                <h3 class="box-title">Choisir une table ronde</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -59,35 +60,24 @@
             <div class="box-body">
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>sélectionner</label>
-                            <select id="event" class="form-control">
-                            <optgroup label="Conférences">
-                                {% for k,v in user.events.joi.items() %}
-                                    {% if not v.time %}
-                                    <option>{{ v.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
-                            <optgroup label="Tables Rondes">
-                                {% for k,v in user.events.joi.items() %}
-                                    {% if v.time %}
-                                        <option>{{ v.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
+                            <select id="conference" class="form-control">
+                            <optgroup label="14h00-15h30">
+                            {% for e in events %}
+                                {% if e.type == 'table_ronde' %}
+                                <option>{{ e.name }} - {{e.places_left.first}} places(s)</option>
+                                {% endif %}
                             {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>horaire</label>
-                            <select id="time" class="form-control">
-                                <option>14h00 - 15h30</option>
-                                <option>15h30 - 17h00</option>
+                            </optgroup>
+                            <optgroup label="15h30-17h00">
+                            {% for e in events %}
+                                {% if e.type == 'table_ronde' %}
+                                <option>{{ e.name }} - {{e.places_left.second}} places(s)</option>
+                                {% endif %}
+                            {% endfor %}
+                            </optgroup>
                             </select>
                         </div>
                     </div>
@@ -95,37 +85,77 @@
                 </div>
             </div>
             <div class="box-footer">
-                <button id="confirm_joi" type="submit" class="btn btn-primary">Confirmer</button>
+                <button id="confirm_conference" type="submit" class="btn btn-primary">Confirmer</button>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Choisir une conférence</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>sélectionner</label>
+                            <select id="table_ronde" class="form-control">
+                            {% for e in events %}
+                                {% if e.type == 'conference' %}
+                                <option>{{ e.name }} - {{e.places_left}} places(s)</option>
+                                {% endif %}
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="box-footer">
+                <button id="confirm_table_ronde" type="submit" class="btn btn-primary">Confirmer</button>
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>
 </div>
+
 {% endblock main %}
 {% block scripts %}
 <script type="text/javascript">
-$("document").ready(function() {
-  var $event = $('#event').select2();
-  var $time = $('#time').select2();
-
-  $event.on("select2:select", function (e) {
-    console.log(e);
-    var opt = e.params.data.text;
-    var og = opt.closest('optgroup').attr('label');
-    if (og == 'Conférence') {
-        $time.prop("disabled", false);
+$('#confirm_conference').on('click', function(e) {
+    e.preventDefault();
+    var name = $("#conference").val();
+    $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_conference') }}",
+        data: {"name": name},
+        success: function() {
+            Notify("Changements sauvegardés.");
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
+        }
+    });
     }
     else {
-        $time.prop("disabled", false);
+        Notify("Veuillez remplir tous les champs.", null, null, "error");
     }
-  });
+    return false;
 });
 
-$('#confirm_joi').on('click', function(e) {
+$('#confirm_table_ronde').on('click', function(e) {
     e.preventDefault();
-    var user = {{ user|tojson }};
-    var joi = user.events.joi;
+    var joi = {{ user.events.joi|tojson }};
+    var events = {{ get_joi()|tojson }};
     var event = {
        name: $("#event").val(),
        time: $("#time").val()

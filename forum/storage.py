@@ -22,6 +22,9 @@ def set_user(user_id, user_data):
 def get_users():
     return db.users
 
+def get_events():
+    return db.events
+
 class User(flask_login.UserMixin):
 
     def __init__(self, id, password=None, data=None):

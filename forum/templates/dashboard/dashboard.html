@@ -16,7 +16,7 @@
                         <div class="box box-solid">
                             <!-- /.box-header -->
                             <div class="box-body table-responsive no-padding">
-                                {% if not user.events|empty_events %}
+                                {% if not user.events.joi|empty_event %}
                                     <table class="table table-hover">
                                         <tbody>
                                         {% for k,v in company.sections.equipement.furnitures.items() %}
