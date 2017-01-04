@@ -1,0 +1,8 @@
+{
+  "events": {
+    "joi": {
+      "conference": {"name": "informatique", "registered": false},
+      "table_ronde": {"name": "informatique", "registered": false, "time": "first"}
+    }
+  }
+}

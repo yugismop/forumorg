@@ -6,7 +6,7 @@
 <a href="{{ url_for('dashboard') }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
 {% else %}
 <li {% if request.path == url_for('dashboard', page=name) %} class="active"{% endif %}>
-  <a href="{{ url_for('dashboard', page=name) }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
+  <a href="{{ url_for('dashboard', page=name) }}"><i class="{{ icon }}"></i> <span>{{ title }}</span>
 {% endif %}
   </a>
 </li>
@@ -30,12 +30,7 @@
 <!-- SECTIONS -->
 {% block sections %}
 {{ section_block('accueil', 'fa fa-home')}}
-{{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
-{{ section_block('restauration', 'fa fa-glass')}}
-{{ section_block('transport', 'fa fa-car')}}
-{{ section_block('badges', 'fa fa-clone')}}
-{{ section_block('programme', 'fa fa-calendar-plus-o')}}
-{{ section_block('bon_de_commande', 'fa fa-paperclip')}}
+{{ section_block('joi', 'fa fa-book')}}
 {% endblock sections %}
 {% block footer %}
 <!-- To the right -->

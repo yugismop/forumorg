@@ -1,0 +1,172 @@
+{% extends "dashboard/section.html" %}
+{% set title = 'Journée Objectif Ingénieur' %}
+{% block main %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des participations</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                {% if not user.events.joi|empty_events %}
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Nom de l'évènement</th>
+                        <th>Horaire</th>
+                        <th><i class="fa fa-remove"></i></th>
+                    </tr>
+                    {% for k,v in user.events.joi.items() %}
+                        {% if v.registered %}
+                        <tr>
+                            <td>{{ v.name }}</td>
+                            <td>
+                            {% if v.time %}
+                                {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
+                            {% else %}
+                                {{ '10h45-12h00' }}
+                            {% endif %}
+                            </td>
+                            <td><i onclick="remove_event({{ k }}, {{ v.time }})" class="fa fa-remove" style="color:red"></i></td>
+                        </tr>
+                        {% endif %}
+                    {% endfor%}
+                    {% else %}
+                    <tr>
+                        <td colspan="4"><h2 class="lead text-center">Aucune participation enregistrée :(</h2></td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Ajouter une participation</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>sélectionner</label>
+                            <select id="event" class="form-control">
+                            <optgroup label="Conférences">
+                                {% for k,v in user.events.joi.items() %}
+                                    {% if not v.time %}
+                                    <option>{{ v.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Tables Rondes">
+                                {% for k,v in user.events.joi.items() %}
+                                    {% if v.time %}
+                                        <option>{{ v.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>horaire</label>
+                            <select id="time" class="form-control">
+                                <option>14h00 - 15h30</option>
+                                <option>15h30 - 17h00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="box-footer">
+                <button id="confirm_joi" type="submit" class="btn btn-primary">Confirmer</button>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+{% endblock main %}
+{% block scripts %}
+<script type="text/javascript">
+$("document").ready(function() {
+  var $event = $('#event').select2();
+  var $time = $('#time').select2();
+
+  $event.on("select2:select", function (e) {
+    console.log(e);
+    var opt = e.params.data.text;
+    var og = opt.closest('optgroup').attr('label');
+    if (og == 'Conférence') {
+        $time.prop("disabled", false);
+    }
+    else {
+        $time.prop("disabled", false);
+    }
+  });
+});
+
+$('#confirm_joi').on('click', function(e) {
+    e.preventDefault();
+    var user = {{ user|tojson }};
+    var joi = user.events.joi;
+    var event = {
+       name: $("#event").val(),
+       time: $("#time").val()
+    };
+    if (event.name) {
+        if ()
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_user') }}",
+            data: {"user": JSON.stringify(user)},
+            success: function() {
+                Notify("Changements sauvegardés.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            }
+        });
+    }
+    else {
+        Notify("Veuillez remplir tous les champs.", null, null, "error");
+    }
+    return false;
+});
+
+function remove_event(event_name) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+        var user = {{ user|tojson }};
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_user') }}",
+            data: {"user": JSON.stringify(user)},
+            success: function() {
+                Notify("Suppression confirmée.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            }
+        });
+    }
+}
+
+</script>
+{% endblock scripts %}

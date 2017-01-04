@@ -1,4 +1,4 @@
-# robots.txt for http://forum-rhone-alpes.com/
+# robots.txt for http://forumorg.org/
 
 User-agent: *
 Disallow: /admin/
