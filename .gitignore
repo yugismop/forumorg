@@ -1,0 +1,16 @@
+# Perso
+*.json
+.Python
+!events.json
+
+*.py[co]
+*.DS_*
+
+# Packages
+/dist
+/bin
+/include
+/lib
+/build
+/backups
+.env

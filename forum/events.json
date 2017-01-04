@@ -1,0 +1,11 @@
+{
+  "events":{
+    "joi":{
+      "registered":false,
+    }
+  },
+  "profile": {
+    "name":"",
+    "email":"",
+  }
+}
