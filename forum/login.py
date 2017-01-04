@@ -1,6 +1,6 @@
 from flask import redirect, url_for
 from forum import login_manager
-from storage import get_user, user
+from storage import User, get_user
 
 @login_manager.user_loader
 def load_user(user_id):

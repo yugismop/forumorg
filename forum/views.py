@@ -5,7 +5,7 @@ import requests
 from flask import abort, redirect, render_template, request, send_from_directory, url_for
 from flask_login import login_required, login_user, logout_user
 from login import validate_login
-from storage import Company, get_company, set_company
+from storage import User, get_user, set_user
 
 from forum import app
 from mailing import send_mail
