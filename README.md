@@ -1,6 +1,6 @@
 # forum-org
 
-This is the repository for the official website of [Forum Organisation](http://www.forum-org.org).
+This is the repository for the official website of [Forum Organisation](http://www.forumorg.org).
 
 ## Getting Started
 
