@@ -28,6 +28,6 @@ def get_joi():
 
 @app.template_filter('empty_event')
 def empty_event(e):
-    return any([v['registered'] for k, v in e.items()])
+    return not any([v['registered'] for v in e.values()])
 
 import views

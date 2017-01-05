@@ -6,14 +6,14 @@
 <a href="{{ url_for('dashboard') }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
 {% else %}
 <li {% if request.path == url_for('dashboard', page=name) %} class="active"{% endif %}>
-  <a href="{{ url_for('dashboard', page=name) }}"><i class="{{ icon }}"></i> <span>{{ title }}</span>
+  <a href="{{ url_for('dashboard', page=name) }}"><i class="{{ icon }}"></i> <span>{{ 'Journée Objectif Ingénieur' }}</span>
 {% endif %}
   </a>
 </li>
 {%- endmacro %}
 {% macro header_section(name) -%}
 <div class="box-header with-border">
-    <h3 class="box-title">{{ name|capitalize|replace("_", " ") }}</h3>
+    <h3 class="box-title">{{ 'Journée Objectif Ingénieur' }}</h3>
     <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
         </button>
@@ -23,8 +23,8 @@
 <!-- HEADER -->
 {% block header %}
 <h1>
-    Dashboard
-    <small>{{ title }}</small>
+    {{ title }}
+    <small>Dashboard</small>
 </h1>
 {% endblock header %}
 <!-- SECTIONS -->

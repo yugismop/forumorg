@@ -2,10 +2,10 @@ import json
 import os
 import requests
 
-from flask import abort, redirect, render_template, request, send_from_directory, url_for
-from flask_login import login_required, login_user, logout_user
-from login import validate_login
-from storage import User, get_user, set_user
+from flask import abort, flash, redirect, render_template, request, send_from_directory, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from login import create_user, validate_login
+from storage import User, get_events, get_user, get_users
 
 from forum import app
 from mailing import send_mail
@@ -42,11 +42,30 @@ def login():
         # all is good
         user = User(id=user_id, password=password)
         login_user(user, remember=remember_me)
-        if user_id == "admin":
-            return redirect('/admin')
-        else:
-            return redirect(request.args.get('next') or url_for('dashboard'))
+        return redirect(request.args.get('next') or url_for('dashboard'))
     return render_template('login.html')
+
+
+@app.route('/inscription', methods=["GET", "POST"])
+def register():
+    if request.method == 'POST':
+        user_id = request.form.get('email')
+        password = request.form.get('password')
+        re_password = request.form.get('re_password')
+        user = get_user(user_id)
+        # checking stuff out
+        if not user_id or not password or not re_password:
+            return render_template('register.html', error="blank_fields")
+        if re_password != password:
+            return render_template('register.html', error="different_passwords")
+        if user:
+            return render_template('register.html', error="user_already_exists")
+        # all is good
+        user = User(id=user_id, password=password)
+        create_user(user)
+        flash('user_registered')
+        return redirect(request.args.get('next') or url_for('login'))
+    return render_template('register.html')
 
 
 @app.route('/deconnexion')
@@ -55,12 +74,36 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/update_user', methods=["POST"])
-def update_user():
-    user = request.form.get('user')
-    user = json.loads(user)
-    set_user(user['id'], user)
-    return "Success."
+@app.route('/update_event', methods=["POST"])
+@login_required
+def update_event():
+    mtype = request.form.get('type')
+    name = request.form.get('name')
+    time = request.form.get('time', None)
+
+    events = get_events()
+    users = get_users()
+
+    event = events.find_one({"name": name})
+    places_left = event['places_left'][time] if time else event['places_left']
+
+    if places_left > 0:
+        old_event = users.find_one({'id': current_user.id})
+        old_name = old_event['events']['joi'].get(mtype)
+        old_name = old_name['name'] if old_name else None
+        doc = { 'name' : name, 'registered' : True }
+        if mtype == 'table_ronde':
+            doc = { 'name' : name, 'registered' : True, 'time': time }
+            events.update_one({'name': old_name}, {'$inc': {'places_left.{}'.format(time) : 1}}) if old_name else None
+            events.update_one({'name': name}, {'$inc': {'places_left.{}'.format(time) : -1}})
+        else:
+            doc = { 'name' : name, 'registered' : True }
+            events.update_one({'name': old_name}, {'$inc': {'places_left' : 1}}) if old_name else None
+            events.update_one({'name': name}, {'$inc': {'places_left': -1}})
+        users.update_one({'id': current_user.id}, {'$set': {'events.joi.{}'.format(mtype) : doc } })
+        return "success"
+    else:
+        return "error"
 
 
 ######### VITRINE ###########

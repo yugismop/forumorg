@@ -16,8 +16,12 @@ def get_user(user_id):
     user.pop('_id', None) if user else None
     return user
 
-def set_user(user_id, user_data):
-    return db.users.replace_one({'id': user_id}, user_data)
+def new_user(user):
+    try:
+        db.users.insert_one({'id': user.id, 'password': user.password, 'events': {'joi': {}}})
+        return True
+    except:
+        return False
 
 def get_users():
     return db.users
