@@ -1,4 +1,5 @@
 {% extends "dashboard/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %}
+{% set events = get_joi() %}
 {% macro more_button(name) -%}
     <strong>
         <a href="{{ url_for('dashboard', page=name) }}">
@@ -7,7 +8,7 @@
 {%- endmacro %}
 <!-- Equipement/Restauration -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box">
             {{ header_section('joi') }}
             <div class="box-body">
@@ -15,27 +16,38 @@
                     <div class="col-md-12">
                         <div class="box box-solid">
                             <!-- /.box-header -->
+                            <!-- /.box-header -->
                             <div class="box-body table-responsive no-padding">
                                 {% if not user.events.joi|empty_event %}
-                                    <table class="table table-hover">
-                                        <tbody>
-                                        {% for k,v in company.sections.equipement.furnitures.items() %}
-                                        {% if v.quantity > 0 %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>Nom de l'évènement</th>
+                                        <th>Type</th>
+                                        <th>Horaire</th>
+                                    </tr>
+                                    {% for k,v in user.events.joi.items() %}
+                                        {% if v.registered %}
                                         <tr>
                                             <td>{{ v.name }}</td>
-                                            <td><span class="badge bg-blue">{{ v.quantity|to_human }}</span></td>
-                                            <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
+                                            <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
+                                            <td>
+                                            {% if v.time %}
+                                                {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
+                                            {% else %}
+                                                {{ '10h45-12h00' }}
+                                            {% endif %}
+                                            </td>
                                         </tr>
                                         {% endif %}
-                                        {% endfor %}
-                                        {% else %}
-                                        <tr>
-                                            <td colspan="4"><h2 class="lead text-center">Aucun mobilier supplémentaire
-                                                trouvé :(</h2></td>
-                                        </tr>
-                                        {% endif %}
-                                        </tbody>
-                                    </table>
+                                    {% endfor%}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4"><h2 class="lead text-center">Aucune participation enregistrée :(</h2></td>
+                                    </tr>
+                                {% endif %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
