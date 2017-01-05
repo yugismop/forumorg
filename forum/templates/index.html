@@ -82,15 +82,14 @@
     <!-- =========================
          APP HOME
     ============================== -->
-    <section class="home app-home-3 video-bg gradient-overlay text-center editBG" id="home" style="outline-offset: -3px;">
+    <section class="home app-home-3 video-bg gradient-overlay text-center editBG" id="home">
 
     <div class="section-video">
-            <video autoplay="" poster="{{ url_for('static', filename='video/video2.jpg') }}" class="bgvid" loop="" muted="true">
+            <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="" muted="true">
                 <source src="{{ url_for('static', filename='video/video2.mp4') }}"
                         type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
             </video>
-        </div>
-
+    </div>
 
     <div class="container">
         <div class="row">
@@ -98,12 +97,45 @@
                 <br><br><br>
                 <h1 style="color:white;">Forum Organisation</h1>
                 <p class="sub-heading mb50">Génère le contact entre étudiants et recruteurs</p>
-                <a href="{{ url_for('login') }}" class="btn btn-white btn-lg">Inscris-toi sur notre plateforme</a>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('login') }}" class="btn btn-white btn-lg">Mon Compte</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-white btn-lg">Inscris-toi</a>
+                {% endif %}
             </div>
         </div>  <!-- /.row -->
     </div>
 </section>
-</div> <!-- /end page -->
+
+<section>
+    <table style="width:100%" border="1" BORDERCOLOR="#ffffff">
+  <tr>
+     <th><a href="{{ url_for('joi') }}"><img src="{{ url_for('static', filename='images/b.jpg')}}" alt="" class="img-responsive"></a></th>
+    <th><img src="{{ url_for('static', filename='images/bb.jpg')}}" alt="" class="img-responsive" style="filter: blur(2px) grayscale(100%);"></th> 
+    <th><img src="{{ url_for('static', filename='images/bb.jpg')}}" alt="" class="img-responsive" style="filter: blur(2px) grayscale(100%);"></th>
+  </tr>
+  
+</table>
+
+<!-- 
+            <ul>
+                <li style="float: left;">
+                <a href="{{ url_for('joi') }}">
+                    <img src="{{ url_for('static', filename='images/forum.jpg')}}" alt="" class="img-responsive">
+                </a>
+        </li>
+        <li style="float: left;">
+
+                    <img src="{{ url_for('static', filename='images/2.jpg')}}" alt="" class="img-responsive" style="filter: grayscale(100%);">
+            </li>
+            <li style="float: left;">
+
+                    <img src="{{ url_for('static', filename='images/1.jpg')}}" alt="" class="img-responsive" style="filter: grayscale(100%);">
+        </li> -->
+
+</section>
+</div>
+ <!-- /end page -->
 </body>
 <style>
 .typed-cursor{
