@@ -40,7 +40,7 @@ We use Heroku for cloud hosting, TravisCI for Continuous Integration and GitHub 
 
 On ```git push origin master[:master]```:
 	
-    - The code is pushed to this repository (on master)
+- The code is pushed to this repository (on master)
     
 On ```git push origin master:staging```:
 
