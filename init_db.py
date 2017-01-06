@@ -13,8 +13,8 @@ db.events.delete_many({})
 fn = os.path.join(os.path.dirname(__file__), 'events.db')
 events = open(fn).read()
 events = events.split('\n')
-confs = [e.split(' - ') for e in events[:8]]
-tables = events[8:][:-1]
+confs = [e.split(' - ') for e in events[:7]]
+tables = events[7:][:-1]
 for c in confs:
     db.events.insert_one({'name': c[0], 'type': 'conference', 'quota': int(c[1]), 'places_left': int(c[1])})
 for t in tables:
