@@ -50,7 +50,7 @@
     <div class="col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Choisir une conférence</h3>
+                <h3 class="box-title">Choisir votre conférence</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -85,7 +85,7 @@
     <div class="col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Choisir une table ronde</h3>
+                <h3 class="box-title">Choisir votre table ronde</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -141,13 +141,14 @@ $("#table_ronde").on("select2:select", function(e) {
     else {
         time = "first";
     }
+    console.log(time);
   });
 
 function update_event(type, name) {
     var name = $("#" + type).val();
     name = name.split(" - ")[0];
     console.log("UPDATE_EVENT", type, name, time);
-    if (!time && type == "table") {
+    if (!time && type == "table_ronde") {
         Notify("Veuillez choisir une table ronde.", null, null, "error");
         return false;
     }

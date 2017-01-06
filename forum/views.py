@@ -85,7 +85,9 @@ def update_event():
     users = get_users()
 
     event = events.find_one({"name": name})
-    places_left = event['places_left'][time] if time else event['places_left']
+    places_left = event['places_left']
+    if mtype == 'table_ronde':
+        places_left = event['places_left'][time]
 
     if places_left > 0:
         old_event = users.find_one({'id': current_user.id})
