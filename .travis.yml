@@ -13,3 +13,10 @@ deploy:
   api_key:
     secure: "dcb448e2-53a9-43fd-acb3-faa9a9408510"
   on: staging
+# email notifications
+notifications:
+  email:
+  recipients:
+    - elmehdi.baha@gmail.com
+  on_success: [never] # options: [always, never, change]
+  on_failure: [always]
