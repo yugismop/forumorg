@@ -21,3 +21,4 @@ for t in tables:
     db.events.insert_one({'name': t, 'quota': 30, 'type': 'table_ronde', 'places_left': {'first': 30, 'second': 30}})
 
 db.users.update_many({}, {'$set': {'events.joi': {}}})
+
