@@ -1,0 +1,181 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- TITLE OF SITE -->
+    <title>Forum Rhône-Alpes | {{ title }}</title>
+
+    <!-- META DATA -->
+    <meta name="description"
+          content="Le Forum Rhône-Alpes est le premier salon de recrutement d'élèves ingénieurs de France. La 31ème édition aura lieu les 8 & 9 mars 2017">
+    <meta name="keywords"
+          content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
+    <meta name="author" content="ForumOrganisation">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- =========================
+    FAV AND TOUCH ICONS
+    ============================== -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- =========================
+    STYLESHEETS
+    ============================== -->
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+
+    <!-- EXTERNAL PLUGIN CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}"> <!-- Screenshot Slider -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nivo-lightbox.css') }}"> <!-- Screenshot Slider -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
+    <!-- Nivo Lightbox -->
+
+    <!-- TYPOGRAPHY -->
+    <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- COLORS -->
+    <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
+
+    <!-- RESPONSIVE FIXES -->
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="body-container">
+<div id="page" class="page">    <!-- start page -->
+    <div class="navbar navbar-nemo navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#nemo-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar icon-bar-top"></span>
+                    <span class="icon-bar icon-bar-middle"></span>
+                    <span class="icon-bar icon-bar-bottom"></span>
+                </button>
+
+                <!-- YOUR LOGO -->
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/fo.jpg')}}" alt="Forum Organisation">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="nemo-navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{{ 'active' if title == 'Accueil' else ''}}"><a href="{{ url_for('index') }}" id="home">Accueil</a></li>
+                    <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}"><a href="{{ url_for('joi') }}" id="joi">Journée Objectif Ingénieur</a></li>
+                    <li class="">
+                        <a href="{{ url_for('dashboard') }}" id="login">
+                            <span>{{'Mon profil' if current_user.is_authenticated else 'Connexion' }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         APP HOME
+    ============================== -->
+    {% block home %}
+    {% endblock home %}
+
+    <!-- start page -->
+
+<!-- =========================
+     FOOTER -1
+============================== -->
+<footer class="footers footer-1 editBG" style="background-color: white" id="footer">
+    <div class="container text-center">
+
+        <p class="contact-help">Besoin d'aide?  <a href="contact-fra@forumorg.org">Contactez-nous!</a></p>
+
+        <ul class="socialize">
+            <li><a href="#">
+                <i class="icon svg-social-facebook-square"><!--?xml version="1.0" encoding="utf-8"?-->  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"> <path d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM20.125 16h-2.625v9.625h-3.563v-9.625h-2.438v-3.313h2.438v-1.938c0-2.688 0.688-4.375 3.875-4.375h2.625v3.313h-1.625c-1.25 0-1.313 0.5-1.313 1.375v1.625h3z"></path> </svg> </i>
+            </a></li>
+
+            <li><a href="#">
+                <i class="icon svg-social-twitter-square"><!--?xml version="1.0" encoding="utf-8"?-->  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"> <path d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM23.938 12.438c0 0.125 0.063 0.313 0.063 0.5 0 5.188-4 11.188-11.25 11.188-2.188 0-4.25-0.625-6-1.75 0.313 0 0.625 0.063 0.938 0.063 1.813 0 3.5-0.625 4.875-1.688-1.75-0.063-3.188-1.188-3.688-2.75 0.25 0.063 0.5 0.063 0.75 0.063 0.375 0 0.688-0.063 1.063-0.125-1.813-0.375-3.188-2-3.188-3.875 0 0 0-0.063 0-0.063 0.5 0.313 1.125 0.5 1.813 0.5-1.063-0.688-1.813-1.938-1.813-3.25 0-0.75 0.25-1.438 0.563-2 1.938 2.375 4.875 3.938 8.125 4.125-0.063-0.313-0.125-0.625-0.125-0.938 0-2.125 1.813-3.938 3.938-3.938 1.125 0 2.188 0.5 2.875 1.25 0.938-0.188 1.75-0.5 2.5-0.938-0.25 0.938-0.875 1.688-1.688 2.188 0.75-0.125 1.563-0.313 2.25-0.625-0.563 0.813-1.188 1.5-2 2.063z"></path> </svg> </i>
+            </a></li>
+
+            <li><a href="#">
+                <i class="icon svg-social-linkedin-square"><!--?xml version="1.0" encoding="utf-8"?-->  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"> <path d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM12 23.75h-4v-14h4zM10.125 8.875c-1.063 0-1.875-0.813-1.875-1.875 0-1 0.813-1.875 1.875-1.875s1.875 0.875 1.875 1.875c0 1.063-0.813 1.875-1.875 1.875zM26 23.75h-4v-8.625c0-1.063-0.313-1.75-1.563-1.75-2.063 0-2.438 1.75-2.438 1.75v8.625h-4v-14h4v1.313c0.563-0.438 2-1.313 4-1.313 1.313 0 4 0.75 4 5.438z"></path> </svg> </i>
+            </a></li>
+
+        </ul>
+
+        <p class="copyright">© Forum Organisation, <a href="https://opensource.org/licenses/mit-license.php">Licence MIT</a></p>
+    </div>
+</footer>
+
+</div>
+ <!-- /end page -->
+</body>
+{% block style %}
+{% endblock style %}
+<style>
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+</style>
+
+<!-- =========================
+     SCRIPTS
+============================== -->
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/nivo-lightbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.localScroll.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fitvids.js') }}"></script>
+<script src="{{ url_for('static', filename='js/matchMedia.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.mixitup.js') }}"></script>
+<script src="{{ url_for('static', filename='js/swiper.jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/application.js') }}"></script>
+<script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
+<script>
+    /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
+    $(document).ready(function() {
+        $("#home").off("click");
+    });
+    $(document).ready(function() {
+        $("#login").off("click");
+    });
+    $(document).ready(function() {
+        $("#joi").off("click");
+    });
+</script>
