@@ -41,28 +41,20 @@
 
         <form action="{{ url_for('register') }}" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email">
+                <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email" autofocus required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Mot de passe" name="password"
-                       value="{{request.form.password}}">
+                <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password"
-                       value="{{request.form.password}}">
+                <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password" value="{{request.form.password}}" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
             {% if error %}
             <div class="form-group has-feedback">
-                {% if error == "different_passwords" %}
-                <span class="text-red">Les mots de passes ne sont pas identiques.</span>
-                {% endif %}
-                {% if error == "blank_fields" %}
-                <span class="text-orange">Veuillez remplir tous les champs.</span>
-                {% endif %}
                 {% if error == "user_already_exists" %}
                 <span class="text-blue">Un utilisateur existe déjà associé à cet email.</span>
                 {% endif %}
@@ -74,6 +66,10 @@
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Valider</button>
                 </div>
                 <!-- /.col -->
+            </div>
+
+            <div class="social-auth-links">
+              <a href="{{ url_for('login')}} " class="text-center"><i class="fa fa-sign-in"></i> Retour à l'écran de connexion</a>
             </div>
         </form>
 
@@ -89,13 +85,24 @@
 <!-- iCheck -->
 <script src="{{ url_for('static', filename='plugins/iCheck/icheck.min.js') }}"></script>
 <script>
-  $(function () {
+$(function () {
     $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
     });
-  });
+});
+
+$('input[type=password]').change(function() {
+    var $pass = document.getElementsByName("password")[0];
+    var $re_pass = document.getElementsByName("re_password")[0];
+    if($pass.value !== $re_pass.value) {
+        $pass.setCustomValidity("Les mots de passes ne sont pas identiques.");
+    }
+    else {
+        $pass.setCustomValidity('');
+    }
+});
 
 </script>
 </body>

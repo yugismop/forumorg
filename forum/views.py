@@ -2,7 +2,7 @@ import json
 import os
 import requests
 
-from flask import abort, flash, redirect, render_template, request, send_from_directory, url_for
+from flask import abort, flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from login import create_user, validate_login
 from storage import User, get_events, get_user, get_users
@@ -29,12 +29,9 @@ def dashboard(page=None):
 def login():
     if request.method == 'POST':
         remember_me = 'remember_me' in request.form
-        user_id = request.form.get('id', None)
-        password = request.form.get('password', None)
+        user_id = request.form.get('id')
+        password = request.form.get('password')
         user = get_user(user_id)
-        # checking stuff out
-        if not user_id or not password:
-            return render_template('login.html', error="blank_fields")
         if not user:
             return render_template('login.html', error="no_user_found")
         if not validate_login(user['password'], password):
@@ -43,7 +40,11 @@ def login():
         user = User(id=user_id, password=password)
         login_user(user, remember=remember_me)
         return redirect(request.args.get('next') or url_for('dashboard'))
-    return render_template('login.html')
+
+    if 'user_registered' in get_flashed_messages():
+        return render_template('login.html', error="user_registered")
+    else:
+        return render_template('login.html')
 
 
 @app.route('/inscription', methods=["GET", "POST"])
@@ -51,13 +52,7 @@ def register():
     if request.method == 'POST':
         user_id = request.form.get('email')
         password = request.form.get('password')
-        re_password = request.form.get('re_password')
         user = get_user(user_id)
-        # checking stuff out
-        if not user_id or not password or not re_password:
-            return render_template('register.html', error="blank_fields")
-        if re_password != password:
-            return render_template('register.html', error="different_passwords")
         if user:
             return render_template('register.html', error="user_already_exists")
         # all is good
@@ -119,32 +114,6 @@ def index():
 @app.route('/joi', methods=["GET"])
 def joi():
     return render_template('joi.html')
-
-
-@app.route('/send_request', methods=["GET"])
-def send_request():
-    #Params
-    email = request.args.get('email')
-    contact_name = request.args.get('nom_complet')
-    company_name = request.args.get('nom')
-    telephone = request.args.get('tel')
-    captcha = request.args.get('captcha')
-
-    # ReCaptcha
-    base_url = 'https://www.google.com/recaptcha/api/siteverify'
-    secret = os.environ.get('RECAPTCHA_SECRET_KEY')
-    res = requests.post(base_url, data={'response':captcha, 'secret':secret}).json()
-    ts, host, success = res.get('challenge_ts'), res.get('hostname'), res.get('success')
-
-    # Logging bots...
-    if ts and not success:
-        print("Bot found from: {} at: {}".format(res.get('hostname'), res.get('challenge_ts')))
-
-    # Sending mail...
-    if success:
-        return send_mail(email, contact_name, company_name, telephone)
-    else:
-        abort(500)
 
 ######## INDEXING ########
 @app.route('/robots.txt')
