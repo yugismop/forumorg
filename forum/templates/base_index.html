@@ -77,6 +77,11 @@
                             <span>{{'Mon profil' if current_user.is_authenticated else 'Connexion' }}</span>
                         </a>
                     </li>
+                    <li class="">
+                        <a href="{{ url_for('logout') }}" id="logout">
+                            <span>{{'Déconnexion' if current_user.is_authenticated else '' }}</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -171,11 +176,8 @@
     /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
     $(document).ready(function() {
         $("#home").off("click");
-    });
-    $(document).ready(function() {
         $("#login").off("click");
-    });
-    $(document).ready(function() {
         $("#joi").off("click");
+        $("#logout").off("click");
     });
 </script>
