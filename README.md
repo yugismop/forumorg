@@ -39,23 +39,21 @@ python ./runserver.py
 We use Heroku for cloud hosting, TravisCI for Continuous Integration and GitHub to tie it all together.
 
 On ```git push origin master[:master]```:
-
-    - The code is pushed to this repository (on master)
-
+	
+- The code is pushed to this repository (on master)
+    
 On ```git push origin master:staging```:
 
-    - The code is pushed to this repository (on staging)
-    - A docker-based test process is trigered on TravisCI
-    - If the build passes:
-        - The code is deployed to Heroku
-    - If the build fails:
-        - An email is sent
+- The code is pushed to this repository (on staging)
+- A docker-based test process is trigered on TravisCI:
+	- If the build passes -> The code is deployed to Heroku
+	- If the build fails -> An email is sent
 
 On ```git push origin master:production```:
 
-    - The code is pushed to this repository (on production)
-    - The code is directly deployed to Heroku
-    - This usually applies to quick config changes that need to be deployed instantly (TravisCI builds still take ~30 secs to complete)
+- The code is pushed to this repository (on production)
+- The code is directly deployed to Heroku
+- This usually applies to quick config changes that need to be deployed instantly (TravisCI builds still take ~30 secs to complete)
 
 
 ## Stack
