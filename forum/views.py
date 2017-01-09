@@ -74,18 +74,24 @@ def register():
 
 @app.route('/confirmation/<token>')
 def confirm_email(token):
-    try:
-        email = confirm_token(token)
-    except:
+    email = confirm_token(token)
+
+    if not email:
         flash('confirm_link_expired', 'danger')
+        print('flash_expired')
+        return redirect(url_for('login'))
+
     user = get_user(id=email)
     print(email, get_user(id=email), token)
     if not user:
         flash('error')
+        print('flash_error')
         return redirect(url_for('login'))
     if user.confirmed:
+        print('flash_already_confirmed')
         flash('account_already_confirmed', 'success')
     else:
+        print('flash_confirming_user')
         confirm_user(user)
         flash('account_confirmed', 'success')
     return redirect(url_for('login'))
