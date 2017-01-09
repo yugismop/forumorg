@@ -97,12 +97,12 @@ def logout():
 def update_event():
     mtype = request.form.get('type')
     name = request.form.get('name')
-    time = request.form.get('time', None)
+    time = request.form.get('time')
 
     events = get_events()
     users = get_users()
 
-    event = events.find_one({"name": name})
+    event = events.find_one({"name": name, "type": mtype})
     places_left = event['places_left']
     if mtype == 'table_ronde':
         places_left = event['places_left'][time]
@@ -114,12 +114,12 @@ def update_event():
         doc = { 'name' : name, 'registered' : True }
         if mtype == 'table_ronde':
             doc = { 'name' : name, 'registered' : True, 'time': time }
-            events.update_one({'name': old_name}, {'$inc': {'places_left.{}'.format(time) : 1}}) if old_name else None
-            events.update_one({'name': name}, {'$inc': {'places_left.{}'.format(time) : -1}})
+            events.update_one({'name': old_name, 'type': mtype}, {'$inc': {'places_left.{}'.format(time) : 1}}) if old_name else None
+            events.update_one({'name': name, 'type': mtype}, {'$inc': {'places_left.{}'.format(time) : -1}})
         else:
             doc = { 'name' : name, 'registered' : True }
-            events.update_one({'name': old_name}, {'$inc': {'places_left' : 1}}) if old_name else None
-            events.update_one({'name': name}, {'$inc': {'places_left': -1}})
+            events.update_one({'name': old_name, 'type': mtype}, {'$inc': {'places_left' : 1}}) if old_name else None
+            events.update_one({'name': name, 'type': mtype}, {'$inc': {'places_left': -1}})
         users.update_one({'id': current_user.id}, {'$set': {'events.joi.{}'.format(mtype) : doc } })
         return "success"
     else:
