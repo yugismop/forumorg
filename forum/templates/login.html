@@ -50,29 +50,29 @@
             </div>
             {% if error %}
             <div class="form-group has-feedback">
-                {% if error == "wrong_password" %}
+                {% if "wrong_password" in error %}
                 <span class="text-red">Mauvais identifiants. Veuillez réessayer.</span>
                 {% endif %}
-                {% if error == "no_user_found" %}
+                {% if "no_user_found" in error %}
                 <span class="text-orange">Aucun utilisateur n'est associé à cet email.</span>
                 {% endif %}
-                {% if error == "user_not_confirmed" %}
+                {% if "user_not_confirmed" in error %}
                 <span class="text-orange">Vous n'avez pas encore confirmé votre compte.</span>
                 {% endif %}
-                {% if error == "user_registered" %}
+                {% if "user_registered" in error %}
                 <span class="text-green">Un email d'activation vous a été envoyé (checkez vos spams) !</span>
                 {% endif %}
-                {% if error == "account_confirmed" %}
+                {% if "account_confirmed" in error %}
                 <span class="text-green">Votre compte a été confirmé!</span>
                 {% endif %}
-                {% if error == "confirm_link_expired" %}
-                <span class="text-red">Votre lien de confirmation est expiré ou invalide :(.</span>
+                {% if "confirm_link_expired" in error %}
+                <span class="text-red">Lien de confirmation expiré ou invalide. Essayez de vous réinscrire.</span>
                 {% endif %}
-                {% if error == "account_already_confirmed" %}
-                <span class="text-red">Votre compte a déjà été confirmé.</span>
+                {% if "account_already_confirmed" in error %}
+                <span class="text-red">Votre compte est déjà confirmé.</span>
                 {% endif %}
-                {% if error == "error" %}
-                <span class="text-red">Une erreur est survenue. Veuillez réessayez.</span>
+                {% if "error" in error %}
+                <span class="text-red">Une erreur est survenue.</span>
                 {% endif %}
             </div>
             {% endif %}

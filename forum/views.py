@@ -33,20 +33,17 @@ def login():
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-            return render_template('login.html', error="no_user_found")
+            return render_template('login.html', error=["no_user_found"])
         if not validate_login(user.password, password):
-            return render_template('login.html', error="wrong_password")
+            return render_template('login.html', error=["wrong_password"])
         if not user.confirmed:
-            return render_template('login.html', error="user_not_confirmed")
+            return render_template('login.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
         login_user(user, remember=remember_me)
-        return redirect(request.args.get('next') or url_for('dashboard'))
-
-    for m in ['user_registered', 'confirm_link_expired', 'account_already_confirmed', 'account_confirmed', 'error']:
-        if m in get_flashed_messages():
-            return render_template('login.html', error=m)
-    return render_template('login.html')
+        return redirect(url_for('dashboard'))
+    print("flash: {}".format(get_flashed_messages()))
+    return render_template('login.html', error=get_flashed_messages())
 
 @app.route('/inscription', methods=["GET", "POST"])
 def register():
@@ -54,21 +51,29 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         if user_exists(email):
-            return render_template('register.html', error="user_already_exists")
-        # all is good
-        user = User(id=email, password=password, created=True)
-        token = generate_confirmation_token(email)
-        confirm_url = url_for('confirm_email', token=token, _external=True)
-        try:
-            created = create_user(user)
-            if created:
-                send_mail(email, confirm_url)
-                flash('user_registered')
+            user = get_user(id=email)
+            if user.confirmed:
+                return render_template('register.html', error="user_already_exists")
             else:
-                flash('error')
-        except:
-            print('big error', user, user.data)
-        return redirect(request.args.get('next') or url_for('login'))
+                token = generate_confirmation_token(email)
+                confirm_url = url_for('confirm_email', token=token, _external=True)
+                send_mail(email, confirm_url)
+                flash("user_registered")
+                return redirect(url_for('login'))
+        else:
+            user = User(id=email, password=password, created=True)
+            token = generate_confirmation_token(email)
+            confirm_url = url_for('confirm_email', token=token, _external=True)
+            try:
+                created = create_user(user)
+                if created:
+                    send_mail(email, confirm_url)
+                    flash('user_registered')
+                else:
+                    flash('error')
+            except:
+                print('error', user, user.data)
+            return redirect(request.args.get('next') or url_for('login'))
     return render_template('register.html')
 
 
@@ -78,20 +83,15 @@ def confirm_email(token):
 
     if not email:
         flash('confirm_link_expired', 'danger')
-        print('flash_expired')
         return redirect(url_for('login'))
 
     user = get_user(id=email)
-    print(email, get_user(id=email), token)
     if not user:
         flash('error')
-        print('flash_error')
         return redirect(url_for('login'))
     if user.confirmed:
-        print('flash_already_confirmed')
         flash('account_already_confirmed', 'success')
     else:
-        print('flash_confirming_user')
         confirm_user(user)
         flash('account_confirmed', 'success')
     return redirect(url_for('login'))
