@@ -59,10 +59,11 @@ def register():
         user = User(id=email, password=password, created=True)
         token = generate_confirmation_token(email)
         confirm_url = url_for('confirm_email', token=token, _external=True)
-        created = create_user(user)
-        if created:
+        try:
+            create_user(user)
             send_mail(email, confirm_url)
-            flash('user_registered')
+        except:
+            print('Big error', user, user.data)
         return redirect(request.args.get('next') or url_for('login'))
     return render_template('register.html')
 
