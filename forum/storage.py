@@ -26,7 +26,9 @@ def confirm_user(user):
     return db.users.update_one({'id': user.id}, {'$set' : {'confirmed': True, 'confirmed_on': datetime.datetime.now()}})
 
 def new_user(user):
-    return True if db.users.insert_one(user.data) else False
+    data = user.data
+    data.pop('_id', None)
+    return True if db.users.insert_one(data) else False
 
 def get_users():
     return db.users
