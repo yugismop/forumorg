@@ -64,7 +64,7 @@ def register():
             send_mail(email, confirm_url)
             flash('user_registered')
         except:
-            print('BIG ERROR')
+            print('big error', user, user.data)
         return redirect(request.args.get('next') or url_for('login'))
     return render_template('register.html')
 
