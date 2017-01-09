@@ -78,6 +78,7 @@ def confirm_email(token):
         email = confirm_token(token)
     except:
         flash('confirm_link_expired', 'danger')
+    print(email, get_user(id=email), token)
     user = get_user(id=email)
     if not user:
         flash('error')
