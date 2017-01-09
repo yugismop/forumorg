@@ -132,7 +132,7 @@
 {% block scripts %}
 <script type="text/javascript">
 
-var time;
+var time = "first";
 $("#table_ronde").on("select2:select", function(e) {
     var group = e.params.data.element.parentNode.label;
     if (group == "15h30-17h00") {
