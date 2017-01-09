@@ -77,11 +77,13 @@
                             <span>{{'Mon profil' if current_user.is_authenticated else 'Connexion' }}</span>
                         </a>
                     </li>
+                    {% if current_user.is_authenticated %}
                     <li class="">
                         <a href="{{ url_for('logout') }}" id="logout">
-                            <span>{{'Déconnexion' if current_user.is_authenticated else '' }}</span>
+                            <span>Déconnexion</span>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -128,30 +130,6 @@
 </body>
 {% block style %}
 {% endblock style %}
-<style>
-.typed-cursor{
-    opacity: 1;
-    -webkit-animation: blink 0.7s infinite;
-    -moz-animation: blink 0.7s infinite;
-    animation: blink 0.7s infinite;
-}
-@keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-@-webkit-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-@-moz-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-
-</style>
 
 <!-- =========================
      SCRIPTS
@@ -173,11 +151,8 @@
 <script src="{{ url_for('static', filename='js/application.js') }}"></script>
 <script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
 <script>
-    /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
-    $(document).ready(function() {
-        $("#home").off("click");
-        $("#login").off("click");
-        $("#joi").off("click");
-        $("#logout").off("click");
-    });
+/******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
+$(document).ready(function() {
+    $('ul.nav > li > a').off("click");
+});
 </script>

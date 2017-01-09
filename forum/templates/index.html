@@ -17,7 +17,7 @@
                 <h1 style="color:white;">Forum Organisation</h1>
                 <p class="sub-heading mb50">Génère le contact entre entreprises et étudiants</p>
                 <a href="{{ url_for('dashboard') }}" class="btn btn-white btn-lg">
-                {{ 'Accèdez à votre profil' if current_user.is_authenticated else 'Connectez-vous à notre plateforme' }}
+                {{ 'Accédez à votre profil' if current_user.is_authenticated else 'Connectez-vous à notre plateforme' }}
                 </a>
             </div>
         </div>  <!-- /.row -->
@@ -37,29 +37,6 @@
 
 {% block style %}
 <style>
-.typed-cursor{
-    opacity: 1;
-    -webkit-animation: blink 0.7s infinite;
-    -moz-animation: blink 0.7s infinite;
-    animation: blink 0.7s infinite;
-}
-@keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-@-webkit-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-@-moz-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-
-img:hover {-webkit-filter: brightness(150%); }
-
+    img:hover {-webkit-filter: brightness(120%); }
 </style>
 {% endblock style %}
