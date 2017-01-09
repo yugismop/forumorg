@@ -43,7 +43,7 @@ def login():
         login_user(user, remember=remember_me)
         return redirect(request.args.get('next') or url_for('dashboard'))
 
-    for m in ['user_registered', 'confirm_link_expired', 'account_already_confirmed', 'account_confirmed']:
+    for m in ['user_registered', 'confirm_link_expired', 'account_already_confirmed', 'account_confirmed', 'error']:
         if m in get_flashed_messages():
             return render_template('login.html', error=m)
     return render_template('login.html')
@@ -60,9 +60,12 @@ def register():
         token = generate_confirmation_token(email)
         confirm_url = url_for('confirm_email', token=token, _external=True)
         try:
-            create_user(user)
-            send_mail(email, confirm_url)
-            flash('user_registered')
+            created = create_user(user)
+            if created:
+                send_mail(email, confirm_url)
+                flash('user_registered')
+            else:
+                flash('error')
         except:
             print('big error', user, user.data)
         return redirect(request.args.get('next') or url_for('login'))
@@ -77,7 +80,7 @@ def confirm_email(token):
         flash('confirm_link_expired', 'danger')
     user = get_user(id=email)
     if not user:
-        abort(404)
+        flash('error')
     if user.confirmed:
         flash('account_already_confirmed', 'success')
     else:

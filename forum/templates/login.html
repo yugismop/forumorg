@@ -71,6 +71,9 @@
                 {% if error == "account_already_confirmed" %}
                 <span class="text-red">Votre compte a déjà été confirmé.</span>
                 {% endif %}
+                {% if error == "error" %}
+                <span class="text-red">Une erreur est survenue. Veuillez réessayez.</span>
+                {% endif %}
             </div>
             {% endif %}
             <div class="row">
