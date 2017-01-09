@@ -78,10 +78,11 @@ def confirm_email(token):
         email = confirm_token(token)
     except:
         flash('confirm_link_expired', 'danger')
-    print(email, get_user(id=email), token)
     user = get_user(id=email)
+    print(email, get_user(id=email), token)
     if not user:
         flash('error')
+        return redirect(url_for('login'))
     if user.confirmed:
         flash('account_already_confirmed', 'success')
     else:
