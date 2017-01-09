@@ -24,8 +24,6 @@ def send_mail(recipient, confirm_url):
     to_email = Email(you)
     content = Content('text/html', text)
     mail = Mail(from_email, subject, to_email, content)
-    # Adding bcc
-    mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
     # Sending email
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
