@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,28 +29,27 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition login-page friendly">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}"
-                                              alt="Forum Organisation"
-                                              style="border-radius: 0px; width:200px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Connectez-vous</p>
 
-        <form action="{{ url_for('login') }}" method="post">
-            <div class="form-group has-feedback">
-                <input type="email" class="form-control" value="{{request.form.email}}" placeholder="Email" name="email" required>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            {% if error %}
-            <div class="form-group has-feedback">
+<body class="hold-transition login-page friendly">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}" alt="Forum Organisation" style="border-radius: 0px; width:200px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Connectez-vous</p>
+
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" value="{{request.form.email}}" placeholder="Email" name="email" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                {% if error %}
+                <div class="form-group has-feedback">
                 {% if "wrong_password" in error %}
                 <span class="text-red">Mauvais identifiants. Veuillez réessayer.</span>
                 {% endif %}
@@ -77,31 +77,31 @@
             </div>
             {% endif %}
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
+    <div class="col-xs-8">
+        <div class="checkbox icheck">
+            <label>
                             <input type="checkbox" name="remember_me"> Se souvenir de moi
                         </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
-                </div>
-                <!-- /.col -->
-            </div>
-
-            <div class="social-auth-links">
-              <a href="{{ url_for('register')}} " class="text-center"><i class="fa fa-user-plus"></i> Pas encore enregistré? Inscrivez-vous</a>
-            </div>
-
-            <div class="social-auth-links">
-                <a href="{{ url_for('index')}} " class="text-center"><i class="fa fa-home"></i> Retour à l'accueil</a>
-            </div>
-        </form>
-
+        </div>
     </div>
-    <!-- /.login-box-body -->
+    <!-- /.col -->
+    <div class="col-xs-4">
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+    </div>
+    <!-- /.col -->
+</div>
+
+<div class="social-auth-links">
+    <a href="{{ url_for('register')}} " class="text-center"><i class="fa fa-user-plus"></i> Pas encore enregistré? Inscrivez-vous</a>
+</div>
+
+<div class="social-auth-links">
+    <a href="{{ url_for('index')}} " class="text-center"><i class="fa fa-home"></i> Retour à l'accueil</a>
+</div>
+</form>
+
+</div>
+<!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
 
@@ -112,14 +112,14 @@
 <!-- iCheck -->
 <script src="{{ url_for('static', filename='plugins/iCheck/icheck.min.js') }}"></script>
 <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
+    $(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
     });
-  });
-
 </script>
 </body>
+
 </html>

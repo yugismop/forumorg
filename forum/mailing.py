@@ -4,7 +4,8 @@ import os
 
 import sendgrid
 
-from sendgrid.helpers.mail import *
+from sendgrid.helpers.mail import Email, Content, Mail
+
 
 BASE_EMAIL = """
 <p>Bienvenue a la plateforme de Forum Organisation!</p>
@@ -12,6 +13,7 @@ BASE_EMAIL = """
 <p>La bise,</p>
 <p>L'equipe Forum Organisation.</p>
 """
+
 
 def send_mail(recipient, confirm_url):
     # Create a text/plain message
@@ -29,6 +31,6 @@ def send_mail(recipient, confirm_url):
     # Sending email
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
-        return 'Email sent.'
+        return 'Email sent. {}'.format(response)
     except:
         return 'Email not sent.'

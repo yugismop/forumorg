@@ -1,61 +1,67 @@
-{% extends "dashboard/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %}
-{% set events = get_joi() %}
-{% macro more_button(name) -%}
+{% extends "dashboard/section.html" %}
+{% set title = 'Vue globale' %}
+{% block content %}
+  {% set events = get_joi() %}
+  {% macro more_button(name) -%}
     <strong>
-        <a href="{{ url_for('dashboard', page=name) }}">
-        <span class="pull-right badge bg-grey">Consulter / Modifier</a></span>
+      <a href="{{ url_for('dashboard', page=name) }}">
+        <span class="pull-right badge bg-grey">Consulter / Modifier</a>
+      </span>
     </strong>
-{%- endmacro %}
-<!-- Equipement/Restauration -->
-<div class="row">
+  {%- endmacro %}
+  <!-- Equipement/Restauration -->
+  <div class="row">
     <div class="col-md-12">
-        <div class="box">
-            {{ header_section('joi') }}
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box box-solid">
-                            <!-- /.box-header -->
-                            <!-- /.box-header -->
-                            <div class="box-body table-responsive no-padding">
-                                {% if not user.events.joi|empty_event %}
-                                <table class="table table-hover">
-                                    <tbody>
-                                    <tr>
-                                        <th>Nom de l'évènement</th>
-                                        <th>Type</th>
-                                        <th>Horaire</th>
-                                    </tr>
-                                    {% for k,v in user.events.joi.items() %}
-                                        {% if v.registered %}
-                                        <tr>
-                                            <td>{{ v.name }}</td>
-                                            <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
-                                            <td>
-                                            {% if v.time %}
-                                                {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
-                                            {% else %}
-                                                {{ '10h45-12h00' }}
-                                            {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% endif %}
-                                    {% endfor%}
+      <div class="box">
+        {{ header_section('joi') }}
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  {% if not user.events.joi | empty_event %}
+                    <table class="table table-hover">
+                      <tbody>
+                        <tr>
+                          <th>Nom de l'évènement</th>
+                          <th>Type</th>
+                          <th>Horaire</th>
+                        </tr>
+                        {% for k, v in user.events.joi.items() %}
+                          {% if v.registered %}
+                            <tr>
+                              <td>{{ v.name }}</td>
+                              <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
+                              <td>
+                                {% if v.time %}
+                                  {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
                                 {% else %}
-                                    <tr>
-                                        <td colspan="4"><h2 class="lead text-center">Aucune participation enregistrée :(</h2></td>
-                                    </tr>
+                                  {{ '10h45-12h00' }}
                                 {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                              </td>
+                            </tr>
+                          {% endif %}
+                          {% endfor%}
+                        {% else %}
+                          <tr>
+                            <td colspan="4">
+                              <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-                {{ more_button('joi') }}
+              </div>
             </div>
+            {{ more_button('joi') }}
+          </div>
         </div>
-    </div><!-- /.col -->
-    <!-- INSERT OTHER COL-MD-6 HERE -->
-</div>
-{% endblock content %}
+      </div>
+      <!-- /.col -->
+      <!-- INSERT OTHER COL-MD-6 HERE -->
+    </div>
+  {% endblock content %}

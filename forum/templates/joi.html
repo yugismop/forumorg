@@ -1,15 +1,15 @@
-{% extends "base_index.html" %}
-{% set title = 'Journée Objectif Ingénieur' %}
+{% extends "base_index.html" %} {% set title = 'Journée Objectif Ingénieur' %}
+
 {% block home %}
 
 <section class="home event-home-1 video-bg gradient-overlay editBG" id="event-home-1">
 
     <div class="section-video">
-            <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="">
+        <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="">
                 <source src="{{ url_for('static', filename='video/video_joi.mp4') }}"
                         type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
             </video>
-        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -26,47 +26,46 @@
 
                 <div class="home-download-btn">
 
-                <a href="{{ url_for('dashboard') }}" class="btn btn-white btn-lg">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-white btn-lg">
                 {{ 'Modifiez votre participation' if current_user.is_authenticated else 'Inscrivez-vous à la Journée Objectif Ingénieur' }}
                 </a>
 
                 </div>
             </div>
-        </div>  <!-- /.row -->
+        </div>
+        <!-- /.row -->
     </div>
 </section>
 
 
 
 
-    <!-- =========================
+<!-- =========================
          APP FEATURES
     ============================== -->
-     <section class="why app-features-5 padding-120-75 white-bg" id="why" style="outline-offset: -3px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="section-heading text-center">
+<section class="why app-features-5 padding-120-75 white-bg" id="why" style="outline-offset: -3px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="section-heading text-center">
 
-                        <h2 class="heading-text">Journée Objectif Ingénieur</h2>
-                        <hr class="lines">
-                        <p class="sub-heading"
-                           style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;"
-                           src="{{ url_for('static', filename='images/uploads/maxresdefault.jpg') }}">Qu’est-ce qu’un ingénieur et quel sera ton métier à la sortie ? <br></p>
+                    <h2 class="heading-text">Journée Objectif Ingénieur</h2>
+                    <hr class="lines">
+                    <p class="sub-heading" style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;" src="{{ url_for('static', filename='images/uploads/maxresdefault.jpg') }}">Qu’est-ce qu’un ingénieur et quel sera ton métier à la sortie ? <br></p>
 
-                    </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
+            <div class="col-md-2"></div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
 
-                    <div class="media media-chained">
-                        <div class="media-left">
+                <div class="media media-chained">
+                    <div class="media-left">
 
-                            <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
+                        <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                      width="32" height="32"
                                      viewBox="0 0 32 32">
@@ -74,21 +73,20 @@
                                 </svg>
                             </i>
 
-                        </div>
-                        <div class="media-body">
-
-                            <h3 class="title-text"
-                                style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;"
-                                src="images/uploads/maxresdefault.jpg">Ajuste ton projet professionnel<br></h3>
-                            <p>Organisée par Forum Organisation pour les étudiants de 2ème année, cette journée t’offrira un large aperçu des métiers à la sortie de notre école. Plus de 20 ingénieurs en activité viendront témoigner et partager leur expérience. </p>
-
-                        </div>
                     </div>
+                    <div class="media-body">
 
-                    <div class="media media-chained">
-                        <div class="media-left">
+                        <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;" src="images/uploads/maxresdefault.jpg">Ajuste ton projet professionnel<br></h3>
+                        <p>Organisée par Forum Organisation pour les étudiants de 2ème année, cette journée t’offrira un large aperçu des métiers à la sortie de notre école. Plus de 20 ingénieurs en activité viendront témoigner et partager leur expérience.
+                            </p>
 
-                            <i class="icon svg-gift-regular icon-shape width-75 radius-30 icon-border-1">
+                    </div>
+                </div>
+
+                <div class="media media-chained">
+                    <div class="media-left">
+
+                        <i class="icon svg-gift-regular icon-shape width-75 radius-30 icon-border-1">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                      width="32" height="32"
                                      viewBox="0 0 32 32">
@@ -96,33 +94,31 @@
                                 </svg>
                             </i>
 
-                        </div>
-                        <div class="media-body">
-
-                            <h3 class="title-text">Programme de la journée</h3>
-                            <p>Pour cela, différentes activités, inscrites à ton emploi du temps, auront lieu pendant la journée : conférences le matin et tables rondes l’après-midi </p>
-                        </div>
                     </div>
+                    <div class="media-body">
 
-
+                        <h3 class="title-text">Programme de la journée</h3>
+                        <p>Pour cela, différentes activités, inscrites à ton emploi du temps, auront lieu pendant la journée : conférences le matin et tables rondes l’après-midi </p>
+                    </div>
                 </div>
-                <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
 
-                    <img src="{{ url_for('static', filename='images/amphi.jpg') }}" alt=""
-                         class="img-responsive img-right"
-                         style="border-radius: 0px; border-color: rgb(153, 153, 153); border-style: none; border-width: 1px;">
 
-                </div>
+            </div>
+            <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+
+                <img src="{{ url_for('static', filename='images/amphi.jpg') }}" alt="" class="img-responsive img-right" style="border-radius: 0px; border-color: rgb(153, 153, 153); border-style: none; border-width: 1px;">
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
-    </section>
+</section>
 
 
 
-    <section class="descriptions schedule padding-120-75 secondary-bg" id="schedule">
+<section class="descriptions schedule padding-120-75 secondary-bg" id="schedule">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
@@ -132,9 +128,11 @@
                     <hr class="lines">
                     <p class="sub-heading" data-selector="Coming Soon"></p>
 
-                </div> <!-- /.section-heading -->
+                </div>
+                <!-- /.section-heading -->
             </div>
-        </div>  <!-- /.row -->
+        </div>
+        <!-- /.row -->
 
         <div class="row" style="padding-top:0px;">
             <div class="col-md-12" style="padding-top:0px;">
@@ -143,7 +141,8 @@
                 <div class="schedule-content tab-content" style="padding-top:0px;">
                     <!-- DAY 1 -->
                     <div role="tabpanel" class="tab-pane fade in active" id="day-1" style="padding-top:0px;">
-                        <div class="row"> <!-- OBJECTIVE -->
+                        <div class="row">
+                            <!-- OBJECTIVE -->
                             <div class="col-md-1"></div>
                             <div class="col-md-3">
                                 <div class="objective-time">
@@ -156,194 +155,201 @@
                                     <p><strong>Intervenants </strong>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                François-Xavier Nicolas (IF)<br>
-                                                Michel Arnaud (GE)
+                                                François-Xavier Nicolas (IF)<br> Michel Arnaud (GE)
                                             </div>
-                                             <div class="col-md-6">
-                                                Aline Barthélémy (GI)<br>
-                                                Jacques Gruat (GEN)
+                                            <div class="col-md-6">
+                                                Aline Barthélémy (GI)<br> Jacques Gruat (GEN)
                                             </div>
                                         </div>
                                     </p>
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-1"></div>
-                        </div> <!-- /END OBJECTIVE -->
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /END OBJECTIVE -->
 
-                        <br><br>
+                    <br><br>
 
-                        <div class="row"> <!-- OBJECTIVE -->
-                            <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <div class="objective-time">
+                    <div class="row">
+                        <!-- OBJECTIVE -->
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="objective-time">
 
-                                    <p data-selector="Coming Soon">10<sup>H</sup>30 - 12<sup>H</sup></p>
+                                <p data-selector="Coming Soon">10<sup>H</sup>30 - 12<sup>H</sup></p>
 
-                                </div>
                             </div>
-                            <div class="col-md-7">
-                                <div class="objective secondary-color-bg">
-                                    <h3 class="title-text" data-selector="Coming Soon">Conférences</h3>
-                                    <p>
-                                        <strong>BS</strong> : Pierre Aeschimann<br>
-                                        <strong>GCU</strong> : Didier Peyrard<br>
-                                        <strong>GEN</strong> : Jacques Gruat et Ophélie Bernon<br>
-                                        <strong>GI </strong>: Aline Barthélémy et Thibaut Flamant<br>
-                                        <strong>GM</strong> : Jean-Paul Boy, Eric Bublex et Christophe Ulrich<br>
-                                        <strong>IF</strong> : FX Nicolas et Antoine Coulet<br>
-                                        <strong>GE</strong> : Michel Arnaud et François Drouin<br>
-                                        <strong>SGM</strong> : Bérengère Bouvier-Jinot et François Chaudoreille<br>
-                                    </p>
-                                </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="objective secondary-color-bg">
+                                <h3 class="title-text" data-selector="Coming Soon">Conférences</h3>
+                                <p>
+                                    <strong>BS</strong> : Pierre Aeschimann<br>
+                                    <strong>GCU</strong> : Didier Peyrard<br>
+                                    <strong>GEN</strong> : Jacques Gruat et Ophélie Bernon<br>
+                                    <strong>GI </strong>: Aline Barthélémy et Thibaut Flamant<br>
+                                    <strong>GM</strong> : Jean-Paul Boy, Eric Bublex et Christophe Ulrich<br>
+                                    <strong>IF</strong> : FX Nicolas et Antoine Coulet<br>
+                                    <strong>GE</strong> : Michel Arnaud et François Drouin<br>
+                                    <strong>SGM</strong> : Bérengère Bouvier-Jinot et François Chaudoreille<br>
+                                </p>
                             </div>
-                            <div class="col-md-1"></div>
-                        </div> <!-- /END OBJECTIVE -->
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /END OBJECTIVE -->
 
-                        <br><br>
-                        <div class="row"> <!-- OBJECTIVE -->
-                            <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <div class="objective-time">
+                    <br><br>
+                    <div class="row">
+                        <!-- OBJECTIVE -->
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="objective-time">
 
-                                    <p data-selector="Coming Soon">14<sup>H</sup> - 15<sup>H</sup>30</p>
+                                <p data-selector="Coming Soon">14<sup>H</sup> - 15<sup>H</sup>30</p>
 
-                                </div>
                             </div>
-                            <div class="col-md-7">
-                                <div class="objective secondary-color-bg">
-                                    <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
-                                        <table style="width:100%">
-                                            <tbody>
-                                            <tr>
-                                                <td><strong>Bureau d'étude</strong></td>
-                                                <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Gestion de carrière</strong></td>
-                                                <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Ingénieur Informatique</strong></td>
-                                                <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Ingénieur Travaux</strong></td>
-                                                <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Chef de Projet</strong></td>
-                                                <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>R&amp;D</strong></td>
-                                                <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Ingénieur Entrepreneur</strong></td>
-                                                <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Audit et Conseil</strong></td>
-                                                <td>Robin Blanchard (GI)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Reconversion d'un ingénieur</strong></td>
-                                                <td>Arnaud Callendret (GE)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Chargé d'affaires</strong></td>
-                                                <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Carrière à l'international</strong></td>
-                                                <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Logistique et Achats</strong></td>
-                                                <td>Jacques Gruat (GEN), Michel Arnaud (GE)</td>
-                                            </tr>
-                                        </tbody>
-                                        </table>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="objective secondary-color-bg">
+                                <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
+                                <table style="width:100%">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Bureau d'étude</strong></td>
+                                            <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Gestion de carrière</strong></td>
+                                            <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Informatique</strong></td>
+                                            <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Travaux</strong></td>
+                                            <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Chef de Projet</strong></td>
+                                            <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>R&amp;D</strong></td>
+                                            <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Entrepreneur</strong></td>
+                                            <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Audit et Conseil</strong></td>
+                                            <td>Robin Blanchard (GI)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Reconversion d'un ingénieur</strong></td>
+                                            <td>Arnaud Callendret (GE)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Chargé d'affaires</strong></td>
+                                            <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Carrière à l'international</strong></td>
+                                            <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Logistique et Achats</strong></td>
+                                            <td>Jacques Gruat (GEN), Michel Arnaud (GE)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                    </p>
-                                </div>
+                                </p>
                             </div>
-                            <div class="col-md-1"></div>
-                        </div> <!-- /END OBJECTIVE -->
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /END OBJECTIVE -->
 
-                        <br><br>
-                        <div class="row"> <!-- OBJECTIVE -->
-                            <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <div class="objective-time">
+                    <br><br>
+                    <div class="row">
+                        <!-- OBJECTIVE -->
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="objective-time">
 
-                                    <p data-selector="Coming Soon">15<sup>H</sup>30 - 17<sup>H</sup></p>
+                                <p data-selector="Coming Soon">15<sup>H</sup>30 - 17<sup>H</sup></p>
 
-                                </div>
                             </div>
-                            <div class="col-md-7">
-                                <div class="objective secondary-color-bg">
-                                    <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
-                                    <table style="width:100%">
-                                            <tbody>
-                                            <tr>
-                                                <td><strong>Bureau d'étude</strong></td>
-                                                <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Gestion de carrière</strong></td>
-                                                <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Ingénieur Informatique</strong></td>
-                                                <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Ingénieur Travaux</strong></td>
-                                                <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Chef de Projet</strong></td>
-                                                <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>R&amp;D</strong></td>
-                                                <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Ingénieur Entrepreneur</strong></td>
-                                                <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Audit et Conseil</strong></td>
-                                                <td>Robin Blanchard (GI), Michel Arnaud (GE)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Reconversion d'un ingénieur</strong></td>
-                                                <td>Arnaud Callendret (GE), Jacques Gruat (GEN)</td>
-                                            </tr>
-                                             <tr>
-                                                <td><strong>Chargé d'affaires</strong></td>
-                                                <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Carrière à l'international</strong></td>
-                                                <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
-                                            </tr>
-                                        </tbody>
-                                        </table>
-                                </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="objective secondary-color-bg">
+                                <h3 class="title-text" data-selector="Coming Soon">Tables rondes</h3>
+                                <table style="width:100%">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Bureau d'étude</strong></td>
+                                            <td>Ophélie Bernon (GEN), Eric Bublex (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Gestion de carrière</strong></td>
+                                            <td>Pierre Aeschimann (BS), Jean-Paul Boy : (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Informatique</strong></td>
+                                            <td>Pierre-Yves Royer (GCU), François-Xavier Nicolas (IF)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Travaux</strong></td>
+                                            <td>Guillaume Charton (GCU), Attila Aszmann (Construction Métallique)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Chef de Projet</strong></td>
+                                            <td>Antoine Coulet (IF), Michel Magnin (Construction Métallique)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>R&amp;D</strong></td>
+                                            <td>Didier Peyrard (GCU), Patrice Heyde (GP)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ingénieur Entrepreneur</strong></td>
+                                            <td>François Chaudoreille (SGM), Christophe Ulrich (GM)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Audit et Conseil</strong></td>
+                                            <td>Robin Blanchard (GI), Michel Arnaud (GE)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Reconversion d'un ingénieur</strong></td>
+                                            <td>Arnaud Callendret (GE), Jacques Gruat (GEN)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Chargé d'affaires</strong></td>
+                                            <td>Bérengère Bouvier Jinot (GPM), Thibaut Flamant (GI)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Carrière à l'international</strong></td>
+                                            <td>Aline Barthélémy (GI), Joseph Tronchi (GM)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-md-1"></div>
-                        </div> <!-- /END OBJECTIVE -->
-
-                    </div> <!-- /END DAY 1 -->
-
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <!-- /END OBJECTIVE -->
 
                 </div>
+                <!-- /END DAY 1 -->
+
+
             </div>
-        </div>  <!-- /.row -->
+        </div>
+    </div>
+    <!-- /.row -->
     </div>
 </section>
 

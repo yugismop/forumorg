@@ -1,10 +1,6 @@
 # coding=utf-8
 
-import json
-import os
-import requests
-
-from flask import abort, flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for
+from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
 from storage import User, confirm_user, get_events, get_user, get_users, user_exists
@@ -13,8 +9,7 @@ from forum import app
 from mailing import send_mail
 
 
-######### ADMIN ###########
-
+# ADMIN
 @app.route('/dashboard')
 @app.route('/dashboard/<page>')
 @login_required
@@ -47,6 +42,7 @@ def login():
     print("flash: {}".format(get_flashed_messages()))
     return render_template('login.html', error=get_flashed_messages())
 
+
 @app.route('/inscription', methods=["GET", "POST"])
 def register():
     if request.method == 'POST':
@@ -58,7 +54,8 @@ def register():
                 return render_template('register.html', error="user_already_exists")
             else:
                 token = generate_confirmation_token(email)
-                confirm_url = url_for('confirm_email', token=token, _external=True)
+                confirm_url = url_for(
+                    'confirm_email', token=token, _external=True)
                 send_mail(email, confirm_url)
                 flash("user_registered")
                 return redirect(url_for('login'))
@@ -124,34 +121,40 @@ def update_event():
         old_event = users.find_one({'id': current_user.id})
         old_name = old_event['events']['joi'].get(mtype)
         old_name = old_name['name'] if old_name else None
-        doc = { 'name' : name, 'registered' : True }
+        doc = {'name': name, 'registered': True}
         if mtype == 'table_ronde':
-            doc = { 'name' : name, 'registered' : True, 'time': time }
-            events.update_one({'name': old_name, 'type': mtype}, {'$inc': {'places_left.{}'.format(time) : 1}}) if old_name else None
-            events.update_one({'name': name, 'type': mtype}, {'$inc': {'places_left.{}'.format(time) : -1}})
+            doc = {'name': name, 'registered': True, 'time': time}
+            events.update_one({'name': old_name, 'type': mtype},
+                              {'$inc': {'places_left.{}'.format(time): 1}}) if old_name else None
+            events.update_one({'name': name, 'type': mtype}, {
+                              '$inc': {'places_left.{}'.format(time): -1}})
         else:
-            doc = { 'name' : name, 'registered' : True }
-            events.update_one({'name': old_name, 'type': mtype}, {'$inc': {'places_left' : 1}}) if old_name else None
-            events.update_one({'name': name, 'type': mtype}, {'$inc': {'places_left': -1}})
-        users.update_one({'id': current_user.id}, {'$set': {'events.joi.{}'.format(mtype) : doc } })
+            doc = {'name': name, 'registered': True}
+            events.update_one({'name': old_name, 'type': mtype},
+                              {'$inc': {'places_left': 1}}) if old_name else None
+            events.update_one({'name': name, 'type': mtype},
+                              {'$inc': {'places_left': -1}})
+        users.update_one({'id': current_user.id}, {
+                         '$set': {'events.joi.{}'.format(mtype): doc}})
         return "success"
     else:
         return "error"
 
 
-######### VITRINE ###########
-
+# INDEX
 # start of app
 @app.route('/', methods=["GET"])
 def index():
     return render_template('index.html')
 
-# joi
+
+# JOI
 @app.route('/joi', methods=["GET"])
 def joi():
     return render_template('joi.html')
 
-######## INDEXING ########
+
+# SEO
 @app.route('/robots.txt')
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])

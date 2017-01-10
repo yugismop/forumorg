@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,31 +29,29 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body class="hold-transition login-page friendly">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}"
-                                              alt="Forum Organisation"
-                                              style="border-radius: 0px; width:200px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Inscrivez-vous</p>
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}" alt="Forum Organisation" style="border-radius: 0px; width:200px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Inscrivez-vous</p>
 
-        <form action="{{ url_for('register') }}" method="post">
-            <div class="form-group has-feedback">
-                <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email" autofocus required>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password" value="{{request.form.password}}" required>
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-
+            <form action="{{ url_for('register') }}" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email" autofocus required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password" value="{{request.form.password}}" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
             {% if error %}
             <div class="form-group has-feedback">
                 {% if error == "user_already_exists" %}
@@ -60,21 +59,21 @@
                 {% endif %}
             </div>
             {% endif %}
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-xs-4 col-xs-offset-8">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Valider</button>
-                </div>
-                <!-- /.col -->
-            </div>
-
-            <div class="social-auth-links">
-              <a href="{{ url_for('login')}} " class="text-center"><i class="fa fa-sign-in"></i> Retour à l'écran de connexion</a>
-            </div>
-        </form>
-
+<div class="row">
+    <!-- /.col -->
+    <div class="col-xs-4 col-xs-offset-8">
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Valider</button>
     </div>
-    <!-- /.login-box-body -->
+    <!-- /.col -->
+</div>
+
+<div class="social-auth-links">
+    <a href="{{ url_for('login')}} " class="text-center"><i class="fa fa-sign-in"></i> Retour à l'écran de connexion</a>
+</div>
+</form>
+
+</div>
+<!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
 
@@ -85,25 +84,24 @@
 <!-- iCheck -->
 <script src="{{ url_for('static', filename='plugins/iCheck/icheck.min.js') }}"></script>
 <script>
-$(function () {
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' // optional
+    $(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
     });
-});
 
-$('input[type=password]').change(function() {
-    var $pass = document.getElementsByName("password")[0];
-    var $re_pass = document.getElementsByName("re_password")[0];
-    if($pass.value !== $re_pass.value) {
-        $pass.setCustomValidity("Les mots de passes ne sont pas identiques.");
-    }
-    else {
-        $pass.setCustomValidity('');
-    }
-});
-
+    $('input[type=password]').change(function() {
+        var $pass = document.getElementsByName("password")[0];
+        var $re_pass = document.getElementsByName("re_password")[0];
+        if ($pass.value !== $re_pass.value) {
+            $pass.setCustomValidity("Les mots de passes ne sont pas identiques.");
+        } else {
+            $pass.setCustomValidity('');
+        }
+    });
 </script>
 </body>
+
 </html>

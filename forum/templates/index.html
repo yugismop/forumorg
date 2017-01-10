@@ -1,10 +1,7 @@
-{% extends "base_index.html" %}
-{% set title = 'Accueil'%}
-
-{% block home %}
+{% extends "base_index.html" %} {% set title = 'Accueil'%} {% block home %}
 <section class="home app-home-3 video-bg gradient-overlay text-center editBG" id="home">
     <div class="section-video">
-            <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="" muted="true">
+        <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="" muted="true">
                 <source src="{{ url_for('static', filename='video/video2.mp4') }}"
                         type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
             </video>
@@ -20,23 +17,26 @@
                 {{ 'Accédez à votre profil' if current_user.is_authenticated else 'Connectez-vous à notre plateforme' }}
                 </a>
             </div>
-        </div>  <!-- /.row -->
+        </div>
+        <!-- /.row -->
     </div>
 </section>
 
 <section>
     <table class="table-responsive" border="1" bordercolor="#ffffff">
-  <tr>
-     <th><a href="{{ url_for('joi') }}"><img src="{{ url_for('static', filename='images/joii.png')}}" alt="" class="img-responsive img"></a></th>
-    <th><img src="{{ url_for('static', filename='images/mc3.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
-    <th><img src="{{ url_for('static', filename='images/fra2.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
-  </tr>
-</table>
+        <tr>
+            <th>
+                <a href="{{ url_for('joi') }}"><img src="{{ url_for('static', filename='images/joii.png')}}" alt="" class="img-responsive img"></a>
+            </th>
+            <th><img src="{{ url_for('static', filename='images/mc3.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
+            <th><img src="{{ url_for('static', filename='images/fra2.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
+        </tr>
+    </table>
 </section>
-{% endblock home %}
-
-{% block style %}
+{% endblock home %} {% block style %}
 <style>
-    img:hover {-webkit-filter: brightness(120%); }
+    img:hover {
+        -webkit-filter: brightness(120%);
+    }
 </style>
 {% endblock style %}
