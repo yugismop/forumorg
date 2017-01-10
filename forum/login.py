@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from flask import redirect, url_for
 from forum import app, bcrypt, login_manager
 from itsdangerous import URLSafeTimedSerializer
