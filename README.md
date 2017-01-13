@@ -22,11 +22,11 @@ To install the necessary python dependencies
 pip install -r requirements.txt
 ```
 
-Before starting the application, launch a mongodb instance, and create a database named `heroku_lx65hjrq`.
+Before starting the application, launch a mongodb instance (`sudo mongod`).
 Don't forget to set the environnement variable `MONDODB_URI` to the database uri.
 
 ```
-export MONGODB_URI=mongodb://localhost:27017/heroku_lx65hjrq (most of the times)
+export MONGODB_URI=mongodb://localhost:27017/<db-name>
 ```
 
 Finally, to get the project running, simply start the Flask server:
