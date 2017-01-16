@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for
+from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
 from storage import User, confirm_user, get_events, get_user, get_users, user_exists
@@ -141,18 +141,51 @@ def update_event():
         return "error"
 
 
+
+@app.route('/update_styf', methods=["POST"])
+@login_required
+def update_styf():
+    users = get_users()
+    events = get_events()
+    places_left = events.find_one({'name': 'styf'}).get('places_left')
+
+    user = current_user
+    if user.profile['first_name'] and user.profile['name'] and user.profile['tel'] and user.profile['school'] and user.profile['year']:
+        if places_left > 0 or current_user.events['styf'].get('registered'):
+            users.update_one({'id': current_user.id}, {'$set': {'events.styf': request.form}})
+            users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
+            print(current_user.events)
+            if not current_user.events['styf'].get('registered'):
+                events.update_one({'name': 'styf' }, {'$inc': {'places_left': -1}})
+            return "success"
+        else:
+            return "full_event"
+    else:
+        return "incomplete_profile"
+
+
+@app.route('/update_profile', methods=["POST"])
+@login_required
+def update_profile():
+    users = get_users()
+    users.update_one({'id': current_user.id}, {'$set': {'profile': request.form}})
+    return "success"
+
+
 # INDEX
 # start of app
-@app.route('/', methods=["GET"])
-def index():
-    return render_template('index.html')
-
-
-# JOI
-@app.route('/joi', methods=["GET"])
-def joi():
-    return render_template('joi.html')
-
+@app.route('/')
+@app.route('/<page>')
+def index(page=None, methods=['GET']):
+    # asking for specific page
+    if page:
+        try:
+            return render_template('{}.html'.format(page))
+        except:
+            abort(404)
+    # default option is main dashboard
+    else:
+        return render_template('index.html')
 
 # SEO
 @app.route('/robots.txt')

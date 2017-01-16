@@ -26,11 +26,10 @@
   <section>
     <table class="table-responsive" border="1" bordercolor="#ffffff">
       <tr>
-        <th>
-          <a href="{{ url_for('joi') }}"><img src="{{ url_for('static', filename='images/joii.png')}}" alt="" class="img-responsive img"></a>
-        </th>
-        <th><img src="{{ url_for('static', filename='images/mc3.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
-        <th><img src="{{ url_for('static', filename='images/fra2.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
+        <th><a href="{{ url_for('index', page='joi') }}"><img src="{{ url_for('static', filename='images/joii.png')}}" alt="" class="img-responsive img"></a></th>
+        <th><a href="{{ url_for('index', page='styf') }}"><img src="{{ url_for('static', filename='images/STYF12.png')}}" alt="" class="img-responsive img"></a></th>
+<!--         <th><img src="{{ url_for('static', filename='images/mc3.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
+ -->        <th><img src="{{ url_for('static', filename='images/fra2.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
       </tr>
     </table>
   </section>
