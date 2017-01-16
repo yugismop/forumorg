@@ -11,6 +11,7 @@ try:
 
     # creating events
     db.events.insert_one({'name': 'styf', 'quota': 50, 'places_left': 50})
-    db.users.update_many({}, {'$set': {'events.styf': {}}}) # Verifie que old and new users ont events.styf
+	db.users.update_many({}, {'$set': {'events.styf': {}}})
+	db.users.update_many({}, {'$set': {'profile': {}}})
 except Exception as e:
     print(e)
