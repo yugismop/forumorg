@@ -32,7 +32,9 @@
         <!--         <th><img src="{{ url_for('static', filename='images/mc3.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
  -->
         <th><img src="{{ url_for('static', filename='images/fra2.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
-        <th><img src="{{ url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive" style="filter: grayscale(100%);"></th>
+        <th>
+          <a href="{{ url_for('index', page='joi') }}"><img src="{{ url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
+        </th>
 
       </tr>
     </table>
