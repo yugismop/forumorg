@@ -150,7 +150,7 @@ def update_styf():
     places_left = events.find_one({'name': 'styf'}).get('places_left')
 
     user = current_user
-    if user.profile['first_name'] and user.profile['name'] and user.profile['tel'] and user.profile['school'] and user.profile['year']:
+    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
         if places_left > 0 or current_user.events['styf'].get('registered'):
             users.update_one({'id': current_user.id}, {'$set': {'events.styf': request.form}})
             users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
