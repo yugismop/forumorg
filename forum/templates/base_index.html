@@ -74,8 +74,11 @@
               <li class="{{ 'active' if title == 'Accueil' else ''}}">
                 <a href="{{ url_for('index') }}" id="home">Accueil</a>
               </li>
+              <li class="{{ 'active' if title == 'STYF' else ''}}">
+                <a href="{{ url_for('index', page='styf') }}" id="styf">STYF</a>
+              </li>
               <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
-                <a href="{{ url_for('joi') }}" id="joi">Journée Objectif Ingénieur</a>
+                <a href="{{ url_for('index', page='joi') }}" id="joi">Journée Objectif Ingénieur</a>
               </li>
               <li class="">
                 <a href="{{ url_for('dashboard') }}" id="login">

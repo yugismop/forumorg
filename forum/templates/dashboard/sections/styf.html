@@ -1,0 +1,185 @@
+{% extends "dashboard/section.html" %}
+{% set title = 'Start-Up Your Future' %}
+{% set events = get_styf() %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          {% if user.events.styf %}
+            <tr>
+                    <td colspan="4">
+                      <h2 class="lead text-center">Ton inscription à STYF est bien prise en compte. Tu peux toujours la modifier ;) </h2>
+                    </td>
+                  </tr>
+                
+                {% else %}
+                  <tr>
+                    <td colspan="4">
+                      <h2 class="lead text-center">Tu n'es pas encore inscrit à cet évènement :(</h2>
+                    </td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">{% if user.events.styf %} Modifie ton inscription {% else %} Inscris-toi à Start-Up Your Future {% endif %}</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Tu souhaites t'inscrires...</label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" id="r1" value="false" {% if not user.events.styf.registered or user.events.styf.team == 'false' %} checked="checked" {% endif %} name="radio" onchange="changeVis('false');">
+                      Seul
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" id="r2" value="true" {% if user.events.styf.team == 'true' %} checked="checked" {% endif %} name="radio" onchange="changeVis('true');">
+                      Avec ton équipe
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-md-4">
+                    <label>Si tu t'inscris en équipe, adresse email de tes coéquipiers (Attention, ils doivent obligatoirement être également inscrits) </label>
+                    <select multiple="multiple" class="form-control select2 teammates" id="teammates"></select>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>As-tu une problématique sur laquelle travailler, un projet à developper pendant le weekend ? Si oui, décris la/le nous.</label>
+                    <div class="input-group">
+                      <input id="problematic" type="text"  placeholder="Ton projet et/ou ta problématique" size="50" class="form-control problematic" value="{{ user.events.styf.problematic|default('') }}"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.input group -->
+            </div>
+          </div>
+          <div class="box-footer">
+            <button id="confirm_styf" type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+          <!-- /.box-body -->
+        </div>
+       
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+  {% endblock content %}
+  {% block scripts %}
+    <script type="text/javascript">
+        /* Tags teammates mail */
+        ts = {{ user.events.styf.teammates|safe if user.events.styf.teammates else '[]' }};
+        for (i in ts) {
+          ts[i] = {id: ts[i], text: ts[i]};
+        }
+        $(".teammates").select2({
+            tags: true,
+            data: ts
+        });
+        $('.teammates option').attr('selected', true).parent().trigger('change')
+
+        /* Hide teammates on load if not team */
+        node = document.getElementById('teammates');
+        if (document.getElementById('r1').checked) {
+          var bool = document.getElementById('r1').value;
+        } else if (document.getElementById('r2').checked) {
+          var bool = document.getElementById('r2').value;
+        }
+        if(bool == 'false') {
+              node.disabled = true;
+        } else {
+              node.disabled = false;
+        }
+
+
+        /* Hide teammates on change  */
+        function changeVis(bool){
+          node = document.getElementById('teammates');
+          if(bool == 'false') {
+              node.disabled = true;
+          } else {
+              node.disabled = false;
+          }
+        }
+    
+      function update_styf() {
+        if (document.getElementById('r1').checked) {
+          var team = document.getElementById('r1').value;
+        } else if (document.getElementById('r2').checked) {
+          var team = document.getElementById('r2').value;
+        }
+        if (team == 'true') {
+          var teammates = $(".teammates").val();
+        } else {
+          var teammates = [];
+        }
+        
+        var problematic = $(".problematic").val();
+
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('update_styf') }}",
+          data: {
+            "team": team,
+            "teammates": JSON.stringify(teammates),
+            "problematic": problematic
+          },
+          success: function (result) {
+            console.log(result);
+            if (result == 'success') {
+              Notify("Changements sauvegardés.");
+            }
+            if (result == 'full_event') {
+              Notify("L'évènement est complet.", null, null, "warning");
+            }
+            if (result == 'incomplete_profile') {
+              Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
+            }
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
+        });
+        // } else {
+        //   Notify("Il ne reste plus de places pour cet évènement.", null, null, "error");
+        // }
+        return false;
+      }
+
+
+      $('#confirm_styf').on('click', function (e) {
+        e.preventDefault();
+        update_styf();
+      });
+
+
+
+    </script>
+  {% endblock scripts %}

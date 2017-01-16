@@ -17,7 +17,14 @@
         <span>
           {% if name == 'joi' %}
             {{ 'Journée Objectif Ingénieur' }}
+
+          {% elif name == 'styf' %}
+            {{ 'Start-Up Your Future' }}
+
+          {% elif name == 'profile' %}
+            {{ 'Mon profil' }}
           {% endif %}
+
         </span>
       </a>
     </li>
@@ -30,8 +37,11 @@
       <button type="button" class="btn btn-box-tool" data-widget="collapse">
         <i class="fa fa-minus"></i>
       </button>
+
     </div>
   </div>
+ 
+
 {%- endmacro %}
 <!-- HEADER -->
 {% block header %}
@@ -43,7 +53,9 @@
 <!-- SECTIONS -->
 {% block sections %}
   {{ section_block('accueil', 'fa fa-home')}}
+  {{ section_block('profile', 'fa fa-book')}}
   {{ section_block('joi', 'fa fa-book')}}
+  {{ section_block('styf', 'fa fa-book')}}
 {% endblock sections %}
 {% block footer %}
   <!-- To the right -->
