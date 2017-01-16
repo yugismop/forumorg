@@ -2,14 +2,20 @@ import os
 
 from pymongo import MongoClient
 
-try:
-    client = MongoClient(host=os.environ.get('MONGODB_URI'))
-    db = client.get_default_database()
 
-    # Creating index
-    db.users.create_index(keys='id', name='index_id', unique=True)
+def main():
+    try:
+        client = MongoClient(host=os.environ.get('MONGODB_URI'))
+        db = client.get_default_database()
+        # Creating index
+        db.users.create_index(keys='id', name='index_id', unique=True)
+        # creating events
+        create_joi(db)
+    except Exception as e:
+        print(e)
 
-    # creating events
+
+def create_joi(db):
     db.events.delete_many({})
     fn = os.path.join(os.path.dirname(__file__), 'events.db')
     events = open(fn).read()
@@ -20,7 +26,8 @@ try:
         db.events.insert_one({'name': c[0], 'type': 'conference', 'quota': int(c[1]), 'places_left': int(c[1])})
     for t in tables:
         db.events.insert_one({'name': t, 'quota': 30, 'type': 'table_ronde', 'places_left': {'first': 30, 'second': 30}})
-
     db.users.update_many({}, {'$set': {'events.joi': {}}})
-except Exception as e:
-    print(e)
+
+
+if __name__ == '__main__':
+    main()
