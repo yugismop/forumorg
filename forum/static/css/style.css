@@ -504,7 +504,7 @@ button:focus {
   background-size: cover;
 }
 .dark-image-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/app-home-bg.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/styf_56.jpg);
   background-position: center top;
   background-size: cover;
 }
@@ -1737,7 +1737,7 @@ button:focus {
   background-size: cover;
 }
 .event-home-1.dark-image-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/event-home-bg-1.jpg) no-repeat center top;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/styf_56.jpg) no-repeat center top;
   background-size: cover;
 }
 .event-home-1 .logo-home {

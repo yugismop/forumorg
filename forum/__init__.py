@@ -32,6 +32,7 @@ def get_joi():
         return list(get_events().find({}))
     return dict(get_joi=_get_joi)
 
+
 @app.context_processor
 def get_styf():
     def _get_styf():
