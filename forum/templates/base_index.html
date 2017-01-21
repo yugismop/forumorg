@@ -82,13 +82,13 @@
               </li>
               <li class="">
                 <a href="{{ url_for('dashboard') }}" id="login">
-                  <span>{{'Mon profil' if current_user.is_authenticated else 'Connexion' }}</span>
+                  <span>{{'Mon profil' if current_user.is_authenticated else 'Se connecter' }}</span>
                 </a>
               </li>
               {% if current_user.is_authenticated %}
                 <li class="">
                   <a href="{{ url_for('logout') }}" id="logout">
-                    <span>Déconnexion</span>
+                    <span>Se déconnecter</span>
                   </a>
                 </li>
               {% endif %}

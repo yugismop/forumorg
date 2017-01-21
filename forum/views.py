@@ -25,7 +25,6 @@ def dashboard(page=None):
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
-        remember_me = 'remember_me' in request.form
         email = request.form.get('email')
         password = request.form.get('password')
         user = get_user(id=email)
@@ -37,7 +36,7 @@ def login():
             return render_template('login.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
-        login_user(user, remember=remember_me)
+        login_user(user)
         return redirect(url_for('dashboard'))
     print("flash: {}".format(get_flashed_messages()))
     return render_template('login.html', error=get_flashed_messages())
