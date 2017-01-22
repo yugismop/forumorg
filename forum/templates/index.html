@@ -49,30 +49,35 @@
   </div>
 </section>
 <section>
-  <table class="table-responsive" border="1" bordercolor="#ffffff">
-    <tr>
-      <th>
-        <a href="{{
+  <div class="row images">
+    <div class="col-md-4">
+      <a href="{{
             url_for('index', page='styf') }}"><img src="{{ url_for('static', filename='images/STYF12.png')}}" alt="" class="img-responsive img"></a>
-      </th>
-      <th>
-        <a href="{{
+    </div>
+    <div class="col-md-4">
+      <a href="{{
             url_for('index', page='master_class') }}"><img src="{{ url_for('static', filename='images/mc_ouvert.png')}}" alt="" class="img-responsive img"></a>
-      </th>
-      <th>
-        <a href="{{ url_for('index', page='joi') }}"><img src="{{url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
-      </th>
-    </tr>
-  </table>
+    </div>
+    <div class="col-md-4">
+      <a href="{{ url_for('index', page='joi') }}"><img src="{{url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
+    </div>
+  </div>
 </section>
 {% endblock home %}
 {% block style %}
 <style>
-  th > a > img {
+  .images > div > a > img {
     filter: brightness(70%);
   }
-  th > a > img:hover {
+  .images > div > a > img:hover {
     filter: brightness(100%);
+  }
+  .images > div {
+    padding: 0;
+    border: 1px solid white;
+  }
+  html {
+    overflow-x: hidden;
   }
 
 </style>
