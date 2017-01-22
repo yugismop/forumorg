@@ -64,7 +64,7 @@
               <!-- /.box-header -->
               <!-- /.box-header -->
               <div class="box-body table-responsive no-padding">
-                {% if not user.events.joi | empty_event %}
+                {% if user.events.joi.registered %}
                   <table class="table table-hover">
                     <tbody>
                       <tr>
@@ -139,10 +139,10 @@
                             {{ 'Oui' if user.events.styf.team == 'true' else 'Non' }}
                           </td>
                           <td>
-                            {{ user.events.styf.teammates|to_str }}
+                            {{ user.events.styf.teammates|to_str if user.events.styf.teammates != "[]" else "Pas de coéquipiers" }}
                           </td>
                           <td>
-                            {{ user.events.styf.problematic }}
+                            {{ user.events.styf.problematic if user.events.styf.problematic else "Pas de problématique" }}
                           </td>
                         </tr>
                       {% else %}

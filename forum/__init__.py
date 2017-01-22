@@ -52,9 +52,4 @@ def to_jobs(lst):
     return ', '.join(json.loads(lst))
 
 
-@app.template_filter('empty_event')
-def empty_event(e):
-    return not any([v['registered'] for v in e.values()])
-
-
 import views
