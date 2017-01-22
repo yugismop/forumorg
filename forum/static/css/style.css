@@ -63,7 +63,7 @@
 	9.3. PRICING TABLE 3
 	9.4. PRICING TABLE 4
 
-10. THE VIDEO 
+10. THE VIDEO
 	10.1. VIDEO PLAYER 1
 	10.2. THE VIDEO 2
 
@@ -505,6 +505,12 @@ button:focus {
 }
 .dark-image-bg {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/styf_56.jpg);
+  background-position: center top;
+  background-size: cover;
+}
+
+.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/mc.jpg);
   background-position: center top;
   background-size: cover;
 }
@@ -1727,6 +1733,11 @@ button:focus {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/elearning-home-bg.jpg) no-repeat center top;
   background-size: cover;
 }
+
+.elearning-home.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/elearning-home-bg.jpg) no-repeat center top;
+  background-size: cover;
+}
 /******************** EVENT HOME 1 ********************/
 .event-home-1 {
   padding-top: 150px;
@@ -1740,6 +1751,13 @@ button:focus {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/styf_56.jpg) no-repeat center top;
   background-size: cover;
 }
+
+.event-home-1.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/static/images/mc.jpg) no-repeat center top;
+  background-size: cover;
+}
+
+
 .event-home-1 .logo-home {
   margin-bottom: 75px;
 }
@@ -2596,7 +2614,7 @@ button:focus {
 }
 /*
 |----------------------------------------------------------------------------
-| THE VIDEO 
+| THE VIDEO
 |----------------------------------------------------------------------------
 */
 .video-player {
@@ -2809,6 +2827,15 @@ button:focus {
   background-position: center bottom;
   background-repeat: no-repeat;
 }
+
+.testimonials-1.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/testimonials-1.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+
 .testimonials-1.image-bg {
   background: url(http://nemolandingpage.com/nemo-builder/elements/images/testimonials-1.jpg);
   background-size: cover;
@@ -3201,6 +3228,13 @@ button:focus {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center center;
   background-size: cover;
 }
+
+.recap-gallery.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center center;
+  background-size: cover;
+}
+
+
 .recap-gallery-item {
   width: 100%;
   position: relative;
@@ -3542,6 +3576,13 @@ button:focus {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/join-us.jpg);
   background-size: cover;
 }
+
+.join-us.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/join-us.jpg);
+  background-size: cover;
+}
+
+
 .join-us .sub-heading {
   margin-top: 25px;
   margin-bottom: 75px;
@@ -3566,6 +3607,13 @@ button:focus {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center top;
   background-size: cover;
 }
+
+.sponsors-2.dark-image-bg-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center top;
+  background-size: cover;
+}
+
+
 .sponsors-2 .client-logo {
   margin-top: 30px;
   margin-bottom: 50px;

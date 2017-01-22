@@ -8,167 +8,181 @@
         <div class="box-body table-responsive no-padding">
           {% if user.profile.first_name and user.profile.name and user.profile.tel and user.profile.year and user.profile.school %}
             <tr>
-                    <td colspan="4">
-                      <h2 class="lead text-center"> 
-                        Bonjour, {{ user.profile.first_name }} {{ user.profile.name }} ! </h2>
-                    </td>
-                  </tr>
-               
+              <td colspan="4">
+                <h2 class="lead text-center">
+                  Bonjour,
+                  {{ user.profile.first_name }}
+                  {{ user.profile.name }}
+                  !
+                </h2>
+              </td>
+            </tr>
+
           {% else %}
-                  <tr>
-                    <td colspan="4">
-                      <h2 class="lead text-center">Tu n'as pas encore rempli ton profil :(</h2>
-                    </td>
-                  </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-      </div>
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Ton profil n'est pas complet :(</h2>
+              </p>
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.box-body -->
+</div>
+<!-- /.box -->
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">
+      {% if user.profile.first_name %}
+        Modifie ton profil
+      {% else %}
+        Remplis ton profil
+      {% endif %}
+    </h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <i class="fa fa-minus"></i>
+      </button>
     </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
     <div class="row">
+
       <div class="col-md-12">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">{% if user.profile.first_name %} Modifie ton profil {% else %} Remplis ton profil {% endif %}</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-              </button>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Nom</label>
+            <div class="input-group">
+              <input id="name " type="text" class="form-control name" placeholder="Martin" size="50" {% if user.profile.name %} value="{{ user.profile.name }}" {% else %} value="" {% endif %}>
             </div>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-
-              <div class="col-md-12">
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Nom</label>
-                    <div class="input-group">
-                      <input id="name " type="text" class="form-control name" placeholder="Martin" size="50" {% if user.profile.name %} value="{{ user.profile.name }}" {% else %} value ="" {% endif %}>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Prénom</label>
-                    <div class="input-group">
-                      <input id="surname " type="text" class="form-control first_name" placeholder="Marie" style="width: 100%;" size="50" {% if user.profile.first_name %} value="{{ user.profile.first_name }}" {% else %} value ="" {% endif %}>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Téléphone</label>
-                    <div class="input-group">
-                      <input id="tel " type="text" class="form-control tel" placeholder="06 xx xx xx xx" size="50" {% if user.profile.tel %} value="{{ user.profile.tel }}" {% else %} value ="" {% endif %} data-mask>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Ecole</label>
-                    <select class="form-control select2 school" style="width: 100%;" {% if user.profile.school %} value="{{ user.profile.school }}" {% else %} value ="" {% endif %}>
-                      <option {% if user.profile.school == 'INSA Lyon' %} selected {% endif %} >INSA Lyon</option>
-                      <option {% if user.profile.school == 'CPE Lyon' %} selected {% endif %}>CPE Lyon</option>
-                      <option {% if user.profile.school == 'Polytech Lyon' %} selected {% endif %}>Polytech Lyon</option>
-                      <option {% if user.profile.school == 'Centrale Lyon' %} selected {% endif %}>Centrale Lyon</option>
-                      <option {% if user.profile.school == 'EM Lyon' %} selected {% endif %}>EM Lyon</option>
-                      <option {% if user.profile.school == 'Université Lyon 1' %} selected {% endif %}>Université Lyon 1</option>
-                      <option {% if user.profile.school == 'Université Lyon 2' %} selected {% endif %}>Université Lyon 2</option>
-                      <option {% if user.profile.school == 'Université Lyon 3' %} selected {% endif %}>Université Lyon 3</option>
-                      <option {% if user.profile.school == 'IAE' %} selected {% endif %}>IAE</option>
-                      <option {% if user.profile.school == 'Autre' %} selected {% endif %}>Autre</option>
-                    </select>
-                  </div>
-                </div>
-                  
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Année d'étude</label>
-                    <select class="form-control select2 year" style="width: 100%;" {% if user.profile.year %} value="{{ user.profile.year }}" {% else %} value ="" {% endif %}>
-                      <option {% if user.profile.year == 'Bac+1' %} selected {% endif %}>Bac+1</option>
-                      <option {% if user.profile.year == 'Bac+2' %} selected {% endif %}>Bac+2</option>
-                      <option {% if user.profile.year == 'Bac+3' %} selected {% endif %}>Bac+3</option>
-                      <option {% if user.profile.year == 'Bac+4' %} selected {% endif %}>Bac+4</option>
-                      <option {% if user.profile.year == 'Bac+5' %} selected {% endif %}>Bac+5</option>
-                      <option {% if user.profile.year == 'Autre' %} selected {% endif %}>Autre</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <div class="box-footer">
-            <button id="confirm_profile" type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
-          <!-- /.box-body -->
         </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Prénom</label>
+            <div class="input-group">
+              <input id="surname " type="text" class="form-control first_name" placeholder="Marie" style="width: 100%;" size="50" {% if user.profile.first_name %} value="{{ user.profile.first_name }}" {% else %} value="" {% endif %}>
+            </div>
+          </div>
         </div>
-        <!-- /.box -->
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Téléphone</label>
+            <div class="input-group">
+              <input id="tel " type="text" class="form-control tel" placeholder="06 xx xx xx xx" size="50" {% if user.profile.tel %} value="{{ user.profile.tel }}" {% else %} value="" {% endif %} data-mask>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Ecole</label>
+            <select class="form-control select2 school" style="width: 100%;" {% if user.profile.school %} value="{{ user.profile.school }}" {% else %} value="" {% endif %}>
+              <option {% if user.profile.school == 'INSA Lyon' %} selected {% endif %}>INSA Lyon</option>
+              <option {% if user.profile.school == 'CPE Lyon' %} selected {% endif %}>CPE Lyon</option>
+              <option {% if user.profile.school == 'Polytech Lyon' %} selected {% endif %}>Polytech Lyon</option>
+              <option {% if user.profile.school == 'Centrale Lyon' %} selected {% endif %}>Centrale Lyon</option>
+              <option {% if user.profile.school == 'EM Lyon' %} selected {% endif %}>EM Lyon</option>
+              <option {% if user.profile.school == 'Université Lyon 1' %} selected {% endif %}>Université Lyon 1</option>
+              <option {% if user.profile.school == 'Université Lyon 2' %} selected {% endif %}>Université Lyon 2</option>
+              <option {% if user.profile.school == 'Université Lyon 3' %} selected {% endif %}>Université Lyon 3</option>
+              <option {% if user.profile.school == 'IAE' %} selected {% endif %}>IAE</option>
+              <option {% if user.profile.school == 'Autre' %} selected {% endif %}>Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Année d'étude</label>
+            <select class="form-control select2 year" style="width: 100%;" {% if user.profile.year %} value="{{ user.profile.year }}" {% else %} value="" {% endif %}>
+              <option {% if user.profile.year == 'Bac+1' %} selected {% endif %}>Bac+1</option>
+              <option {% if user.profile.year == 'Bac+2' %} selected {% endif %}>Bac+2</option>
+              <option {% if user.profile.year == 'Bac+3' %} selected {% endif %}>Bac+3</option>
+              <option {% if user.profile.year == 'Bac+4' %} selected {% endif %}>Bac+4</option>
+              <option {% if user.profile.year == 'Bac+5' %} selected {% endif %}>Bac+5</option>
+              <option {% if user.profile.year == 'Autre' %} selected {% endif %}>Autre</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="box-footer">
+      <button id="confirm_profile" type="submit" class="btn btn-primary">Confirmer</button>
+    </div>
+    <!-- /.box-body -->
+  </div>
+</div>
+<!-- /.box -->
+</div>
+</div>
 
-  {% endblock content %}
-  {% block scripts %}
-    <script type="text/javascript">
+{% endblock content %}
+{% block scripts %}
+<script type="text/javascript">
 
-      function update_profile() {
-        var first_name = $(".first_name").val();
-        var name = $(".name").val();
-        var tel = $(".tel").val();
-        var school = $(".school").val();
-        var year = $(".year").val();
-        console.log("UPDATE_PROFILE", first_name, name, tel, school, year);
+function update_profile() {
+  var first_name = $(".first_name").val();
+  var name = $(".name").val();
+  var tel = $(".tel").val();
+  var school = $(".school").val();
+  var year = $(".year").val();
+  console.log("UPDATE_PROFILE", first_name, name, tel, school, year);
 
-        $.ajax({
-          type: "POST",
-          url: "{{ url_for('update_profile') }}",
-          data: {
-            "first_name": first_name,
-            "name": name,
-            "tel": tel,
-            "school": school,
-            "year": year
-          },
-          success: function (result) {
-            if (result == 'success') {
-              Notify("Changements sauvegardés.");
-            } else {
-              Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
-            }
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
-          }
-        });
-        return false;
+  if (first_name && name && tel && school && year) {
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_profile') }}",
+      data: {
+        "first_name": first_name,
+        "name": name,
+        "tel": tel,
+        "school": school,
+        "year": year
+      },
+      success: function (result) {
+        if (result == 'success') {
+          Notify("Changements sauvegardés.");
+        } else {
+          Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
+        }
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
       }
+    });
+  } else {
+    Notify("Veuillez remplir tous les champs.", null, null, "error");
+  }
+  return false;
+};
 
-      $('#confirm_profile').on('click', function (e) {
-        e.preventDefault();
-        update_profile();
-      });
-    </script>
+$('#confirm_profile').on('click', function (e) {
+  e.preventDefault();
+  update_profile();
+});
+</script>
 
 <!-- InputMask -->
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
-    <!-- Page script -->
+<!-- Page script -->
 <script>
-  $(function () {
-    $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
-  });
+$(function () {
+  $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
+});
 </script>
 
-  {% endblock scripts %}
+{% endblock scripts %}

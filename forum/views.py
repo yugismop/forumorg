@@ -163,6 +163,18 @@ def update_styf():
         return "incomplete_profile"
 
 
+@app.route('/update_master_class', methods=["POST"])
+@login_required
+def update_master_class():
+    users = get_users()
+    user = current_user
+    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
+        users.update_one({'id': current_user.id}, {'$set': {'events.master_class.registered': True}})
+        return "success"
+    else:
+        return "incomplete_profile"
+
+
 @app.route('/update_profile', methods=["POST"])
 @login_required
 def update_profile():
