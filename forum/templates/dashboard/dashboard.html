@@ -19,12 +19,13 @@
       <div class="box box-primary">
         <div class="box-body box-profile">
           <img class="profile-user-img img-responsive img-circle" src="{{ url_for('static', filename='dist/img/avatar5.png') }}" alt="User profile picture">
-
           <h3 class="profile-username text-center">
-            {% if user.profile.first_name %}
-              {{ user.profile.first_name }}
-            {% else %}
-            {% endif %}
+            {% if not user.profile.first_name %}
+              Profil incomplet
+            </h3>
+            <p class="text-muted text-center">Veuillez remplir votre profil pour finaliser votre inscription.</p>
+          {% else %}
+            {{ user.profile.first_name }}
             {{ user.profile.name }}</h3>
 
           <p class="text-muted text-center">{{ user.profile.school }}</p>
@@ -43,18 +44,80 @@
               <a class="pull-right">{{ user.profile.tel }}</a>
             </li>
           </ul>
+        {% endif %}
 
-          {{ more_button('profile') }}
-        </div>
-        <!-- /.box-body -->
+        {{ more_button('profile') }}
       </div>
-      <!-- /.box -->
+      <!-- /.box-body -->
     </div>
+    <!-- /.box -->
+  </div>
 
-    <!-- JOI -->
+  <!-- JOI -->
+  <div class="col-md-9">
+    <div class="box">
+      {{ header_section('joi') }}
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-solid">
+              <!-- /.box-header -->
+              <!-- /.box-header -->
+              <div class="box-body table-responsive no-padding">
+                {% if not user.events.joi | empty_event %}
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Nom de l'évènement</th>
+                        <th>Type</th>
+                        <th>Horaire</th>
+                      </tr>
+                      {% for k, v in user.events.joi.items() %}
+                        {% if v.registered %}
+                          <tr>
+                            <td>{{ v.name }}</td>
+                            <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
+                            <td>
+                              {% if v.time %}
+                                {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
+                              {% else %}
+                                {{ '10h45-12h00' }}
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endif %}
+                        {% endfor%}
+                      {% else %}
+                        <tr>
+                          <td colspan="4">
+                            <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
+                          </td>
+                        </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ more_button('joi') }}
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+
+    <!-- STYF -->
     <div class="col-md-9">
       <div class="box">
-        {{ header_section('joi') }}
+        <div class="box-header with-border">
+          <h3 class="box-title">Start-Up Your Future</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+
+          </div>
+        </div>
         <div class="box-body">
           <div class="row">
             <div class="col-md-12">
@@ -62,86 +125,86 @@
                 <!-- /.box-header -->
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                  {% if not user.events.joi.registered %}
-                    <table class="table table-hover">
-                      <tbody>
+
+                  <table class="table table-hover">
+                    <tbody>
+                      {% if user.events.styf.registered %}
                         <tr>
-                          <th>Nom de l'évènement</th>
-                          <th>Type</th>
-                          <th>Horaire</th>
+                          <th>En équipe</th>
+                          <th>Coéquipiers</th>
+                          <th>Problématique</th>
                         </tr>
-                        {% for k, v in user.events.joi.items() %}
-                          {% if v.registered %}
-                            <tr>
-                              <td>{{ v.name }}</td>
-                              <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
-                              <td>
-                                {% if v.time %}
-                                  {{ '14h00-15h30' if v.time == 'first' else '15h30-17h00' }}
-                                {% else %}
-                                  {{ '10h45-12h00' }}
-                                {% endif %}
-                              </td>
-                            </tr>
-                          {% endif %}
-                          {% endfor%}
-                        {% else %}
-                          <tr>
-                            <td colspan="4">
-                              <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
-                            </td>
-                          </tr>
-                        {% endif %}
-                      </tbody>
-                    </table>
-                  </div>
+                        <tr>
+                          <td>
+                            {{ 'Oui' if user.events.styf.team == 'true' else 'Non' }}
+                          </td>
+                          <td>
+                            {{ user.events.styf.teammates|to_str }}
+                          </td>
+                          <td>
+                            {{ user.events.styf.problematic }}
+                          </td>
+                        </tr>
+                      {% else %}
+                        <tr>
+                          <td colspan="4">
+                            <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
+                          </td>
+                        </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-            {{ more_button('joi') }}
+          </div>
+          {{ more_button('styf') }}
+        </div>
+      </div>
+    </div>
+    <!-- MASTERE CLASS -->
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Mastere Class</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  {% if user.events.master_class.registered %}
+                    <tr>
+                      <td colspan="4">
+                        <h2 class="lead text-center">Inscription à la Mastère Class validée.
+                        </h2>
+                        <p class="text-center">Rendez-vous le 15 Février à 12h30 à la BMC !</p>
+                      </td>
+                    </tr>
+                  {% else %}
+                    <tr>
+                      <td colspan="4">
+                        <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      <!-- /.col -->
-
-      <!-- STYF -->
-      <div class="col-md-9">
-        <div class="box">
-          <div class="box-header with-border">
-            <h3 class="box-title">Start-Up Your Future</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-              </button>
-
-            </div>
-          </div>
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="box box-solid">
-                  <!-- /.box-header -->
-                  <!-- /.box-header -->
-                  <div class="box-body table-responsive no-padding">
-                    {% if user.events.styf.team %}
-                      <table class="table table-hover">
-                        <tbody>
-                          <tr>
-                            <th>En équipe</th>
-                            <th>Coéquipiers</th>
-                            <th>Problématique</th>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              {% if user.events.styf.team == 'true' %}
-                                Oui
-                              {% else %}
-                                Non
-                              {% endif %}
-                            </td>
-                            {% set t = user.events.styf.teammates.split(',') %}
-                            <td>
-                              {% for teammate in t %}
-                                {{ teammate|replace("]", "") |replace("[", "") |replace("\"", "") }} <br> {% endfor %}</td> <td> {{ user.events.styf.problematic }} </td> </tr> {% else %} <tr> <td colspan="4"> <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
-                                </td> </tr> {% endif %} </tbody> </table> </div> </div> </div> </div> {{ more_button('styf') }} </div> </div> </div> </div> {% endblock content %}
+      {{ more_button('master_class') }}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content %}

@@ -12,6 +12,7 @@ def main():
         # creating events
         # create_joi(db)
         # create_styf(db)
+        create_mastere_class(db)
     except Exception as e:
         print(e)
 
@@ -33,7 +34,10 @@ def create_styf(db):
     # creating events
     db.events.insert_one({'name': 'styf', 'quota': 50, 'places_left': 50})
     db.users.update_many({}, {'$set': {'events.styf': {}}})
-    db.users.update_many({}, {'$set': {'profile': {}}})
+
+
+def create_mastere_class(db):
+    db.users.update_many({}, {'$set': {'events.master_class': {'registered': False}}})
 
 
 if __name__ == '__main__':

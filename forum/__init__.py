@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import os
-
+import json
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -38,6 +38,23 @@ def get_styf():
     def _get_styf():
         return list(get_events().find({}))
     return dict(get_styf=_get_styf)
+
+
+@app.context_processor
+def get_master_class():
+    def _get_master_class():
+        return list(get_events().find({}))
+    return dict(get_master_class=_get_master_class)
+
+
+@app.template_filter('to_str')
+def to_jobs(lst):
+    return ', '.join(json.loads(lst))
+
+
+@app.template_filter('empty_event')
+def empty_event(e):
+    return not any([v['registered'] for v in e.values()])
 
 
 import views

@@ -64,7 +64,7 @@ class User(flask_login.UserMixin):
             self.data['registered_on'] = datetime.datetime.now()
             self.data['confirmed'] = False
             self.data['confirmed_on'] = None
-            self.data['events'] = {'joi': {}, 'styf':{}}
+            self.data['events'] = {'joi': {}, 'styf': {}, 'master_class': {}}
             self.data['profile'] = {}
 
     def get_id(self):
