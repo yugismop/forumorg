@@ -70,7 +70,7 @@
           </div>
 
           <div class="collapse navbar-collapse" id="nemo-navigation">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-left">
               <li class="{{ 'active' if title == 'Accueil' else ''}}">
                 <a href="{{ url_for('index') }}" id="home">Accueil</a>
               </li>
@@ -80,16 +80,18 @@
               <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
                 <a href="{{ url_for('index', page='joi') }}" id="joi">Journée Objectif Ingénieur</a>
               </li>
-              <li class="">
-                <a href="{{ url_for('dashboard') }}" id="login">
-                  <span>{{'Mon profil' if current_user.is_authenticated else 'Se connecter' }}</span>
-                </a>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                {% if current_user.is_authenticated %}
+                  <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+                {% else %}
+                  <a href="{{ url_for('login') }}" id="home">Se connecter</a>
+                {% endif %}
               </li>
               {% if current_user.is_authenticated %}
-                <li class="">
-                  <a href="{{ url_for('logout') }}" id="logout">
-                    <span>Se déconnecter</span>
-                  </a>
+                <li>
+                  <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
                 </li>
               {% endif %}
             </ul>
@@ -189,3 +191,4 @@
       $('ul.nav > li > a').off("click");
     });
   </script>
+  {% block scripts %}{% endblock scripts %}

@@ -63,7 +63,7 @@
 	9.3. PRICING TABLE 3
 	9.4. PRICING TABLE 4
 
-10. THE VIDEO 
+10. THE VIDEO
 	10.1. VIDEO PLAYER 1
 	10.2. THE VIDEO 2
 
@@ -1682,7 +1682,7 @@ button:focus {
 }
 /******************** APP HOME 3 ********************/
 .app-home-3 {
-  padding: 150px 0 200px;
+  padding: 185px 0 120px;
 }
 .app-home-3 .logo-home {
   margin-bottom: 80px;
@@ -2596,7 +2596,7 @@ button:focus {
 }
 /*
 |----------------------------------------------------------------------------
-| THE VIDEO 
+| THE VIDEO
 |----------------------------------------------------------------------------
 */
 .video-player {
@@ -3748,6 +3748,20 @@ button:focus {
 | CONTAINER HALF CONTENT
 |----------------------------------------------------------------------------
 */
+.container {
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 768px) {
+    .col-index {
+         padding-left:80px;
+         padding-right:80px;
+    }
+}
+
 .content-half {
   position: relative;
 }

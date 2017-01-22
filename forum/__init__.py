@@ -40,9 +40,4 @@ def get_styf():
     return dict(get_styf=_get_styf)
 
 
-@app.template_filter('empty_event')
-def empty_event(e):
-    return not any([v['registered'] for v in e.values()])
-
-
 import views
