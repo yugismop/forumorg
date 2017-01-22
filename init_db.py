@@ -8,7 +8,7 @@ def main():
         client = MongoClient(host=os.environ.get('MONGODB_URI'))
         db = client.get_default_database()
         # Creating index
-        db.users.create_index(keys='id', name='index_id', unique=True)
+        # db.users.create_index(keys='id', name='index_id', unique=True)
         # creating events
         # create_joi(db)
         # create_styf(db)
