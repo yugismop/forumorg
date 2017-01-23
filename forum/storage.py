@@ -47,8 +47,6 @@ def get_users():
 def get_events():
     return db.events
 
-def get_profile():
-    return db.profile
 
 def user_exists(id):
     return True if db.users.find_one({'id': id}) else False
