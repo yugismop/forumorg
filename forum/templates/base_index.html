@@ -1,12 +1,9 @@
 <html>
-
   <head>
     <meta charset="utf-8">
-
     <!-- TITLE OF SITE -->
     <title>Forum Organisation |
       {{ title }}</title>
-
     <!-- META DATA -->
     <meta name="description" content="Forum Organisation est une association étudiante qui a pour but de générer du contact entre étudiants et entreprises.">
     <meta
@@ -14,18 +11,15 @@
       content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
     <meta name="author" content="ForumOrganisation">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     <!-- =========================
     FAV AND TOUCH ICONS
     ============================== -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
     <!-- =========================
     STYLESHEETS
     ============================== -->
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-
     <!-- EXTERNAL PLUGIN CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}">
     <!-- Screenshot Slider -->
@@ -33,23 +27,16 @@
     <!-- Screenshot Slider -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
     <!-- Nivo Lightbox -->
-
     <!-- TYPOGRAPHY -->
     <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
-
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
     <!-- COLORS -->
     <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
-
     <!-- RESPONSIVE FIXES -->
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-
     <!--[if lt IE 9]> <script src="js/html5shiv.js"></script> <script src="js/respond.min.js"></script> <![endif]-->
-
   </head>
-
   <body class="body-container">
     <div id="page" class="page">
       <!-- start page -->
@@ -62,13 +49,11 @@
               <span class="icon-bar icon-bar-middle"></span>
               <span class="icon-bar icon-bar-bottom"></span>
             </button>
-
             <!-- YOUR LOGO -->
             <a class="navbar-brand" href="{{ url_for('index') }}">
               <img src="{{ url_for('static', filename='images/fo.jpg')}}" alt="Forum Organisation">
             </a>
           </div>
-
           <div class="collapse navbar-collapse" id="nemo-navigation">
             <ul class="nav navbar-nav navbar-left">
               <li class="{{ 'active' if title == 'Accueil' else ''}}">
@@ -101,27 +86,22 @@
           </div>
         </div>
       </div>
-
       <!-- =========================
          APP HOME
     ============================== -->
       {% block home %}{% endblock home %}
-
       <!-- start page -->
-
       <!-- =========================
      FOOTER -1
 ============================== -->
       <footer class="footers footer-1 editBG" style="background-color: white" id="footer">
         <div class="container text-center">
-
           <p class="contact-help">Besoin d'aide?
             <a href="contact-fra@forumorg.org">Contactez-nous!</a>
           </p>
-
           <ul class="socialize">
             <li>
-              <a href="#">
+              <a href="https://www.facebook.com/forumorg/">
                 <i class="icon svg-social-facebook-square">
                   <!--?xml version="1.0" encoding="utf-8"?-->
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
@@ -131,9 +111,8 @@
                 </i>
               </a>
             </li>
-
             <li>
-              <a href="#">
+              <a href="https://twitter.com/forumrhonealpes">
                 <i class="icon svg-social-twitter-square">
                   <!--?xml version="1.0" encoding="utf-8"?-->
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
@@ -143,9 +122,8 @@
                 </i>
               </a>
             </li>
-
             <li>
-              <a href="#">
+              <a href="https://fr.linkedin.com/company/forum-rh-ne-alpes">
                 <i class="icon svg-social-linkedin-square">
                   <!--?xml version="1.0" encoding="utf-8"?-->
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
@@ -155,20 +133,16 @@
                 </i>
               </a>
             </li>
-
           </ul>
-
           <p class="copyright">© Forum Organisation,
             <a href="https://opensource.org/licenses/mit-license.php">Licence MIT</a>
           </p>
         </div>
       </footer>
-
     </div>
     <!-- /end page -->
   </body>
   {% block style %}{% endblock style %}
-
   <!-- =========================
      SCRIPTS
 ============================== -->
