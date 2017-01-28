@@ -140,7 +140,6 @@ def update_event():
         return "error"
 
 
-
 @app.route('/update_styf', methods=["POST"])
 @login_required
 def update_styf():
@@ -155,7 +154,7 @@ def update_styf():
             users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
             print(current_user.events)
             if not current_user.events['styf'].get('registered'):
-                events.update_one({'name': 'styf' }, {'$inc': {'places_left': -1}})
+                events.update_one({'name': 'styf'}, {'$inc': {'places_left': -1}})
             return "success"
         else:
             return "full_event"
@@ -166,10 +165,12 @@ def update_styf():
 @app.route('/update_master_class', methods=["POST"])
 @login_required
 def update_master_class():
+    registered = request.form.get('registered')
+    registered = True if registered == 'true' else False
     users = get_users()
     user = current_user
     if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
-        users.update_one({'id': current_user.id}, {'$set': {'events.master_class.registered': True}})
+        users.update_one({'id': current_user.id}, {'$set': {'events.master_class.registered': registered}})
         return "success"
     else:
         return "incomplete_profile"
@@ -197,6 +198,7 @@ def index(page=None, methods=['GET']):
     # default option is main dashboard
     else:
         return render_template('index.html')
+
 
 # SEO
 @app.route('/robots.txt')

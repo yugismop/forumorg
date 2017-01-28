@@ -46,17 +46,14 @@
     <div class="box-body">
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-4">
-            <div class="form-group">
-              <div class="radio">
-                <label>
-                  <input type="checkbox" value="true" name="radio">
-                  Je souhaite m'inscrire à l'évènement Mastere Class.
-                </label>
-              </div>
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <input type="checkbox" name="master">
+                Je souhaite m'inscrire à l'évènement Mastere Class.
+              </label>
             </div>
           </div>
-          <!-- /.input group -->
         </div>
       </div>
       <div class="box-footer">
@@ -73,11 +70,14 @@
 {% block scripts %}
 <script type="text/javascript">
 function update_master_class() {
+  var registered = $('input[name=master]').is(':checked');
   $.ajax({
     type: "POST",
+    data: {
+      'registered': registered
+    },
     url: "{{ url_for('update_master_class') }}",
     success: function (result) {
-      console.log(result);
       if (result == 'success') {
         Notify("Changements sauvegardés.");
         setTimeout(function () {
