@@ -80,16 +80,14 @@ function update_master_class() {
       console.log(result);
       if (result == 'success') {
         Notify("Changements sauvegardés.");
-      }
-      if (result == 'incomplete_profile') {
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
         Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
       }
-      setTimeout(function () {
-        location.reload();
-      }, 1000);
     }
   });
-  // } else {   Notify("Il ne reste plus de places pour cet évènement.", null, null, "error"); }
   return false;
 }
 $('#confirm_master_class').on('click', function (e) {
