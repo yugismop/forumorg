@@ -14,7 +14,6 @@
                 </h2>
               </td>
             </tr>
-
           {% else %}
             <tr>
               <td colspan="4">
@@ -46,14 +45,12 @@
     <!-- /.box-header -->
     <div class="box-body">
       <div class="row">
-
         <div class="col-md-12">
           <div class="col-md-4">
             <div class="form-group">
-
               <div class="radio">
                 <label>
-                  <input type="radio" value="true" checked="checked" name="radio">
+                  <input type="checkbox" value="true" checked="checked" name="radio">
                   Je souhaite m'inscrire à l'évènement Mastere Class.
                 </label>
               </div>
@@ -67,7 +64,6 @@
       </div>
       <!-- /.box-body -->
     </div>
-
     <!-- /.box-body -->
   </div>
   <!-- /.box -->
@@ -96,7 +92,6 @@ function update_master_class() {
   // } else {   Notify("Il ne reste plus de places pour cet évènement.", null, null, "error"); }
   return false;
 }
-
 $('#confirm_master_class').on('click', function (e) {
   e.preventDefault();
   update_master_class();
