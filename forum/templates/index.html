@@ -7,7 +7,6 @@
         <source src="{{ url_for('static', filename='video/video2.mp4') }}" type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
       </video>
     </div>
-
     <div class="container">
       <div class="row">
         <div class="col-md-{{'7' if not current_user.is_authenticated else '9'}} col-index">
@@ -61,7 +60,7 @@
             url_for('index', page='master_class') }}"><img src="{{ url_for('static', filename='images/mc_ouvert.png')}}" alt="" class="img-responsive img"></a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('index', page='joi') }}"><img src="{{url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
+      <a href="{{ url_for('index', page='fra') }}"><img src="{{url_for('static', filename='images/fra_1.png')}}" alt="" class="img-responsive img"></a>
     </div>
   </div>
 </section>
@@ -81,7 +80,6 @@
   html {
     overflow-x: hidden;
   }
-
 </style>
 {% endblock style %}
 {% block scripts %}
