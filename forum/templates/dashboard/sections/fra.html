@@ -1,0 +1,99 @@
+{% extends "dashboard/section.html" %}
+{% set title = 'Forum Rhône-Alpes' %}
+{% set events = get_master_class() %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          {% if user.events.fra.registered %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Ton inscription au Forum Rhône-Alpes est bien prise en compte.
+                </h2>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Tu n'es pas encore inscrit à cet évènement :(</h2>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">
+        Inscris-toi au Forum Rhône-Alpes
+      </h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <input type="checkbox" name="fra">
+                Je souhaite m'inscrire à l'évènement Forum Rhône-Alpes.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <button id="confirm_fra" type="submit" class="btn btn-primary">Confirmer</button>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script type="text/javascript">
+function update_fra() {
+  var registered = $('input[name=fra]').is(':checked');
+  $.ajax({
+    type: "POST",
+    data: {
+      'registered': registered,
+      'event': 'fra'
+    },
+    url: "{{ url_for('update_event') }}",
+    success: function (result) {
+      if (result == 'success') {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
+        Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
+      }
+    }
+  });
+  return false;
+}
+$('#confirm_fra').on('click', function (e) {
+  e.preventDefault();
+  update_fra();
+});
+</script>
+{% endblock scripts %}

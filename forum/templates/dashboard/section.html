@@ -17,17 +17,15 @@
         <span>
           {% if name == 'joi' %}
             {{ 'Journée Objectif Ingénieur' }}
-
           {% elif name == 'styf' %}
             {{ 'Start-Up Your Future' }}
-
           {% elif name == 'master_class' %}
             {{ 'Mastere Class' }}
-
+          {% elif name == 'fra' %}
+            {{ 'Forum Rhône-Alpes' }}
           {% elif name == 'profile' %}
             {{ 'Mon profil' }}
           {% endif %}
-
         </span>
       </a>
     </li>
@@ -35,15 +33,13 @@
 {%- endmacro %}
 {% macro header_section(name) -%}
   <div class="box-header with-border">
-    <h3 class="box-title">{{ 'Journée Objectif Ingénieur' }}</h3>
+    <h3 class="box-title">{{ name }}</h3>
     <div class="box-tools pull-right">
       <button type="button" class="btn btn-box-tool" data-widget="collapse">
         <i class="fa fa-minus"></i>
       </button>
-
     </div>
   </div>
-
 {%- endmacro %}
 <!-- HEADER -->
 {% block header %}
@@ -57,6 +53,7 @@
   {{ section_block('accueil', 'fa fa-home')}}
   {{ section_block('profile', 'fa fa-book')}}
   {{ section_block('styf', 'fa fa-book')}}
+  {{ section_block('fra', 'fa fa-book')}}
   {{ section_block('master_class', 'fa fa-book')}}
   {{ section_block('joi', 'fa fa-book')}}
 {% endblock sections %}

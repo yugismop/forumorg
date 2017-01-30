@@ -104,40 +104,52 @@ def logout():
 @app.route('/update_event', methods=["POST"])
 @login_required
 def update_event():
-    mtype = request.form.get('type')
-    name = request.form.get('name')
-    time = request.form.get('time')
+    event = request.form.get('event')
+    if event != 'fra':
+        name = request.form.get('name')
+        mtype = request.form.get('type')
+        time = request.form.get('time')
 
-    events = get_events()
-    users = get_users()
+        events = get_events()
+        users = get_users()
 
-    event = events.find_one({"name": name, "type": mtype})
-    places_left = event['places_left']
-    if mtype == 'table_ronde':
-        places_left = event['places_left'][time]
-
-    if places_left > 0:
-        old_event = users.find_one({'id': current_user.id})
-        old_name = old_event['events']['joi'].get(mtype)
-        old_name = old_name['name'] if old_name else None
-        doc = {'name': name, 'registered': True}
+        event = events.find_one({"name": name, "type": mtype})
+        places_left = event['places_left']
         if mtype == 'table_ronde':
-            doc = {'name': name, 'registered': True, 'time': time}
-            events.update_one({'name': old_name, 'type': mtype},
-                              {'$inc': {'places_left.{}'.format(time): 1}}) if old_name else None
-            events.update_one({'name': name, 'type': mtype}, {
-                              '$inc': {'places_left.{}'.format(time): -1}})
-        else:
+            places_left = event['places_left'][time]
+
+        if places_left > 0:
+            old_event = users.find_one({'id': current_user.id})
+            old_name = old_event['events']['joi'].get(mtype)
+            old_name = old_name['name'] if old_name else None
             doc = {'name': name, 'registered': True}
-            events.update_one({'name': old_name, 'type': mtype},
-                              {'$inc': {'places_left': 1}}) if old_name else None
-            events.update_one({'name': name, 'type': mtype},
-                              {'$inc': {'places_left': -1}})
-        users.update_one({'id': current_user.id}, {
-                         '$set': {'events.joi.{}'.format(mtype): doc}})
-        return "success"
+            if mtype == 'table_ronde':
+                doc = {'name': name, 'registered': True, 'time': time}
+                events.update_one({'name': old_name, 'type': mtype},
+                                  {'$inc': {'places_left.{}'.format(time): 1}}) if old_name else None
+                events.update_one({'name': name, 'type': mtype}, {
+                                  '$inc': {'places_left.{}'.format(time): -1}})
+            else:
+                doc = {'name': name, 'registered': True}
+                events.update_one({'name': old_name, 'type': mtype},
+                                  {'$inc': {'places_left': 1}}) if old_name else None
+                events.update_one({'name': name, 'type': mtype},
+                                  {'$inc': {'places_left': -1}})
+            users.update_one({'id': current_user.id}, {
+                             '$set': {'events.joi.{}'.format(mtype): doc}})
+            return "success"
+        else:
+            return "error"
     else:
-        return "error"
+        registered = request.form.get('registered')
+        registered = True if registered == 'true' else False
+        users = get_users()
+        user = current_user
+        if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
+            users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': registered}})
+            return "success"
+        else:
+            return "incomplete_profile"
 
 
 @app.route('/update_styf', methods=["POST"])
