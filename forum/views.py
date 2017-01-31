@@ -141,10 +141,9 @@ def update_event():
         else:
             return "error"
     else:
-        registered = request.form.get('registered')
-        registered = True if registered == 'true' else False
         users = get_users()
         user = current_user
+        registered = not user.events.get('fra').get('registered')
         if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
             users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': registered}})
             return "success"

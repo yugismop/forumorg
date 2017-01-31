@@ -34,7 +34,7 @@
   <div class="box">
     <div class="box-header">
       <h3 class="box-title">
-        Inscris-toi au Forum Rhône-Alpes
+        Inscription au Forum Rhône-Alpes
       </h3>
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -50,7 +50,9 @@
             <div class="radio">
               <label>
                 <input type="checkbox" name="fra">
-                Je souhaite m'inscrire à l'évènement Forum Rhône-Alpes.
+                Je souhaite
+                {{ "me désinscrire" if user.events.fra.registered else "m'inscrire" }}
+                à l'évènement Forum Rhône-Alpes.
               </label>
             </div>
           </div>
@@ -66,15 +68,44 @@
   <!-- /.box -->
 </div>
 </div>
+{% if user.events.fra.registered %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          QR Code à présenter le jour du forum (sur smarphone, ou par impression)
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12" style="padding:30px">
+            {% set code = dict(id = current_user.id, registered = current_user.events.fra.registered) %}
+            {% set code = '%s,%s' | format(code.id, code.registered) %}
+            <img src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=2) }}">
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+{% endif %}
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript">
 function update_fra() {
-  var registered = $('input[name=fra]').is(':checked');
   $.ajax({
     type: "POST",
     data: {
-      'registered': registered,
       'event': 'fra'
     },
     url: "{{ url_for('update_event') }}",

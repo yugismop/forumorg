@@ -5,6 +5,7 @@ import json
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_qrcode import QRcode
 
 # App init
 app = Flask(__name__)
@@ -20,6 +21,9 @@ login_manager.login_view = 'login'
 
 # Bcrypt
 bcrypt = Bcrypt(app)
+
+# QRCode
+qrcode = QRcode(app)
 
 # Storage init
 from storage import get_events, get_users, init_storage
