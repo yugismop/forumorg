@@ -17,7 +17,6 @@
                 </h2>
               </td>
             </tr>
-
           {% else %}
             <tr>
               <td colspan="4">
@@ -54,9 +53,7 @@
   <!-- /.box-header -->
   <div class="box-body">
     <div class="row">
-
       <div class="col-md-12">
-
         <div class="col-md-4">
           <div class="form-group">
             <label>Nom</label>
@@ -65,7 +62,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="form-group">
             <label>Prénom</label>
@@ -74,7 +70,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="form-group">
             <label>Téléphone</label>
@@ -83,7 +78,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="form-group">
             <label>Ecole</label>
@@ -101,7 +95,18 @@
             </select>
           </div>
         </div>
-
+        <div class="col-md-4">
+          {% set specialties = ['Informatique','Electronique','Biochimie','Télécommunications','Bioinformatique','Commercial & Marketing','Chimie','Biologie','Matériaux','Agronomie','Génie Industriel','Génie Civil','Génie Mécanique','Génie Electrique','Génie
+          Énergétique']%}
+          <div class="form-group">
+            <label>Spécialité</label>
+            <select class="form-control select2 specialty" style="width: 100%;">
+              {% for s in specialties %}
+                <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
         <div class="col-md-4">
           <div class="form-group">
             <label>Année d'étude</label>
@@ -126,26 +131,24 @@
 <!-- /.box -->
 </div>
 </div>
-
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript">
-
 function update_profile() {
   var first_name = $(".first_name").val();
   var name = $(".name").val();
   var tel = $(".tel").val();
   var school = $(".school").val();
   var year = $(".year").val();
-  console.log("UPDATE_PROFILE", first_name, name, tel, school, year);
-
-  if (first_name && name && tel && school && year) {
+  var specialty = $(".specialty").val();
+  if (first_name && name && tel && school && year && specialty) {
     $.ajax({
       type: "POST",
       url: "{{ url_for('update_profile') }}",
       data: {
         "first_name": first_name,
         "name": name,
+        "specialty": specialty,
         "tel": tel,
         "school": school,
         "year": year
@@ -166,23 +169,19 @@ function update_profile() {
   }
   return false;
 };
-
 $('#confirm_profile').on('click', function (e) {
   e.preventDefault();
   update_profile();
 });
 </script>
-
 <!-- InputMask -->
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
-
 <!-- Page script -->
 <script>
 $(function () {
   $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
 });
 </script>
-
 {% endblock scripts %}
