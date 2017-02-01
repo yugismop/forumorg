@@ -25,7 +25,7 @@ def dashboard(page=None):
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
+        email = request.form.get('email').lower()
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
@@ -47,6 +47,10 @@ def register():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+        if not password or not email:
+            flash("empty_fields")
+            return render_template('register.html')
+        email = email.lower()
         if user_exists(email):
             user = get_user(id=email)
             if user.confirmed:

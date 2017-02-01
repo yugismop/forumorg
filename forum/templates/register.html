@@ -9,7 +9,6 @@
       <!-- /.login-logo -->
       <div class="login-box-body">
         <h3 class="login-box-msg">S'inscrire à la plateforme</h3>
-
         <form action="{{ url_for('register') }}" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email" autofocus required>
@@ -23,10 +22,13 @@
             <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password" value="{{request.form.password}}" required>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
-          {% if error %}
+          {% if error or get_flashed_messages() %}
             <div class="form-group has-feedback">
               {% if error == "user_already_exists" %}
                 <span class="text-blue">Un utilisateur existe déjà associé à cet email.</span>
+              {% endif %}
+              {% if "empty_fields" in get_flashed_messages() %}
+                <span class="text-error">Des champs sont manquants...</span>
               {% endif %}
             </div>
           {% endif %}
@@ -47,7 +49,6 @@
       <!-- /.login-box-body -->
     </div>
     <!-- /.login-box -->
-
     {% block scripts %}
       {{ super() }}
       <script>
