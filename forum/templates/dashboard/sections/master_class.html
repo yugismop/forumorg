@@ -1,5 +1,5 @@
 {% extends "dashboard/section.html" %}
-{% set title = 'Mastere Class' %}
+{% set title = 'Master Class' %}
 {% set events = get_master_class() %}
 {% block content %}
   <div class="row">
@@ -10,7 +10,7 @@
           {% if user.events.master_class.registered %}
             <tr>
               <td colspan="4">
-                <h2 class="lead text-center">Ton inscription à la Mastere Class est bien prise en compte.
+                <h2 class="lead text-center">Ton inscription à la Master Class est bien prise en compte.
                 </h2>
               </td>
             </tr>
@@ -34,7 +34,7 @@
   <div class="box">
     <div class="box-header">
       <h3 class="box-title">
-        Inscris-toi à la Mastere Class
+        Inscris-toi à la Master Class
       </h3>
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -50,7 +50,7 @@
             <div class="radio">
               <label>
                 <input type="checkbox" name="master">
-                Je souhaite m'inscrire à l'évènement Mastere Class.
+                Je souhaite m'inscrire à l'évènement Master Class.
               </label>
             </div>
           </div>
