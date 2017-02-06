@@ -34,12 +34,12 @@ init_storage()
 def to_companies(day):
     cur = get_db().companies.find({}, {'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
     cur = [l for l in cur if l['id'] != 'admin' or l['id'] != 'forumorg']
-    cur = [l for l in cur if l['pole'] != 'school']
     res = []
     for c in cur:
         is_filled = True if c.get('ambassadors') else False
         d = {'id': c['id'], 'name': c['name'].lower().capitalize(), 'is_filled': is_filled}
-        res.append(d)
+        if c.get('pole') and c.get('pole') != 'school':
+            res.append(d)
     return res
 
 
