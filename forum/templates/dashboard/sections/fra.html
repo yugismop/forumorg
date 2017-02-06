@@ -2,7 +2,7 @@
 {% set title = 'Forum Rhône-Alpes' %}
 {% set events = get_master_class() %}
 {% block content %}
-  <div class="row">
+  <div class="row no-print">
     <div class="col-xs-12">
       <div class="box">
         <!-- /.box-header -->
@@ -12,6 +12,16 @@
               <td colspan="4">
                 <h2 class="lead text-center">Ton inscription au Forum Rhône-Alpes est bien prise en compte.
                 </h2>
+                {% set companies = current_user.id | to_ambassador %}
+                {% if companies %}
+                  {% for k, v in companies.items() %}
+                    {{ '<h4 class="lead text-center">Tu seras ambassadeur de'|safe if loop.first else '' }}
+                    <strong>{{v|to_name}}
+                      ({{k|capitalize}})</strong>
+                    {{ 'et' if not loop.last else '.' }}
+                  {% endfor %}
+                  {{ '</h4>'|safe if loop.last else '' }}
+                {% endif %}
               </td>
             </tr>
           {% else %}
@@ -29,52 +39,51 @@
   <!-- /.box -->
 </div>
 </div>
+{% if not user.events.fra.registered %}
 <div class="row no-print">
-<div class="col-md-12">
-  <div class="box">
-    <div class="box-header">
-      <h3 class="box-title">
-        Inscription au Forum Rhône-Alpes
-      </h3>
-      <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-          <i class="fa fa-minus"></i>
-        </button>
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          Inscrits-toi au Forum Rhône-Alpes
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
       </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <div class="radio">
-              <label>
-                <input type="checkbox" name="fra">
-                Je souhaite
-                {{ "me désinscrire" if user.events.fra.registered else "m'inscrire" }}
-                à l'évènement Forum Rhône-Alpes.
-              </label>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="checkbox" name="fra">
+                  Je souhaite m'inscrire à l'évènement Forum Rhône-Alpes.
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="box-footer">
-        <button id="confirm_fra" type="submit" class="btn btn-primary">Confirmer</button>
+        <div class="box-footer">
+          <button id="confirm_fra" type="submit" class="btn btn-primary">Confirmer</button>
+        </div>
+        <!-- /.box-body -->
       </div>
       <!-- /.box-body -->
     </div>
-    <!-- /.box-body -->
+    <!-- /.box -->
   </div>
-  <!-- /.box -->
 </div>
-</div>
-{% if user.events.fra.registered %}
+{% else %}
 <div class="row">
   <div class="col-md-12">
     <div class="box">
       <div class="box-header">
         <h3 class="box-title">
-          QR Code à présenter le jour du forum (sur smarphone, ou par impression)
+          Ton QR Code
         </h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -91,24 +100,79 @@
             <img src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=2) }}">
           </div>
         </div>
-        <!-- /.box-body -->
         <div class="row no-print">
-          <div class="col-xs-12">
-            <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right">
-              <i class="fa fa-print"></i>
-              Imprimer billet</a>
+          <div class="col-md-12" style="padding:0px 30px 0px 30px">
+            <h3>1ère étape</h3>
+            <p>
+              <a href="javascript:window.print()" target="_blank" class="btn btn-default">
+                <i class="fa fa-print"></i>
+                Imprime ton billet</a>
+              ou sauvegarde cette page sur ton smartphone.</p>
+            <h3>2ème étape</h3>
+            <p>Montre ton billet à l'accueil pour accéder au salon.</p>
+            <h3>3ème étape</h3>
+            <p>Profite du Forum Rhône-Alpes ;) !</p>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="row no-print">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          Deviens un ambassadeur
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <form id="confirm_ambassador">
+          <div class="box-body">
+            <div class="row r-center">
+              {% for day in['mercredi',
+                'jeudi'] %}
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>choisis une entreprise à parrainer pour
+                      {{ day }}</label>
+                    <select class="form-control select2 company_{{loop.index}}" style="width: 100%;">
+                      {% set companies = day | to_companies %}
+                      <option value="none">Aucune</option>
+                      {% for c in companies %}
+                        <option value="{{c.id}}" {{ 'disabled' if c.is_filled else ''}}>{{c.name}}
+                          {{ '(complet)' if c.is_filled else '' }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              {% endfor %}
+              <!-- /.input group -->
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+        </form>
+        <!-- /.input group -->
+      </div>
       <!-- /.box-body -->
     </div>
-    <!-- /.box -->
+    <!-- /.box-body -->
   </div>
+  <!-- /.box -->
 </div>
 {% endif %}
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript">
+$(".select2").select2({language: "fr"});
 function update_fra() {
   $.ajax({
     type: "POST",
@@ -132,6 +196,30 @@ function update_fra() {
 $('#confirm_fra').on('click', function (e) {
   e.preventDefault();
   update_fra();
+});
+$('#confirm_ambassador').on('submit', function (e) {
+  e.preventDefault();
+  var first = $('.company_1').val();
+  var second = $('.company_2').val();
+  $.ajax({
+    type: "POST",
+    data: {
+      'first': first,
+      'second': second
+    },
+    url: "{{ url_for('update_ambassador') }}",
+    success: function (result) {
+      if (result == 'success') {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
+        Notify("Une erreur est survenue. Réessayez.", null, null, "error");
+      }
+    }
+  });
+  return false;
 });
 </script>
 {% endblock scripts %}

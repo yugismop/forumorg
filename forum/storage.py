@@ -44,6 +44,10 @@ def get_users():
     return db.users
 
 
+def get_db():
+    return db
+
+
 def get_events():
     return db.events
 

@@ -3,7 +3,7 @@
 from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
-from storage import User, confirm_user, get_events, get_user, get_users, user_exists
+from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db
 
 from forum import app
 from mailing import send_mail
@@ -108,8 +108,8 @@ def logout():
 @app.route('/update_event', methods=["POST"])
 @login_required
 def update_event():
-    event = request.form.get('event')
-    if event != 'fra':
+    mevent = request.form.get('event')
+    if mevent != 'fra':
         name = request.form.get('name')
         mtype = request.form.get('type')
         time = request.form.get('time')
@@ -147,9 +147,8 @@ def update_event():
     else:
         users = get_users()
         user = current_user
-        registered = not user.events.get('fra').get('registered')
         if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year') and user.profile.get('specialty'):
-            users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': registered}})
+            users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': True}})
             return "success"
         else:
             return "incomplete_profile"
@@ -189,6 +188,28 @@ def update_master_class():
         return "success"
     else:
         return "incomplete_profile"
+
+
+@app.route('/update_ambassador', methods=["POST"])
+@login_required
+def update_ambassador():
+    first = request.form.get('first')
+    second = request.form.get('second')
+    old_amb = get_db().users.find_one({'id': current_user.id}, {'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
+    if old_amb:
+        if old_amb.get('mercredi'):
+            get_db().companies.update_one({'id': old_amb.get('mercredi')}, {'$unset': {'ambassadors.mercredi': 1}})
+            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.mercredi': 1}})
+        if old_amb.get('jeudi'):
+            get_db().companies.update_one({'id': old_amb.get('jeudi')}, {'$unset': {'ambassadors.jeudi': 1}})
+            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.jeudi': 1}})
+    if first != 'none':
+        get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.mercredi': first}})
+        get_db().companies.update_one({'id': first}, {'$set': {'ambassadors.mercredi': current_user.id}})
+    if second != 'none':
+        get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.jeudi': first}})
+        get_db().companies.update_one({'id': first}, {'$set': {'ambassadors.jeudi': current_user.id}})
+    return "success"
 
 
 @app.route('/update_profile', methods=["POST"])

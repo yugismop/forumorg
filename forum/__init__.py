@@ -26,8 +26,20 @@ bcrypt = Bcrypt(app)
 qrcode = QRcode(app)
 
 # Storage init
-from storage import get_events, get_users, init_storage
+from storage import get_events, get_users, init_storage, get_db
 init_storage()
+
+
+@app.template_filter('to_companies')
+def to_companies(day):
+    cur = get_db().companies.find({}, {'id': 1, 'name': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
+    cur = [l for l in cur if l['id'] != 'admin']
+    res = []
+    for c in cur:
+        is_filled = True if c.get('ambassadors') else False
+        d = {'id': c['id'], 'name': c['name'], 'is_filled': is_filled}
+        res.append(d)
+    return res
 
 
 @app.context_processor
@@ -54,6 +66,16 @@ def get_master_class():
 @app.template_filter('to_str')
 def to_jobs(lst):
     return ', '.join(json.loads(lst))
+
+
+@app.template_filter('to_ambassador')
+def to_ambassador(user_id):
+    return get_db().users.find_one({'id': user_id}, {'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
+
+
+@app.template_filter('to_name')
+def to_name(company_id):
+    return get_db().companies.find_one({'id': company_id}, {'name': 1}).get('name')
 
 
 import views

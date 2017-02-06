@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,15 +23,11 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
-
   </head>
-
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
       <!-- Main Header -->
       <header class="main-header">
-
         <!-- Logo -->
         <a href="{{ url_for('dashboard') }}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -42,7 +37,6 @@
           <span class="logo-lg">
             <b>Forum</b>Organisation</span>
         </a>
-
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -79,18 +73,16 @@
       </header>
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
-
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel">
             <div class="pull-left image">
-                {% if current_user.data.id == 'manon.ponthieu@insa-lyon.fr' %}
-                    <img src="{{ url_for('static', filename='dist/img/avatar3.png') }}" class="user-image" alt="User Image">
-                {% else %}
-                    <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image" alt="User Image">
-                {% endif %}
+              {% if current_user.data.id == 'manon.ponthieu@insa-lyon.fr' %}
+                <img src="{{ url_for('static', filename='dist/img/avatar3.png') }}" class="user-image" alt="User Image">
+              {% else %}
+                <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image" alt="User Image">
+              {% endif %}
             </div>
             <div class="pull-left info">
               <p>{{user.id}}</p>
@@ -100,7 +92,6 @@
                 En Ligne</a>
             </div>
           </div>
-
           <!-- Sidebar Menu -->
           <ul class="sidebar-menu">
             <li class="header">Menu</li>
@@ -110,14 +101,12 @@
         </section>
         <!-- /.sidebar -->
       </aside>
-
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
           {% block header %}{% endblock header %}
         </section>
-
         <!-- Main content -->
         <section class="content">
           {% block content %}{% endblock content %}
@@ -125,9 +114,8 @@
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
-
       <!-- Main Footer -->
-      <footer class="main-footer">
+      <footer class="main-footer no-print">
         {% block footer %}{% endblock footer %}
       </footer>
     </div>
@@ -144,18 +132,14 @@
         max-width: 300px;
       }
       /* CUSTOM STYLES */
-
       .r-center {
         display: flex;
         flex-direction: row;
         align-items: center;
       }
-
     </style>
     <!-- ./wrapper -->
-
     <!-- REQUIRED JS SCRIPTS -->
-
     <!-- jQuery 2.2.3 -->
     <script src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap 3.3.6 -->
@@ -169,5 +153,4 @@
     <!-- AdminLTE App -->
     <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
   </body>
-
 </html>
