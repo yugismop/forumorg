@@ -32,7 +32,12 @@ init_storage()
 
 @app.template_filter('to_companies')
 def to_companies(day):
-    cur = get_db().companies.find({}, {'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
+    if day == 'mercredi':
+        duration = 'wed'
+    elif day == 'jeudi':
+        duration = 'thu'
+
+    cur = get_db().companies.find({{'duration': {'$in': [duration, 'both']}}}, {'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
     cur = list(cur)
     cur = [l for l in cur if l['id'] != 'admin']
     cur = [l for l in cur if l['id'] != 'forumorg']
