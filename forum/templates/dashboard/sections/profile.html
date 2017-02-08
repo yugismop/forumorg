@@ -51,14 +51,14 @@
     </div>
   </div>
   <!-- /.box-header -->
-  <div class="box-body">
-    <div class="row">
-      <div class="col-md-12">
+  <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data">
+    <div class="box-body">
+      <div class="row">
         <div class="col-md-4">
           <div class="form-group">
             <label>Nom</label>
             <div class="input-group">
-              <input id="name " type="text" class="form-control name" placeholder="Martin" size="50" {% if user.profile.name %} value="{{ user.profile.name }}" {% else %} value="" {% endif %}>
+              <input name="name" type="text" class="form-control" placeholder="Martin" size="50" {% if user.profile.name %} value="{{ user.profile.name }}" {% else %} value="" {% endif %} required>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
           <div class="form-group">
             <label>Prénom</label>
             <div class="input-group">
-              <input id="surname " type="text" class="form-control first_name" placeholder="Marie" style="width: 100%;" size="50" {% if user.profile.first_name %} value="{{ user.profile.first_name }}" {% else %} value="" {% endif %}>
+              <input name="first_name" type="text" class="form-control" placeholder="Marie" style="width: 100%;" size="50" {% if user.profile.first_name %} value="{{ user.profile.first_name }}" {% else %} value="" {% endif %} required>
             </div>
           </div>
         </div>
@@ -74,14 +74,14 @@
           <div class="form-group">
             <label>Téléphone</label>
             <div class="input-group">
-              <input id="tel " type="text" class="form-control tel" placeholder="06 xx xx xx xx" size="50" {% if user.profile.tel %} value="{{ user.profile.tel }}" {% else %} value="" {% endif %} data-mask>
+              <input name="tel" type="text" class="form-control tel" placeholder="06 xx xx xx xx" size="50" {% if user.profile.tel %} value="{{ user.profile.tel }}" {% else %} value="" {% endif %} data-mask required>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label>Ecole</label>
-            <select class="form-control select2 school" style="width: 100%;" {% if user.profile.school %} value="{{ user.profile.school }}" {% else %} value="" {% endif %}>
+            <select name="school" class="form-control select2" style="width: 100%;" {% if user.profile.school %} value="{{ user.profile.school }}" {% else %} value="" {% endif %} required>
               <option {% if user.profile.school == 'INSA Lyon' %} selected {% endif %}>INSA Lyon</option>
               <option {% if user.profile.school == 'CPE Lyon' %} selected {% endif %}>CPE Lyon</option>
               <option {% if user.profile.school == 'Polytech Lyon' %} selected {% endif %}>Polytech Lyon</option>
@@ -100,7 +100,7 @@
           Énergétique']%}
           <div class="form-group">
             <label>Spécialité</label>
-            <select class="form-control select2 specialty" style="width: 100%;">
+            <select name="specialty" class="form-control select2" style="width: 100%;">
               {% for s in specialties %}
                 <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
               {% endfor %}
@@ -110,7 +110,7 @@
         <div class="col-md-4">
           <div class="form-group">
             <label>Année d'étude</label>
-            <select class="form-control select2 year" style="width: 100%;" {% if user.profile.year %} value="{{ user.profile.year }}" {% else %} value="" {% endif %}>
+            <select name="year" class="form-control select2" style="width: 100%;" {% if user.profile.year %} value="{{ user.profile.year }}" {% else %} value="" {% endif %}>
               <option {% if user.profile.year == 'Bac+1' %} selected {% endif %}>Bac+1</option>
               <option {% if user.profile.year == 'Bac+2' %} selected {% endif %}>Bac+2</option>
               <option {% if user.profile.year == 'Bac+3' %} selected {% endif %}>Bac+3</option>
@@ -121,59 +121,33 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="resume">
+              Curriculum Vitae
+              {% if user.profile.resume_id %}
+                <a href="{{ user.profile.resume_id|to_url }}">(voir
+                  {{ user.profile.resume_id|to_filename }})</a>
+              {% endif %}
+            </label>
+            <input type="file" name="resume">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="box-footer">
-      <button id="confirm_profile" type="submit" class="btn btn-primary">Confirmer</button>
+      <button type="submit" class="btn btn-primary">Confirmer</button>
     </div>
-    <!-- /.box-body -->
-  </div>
+  </form>
+  <!-- /.box-body -->
+</div>
 </div>
 <!-- /.box -->
 </div>
 </div>
 {% endblock content %}
 {% block scripts %}
-<script type="text/javascript">
-function update_profile() {
-  var first_name = $(".first_name").val();
-  var name = $(".name").val();
-  var tel = $(".tel").val();
-  var school = $(".school").val();
-  var year = $(".year").val();
-  var specialty = $(".specialty").val();
-  if (first_name && name && tel && school && year && specialty) {
-    $.ajax({
-      type: "POST",
-      url: "{{ url_for('update_profile') }}",
-      data: {
-        "first_name": first_name,
-        "name": name,
-        "specialty": specialty,
-        "tel": tel,
-        "school": school,
-        "year": year
-      },
-      success: function (result) {
-        if (result == 'success') {
-          Notify("Changements sauvegardés.");
-        } else {
-          Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
-        }
-        setTimeout(function () {
-          location.reload();
-        }, 1000);
-      }
-    });
-  } else {
-    Notify("Veuillez remplir tous les champs.", null, null, "error");
-  }
-  return false;
-};
-$('#confirm_profile').on('click', function (e) {
-  e.preventDefault();
-  update_profile();
-});
-</script>
 <!-- InputMask -->
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>

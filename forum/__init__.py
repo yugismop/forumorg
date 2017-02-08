@@ -2,10 +2,12 @@
 
 import os
 import json
-from flask import Flask
+from flask import Flask, url_for
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_qrcode import QRcode
+from gridfs import GridFS
+from bson.objectid import ObjectId
 
 # App init
 app = Flask(__name__)
@@ -28,6 +30,7 @@ qrcode = QRcode(app)
 # Storage init
 from storage import get_events, get_users, init_storage, get_db
 init_storage()
+GridFS = GridFS(get_db(), collection='resumes')
 
 
 @app.template_filter('to_companies')
@@ -74,6 +77,17 @@ def get_master_class():
 @app.template_filter('to_str')
 def to_jobs(lst):
     return ', '.join(json.loads(lst))
+
+
+@app.template_filter('to_filename')
+def to_filename(oid):
+    file = GridFS.get(ObjectId(oid))
+    return file.filename
+
+
+@app.template_filter('to_url')
+def to_url(oid):
+    return url_for('get_resume', oid=str(oid))
 
 
 @app.template_filter('to_ambassador')

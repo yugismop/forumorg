@@ -5,7 +5,12 @@ from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
 from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db
 
-from forum import app
+from flask import make_response
+from werkzeug import secure_filename
+from bson.objectid import ObjectId
+from gridfs.errors import NoFile
+
+from forum import app, GridFS
 from mailing import send_mail
 
 
@@ -103,6 +108,34 @@ def confirm_email(token):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
+
+
+@app.route('/update_profile', methods=["POST"])
+@login_required
+def update_profile():
+    users = get_users()
+    users.update_one({'id': current_user.id}, {'$set': {'profile': request.form}})
+    file = request.files['resume']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        oid = GridFS.put(file, content_type=file.content_type, filename=filename)
+        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
+    return redirect(url_for('dashboard', page='profile'))
+
+
+@app.route('/get_resume/<oid>')
+def get_resume(oid):
+    try:
+        file = GridFS.get(ObjectId(oid))
+        response = make_response(file.read())
+        response.mimetype = file.content_type
+        return response
+    except NoFile:
+        abort(404)
 
 
 @app.route('/update_event', methods=["POST"])
@@ -209,14 +242,6 @@ def update_ambassador():
     if second != 'none':
         get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.jeudi': first}})
         get_db().companies.update_one({'id': first}, {'$set': {'ambassadors.jeudi': current_user.id}})
-    return "success"
-
-
-@app.route('/update_profile', methods=["POST"])
-@login_required
-def update_profile():
-    users = get_users()
-    users.update_one({'id': current_user.id}, {'$set': {'profile': request.form}})
     return "success"
 
 
