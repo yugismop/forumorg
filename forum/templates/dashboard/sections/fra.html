@@ -105,7 +105,7 @@
                     <label>choisis une entreprise à parrainer pour
                       {{ day }}</label>
                     <select class="form-control select2 company_{{loop.index}}" style="width: 100%;">
-                      {% set companies = day | to_companies %}
+                      {% set companies = day | to_companies | sort(attribute = 'name') %}
                       <option value="none">Aucune</option>
                       {% for c in companies %}
                         <option {{ 'selected' if user.events.fra.get('ambassador', {}).get(day) == c.id else '' }} value="{{c.id}}" {{ 'disabled' if c.is_filled and not user.events.fra.get('ambassador', {}).get(day) == c.id else ''}}>{{c.name}}
