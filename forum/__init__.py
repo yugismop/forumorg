@@ -46,7 +46,7 @@ def to_companies(day):
     cur = [l for l in cur if l['id'] != 'forumorg']
     res = []
     for c in cur:
-        is_filled = True if c.get('ambassadors') else False
+        is_filled = bool(c.get('ambassadors') and c.get('ambassadors').get(day))
         d = {'id': c['id'], 'name': c['name'].lower().capitalize(), 'is_filled': is_filled}
         if c.get('pole') and c.get('pole') != 'school':
             res.append(d)
@@ -97,7 +97,9 @@ def to_ambassador(user_id):
 
 @app.template_filter('to_name')
 def to_name(company_id):
-    return get_db().companies.find_one({'id': company_id}, {'name': 1}).get('name')
+    comp = get_db().companies.find_one({'id': company_id}, {'name': 1})
+    return comp.get('name') if comp else None
+
 
 
 import views

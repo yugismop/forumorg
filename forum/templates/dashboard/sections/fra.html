@@ -108,7 +108,7 @@
                       {% set companies = day | to_companies %}
                       <option value="none">Aucune</option>
                       {% for c in companies %}
-                        <option value="{{c.id}}" {{ 'disabled' if c.is_filled else ''}}>{{c.name}}
+                        <option {{ 'selected' if user.events.fra.get('ambassador', {}).get(day) == c.id else '' }} value="{{c.id}}" {{ 'disabled' if c.is_filled and not user.events.fra.get('ambassador', {}).get(day) == c.id else ''}}>{{c.name}}
                           {{ '(complet)' if c.is_filled else '' }}</option>
                       {% endfor %}
                     </select>

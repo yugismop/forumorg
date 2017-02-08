@@ -228,21 +228,19 @@ def update_master_class():
 def update_ambassador():
     first = request.form.get('first')
     second = request.form.get('second')
-    old_amb = get_db().users.find_one({'id': current_user.id}, {'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
-    if old_amb:
-        if old_amb.get('mercredi'):
-            get_db().companies.update_one({'id': old_amb.get('mercredi')}, {'$unset': {'ambassadors.mercredi': 1}})
-            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.mercredi': 1}})
-        if old_amb.get('jeudi'):
-            get_db().companies.update_one({'id': old_amb.get('jeudi')}, {'$unset': {'ambassadors.jeudi': 1}})
-            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.jeudi': 1}})
-    if first != 'none':
-        get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.mercredi': first}})
-        get_db().companies.update_one({'id': first}, {'$set': {'ambassadors.mercredi': current_user.id}})
-    if second != 'none':
-        get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.jeudi': first}})
-        get_db().companies.update_one({'id': first}, {'$set': {'ambassadors.jeudi': current_user.id}})
+    _update_ambassador(first, 'mercredi')
+    _update_ambassador(second, 'jeudi')
     return "success"
+
+
+def _update_ambassador(value, day):
+    old_val = get_db().users.find_one({'id': current_user.id}, {'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
+    if old_val and old_val.get(day):
+            get_db().companies.update_one({'id': old_val.get(day)}, {'$unset': {'ambassadors.{}'.format(day): 1}})
+            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.{}'.format(day): 1}})
+    if value != 'none':
+        get_db().companies.update_one({'id': value}, {'$set': {'ambassadors.{}'.format(day): current_user.id}})
+        get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.{}'.format(day): value}})
 
 
 # INDEX
