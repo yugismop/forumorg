@@ -57,7 +57,13 @@
                     <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image" alt="User Image">
                   {% endif %}
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">{{user.id}}</span>
+                  <span class="hidden-xs">
+                    {% if not user.profile.first_name %}
+                      {{ user.id.split('@')[0] }}
+                    {% else %}
+                      {{ "%s %s"|format(user.profile.first_name|capitalize, user.profile.name|capitalize)}}
+                    {% endif %}
+                  </span>
                 </a>
               </li>
               <!-- Sign Out Menu -->
@@ -85,7 +91,13 @@
               {% endif %}
             </div>
             <div class="pull-left info">
-              <p>{{user.id}}</p>
+              <p>
+                {% if not user.profile.first_name %}
+                  {{ user.id.split('@')[0] }}
+                {% else %}
+                  {{ "%s %s"|format(user.profile.first_name|capitalize, user.profile.name|capitalize)}}
+                {% endif %}
+              </p>
               <!-- Status -->
               <a href="#">
                 <i class="fa fa-circle text-success"></i>
