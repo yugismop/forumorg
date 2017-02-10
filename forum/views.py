@@ -41,6 +41,7 @@ def login():
             return render_template('login.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
+        print('connected_as: {}'.format(email))
         login_user(user)
         return redirect(url_for('dashboard'))
     print("flash: {}".format(get_flashed_messages()))
