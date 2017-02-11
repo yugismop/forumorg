@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort
+from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
 from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db
@@ -103,6 +103,25 @@ def confirm_email(token):
         confirm_user(user)
         flash('account_confirmed', 'success')
     return redirect(url_for('login'))
+
+
+@app.route('/identicon', methods=["GET"])
+@login_required
+def identicon():
+    from binascii import hexlify
+    from identicon import render_identicon
+    from io import BytesIO
+    text = request.args.get('text', 'EMPTY')
+    code = int(hexlify(text), 16)
+    size = 25
+    img = render_identicon(code, size)
+    stream = BytesIO()
+    img.save(stream, format='png')
+    stream.seek(0)
+    return send_file(
+        stream,
+        mimetype='image/png'
+    )
 
 
 @app.route('/deconnexion')
