@@ -1,6 +1,5 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Journée Objectif Ingénieur' %}
-{% set events = get_joi() %}
 {% block content %}
   <div class="row">
     <div class="col-xs-12">
@@ -62,7 +61,6 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-
               <div class="col-md-12">
                 <div class="form-group">
                   <label>sélectionner</label>
@@ -101,7 +99,6 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-
               <div class="col-md-12">
                 <div class="form-group">
                   <label>sélectionner</label>
@@ -140,11 +137,9 @@
         <!-- /.box -->
       </div>
     </div>
-
   {% endblock content %}
   {% block scripts %}
     <script type="text/javascript">
-
       var time = "first";
       $("#table_ronde").on("select2:select", function (e) {
         var group = e.params.data.element.parentNode.label;
@@ -155,7 +150,6 @@
         }
         console.log(time);
       });
-
       function update_event(type, name) {
         var name = $("#" + type).val();
         name = name.split(" - ")[0];
@@ -185,12 +179,10 @@
         });
         return false;
       }
-
       $('#confirm_conference').on('click', function (e) {
         e.preventDefault();
         update_event('conference');
       });
-
       $('#confirm_table').on('click', function (e) {
         e.preventDefault();
         update_event('table_ronde');

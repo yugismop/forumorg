@@ -138,7 +138,11 @@ def allowed_file(filename):
 @login_required
 def update_profile():
     users = get_users()
-    users.update_one({'id': current_user.id}, {'$set': {'profile': request.form}})
+    form = request.form.copy()
+    if form.get('school_'):
+        form['school'] = form['school_']
+    form.pop('school_', None)
+    users.update_one({'id': current_user.id}, {'$set': {'profile': form}})
     file = request.files['resume']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)

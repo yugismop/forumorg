@@ -28,7 +28,7 @@ bcrypt = Bcrypt(app)
 qrcode = QRcode(app)
 
 # Storage init
-from storage import get_events, get_users, init_storage, get_db
+from storage import init_storage, get_db
 init_storage()
 GridFS = GridFS(get_db(), collection='resumes')
 
@@ -54,24 +54,24 @@ def to_companies(day):
 
 
 @app.context_processor
-def get_joi():
-    def _get_joi():
-        return list(get_events().find({}))
-    return dict(get_joi=_get_joi)
+def get_events():
+    def _get_events():
+        return list(get_db().events.find({}))
+    return dict(get_events=_get_events)
 
 
-@app.context_processor
-def get_styf():
-    def _get_styf():
-        return list(get_events().find({}))
-    return dict(get_styf=_get_styf)
-
-
-@app.context_processor
-def get_master_class():
-    def _get_master_class():
-        return list(get_events().find({}))
-    return dict(get_master_class=_get_master_class)
+@app.template_filter('to_fields')
+def to_fields(type):
+    if type == 'specialties':
+        return ['Informatique', 'Electronique', 'Biochimie', u'Télécommunications',
+                'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
+                u'Matériaux', 'Agronomie', u'Génie Industriel', u'Génie Civil', u'Génie Mécanique', u'Génie Electrique', u'Génie Énergétique' ]
+    if type == 'schools':
+        return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
+                u'Université Lyon 1', u'Université Lyon 2', u'Université Lyon 3', 'IAE Lyon',
+                'ECAM', 'Mines Saint-Etienne']
+    if type == 'years':
+        return ['Bac+{}'.format(i) for i in range(1, 6)]
 
 
 @app.template_filter('to_str')

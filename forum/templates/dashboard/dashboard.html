@@ -1,6 +1,5 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Vue globale' %}
-{% set events = get_joi() %}
 {% macro more_button(name) -%}
   <strong>
     <a href="{{ url_for('dashboard', page=name) }}">

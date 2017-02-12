@@ -80,42 +80,40 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
+            {% set schools = 'schools' | to_fields %}
             <label>Ecole</label>
-            <select name="school" class="form-control select2" style="width: 100%;" {% if user.profile.school %} value="{{ user.profile.school }}" {% else %} value="" {% endif %} required>
-              <option {% if user.profile.school == 'INSA Lyon' %} selected {% endif %}>INSA Lyon</option>
-              <option {% if user.profile.school == 'CPE Lyon' %} selected {% endif %}>CPE Lyon</option>
-              <option {% if user.profile.school == 'Polytech Lyon' %} selected {% endif %}>Polytech Lyon</option>
-              <option {% if user.profile.school == 'Centrale Lyon' %} selected {% endif %}>Centrale Lyon</option>
-              <option {% if user.profile.school == 'EM Lyon' %} selected {% endif %}>EM Lyon</option>
-              <option {% if user.profile.school == 'Université Lyon 1' %} selected {% endif %}>Université Lyon 1</option>
-              <option {% if user.profile.school == 'Université Lyon 2' %} selected {% endif %}>Université Lyon 2</option>
-              <option {% if user.profile.school == 'Université Lyon 3' %} selected {% endif %}>Université Lyon 3</option>
-              <option {% if user.profile.school == 'IAE' %} selected {% endif %}>IAE Lyon</option>
-              <option {% if user.profile.school == 'Autre' %} selected {% endif %}>Autre</option>
+            <select name="school" class="form-control select2" style="width: 100%;" required>
+              {% for s in schools | sort %}
+                <option {{ 'selected' if user.profile.school == s else '' }}>{{ s }}</option>
+              {% endfor %}
+              <option {{ 'selected' if user.profile.school not in schools else '' }}>Autre</option>
             </select>
+            {% if user.profile.school not in schools %}
+              <input type="text" name="school" placeholder="Votre école..." value="{{ user.profile.school }}" class="school_"/>
+            {% else %}
+              <input type="text" name="school_" placeholder="Votre école..." class="school_" style="display:none;"/>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-4">
-          {% set specialties = ['Informatique','Electronique','Biochimie','Télécommunications','Bioinformatique','Commercial & Marketing','Chimie','Biologie','Matériaux','Agronomie','Génie Industriel','Génie Civil','Génie Mécanique','Génie Electrique','Génie Énergétique']%}
+          {% set specialties = 'specialties' | to_fields %}
           <div class="form-group">
             <label>Spécialité</label>
             <select name="specialty" class="form-control select2" style="width: 100%;">
-              {% for s in specialties %}
+              {% for s in specialties | sort %}
                 <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
               {% endfor %}
             </select>
           </div>
         </div>
         <div class="col-md-4">
+          {% set years = 'years' | to_fields %}
           <div class="form-group">
             <label>Année d'étude</label>
-            <select name="year" class="form-control select2" style="width: 100%;" {% if user.profile.year %} value="{{ user.profile.year }}" {% else %} value="" {% endif %}>
-              <option {% if user.profile.year == 'Bac+1' %} selected {% endif %}>Bac+1</option>
-              <option {% if user.profile.year == 'Bac+2' %} selected {% endif %}>Bac+2</option>
-              <option {% if user.profile.year == 'Bac+3' %} selected {% endif %}>Bac+3</option>
-              <option {% if user.profile.year == 'Bac+4' %} selected {% endif %}>Bac+4</option>
-              <option {% if user.profile.year == 'Bac+5' %} selected {% endif %}>Bac+5</option>
-              <option {% if user.profile.year == 'Autre' %} selected {% endif %}>Autre</option>
+            <select name="year" class="form-control select2" style="width: 100%;">
+              {% for y in years | sort %}
+                <option {{ 'selected' if user.profile.year == y else '' }}>{{ y }}</option>
+              {% endfor %}
             </select>
           </div>
         </div>
@@ -147,14 +145,16 @@
 </div>
 {% endblock content %}
 {% block scripts %}
-<!-- InputMask -->
-<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
-<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
-<!-- Page script -->
 <script>
-$(function () {
+$(document).ready(function () {
   $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
+  $('select[name=school]').change(function () {
+    if ($('select[name=school] option:selected').text() == "Autre") {
+      $('.school_').show();
+    } else {
+      $('.school_').hide();
+    }
+  })
 });
 </script>
 {% endblock scripts %}

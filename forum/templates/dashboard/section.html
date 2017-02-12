@@ -1,5 +1,6 @@
 {% extends "dashboard/base.html" %}
 {% set user = current_user.data %}
+{% set events = get_events() %}
 {% macro section_block(name, icon) -%}
   {% if name == 'accueil' %}
     <li class="{{ 'active' if request.path == url_for('dashboard') else '' }}">
