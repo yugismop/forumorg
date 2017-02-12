@@ -6,23 +6,8 @@
     <title>Forum Organisation | Gestion</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect.
-    -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/skins/skin-blue.min.css') }}">
-    <!-- favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/admin.min.css') }}"></link>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     {% set identicode = '%s-%s' | format(user.id[: 5], user.confirmed_on) %}
@@ -125,37 +110,9 @@
       </footer>
     </div>
     <div id="notifications"></div>
-    <style>
-      #notifications {
-        cursor: pointer;
-        position: fixed;
-        right: 0;
-        z-index: 9999;
-        bottom: 0;
-        margin-bottom: 22px;
-        margin-right: 15px;
-        max-width: 300px;
-      }
-      /* CUSTOM STYLES */
-      .r-center {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-    </style>
     <!-- ./wrapper -->
-    <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery 2.2.3 -->
-    <script src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ url_for('static', filename='plugins/select2/select2.full.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/select2/i18n/fr.js') }}"></script>
-    <!-- Notify -->
-    <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='build/admin.min.js') }}"></script>
     {% block scripts %}{% endblock scripts %}
-    <!-- AdminLTE App -->
-    <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
   </body>
 </html>

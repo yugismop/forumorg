@@ -101,5 +101,5 @@ def to_name(company_id):
     return comp.get('name') if comp else None
 
 
-
+import assets
 import views

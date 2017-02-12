@@ -1,7 +1,6 @@
 # Perso
-*.json
+pip-selfcheck.json
 .Python
-!events.json
 
 *.py[co]
 *.DS_*
@@ -14,3 +13,15 @@
 /build
 /backups
 .env
+forum/static/.webassets-cache/
+
+# Bower
+forum/static/bower_components/*
+!forum/static/bower_components/font-awesome
+!forum/static/bower_components/bootstrap
+forum/static/bower_components/font-awesome/*
+forum/static/bower_components/bootstrap/*
+!forum/static/bower_components/font-awesome/fonts
+!forum/static/bower_components/bootstrap/dist
+forum/static/bower_components/bootstrap/dist/*
+!forum/static/bower_components/bootstrap/dist/fonts

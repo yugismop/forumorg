@@ -18,24 +18,9 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-    <!-- EXTERNAL PLUGIN CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}">
-    <!-- Screenshot Slider -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nivo-lightbox.css') }}">
-    <!-- Screenshot Slider -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
-    <!-- Nivo Lightbox -->
-    <!-- TYPOGRAPHY -->
-    <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
-    <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- COLORS -->
-    <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
-    <!-- RESPONSIVE FIXES -->
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-    <!--[if lt IE 9]> <script src="js/html5shiv.js"></script> <script src="js/respond.min.js"></script> <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/index.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}"></link>
   </head>
   <body class="body-container">
     <div id="page" class="page">
@@ -59,17 +44,17 @@
               <li class="{{ 'active' if title == 'Accueil' else ''}}">
                 <a href="{{ url_for('index') }}" id="home">Accueil</a>
               </li>
-              <li class="{{ 'active' if title == 'STYF' else ''}}">
-                <a href="{{ url_for('index', page='styf') }}" id="styf">STYF</a>
+              <li class="{{ 'active' if title == 'Master Class' else ''}}">
+                <a href="{{ url_for('index', page='master_class') }}" id="joi">Master Class</a>
               </li>
               <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
                 <a href="{{ url_for('index', page='fra') }}" id="fra">Forum Rhône-Alpes</a>
               </li>
-              <li class="{{ 'active' if title == 'Master Class' else ''}}">
-                <a href="{{ url_for('index', page='master_class') }}" id="joi">Master Class</a>
+              <li class="{{ 'active' if title == 'STYF' else ''}}">
+                <a href="{{ url_for('index', page='styf') }}" id="styf">STYF</a>
               </li>
               <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
-                <a href="{{ url_for('index', page='joi') }}" id="joi">JOI</a>
+                <a href="{{ url_for('index', page='joi') }}" id="joi">J. Objectif Ingénieur</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -145,30 +130,16 @@
     </div>
     <!-- /end page -->
   </body>
+  <style>
+    html {
+      overflow-x: hidden;
+    }
+  </style>
   {% block style %}{% endblock style %}
   <!-- =========================
      SCRIPTS
 ============================== -->
-  <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/nivo-lightbox.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.localScroll.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.fitvids.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/matchMedia.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.mixitup.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/swiper.jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/application.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
-  <script>
-    /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
-    $(document).ready(function () {
-      $('ul.nav > li > a').off("click");
-    });
-  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/index.min.js') }}"></script>
   {% block scripts %}{% endblock scripts %}
+</html>

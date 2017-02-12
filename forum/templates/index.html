@@ -53,14 +53,14 @@
   <div class="row images">
     <div class="col-md-4">
       <a href="{{
-            url_for('index', page='styf') }}"><img src="{{ url_for('static', filename='images/STYF12.png')}}" alt="" class="img-responsive img"></a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{
             url_for('index', page='master_class') }}"><img src="{{ url_for('static', filename='images/mc_ouvert.png')}}" alt="" class="img-responsive img"></a>
     </div>
     <div class="col-md-4">
       <a href="{{ url_for('index', page='fra') }}"><img src="{{url_for('static', filename='images/fra_1.png')}}" alt="" class="img-responsive img"></a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{
+            url_for('index', page='styf') }}"><img src="{{ url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
     </div>
   </div>
 </section>
@@ -76,9 +76,6 @@
   .images > div {
     padding: 0;
     border: 1px solid white;
-  }
-  html {
-    overflow-x: hidden;
   }
 </style>
 {% endblock style %}
