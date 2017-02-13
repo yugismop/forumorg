@@ -113,7 +113,7 @@
             {% endfor %}
           </ul>
           <div class="home-download-btn">
-            <a href="{{ url_for('dashboard', page='fra') }}" class="btn btn-white btn-lg">
+            <a href="{{ url_for('dashboard', page='companies') }}" class="btn btn-white btn-lg">
               {{ 'Accéder à la liste complète des entreprises' if current_user.is_authenticated else "Connectez-vous pour accéder à la liste complète" }}
             </a>
           </div>
