@@ -1,10 +1,7 @@
 {% extends "base_index.html" %}
 {% set title = 'STYF' %}
-
 {% block home %}
-
   <section class="home event-home-1 dark-image-bg gradient-overlay" id="event-home-1">
-
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 text-center">
@@ -12,14 +9,10 @@
             <!-- REPLACE WITH YOUR LOGO -->
             <br>
           </div>
-
           <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">Le week-end pour entreprendre</p>
-
           <h1 class="heading-text" data-selector="Coming Soon">Start-Up Your Future</h1>
           <p class="sub-heading" data-selector="Coming Soon">3, 4, 5 Février 2017<br></p>
-
           <div class="home-download-btn">
-
             <a href="{{ url_for('dashboard') }}" class="btn btn-white btn-lg">
               {{ 'Modifier ma participation' if current_user.is_authenticated else "S'inscrire à Start-Up Your Future" }}
             </a>

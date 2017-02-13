@@ -14,7 +14,7 @@
           <p class="sub-heading" data-selector="Coming Soon">Rendez-vous avec l'EM Lyon, l'IE Business School
             <br>et bien d'autres pour débattre sur les Masters Spécialisés !<br></p>
           <div class="home-download-btn">
-            <a href="{{ url_for('dashboard') }}" class="btn btn-white btn-lg">
+            <a href="{{ url_for('dashboard', page='master_class') }}" class="btn btn-white btn-lg">
               {{ 'Modifier ma participation' if current_user.is_authenticated else "S'inscrire à la Master Class" }}
             </a>
           </div>

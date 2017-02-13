@@ -27,7 +27,9 @@
             {% elif name == 'master_class' %}
               {{ 'Master Class' }}
             {% elif name == 'fra' %}
-              {{ 'Forum Rhône-Alpes' }}
+              {{ 'Général' }}
+            {% elif name == 'companies' %}
+              {{ 'Liste des entreprises' }}
             {% elif name == 'profile' %}
               {{ 'Mon profil' }}
             {% endif %}
@@ -61,7 +63,19 @@
     {{ section_block('accueil', 'fa fa-home')}}
     {{ section_block('profile', 'fa fa-book')}}
     {{ section_block('master_class', 'fa fa-book')}}
-    {{ section_block('fra', 'fa fa-book')}}
+    <li class="active treeview">
+      <a href="#">
+        <i class="fa fa-dashboard"></i>
+        <span>Forum Rhône-Alpes</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        {{ section_block('fra', 'fa fa-sign-in')}}
+        {{ section_block('companies', 'fa fa-list')}}
+      </ul>
+    </li>
     {{ section_block('styf', 'fa fa-book')}}
     {{ section_block('joi', 'fa fa-book')}}
   {% endblock sections %}

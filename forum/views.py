@@ -223,7 +223,6 @@ def update_styf():
         if places_left > 0 or current_user.events['styf'].get('registered'):
             users.update_one({'id': current_user.id}, {'$set': {'events.styf': request.form}})
             users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
-            print(current_user.events)
             if not current_user.events['styf'].get('registered'):
                 events.update_one({'name': 'styf'}, {'$inc': {'places_left': -1}})
             return "success"

@@ -54,6 +54,17 @@ def to_companies(day):
 
 
 @app.context_processor
+def get_companies():
+    def _get_companies():
+        import csv
+        with open(os.path.join(os.path.dirname(__file__), '../data/companies.csv')) as f:
+            a = [{k: v for k, v in row.items()}
+            for row in csv.DictReader(f, skipinitialspace=True)]
+            return a
+    return dict(get_companies=_get_companies)
+
+
+@app.context_processor
 def get_events():
     def _get_events():
         return list(get_db().events.find({}))
