@@ -30,6 +30,8 @@
               {{ 'Général' }}
             {% elif name == 'companies' %}
               {{ 'Liste des entreprises' }}
+            {% elif name == 'ticket' %}
+              {{ 'Mon billet' }}
             {% elif name == 'profile' %}
               {{ 'Mon profil' }}
             {% endif %}
@@ -74,6 +76,7 @@
       <ul class="treeview-menu">
         {{ section_block('fra', 'fa fa-sign-in')}}
         {{ section_block('companies', 'fa fa-list')}}
+        {{ section_block('ticket', 'fa fa-ticket')}}
       </ul>
     </li>
     {{ section_block('styf', 'fa fa-book')}}

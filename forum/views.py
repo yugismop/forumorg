@@ -3,12 +3,13 @@
 from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
-from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db
+from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db, set_user
 
 from flask import make_response
 from werkzeug import secure_filename
 from bson.objectid import ObjectId
 from gridfs.errors import NoFile
+import json
 
 from forum import app, GridFS
 from mailing import send_mail
@@ -160,6 +161,15 @@ def get_resume(oid):
         return response
     except NoFile:
         abort(404)
+
+
+@app.route('/update_user', methods=["POST"])
+@login_required
+def update_user():
+    user = request.form.get('user')
+    user = json.loads(user)
+    set_user(user['id'], user)
+    return "success"
 
 
 @app.route('/update_event', methods=["POST"])

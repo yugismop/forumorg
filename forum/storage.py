@@ -34,6 +34,10 @@ def confirm_user(user):
     )
 
 
+def set_user(user_id, user_data):
+    return db.users.replace_one({'id': user_id}, user_data)
+
+
 def new_user(user):
     data = user.data
     data.pop('_id', None)

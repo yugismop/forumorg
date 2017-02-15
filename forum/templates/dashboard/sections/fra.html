@@ -127,96 +127,209 @@
     </div>
     <!-- /.box-body -->
   </div>
-  <div class="col-md-12">
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">
-          Ton billet
-        </h3>
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse">
-            <i class="fa fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <div class="row">
-          <div class="col-md-5" style="padding:30px">
-            {% set code = dict(id = current_user.id, registered = current_user.events.fra.registered) %}
-            {% set code = '%s,%s' | format(code.id, code.registered) %}
-            <img src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=2) }}">
-          </div>
-          <div class="col-md-1"></div>
-          <div class="col-md-5 no-print" style="padding:30px ">
-            <h3>1ère étape</h3>
-            <p>
-              <a href="javascript:window.print()" target="_blank" class="btn btn-default">
-                <i class="fa fa-print"></i>
-                Imprime ton billet</a>
-              ou sauvegarde cette page sur ton smartphone.</p>
-            <h3>2ème étape</h3>
-            <p>Présente ton billet à l'accueil pour accéder au salon.</p>
-            <h3>3ème étape</h3>
-            <p>Profite du Forum Rhône-Alpes ;) !</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 {% endif %}
+<div class="row">
+<div class="col-md-12 no-print">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">
+        Choisis une navette
+      </h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <p class="lead">Si tu n’es pas dans la région lyonnaise, Forum Organisation a mis en place un système de navettes gratuites. Tu peux dès maintenant effectuer ta réservation !
+      </p>
+      <form id="confirm_transport">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-4">
+              {% set places = ['Saint-Etienne (Mines Saint-Etienne)', 'Ecully (Centrale Lyon)', 'Grenoble (Polytech Grenoble)', 'Grenoble (Phelma Grenoble)', 'Forum Rhône-Alpes'] %}
+              {% set times = [
+                '08h15',
+                '10h30',
+                '12h00',
+                '12h15',
+                '15h00',
+                '16h00',
+                '17h00'
+              ] %}
+              <div class="form-group">
+                <label>je pars de</label>
+                <select class="form-control select2 from" style="width: 100%;">
+                  {% for p in places %}
+                    <option>{{ p }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>vers</label>
+                <select class="form-control select2 to" style="width: 100%;">
+                  {% for p in places %}
+                    <option>{{ p }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>à</label>
+                <select class="form-control select2 at" style="width: 100%;">
+                  {% for t in times %}
+                    <option>{{ t }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="box-body table-responsive no-padding">
+            {% if user.events.fra.transports %}
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Lieu de départ</th>
+                    <th>Lieu d'arrivée</th>
+                    <th>Départ</th>
+                    <th>
+                      <i class="fa fa-remove"></i>
+                    </th>
+                  </tr>
+                  {% for transport in user.events.fra.transports %}
+                    <tr>
+                      <td>{{ transport.departure_place }}</td>
+                      <td>{{ transport.arrival_place }}</td>
+                      <td>{{ transport.departure_time }}</td>
+                      <td>
+                        <i onclick="remove_transport({{loop.index0}})" class="fa fa-remove" style="color:red"></i>
+                      </td>
+                    </tr>
+                    {% endfor%}
+                  {% else %}
+                    <tr>
+                      <td colspan="4">
+                        <h2 class="lead text-center">Aucune navette enregistrée</h2>
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Ajouter navette</button>
+          </div>
+        </form>
+        <!-- /.input group -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box-body -->
+  </div>
+</div>
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript">
-$(".select2").select2({language: "fr"});
-function update_fra() {
-  $.ajax({
-    type: "POST",
-    data: {
-      'event': 'fra'
-    },
-    url: "{{ url_for('update_event') }}",
-    success: function (result) {
-      if (result == 'success') {
-        Notify("Changements sauvegardés.");
+  $(".select2").select2({language: "fr"});
+  function update_fra() {
+    $.ajax({
+      type: "POST",
+      data: {
+        'event': 'fra'
+      },
+      url: "{{ url_for('update_event') }}",
+      success: function (result) {
+        if (result == 'success') {
+          Notify("Changements sauvegardés.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
+        }
+      }
+    });
+    return false;
+  }
+  $('#confirm_fra').on('click', function (e) {
+    e.preventDefault();
+    update_fra();
+  });
+  $('#confirm_ambassador').on('submit', function (e) {
+    e.preventDefault();
+    var first = $('.company_1').val();
+    var second = $('.company_2').val();
+    $.ajax({
+      type: "POST",
+      data: {
+        'first': first,
+        'second': second
+      },
+      url: "{{ url_for('update_ambassador') }}",
+      success: function (result) {
+        if (result == 'success') {
+          Notify("Changements sauvegardés.", null, null, "success");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          Notify("Une erreur est survenue. Réessayez.", null, null, "error");
+        }
+      }
+    });
+    return false;
+  });
+  $('#confirm_transport').on('submit', function (e) {
+    e.preventDefault();
+    var user = {{ user|tojson }};
+    var transports = user.events.fra.transports;
+    var transport = {
+      departure_place: $(".from").val(),
+      arrival_place: $(".to").val(),
+      departure_time: $(".at").val()
+    };
+    user.events.fra.transports.push(transport);
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_user') }}",
+      data: {
+        "user": JSON.stringify(user)
+      },
+      success: function (result) {
+        Notify("Changements sauvegardés.", null, null, "success");
         setTimeout(function () {
           location.reload();
         }, 1000);
-      } else {
-        Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
       }
-    }
+    });
+    return false;
   });
-  return false;
-}
-$('#confirm_fra').on('click', function (e) {
-  e.preventDefault();
-  update_fra();
-});
-$('#confirm_ambassador').on('submit', function (e) {
-  e.preventDefault();
-  var first = $('.company_1').val();
-  var second = $('.company_2').val();
-  $.ajax({
-    type: "POST",
-    data: {
-      'first': first,
-      'second': second
-    },
-    url: "{{ url_for('update_ambassador') }}",
-    success: function (result) {
-      if (result == 'success') {
-        Notify("Changements sauvegardés.");
-        setTimeout(function () {
-          location.reload();
-        }, 1000);
-      } else {
-        Notify("Une erreur est survenue. Réessayez.", null, null, "error");
-      }
+  function remove_transport(index) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+      var user = {{ user|tojson }};
+      user.events.fra.transports.splice(index, 1);
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_user') }}",
+        data: {
+          "user": JSON.stringify(user)
+        },
+        success: function (result) {
+          Notify("Suppression confirmée.", null, null, "success");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
+      });
     }
-  });
-  return false;
-});
+  }
 </script>
 {% endblock scripts %}
