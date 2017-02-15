@@ -160,6 +160,7 @@
                 '16h00',
                 '17h00'
               ] %}
+              {% set times = ['Mercredi', 'Jeudi'] %}
               <div class="form-group">
                 <label>je pars de</label>
                 <select class="form-control select2 from" style="width: 100%;">
@@ -197,7 +198,7 @@
                   <tr>
                     <th>Lieu de départ</th>
                     <th>Lieu d'arrivée</th>
-                    <th>Départ</th>
+                    <th>Jour</th>
                     <th>
                       <i class="fa fa-remove"></i>
                     </th>
@@ -206,7 +207,7 @@
                     <tr>
                       <td>{{ transport.departure_place }}</td>
                       <td>{{ transport.arrival_place }}</td>
-                      <td>{{ transport.departure_time }}</td>
+                      <td>{{ transport.day }}</td>
                       <td>
                         <i onclick="remove_transport({{loop.index0}})" class="fa fa-remove" style="color:red"></i>
                       </td>
@@ -293,7 +294,7 @@
     var transport = {
       departure_place: $(".from").val(),
       arrival_place: $(".to").val(),
-      departure_time: $(".at").val()
+      day: $(".at").val()
     };
     user.events.fra.transports.push(transport);
     $.ajax({
