@@ -68,12 +68,14 @@ def get_companies():
 @app.context_processor
 def get_jobs():
     def _get_jobs():
-        jobs = get_db().jobs.aggregate([
-            {"$lookup": {"from": "companies", "localField": "company_id", "foreignField": "id", "as": "info"}},
-            {"$project": {"_id": 0, "info.name": 1, "description": 1, "title": 1, "url": 1, "location": 1, "duration": 1, "type": 1}},
-            {"$unwind": "$info"}
-        ])
-        return list(jobs)
+        jobs = get_db().jobs.find(
+            {},
+            {"_id": 0, "company_id": 1, "description": 1, "title": 1, "url": 1, "location": 1, "duration": 1, "type": 1},
+        )
+        jobs = list(jobs)
+        for j in jobs:
+            j["name"] = get_db().companies.find_one({"id": j["company_id"]})["name"]
+        return jobs
     return dict(get_jobs=_get_jobs)
 
 
