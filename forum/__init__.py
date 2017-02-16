@@ -60,8 +60,21 @@ def get_companies():
         with open(os.path.join(os.path.dirname(__file__), '../data/companies.csv')) as f:
             a = [{k: v for k, v in row.items()}
             for row in csv.DictReader(f, skipinitialspace=True)]
+            a = [r for r in a if r["sector"] != "sector"]
             return a
     return dict(get_companies=_get_companies)
+
+
+@app.context_processor
+def get_jobs():
+    def _get_jobs():
+        jobs = get_db().jobs.aggregate([
+            {"$lookup": {"from": "companies", "localField": "company_id", "foreignField": "id", "as": "info"}},
+            {"$project": {"_id": 0, "info.name": 1, "description": 1, "title": 1, "url": 1, "location": 1, "duration": 1, "type": 1}},
+            {"$unwind": "$info"}
+        ])
+        return list(jobs)
+    return dict(get_jobs=_get_jobs)
 
 
 @app.context_processor

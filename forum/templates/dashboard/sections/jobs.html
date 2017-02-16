@@ -5,28 +5,28 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Liste des entreprises</h3>
+          <h3 class="box-title">Liste des offres</h3>
         </div>
         <div class="box-body">
           <table class="table responsive table-hover nowrap" cellspacing="0" width="100%">
             <thead>
               <tr>
+                <th>Détails</th>
                 <th>Entreprise</th>
-                <th>Secteur</th>
-                <th>Ville</th>
-                <th>Pays</th>
-                <th>Chiffre d'affaires</th>
-                <th>Salaire à l'embauche</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Durée</th>
+                <th>Lieu</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
                 <th></th>
-                <th>Secteur</th>
-                <th>Ville</th>
-                <th>Pays</th>
+                <th>Entreprise</th>
                 <th></th>
-                <th></th>
+                <th>Type</th>
+                <th>Durée</th>
+                <th>Lieu</th>
               </tr>
             </tfoot>
           </table>
@@ -36,11 +36,25 @@
   </div>
 {% endblock content %}
 {% block scripts %}
+  <style>
+    td.details-control {
+      background: url("../../../static/images/open.png") no-repeat center center;
+      cursor: pointer;
+    }
+  </style>
   <script type="text/javascript">
+    function format(d) {
+      s = '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p>';
+      if (d.url) {
+        s += '<a class="h4" href="' + d.url + '">Lien url de l\'offre</a>';
+      }
+      s += '</div>';
+      return s;
+    }
     $(document).ready(function () {
-      var companies = {{ get_companies() | tojson }};
+      var jobs = {{ get_jobs() | tojson }};
       var table = $('.table').DataTable({
-        "data": companies,
+        "data": jobs,
         "language": {
           "paginate": {
             "first": "Premier",
@@ -59,7 +73,7 @@
           "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
         },
         "initComplete": function () {
-          this.api().columns([1, 2, 3]).every(function () {
+          this.api().columns([1, 3, 4, 5]).every(function () {
             var column = this;
             var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
               var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -74,23 +88,41 @@
         },
         "columns": [
           {
-            data: "name"
+            width: "3%",
+            className: 'details-control',
+            orderable: false,
+            data: null,
+            defaultContent: ''
           }, {
-            data: "sector"
+            data: "info.name"
           }, {
-            data: "city"
+            data: "title"
           }, {
-            data: "country"
+            data: "type"
           }, {
-            data: "revenue"
+            data: "duration"
           }, {
-            data: "salary"
+            data: "location"
           }
         ],
         "paging": true,
         "lengthChange": false,
         "searching": true,
         "dom": 'lrtp'
+      });
+      $('.table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        if (row.child.isShown()) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open this row
+          console.log(format(row.data()));
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
       });
     });
   </script>
