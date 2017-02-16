@@ -13,7 +13,7 @@
     </li>
   {% else %}
     <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
-      {% if name != 'styf' and name != 'joi' %}
+      {% if name != 'styf' and name != 'joi' and name != 'master_class' %}
         <a href="{{ url_for('dashboard', page=name) }}">
         {% else %}
           <a href="#">
@@ -36,7 +36,7 @@
               {{ 'Mon profil' }}
             {% endif %}
           </span>
-          {% if name == 'joi' or name == 'styf' %}
+          {% if name == 'joi' or name == 'styf' or name == 'master_class' %}
             <small class="label pull-right bg-red">clôturé</small>
           {% endif %}
         </a>
@@ -64,7 +64,6 @@
   {% block sections %}
     {{ section_block('accueil', 'fa fa-home')}}
     {{ section_block('profile', 'fa fa-book')}}
-    {{ section_block('master_class', 'fa fa-book')}}
     <li class="active treeview">
       <a href="#">
         <i class="fa fa-dashboard"></i>
@@ -75,10 +74,13 @@
       </a>
       <ul class="treeview-menu">
         {{ section_block('fra', 'fa fa-sign-in')}}
-        {{ section_block('companies', 'fa fa-list')}}
-        {{ section_block('ticket', 'fa fa-ticket')}}
+        {% if user.events.fra.registered %}
+          {{ section_block('companies', 'fa fa-list')}}
+          {{ section_block('ticket', 'fa fa-ticket')}}
+        {% endif %}
       </ul>
     </li>
+    {{ section_block('master_class', 'fa fa-book')}}
     {{ section_block('styf', 'fa fa-book')}}
     {{ section_block('joi', 'fa fa-book')}}
   {% endblock sections %}
