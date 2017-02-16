@@ -30,6 +30,8 @@
               {{ 'Général' }}
             {% elif name == 'companies' %}
               {{ 'Liste des entreprises' }}
+            {% elif name == 'jobs' %}
+              {{ 'Liste des offres' }}
             {% elif name == 'ticket' %}
               {{ 'Mon billet' }}
             {% elif name == 'profile' %}
@@ -76,6 +78,7 @@
         {{ section_block('fra', 'fa fa-sign-in')}}
         {% if user.events.fra.registered %}
           {{ section_block('companies', 'fa fa-list')}}
+          {{ section_block('jobs', 'fa fa-list')}}
           {{ section_block('ticket', 'fa fa-ticket')}}
         {% endif %}
       </ul>
