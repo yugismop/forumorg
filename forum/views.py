@@ -21,10 +21,8 @@ from mailing import send_mail
 @login_required
 def dashboard(page=None):
     # asking for specific page
-    if (page == 'ticket' or page == 'jobs') and not current_user.events['fra'].get('registered'):
-        abort(404)
-    if page == 'companies' and not current_user.events['fra'].get('registered'):
-        return render_template('dashboard/sections/fra.html')
+    if (page == 'companies' or page == 'ticket' or page == 'jobs') and not current_user.events['fra'].get('registered'):
+        page = 'fra'
     if page:
         return render_template('dashboard/sections/{}.html'.format(page))
     # default option is main dashboard
