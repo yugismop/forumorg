@@ -68,16 +68,16 @@
     {{ section_block('profile', 'fa fa-book')}}
     <li class="active treeview">
       <a href="#">
-        <i class="fa fa-dashboard"></i>
+        <i class="fa fa-book"></i>
         <span>Forum Rhône-Alpes</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-        {{ section_block('fra', 'fa fa-sign-in')}}
+        {{ section_block('fra', 'fa fa-dashboard')}}
         {% if user.events.fra.registered %}
-          {{ section_block('companies', 'fa fa-list')}}
+          {{ section_block('companies', 'fa fa-building')}}
           {{ section_block('jobs', 'fa fa-list')}}
           {{ section_block('ticket', 'fa fa-ticket')}}
         {% endif %}
