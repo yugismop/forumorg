@@ -46,7 +46,7 @@
     function format(d) {
       s = '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p>';
       if (d.url) {
-        s += '<a class="h4" href="' + d.url + '">Lien url de l\'offre</a>';
+        s += '<p class="lead">' + d.url + '</p>';
       }
       s += '</div>';
       return s;
