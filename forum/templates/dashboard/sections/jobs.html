@@ -70,6 +70,7 @@
           "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
           "infoPostFix": "",
           "loadingRecords": "Chargement en cours...",
+          "zeroRecords": "Pas de résultat trouvé.",
           "emptyTable": '<h2 class="lead text-center">Aucune offre enregistrée</h2>'
         },
         "initComplete": function () {
@@ -107,8 +108,7 @@
         ],
         "paging": true,
         "lengthChange": false,
-        "searching": true,
-        "dom": 'lrtp'
+        "searching": true
       });
       $('.table tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
