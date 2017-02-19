@@ -133,24 +133,34 @@ def logout():
     return redirect(url_for('index'))
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
+@app.route('/upload_resume', methods=["POST", "DELETE"])
+@login_required
+def upload_resume():
+    # Allowed files
+    def allowed_file(filename):
+        return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
+
+    users = get_users()
+    if request.method == 'POST':
+        file = request.files.get('resume')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            oid = GridFS.put(file, content_type=file.content_type, filename=filename)
+            users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
+        return "success"
+    if request.method == 'DELETE':
+        GridFS.delete(ObjectId(request.form['oid']))
+        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': None}})
 
 
 @app.route('/update_profile', methods=["POST"])
 @login_required
 def update_profile():
     users = get_users()
-    form = request.form.copy()
+    form = request.form.to_dict()
     if form.get('school_'):
-        form['school'] = form['school_']
-    form.pop('school_', None)
+        form['school'] = form.pop('school_')
     users.update_one({'id': current_user.id}, {'$set': {'profile': form}})
-    file = request.files['resume']
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        oid = GridFS.put(file, content_type=file.content_type, filename=filename)
-        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
     return redirect(url_for('dashboard', page='profile'))
 
 

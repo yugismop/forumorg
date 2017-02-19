@@ -111,9 +111,15 @@ def to_filename(oid):
     return file.filename
 
 
-@app.template_filter('to_url')
-def to_url(oid):
-    return url_for('get_resume', oid=str(oid))
+@app.template_filter('to_info')
+def to_info(oid):
+    if not oid:
+        return json.dumps({'empty': True})
+    file = GridFS.get(ObjectId(oid))
+    r = {"url": url_for('get_resume', oid=str(oid)),
+         "size": file.length,
+         "name": file.name}
+    return json.dumps(r)
 
 
 @app.template_filter('to_ambassador')

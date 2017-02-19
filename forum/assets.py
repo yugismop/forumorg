@@ -59,6 +59,7 @@ bundles = {
             'datatables.net/js/jquery.dataTables.min.js',
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
             'AdminLTE/dist/js/app.min.js',
+            'dropzone/dist/min/dropzone.min.js',
         ),
         Bundle(
             'bootstrap-editable/src/js/bootstrap-editable.js',
@@ -73,6 +74,7 @@ bundles = {
             'AdminLTE/dist/css/skins/skin-blue.min.css',
             'select2/dist/css/select2.min.css',
             'datatables.net-bs/css/dataTables.bootstrap.min.css',
+            'dropzone/dist/min/dropzone.min.css',
         ),
         Bundle(
             'PACE/themes/white/pace-theme-minimal.css',

@@ -2,159 +2,176 @@
 {% set title = 'Profil' %}
 {% block content %}
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">
+            Modifie ton profil
+          </h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <form action="{{ url_for('update_profile') }}" id="update_profile" method="post" enctype="multipart/form-data">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="first_name">Prénom</label>
+                  <div class="input-group col-md-12">
+                    <input id="first_name" name="first_name" type="text" class="form-control" placeholder="Ex. Marie" value="{{ user.profile.first_name if user.profile.first_name else '' }}" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Nom</label>
+                  <div class="input-group col-md-12">
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Ex. Bricout" value="{{ user.profile.name if user.profile.name else '' }}" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="tel">Téléphone</label>
+                  <div class="input-group col-md-12">
+                    <input id="tel" name="tel" type="text" class="form-control tel" placeholder="ex. 06 12 34 56 78" value="{{ user.profile.tel if user.profile.tel else '' }}" data-mask required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  {% set schools = 'schools' | to_fields %}
+                  <label for="school">Ecole</label>
+                  <div class="input-group col-md-12">
+                    <select id="school" name="school" style="width:{{'100' if user.profile.school in schools else '50' }}%" class="form-control select2" required>
+                      {% for s in schools | sort %}
+                        <option {{ 'selected' if user.profile.school == s else '' }}>{{ s }}</option>
+                      {% endfor %}
+                      <option {{ 'selected' if user.profile.school not in schools else '' }}>Autre</option>
+                    </select>
+                    <input
+                      type="text"
+                      name="school_"
+                      style="{{ 'display:none;' if user.profile.school in schools else '' }} margin:3px 0px 3px 5px; width:45%;"
+                      placeholder="Votre école..."
+                      value="{{ user.profile.school if user.profile.school not in schools else ''}}"
+                      class="school_">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                {% set specialties = 'specialties' | to_fields %}
+                <div class="form-group">
+                  <label for="specialty">Spécialité</label>
+                  <select id="specialty" name="specialty" class="form-control select2" style="width: 100%;">
+                    {% for s in specialties | sort %}
+                      <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                {% set years = 'years' | to_fields %}
+                <div class="form-group">
+                  <label for="year">Année d'étude</label>
+                  <select id="year" name="year" class="form-control select2" style="width: 100%;">
+                    {% for y in years | sort %}
+                      <option {{ 'selected' if user.profile.year == y else '' }}>{{ y }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+        </form>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
       <div class="box">
         <!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          {% if user.profile.first_name and user.profile.name and user.profile.tel and user.profile.year and user.profile.school %}
-            <tr>
-              <td colspan="4">
-                <h2 class="lead text-center">
-                  Bonjour,
-                  {{ user.profile.first_name }}
-                  {{ user.profile.name }}
-                  !
-                </h2>
-              </td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="4">
-                <h2 class="lead text-center">Ton profil n'est pas complet :(</h2>
-              </p>
-            </td>
-          </tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
-  <!-- /.box-body -->
-</div>
-<!-- /.box -->
-</div>
-</div>
-<div class="row">
-<div class="col-md-12">
-<div class="box">
-  <div class="box-header">
-    <h3 class="box-title">
-      {% if user.profile.first_name %}
-        Modifie ton profil
-      {% else %}
-        Remplis ton profil
-      {% endif %}
-    </h3>
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse">
-        <i class="fa fa-minus"></i>
-      </button>
-    </div>
-  </div>
-  <!-- /.box-header -->
-  <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data">
-    <div class="box-body">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Prénom</label>
-            <div class="input-group">
-              <input name="first_name" type="text" class="form-control" placeholder="Marie" style="width: 100%;" size="50" {% if user.profile.first_name %} value="{{ user.profile.first_name }}" {% else %} value="" {% endif %} required>
-            </div>
+        <div class="box-body">
+          <div style="margin-bottom:0px">
+            <form action="{{ url_for('upload_resume') }}" id="dropzone" style="margin-bottom:0px" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
+              <div class="dz-message">
+                Glisse ton CV ou clique ici pour l'uploader.<br>
+                <span class="note">(Seuls les documents PDF sont acceptés.)</span>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Nom</label>
-            <div class="input-group">
-              <input name="name" type="text" class="form-control" placeholder="Martin" size="50" {% if user.profile.name %} value="{{ user.profile.name }}" {% else %} value="" {% endif %} required>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Téléphone</label>
-            <div class="input-group">
-              <input name="tel" type="text" class="form-control tel" placeholder="06 xx xx xx xx" size="50" {% if user.profile.tel %} value="{{ user.profile.tel }}" {% else %} value="" {% endif %} data-mask required>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            {% set schools = 'schools' | to_fields %}
-            <label>Ecole</label>
-            <select name="school" class="form-control select2" style="width: 100%;" required>
-              {% for s in schools | sort %}
-                <option {{ 'selected' if user.profile.school == s else '' }}>{{ s }}</option>
-              {% endfor %}
-              <option {{ 'selected' if user.profile.school not in schools else '' }}>Autre</option>
-            </select>
-            {% if user.profile.school not in schools %}
-              <input type="text" name="school" placeholder="Votre école..." value="{{ user.profile.school }}" class="school_"/>
-            {% else %}
-              <input type="text" name="school_" placeholder="Votre école..." class="school_" style="display:none;"/>
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-md-4">
-          {% set specialties = 'specialties' | to_fields %}
-          <div class="form-group">
-            <label>Spécialité</label>
-            <select name="specialty" class="form-control select2" style="width: 100%;">
-              {% for s in specialties | sort %}
-                <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          {% set years = 'years' | to_fields %}
-          <div class="form-group">
-            <label>Année d'étude</label>
-            <select name="year" class="form-control select2" style="width: 100%;">
-              {% for y in years | sort %}
-                <option {{ 'selected' if user.profile.year == y else '' }}>{{ y }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="resume">
-              Curriculum Vitae
-              {% if user.profile.resume_id %}
-                <a href="{{ user.profile.resume_id|to_url }}">(voir
-                  {{ user.profile.resume_id|to_filename }})</a>
-              {% endif %}
-            </label>
-            <input type="file" name="resume">
-          </div>
-        </div>
+        <!-- /.box-body -->
       </div>
     </div>
-    <div class="box-footer">
-      <button type="submit" class="btn btn-primary">Confirmer</button>
-    </div>
-  </form>
-  <!-- /.box-body -->
-</div>
-</div>
-<!-- /.box -->
-</div>
-</div>
+    <!-- /.box -->
+  </div>
 {% endblock content %}
 {% block scripts %}
-<script>
-$(document).ready(function () {
-  $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
-  $('select[name=school]').change(function () {
-    if ($('select[name=school] option:selected').text() == "Autre") {
-      $('.school_').show();
-    } else {
-      $('.school_').hide();
-    }
-  })
-});
-</script>
+  <script>
+    Dropzone.autoDiscover = false;
+    $(document).ready(function () {
+      $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
+      $('#school').change(function () {
+        if ($('#school option:selected').text() == "Autre") {
+          $('.school_').show();
+          $('#school').css('width', '50%');
+          $(".school_").prop('required', true);
+        } else {
+          $('.school_').hide();
+          $('.school_').val('');
+          $(".school_").prop('required', false);
+          $('#school').css('width', '100%');
+        }
+      })
+      $(function () {
+        var cur_resume = {{ user.profile.resume_id|to_info|safe }};
+        var myDropzone = new Dropzone("#dropzone", {
+          url: "{{ url_for('upload_resume') }}",
+          maxFilesize: 5, // in MB
+          maxFiles: 1,
+          paramName: "resume",
+          uploadMultiple: false,
+          acceptedFiles: "application/pdf",
+          init: function () {
+            this.on("addedfile", function (file) {
+              var removeButton = Dropzone.createElement("<a class='dz-remove'>Supprimer CV</a>");
+              var _this = this;
+              removeButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                _this.removeFile(file);
+                myDropzone.options.maxFiles = 1;
+              });
+              file.previewElement.appendChild(removeButton);
+              if (!cur_resume.empty) {
+                var previewButton = Dropzone.createElement("<a href='" + cur_resume.url + "' class='dz-remove'>Visualiser CV</a>");
+                file.previewElement.appendChild(previewButton);
+              }
+            });
+          }
+        });
+        myDropzone.on("maxfilesexceeded", function (file) {
+          this.removeFile(file);
+        });
+        if (!cur_resume.empty) {
+          var mockFile = {
+            name: cur_resume.name,
+            size: cur_resume.size
+          };
+          myDropzone.emit("addedfile", mockFile);
+          myDropzone.emit("complete", mockFile);
+          myDropzone.options.maxFiles = 0;
+        }
+      });
+    });
+  </script>
 {% endblock scripts %}

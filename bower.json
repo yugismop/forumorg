@@ -26,7 +26,8 @@
     "datatables.net-bs": "^2.1.1",
     "font-awesome": "fontawesome#^4.7.0",
     "intl-tel-input": "^11.0.0",
-    "notify-js": "*"
+    "notify-js": "*",
+    "dropzone": "^4.3.0"
   },
   "resolutions": {
     "jquery": "^3.1.1"

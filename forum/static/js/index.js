@@ -125,6 +125,4 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('ul.nav > li > a').off("click");
     });
-
-
 });
