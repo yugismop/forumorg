@@ -59,7 +59,8 @@
                       style="{{ 'display:none;' if user.profile.school in schools else '' }} margin:3px 0px 3px 5px; width:45%;"
                       placeholder="Votre école..."
                       value="{{ user.profile.school if user.profile.school not in schools else ''}}"
-                      class="school_">
+                      class="school_"
+                      {{ 'required' if not user.profile.school else ''}}>
                   </div>
                 </div>
               </div>
