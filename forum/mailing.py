@@ -4,30 +4,24 @@ import os
 
 import sendgrid
 
-from sendgrid.helpers.mail import Email, Content, Mail
-
-
-BASE_EMAIL = """
-<p>Bienvenue a la plateforme de Forum Organisation!</p>
-<p><a href="{}">Veuillez cliquer sur ce lien pour activer votre compte</a></p>
-<p>La bise,</p>
-<p>L'equipe Forum Organisation.</p>
-"""
+from sendgrid.helpers.mail import Email, Mail, Personalization, Substitution
 
 
 def send_mail(recipient, confirm_url):
     # Create a text/plain message
     me = 'no-reply@forumorg.org'
-    you = recipient
-    subject = '[ForumOrg] Lien d\'activation'
-    text = BASE_EMAIL.format(confirm_url)
-
+    subject = 'Bienvenue à Forum Organisation!'
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-    # Setting from, subject, content, reply to
-    from_email = Email(me)
-    to_email = Email(you)
-    content = Content('text/html', text)
-    mail = Mail(from_email, subject, to_email, content)
+    # Creating mail
+    mail = Mail()
+    mail.set_from(Email(me))
+    mail.set_template_id('494a8322-4f93-4a71-b8e1-6afb8dfa6ba6')
+    personalization = Personalization()
+    personalization.add_to(Email(recipient))
+    mail.add_personalization(personalization)
+    mail.personalizations[0].add_substitution(Substitution("-registration_link-", confirm_url))
+    mail.personalizations[0].add_substitution(Substitution("-subject-", subject))
+
     # Sending email
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
