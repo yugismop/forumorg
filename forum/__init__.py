@@ -6,6 +6,7 @@ from flask import Flask, url_for
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_qrcode import QRcode
+from flask_sslify import SSLify
 from gridfs import GridFS
 from bson.objectid import ObjectId
 
@@ -27,6 +28,9 @@ bcrypt = Bcrypt(app)
 
 # QRCode
 qrcode = QRcode(app)
+
+# SSLify
+sslify = SSLify(app)
 
 # Storage init
 from storage import init_storage, get_db
