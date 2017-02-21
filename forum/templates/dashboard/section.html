@@ -67,10 +67,10 @@
   <!-- SECTIONS -->
   {% block sections %}
     {{ section_block('accueil', 'fa fa-home')}}
-    {{ section_block('profile', 'fa fa-book')}}
+    {{ section_block('profile', 'fa fa-user-circle-o')}}
     <li class="active treeview">
       <a href="#">
-        <i class="fa fa-book"></i>
+        <i class="fa fa-briefcase"></i>
         <span>Forum Rhône-Alpes</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
@@ -85,8 +85,8 @@
         {% endif %}
       </ul>
     </li>
-    {{ section_block('master_class', 'fa fa-book')}}
-    {{ section_block('styf', 'fa fa-book')}}
+    {{ section_block('master_class', 'fa fa-graduation-cap')}}
+    {{ section_block('styf', 'fa fa-lightbulb-o')}}
     {{ section_block('joi', 'fa fa-book')}}
   {% endblock sections %}
   {% block footer %}
