@@ -22,11 +22,10 @@ def drop_schools_():
 @manager.command
 def complete_companies():
     path = os.path.join(os.path.dirname(__file__), 'data/new_companies.csv')
-    reader = csv.reader(open(path, 'rb'))
+    reader = csv.DictReader(open(path, 'rb'))
     for row in reader:
-        db.companies.update({'id': row[0]})
-    #companies = [row for row in reader][1:]
-    #print(companies[0])
+        db.companies.update({'id': row['id_entreprise']}, {'$set': {'info': row}})
+        db.companies.update({'id': row['id_entreprise']}, {'$unset': {'info.id_entreprise': 1}})
 
 
 @manager.command

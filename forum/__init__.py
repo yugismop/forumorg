@@ -61,12 +61,9 @@ def to_companies(day):
 @app.context_processor
 def get_companies():
     def _get_companies():
-        import csv
-        with open(os.path.join(os.path.dirname(__file__), '../data/companies.csv')) as f:
-            a = [{k: v for k, v in row.items()}
-            for row in csv.DictReader(f, skipinitialspace=True)]
-            a = [r for r in a if r["sector"] != "sector"]
-            return a
+        companies = get_db().companies.find({'id': {'$ne': 'test'}})
+        companies = [c.get('info') for c in companies if c['id'] != 'test' if c.get('info')]
+        return companies
     return dict(get_companies=_get_companies)
 
 
