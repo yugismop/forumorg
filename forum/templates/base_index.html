@@ -44,11 +44,11 @@
               <li class="{{ 'active' if title == 'Accueil' else ''}}">
                 <a href="{{ url_for('index') }}" id="home">Accueil</a>
               </li>
-              <li class="{{ 'active' if title == 'Master Class' else ''}}">
-                <a href="{{ url_for('index', page='master-class') }}" id="joi">Master Class</a>
-              </li>
               <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
                 <a href="{{ url_for('index', page='forum-rhone-alpes') }}" id="fra">Forum Rhône-Alpes</a>
+              </li>
+              <li class="{{ 'active' if title == 'Master Class' else ''}}">
+                <a href="{{ url_for('index', page='master-class') }}" id="joi">Master Class</a>
               </li>
               <li class="{{ 'active' if title == 'STYF' else ''}}">
                 <a href="{{ url_for('index', page='start-up-your-future') }}" id="styf">STYF</a>
