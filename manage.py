@@ -24,8 +24,8 @@ def complete_companies():
     path = os.path.join(os.path.dirname(__file__), 'data/new_companies.csv')
     reader = csv.DictReader(open(path, 'rb'))
     for row in reader:
-        db.companies.update({'id': row['id_entreprise']}, {'$set': {'info': row}})
-        db.companies.update({'id': row['id_entreprise']}, {'$unset': {'info.id_entreprise': 1}})
+        db.companies.update_one({'id': row['id_entreprise']}, {'$set': {'info': row}})
+        db.companies.update_one({'id': row['id_entreprise']}, {'$unset': {'info.id_entreprise': 1}})
 
 
 @manager.command
