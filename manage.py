@@ -15,8 +15,13 @@ manager.add_command("assets", ManageAssets())
 
 
 @manager.command
+def drop_schools_():
+    db.users.update({'profile.school_': {'$exists': True}}, {'$unset': {'profile.school_': 1}})
+
+
+@manager.command
 def complete_companies():
-    path = os.path.join(os.path.dirname(__file__), 'data/companies.csv')
+    path = os.path.join(os.path.dirname(__file__), 'data/new_companies.csv')
     reader = csv.reader(open(path, 'rb'))
     for row in reader:
         db.companies.update({'id': row[0]})

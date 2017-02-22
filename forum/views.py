@@ -159,8 +159,10 @@ def update_profile():
     users = get_users()
     form = request.form.to_dict()
     if form.get('school_'):
-        form['school'] = form.pop('school_')
+        form['school'] = form.get('school_')
+    form.pop('school_', None)
     users.update_one({'id': current_user.id}, {'$set': {'profile': form}})
+    flash('profile_completed')
     return redirect(url_for('dashboard', page='profile'))
 
 

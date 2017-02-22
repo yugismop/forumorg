@@ -117,6 +117,17 @@
   </div>
 {% endblock content %}
 {% block scripts %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message == 'profile_completed' %}
+        <script>
+          Notify("Profil complété !");
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
   <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function () {
