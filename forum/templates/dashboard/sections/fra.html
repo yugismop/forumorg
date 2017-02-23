@@ -302,13 +302,16 @@
   $('#confirm_transport').on('submit', function (e) {
     e.preventDefault();
     var user = {{ user|tojson }};
-    var transports = user.events.fra.transports;
+    var fra = user.events.fra;
+    if (fra.transports == undefined) {
+      fra['transports'] = [];
+    }
     var transport = {
       departure_place: $(".from").val(),
       arrival_place: $(".to").val(),
       day: $(".at").val()
     };
-    user.events.fra.transports.push(transport);
+    fra.transports.push(transport);
     $.ajax({
       type: "POST",
       url: "{{ url_for('update_user') }}",
