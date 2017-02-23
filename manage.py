@@ -16,7 +16,10 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def drop_schools_():
-    db.users.update({'profile.school_': {'$exists': True}}, {'$unset': {'profile.school_': 1}})
+    cur = db.users.find({}, {'_id': 0, 'profile.school_': 1})
+    for c in cur:
+        print(c)
+    #db.users.update({'profile.school_': {'$exists': True}}, {'$unset': {'profile.school_': 1}})
 
 
 @manager.command
