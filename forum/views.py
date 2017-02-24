@@ -30,6 +30,12 @@ def dashboard(page=None):
         return render_template('dashboard/dashboard.html')
 
 
+@app.route('/js_error', methods=["POST"])
+def js_error():
+    print('js_error', request.form.to_dict())
+    return 'success'
+
+
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
