@@ -74,9 +74,9 @@
         },
         "columns": [
           {
-            data: "name",
+            data: "info.name",
             render: function (data, type, row) {
-              s = "<a href='{{ url_for('companies', company_id='') }}" + row.id + "'>" + row.name + "</a>"; // + row.id + ') }}>' + row.name + '</a>';
+              s = "<a href='{{ url_for('companies', company_id='') }}" + row.id + "'>" + row.info.name + "</a>";
               return s;
             }
           }, {
