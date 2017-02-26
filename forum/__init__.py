@@ -48,7 +48,7 @@ def to_companies(day):
     cur = get_db().companies.find({'duration': {'$in': [duration, 'both']}}, {'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
     cur = list(cur)
     cur = [l for l in cur if l['id'] != 'admin']
-    cur = [l for l in cur if l['id'] != 'forumorg']
+    cur = [l for l in cur if l['id'] != 'test']
     res = []
     for c in cur:
         is_filled = bool(c.get('ambassadors') and c.get('ambassadors').get(day))
