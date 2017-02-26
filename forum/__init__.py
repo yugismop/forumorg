@@ -97,7 +97,7 @@ def to_fields(type):
     if type == 'schools':
         return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
                 u'Université Lyon 1', u'Université Lyon 2', u'Université Lyon 3', 'IAE Lyon',
-                'ECAM', 'Mines Saint-Etienne']
+                'ECAM', 'Mines Saint-Etienne', 'INP Grenoble', 'EI Cesi', 'Polytech Grenoble', 'Telecom Saint-Etienne']
     if type == 'years':
         return ['Bac+{}'.format(i) for i in range(1, 6)]
 
