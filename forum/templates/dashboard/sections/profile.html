@@ -129,6 +129,7 @@
   {% endif %}
   {% endwith %}
   <script>
+    $("select[name=specialty]").select2({language: "fr"});
     Dropzone.autoDiscover = false;
     $(document).ready(function () {
       $(".tel").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
