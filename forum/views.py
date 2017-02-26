@@ -30,6 +30,13 @@ def dashboard(page=None):
         return render_template('dashboard/dashboard.html')
 
 
+@app.route('/dashboard/companies/<company_id>')
+@login_required
+def companies(company_id=None):
+    company = get_db().companies.find_one({'id': company_id})
+    return render_template('dashboard/sections/company.html', company=company)
+
+
 @app.route('/js_error', methods=["POST"])
 def js_error():
     print('js_error', request.form.to_dict())

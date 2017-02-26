@@ -61,8 +61,8 @@ def to_companies(day):
 @app.context_processor
 def get_companies():
     def _get_companies():
-        companies = get_db().companies.find({'id': {'$ne': 'test'}})
-        companies = [c.get('info') for c in companies if c['id'] != 'test' if c.get('info')]
+        companies = get_db().companies.find({'id': {'$ne': 'test'}}, {'_id': 0})
+        companies = [c for c in companies if c['id'] != 'test' and c.get('info')]
         return companies
     return dict(get_companies=_get_companies)
 
