@@ -167,7 +167,8 @@ def update_profile():
     if form.get('school_'):
         form['school'] = form.get('school_')
     form.pop('school_', None)
-    users.update_one({'id': current_user.id}, {'$set': {'profile': form}})
+    for k, v in form.items():
+        users.update_one({'id': current_user.id}, {'$set': {'profile.{}'.format(k): v}})
     flash('profile_completed')
     return redirect(url_for('dashboard', page='profile'))
 
