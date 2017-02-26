@@ -39,9 +39,9 @@ python ./runserver.py
 We use Heroku for cloud hosting, TravisCI for Continuous Integration and GitHub to tie it all together.
 
 On ```git push origin master[:master]```:
-	
+
 - The code is pushed to this repository (on master)
-    
+
 On ```git push origin master:staging```:
 
 - The code is pushed to this repository (on staging)
@@ -55,7 +55,6 @@ On ```git push origin master:production```:
 - The code is directly deployed to Heroku
 - This usually applies to quick config changes that need to be deployed instantly (TravisCI builds still take ~30 secs to complete)
 
-
 ## Stack
 
 * [Python](https://www.python.org/) - Primary language for development
@@ -65,6 +64,10 @@ On ```git push origin master:production```:
 
 * **Mehdi BAHA** - [mehdibaha](https://github.com/mehdibaha)
 * **Juliette BRICOUT** - [jbricout](https://github.com/jbricout)
+
+## Contributions
+
+Contributions are very welcome! If you found a bug or some improvements, feel free to raise an issue and send a PR! Please see the CONTRIBUTING file for more information on how to contribute.
 
 ## License
 
