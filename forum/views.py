@@ -93,8 +93,8 @@ def register():
                     flash('user_registered')
                 else:
                     flash('error')
-            except:
-                print('error', user, user.data)
+            except Exception as e:
+                print('error', e, user, user.data)
             return redirect(request.args.get('next') or url_for('login'))
     return render_template('register.html')
 
