@@ -36,9 +36,9 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="tel">Téléphone</label>
+                  <label for="tel">Téléphone (optionnel)</label>
                   <div class="input-group col-md-12">
-                    <input id="tel" name="tel" type="text" class="form-control tel" placeholder="ex. 06 12 34 56 78" value="{{ user.profile.tel if user.profile.tel else '' }}" data-mask required>
+                    <input id="tel" name="tel" type="text" class="form-control tel" placeholder="ex. 06 12 34 56 78" value="{{ user.profile.tel if user.profile.tel else '' }}" data-mask>
                   </div>
                 </div>
               </div>
