@@ -13,22 +13,36 @@
           </h3>
           <p class="text-muted text-center">{{ company.info.sector }}</p>
           <ul class="list-group list-group-unbordered">
-            <li class="list-group-item">
-              <b>Site</b>
-              <a class="pull-right">{{ company.info.website }}</a>
-            </li>
-            <li class="list-group-item">
-              <b>Chiffre d'affaires</b>
-              <a class="pull-right">{{ company.info.revenue }}</a>
-            </li>
-            <li class="list-group-item">
-              <b>Effectif</b>
-              <a class="pull-right">{{ company.info.enrollment }}</a>
-            </li>
-            <li class="list-group-item">
-              <b>Ville, Pays</b>
-              <a class="pull-right">{{ '%s, %s'|format(company.info.city, company.info.country) }}</a>
-            </li>
+            {% if company.info.city and company.info.country %}
+              <li class="list-group-item">
+                <b>Lieu</b>
+                <a class="pull-right">{{ '%s, %s'|format(company.info.city, company.info.country) }}</a>
+              </li>
+            {% endif %}
+            {% if company.info.website %}
+              <li class="list-group-item">
+                <b>Site</b>
+                <a class="pull-right">{{ company.info.website }}</a>
+              </li>
+            {% endif %}
+            {% if company.info.revenue %}
+              <li class="list-group-item">
+                <b>Chiffre d'affaires</b>
+                <a class="pull-right">{{ company.info.revenue }}</a>
+              </li>
+            {% endif %}
+            {% if company.info.salary %}
+              <li class="list-group-item">
+                <b>Salaire</b>
+                <a class="pull-right">{{ company.info.salary }}</a>
+              </li>
+            {% endif %}
+            {% if company.info.enrollment %}
+              <li class="list-group-item">
+                <b>Effectif</b>
+                <a class="pull-right">{{ company.info.enrollment }}</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
         <!-- /.box-body -->
@@ -36,34 +50,20 @@
       <!-- /.box -->
     </div>
     <div class="col-md-9">
-      <div class="box">
-        {{ header_section("Description de l'entreprise") }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <div class="box-body table-responsive no-padding">
-                  {% if company.info.description %}
-                    <tr>
-                      <td colspan="4">
-                        <p class="lead text-center">{{ company.info.description }}</p>
-                      </td>
-                    </tr>
-                  {% else %}
-                    <tr>
-                      <td colspan="4">
-                        <h2 class="lead text-center">Aucune description enregistrée</h2>
-                      </td>
-                    </tr>
-                  {% endif %}
-                </tbody>
-              </table>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            {{ header_section("Description de l'entreprise") }}
+            <div class="box-body">
+              {% if company.info.description %}
+                <p class="lead text-center">{{ company.info.description }}</p>
+              {% else %}
+                <p class="lead text-center">Aucune description enregistrée</p>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 {% endblock content %}
