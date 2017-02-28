@@ -35,9 +35,9 @@ def companies(company_id=None):
     return render_template('dashboard/sections/company.html', company=company)
 
 
-@app.route('/js_error', methods=["POST"])
+@app.route('/js_log', methods=["POST"])
 def js_error():
-    print('js_error', request.form.to_dict())
+    print('js_log', request.form.to_dict())
     return 'success'
 
 
