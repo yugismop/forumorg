@@ -155,23 +155,12 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <p class="lead">Si tu n’es pas dans la région lyonnaise, Forum Organisation a mis en place un système de navettes gratuites. Tu peux dès maintenant effectuer ta réservation !
+        <p class="lead">Si tu n’es pas dans la région lyonnaise, Forum Organisation a mis en place un système de navettes gratuites. Tu peux dès maintenant effectuer ta réservation ! -
         </p>
         <form id="confirm_transport">
           <div class="box-body">
             <div class="row">
               <div class="col-md-4">
-                {% set places = ['Saint-Etienne (Mines Saint-Etienne)', 'Ecully (Centrale Lyon)', 'Grenoble (Polytech Grenoble)', 'Grenoble (Phelma Grenoble)', 'Forum Rhône-Alpes'] %}
-                {% set times = [
-                  '08h15',
-                  '10h30',
-                  '12h00',
-                  '12h15',
-                  '15h00',
-                  '16h00',
-                  '17h00'
-                ] %}
-                {% set times = ['Mercredi', 'Jeudi'] %}
                 <div class="form-group">
                   <label>je pars de</label>
                   <select class="form-control select2 from" style="width: 100%;">
@@ -193,12 +182,8 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>le</label>
-                  <select class="form-control select2 at" style="width: 100%;">
-                    {% for t in times %}
-                      <option>{{ t }}</option>
-                    {% endfor %}
-                  </select>
+                  <label>à</label>
+                  <select class="form-control select2 at" style="width: 100%;"></select>
                 </div>
               </div>
             </div>
@@ -251,6 +236,59 @@
 {% block scripts %}
 <script type="text/javascript">
   $(".select2").select2({language: "fr"});
+  var $from = $('.from');
+  var $to = $('.to');
+  var $at = $('.at');
+  $to.on('select2:open', function (e) {
+    if ($from.val().includes('Alpes')) {
+      $to.empty();
+      $to.append('<option>Saint-Etienne (Mines Saint-Etienne)</option>');
+      $to.append('<option>Ecully (Centrale Lyon)</option>');
+      $to.append('<option>Grenoble (Polytech Grenoble)</option>');
+    } else {
+      $to.empty();
+      $to.append('<option>Forum Rhône-Alpes</option>');
+    }
+  });
+  $at.on('select2:open', function (e) {
+    if ($from.val().includes('Saint')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 10h30</option>');
+      $at.append('<option>Jeudi à 10h30</option>');
+    }
+    if ($from.val().includes('Ecully')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 12h15</option>');
+      $at.append('<option>Jeudi à 12h15</option>');
+    }
+    if ($from.val().includes('Phelma')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 08h15</option>');
+      $at.append('<option>Jeudi à 08h15</option>');
+    }
+    if ($from.val().includes('Polytech')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 10h30</option>');
+      $at.append('<option>Jeudi à 12h00</option>');
+    }
+    if ($from.val().includes('Alpes')) {
+      if ($to.val().includes('Grenoble')) {
+        $at.empty();
+        $at.append('<option>Mercredi à 15h00</option>');
+        $at.append('<option>Jeudi à 15h00</option>');
+      }
+      if ($to.val().includes('Saint')) {
+        $at.empty();
+        $at.append('<option>Mercredi à 16h00</option>');
+        $at.append('<option>Jeudi à 16h00</option>');
+      }
+      if ($to.val().includes('Ecully')) {
+        $at.empty();
+        $at.append('<option>Mercredi à 17h00</option>');
+        $at.append('<option>Jeudi à 17h00</option>');
+      }
+    }
+  });
   function update_fra() {
     $.ajax({
       type: "POST",
