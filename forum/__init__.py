@@ -61,8 +61,11 @@ def to_companies(day):
 @app.context_processor
 def get_companies():
     def _get_companies():
-        companies = get_db().companies.find({'id': {'$ne': 'test'}}, {'_id': 0})
-        companies = [c for c in companies if c['id'] != 'test' and c.get('info')]
+        companies = get_db().companies.find({'$and': [{'id': {'$ne': 'test'}}, {'info': {'$gt': {}}}]}, {'_id': 0})
+        companies = list(companies)
+        conv = {'wed': 'Mercredi', 'thu': 'Jeudi', 'both': 'Mercredi et Jeudi'}
+        for c in companies:
+            c['duration'] = conv[c['duration']]
         return companies
     return dict(get_companies=_get_companies)
 
