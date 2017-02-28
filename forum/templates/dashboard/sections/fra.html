@@ -273,20 +273,14 @@
       $at.append('<option>Jeudi à 12h00</option>');
     }
     if ($from.val().includes('Alpes')) {
-      if ($to.val().includes('Grenoble')) {
+      if ($to.val().includes('Phelma')) {
         $at.empty();
         $at.append('<option>Mercredi à 15h00</option>');
         $at.append('<option>Jeudi à 15h00</option>');
-      }
-      if ($to.val().includes('Saint')) {
+      } else {
         $at.empty();
         $at.append('<option>Mercredi à 16h00</option>');
         $at.append('<option>Jeudi à 16h00</option>');
-      }
-      if ($to.val().includes('Ecully')) {
-        $at.empty();
-        $at.append('<option>Mercredi à 17h00</option>');
-        $at.append('<option>Jeudi à 17h00</option>');
       }
     }
   });
