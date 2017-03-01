@@ -21,10 +21,14 @@ def fix_dates():
     for c in cur:
         if type(c['registered_on']) == unicode:
             print('original: {}'.format(c['registered_on']))
-            print('fixed: {}'.format(datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')))
+            new_d = datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')
+            db.users.update_one({'id': c['id']}, {'$set': {'registered_on': new_d}})
+            print('fixed: {}'.format(new_d))
         if type(c['confirmed_on']) == unicode:
             print('original: {}'.format(c['confirmed_on']))
-            print('fixed: {}'.format(datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')))
+            new_d = datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')
+            db.users.update_one({'id': c['id']}, {'$set': {'confirmed_on': new_d}})
+            print('fixed: {}'.format(new_d))
 
 
 @manager.command
