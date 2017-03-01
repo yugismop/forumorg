@@ -15,16 +15,16 @@ manager.add_command("assets", ManageAssets())
 
 
 @manager.command
-def fix_dates_():
+def fix_dates():
     from datetime import datetime
     cur = db.users.find({}, {'_id': 0, 'registered_on': 1, 'confirmed_on': 1})
     for c in cur:
-        print type(c['registered_on'])
-        '''print('fixing this: {}'.format(c['registered_on']))
-        #datetime.strptime(cur['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')
-        if type(c['confirmed_on']) == str:
-            print('fixing this: {}'.format(c['confirmed_on']))
-            datetime.strptime(cur['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')'''
+        if type(c['registered_on']) == unicode:
+            print('original: {}'.format(c['registered_on']))
+            print('fixed: {}'.format(datetime.strptime(cur['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')))
+        if type(c['confirmed_on']) == unicode:
+            print('original: {}'.format(c['confirmed_on']))
+            print('fixed: {}'.format(datetime.strptime(cur['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')))
 
 
 @manager.command
