@@ -240,7 +240,7 @@ def update_event():
     else:
         users = get_users()
         user = current_user
-        if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year') and user.profile.get('specialty'):
+        if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('school') and user.profile.get('year') and user.profile.get('specialty'):
             users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': True}})
             return "success"
         else:
