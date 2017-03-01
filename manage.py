@@ -17,17 +17,17 @@ manager.add_command("assets", ManageAssets())
 @manager.command
 def fix_dates():
     from datetime import datetime
-    cur = db.users.find({}, {'_id': 0, 'registered_on': 1, 'confirmed_on': 1})
+    cur = db.users.find({}, {'_id': 1, 'registered_on': 1, 'confirmed_on': 1})
     for c in cur:
         if type(c['registered_on']) == unicode:
             print('original: {}'.format(c['registered_on']))
             new_d = datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')
-            db.users.update_one({'id': c['id']}, {'$set': {'registered_on': new_d}})
+            db.users.update_one({'_id': c['_id']}, {'$set': {'registered_on': new_d}})
             print('fixed: {}'.format(new_d))
         if type(c['confirmed_on']) == unicode:
             print('original: {}'.format(c['confirmed_on']))
             new_d = datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')
-            db.users.update_one({'id': c['id']}, {'$set': {'confirmed_on': new_d}})
+            db.users.update_one({'_id': c['_id']}, {'$set': {'confirmed_on': new_d}})
             print('fixed: {}'.format(new_d))
 
 
