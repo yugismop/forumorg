@@ -21,10 +21,10 @@ def fix_dates():
     for c in cur:
         if type(c['registered_on']) == unicode:
             print('original: {}'.format(c['registered_on']))
-            print('fixed: {}'.format(datetime.strptime(cur['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')))
+            print('fixed: {}'.format(datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')))
         if type(c['confirmed_on']) == unicode:
             print('original: {}'.format(c['confirmed_on']))
-            print('fixed: {}'.format(datetime.strptime(cur['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')))
+            print('fixed: {}'.format(datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')))
 
 
 @manager.command
