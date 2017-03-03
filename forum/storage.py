@@ -56,8 +56,8 @@ def get_events():
     return db.events
 
 
-def user_exists(id):
-    return True if db.users.find_one({'id': id}) else False
+def user_exists(user_id):
+    return bool(db.users.find_one({'id': user_id}))
 
 
 class User(flask_login.UserMixin):
@@ -70,7 +70,8 @@ class User(flask_login.UserMixin):
             self.data['registered_on'] = datetime.datetime.now()
             self.data['confirmed'] = False
             self.data['confirmed_on'] = None
-            self.data['events'] = {'fra': {'registered': False}, 'joi': {'registered': False}, 'styf': {'registered': False}, 'master_class': {'registered': False}}
+            self.data['events'] = {'fra': {'registered': False}, 'joi': {'registered': False},
+                                   'styf': {'registered': False}, 'master_class': {'registered': False}}
             self.data['profile'] = {}
 
     def get_id(self):
