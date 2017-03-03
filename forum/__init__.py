@@ -45,7 +45,8 @@ def to_companies(day):
     elif day == 'jeudi':
         duration = 'thu'
 
-    cur = get_db().companies.find({'duration': {'$in': [duration, 'both']}}, {'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
+    cur = get_db().companies.find({'duration': {'$in': [duration, 'both']}}, {
+        'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
     cur = list(cur)
     cur = [l for l in cur if l['id'] != 'admin']
     cur = [l for l in cur if l['id'] != 'test']
@@ -96,7 +97,7 @@ def to_fields(type):
     if type == 'specialties':
         return ['Informatique', 'Electronique', 'Biochimie', u'Télécommunications',
                 'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
-                u'Matériaux', 'Agronomie', u'Génie Industriel', u'Génie Civil', u'Génie Mécanique', u'Génie Electrique', u'Génie Énergétique' ]
+                u'Matériaux', 'Agronomie', u'Génie Industriel', u'Génie Civil', u'Génie Mécanique', u'Génie Electrique', u'Génie Énergétique']
     if type == 'schools':
         return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
                 u'Université Lyon 1', u'Université Lyon 2', u'Université Lyon 3', 'IAE Lyon',
