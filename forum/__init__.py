@@ -54,7 +54,7 @@ def to_companies(day):
     for c in cur:
         is_filled = bool(c.get('ambassadors') and c.get('ambassadors').get(day))
         d = {'id': c['id'], 'name': c['name'].lower().capitalize(), 'is_filled': is_filled}
-        if c.get('pole') and c.get('pole') != 'school':
+        if c.get('pole'):
             res.append(d)
     return res
 
