@@ -80,7 +80,11 @@ def get_jobs():
         )
         jobs = list(jobs)
         for j in jobs:
-            j["name"] = get_db().companies.find_one({"id": j["company_id"]})["name"]
+            doc = get_db().companies.find_one({"id": j["company_id"]})
+            try:
+                j['name'] = doc['info']['name']
+            except:
+                j['name'] = doc['name']
         return jobs
     return dict(get_jobs=_get_jobs)
 
