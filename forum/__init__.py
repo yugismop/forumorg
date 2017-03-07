@@ -68,7 +68,7 @@ def get_companies():
              },
             {'$project':
              {
-                 'duration': 1, 'name': '$info.name', 'sector': '$info.sector',
+                 'duration': 1, 'name_old': '$name', 'name': '$info.name', 'sector': '$info.sector',
                  'city': '$info.city', 'country': '$info.country', 'revenue': '$info.revenue', '_id': 0
              }
              }])

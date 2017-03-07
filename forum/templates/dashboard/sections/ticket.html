@@ -5,13 +5,13 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Mon billet</h3>
+          <h3 class="box-title">Mon billet ({{ '%s %s'|format(current_user.profile.first_name, current_user.profile.name) }})</h3>
         </div>
         <div class="box-body">
           <div class="row">
             <div class="col-md-5" style="padding:30px">
-              {% set code = dict(id = current_user.id, registered = current_user.events.fra.registered) %}
-              {% set code = '%s,%s' | format(code.id, code.registered) %}
+              {% set code = dict(id = current_user.id) %}
+              {% set code = '%s' | format(code.id) %}
               <img src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=2) }}">
             </div>
             <div class="col-md-1"></div>
