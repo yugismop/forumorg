@@ -62,7 +62,16 @@ def to_companies(day):
 @app.context_processor
 def get_companies():
     def _get_companies():
-        companies = get_db().companies.find({'$and': [{'id': {'$ne': 'test'}}, {'info': {'$gt': {}}}]}, {'_id': 0})
+        companies = get_db().companies.aggregate([
+            {'$match':
+             {'id': {'$nin': ['test', 'admin']}}
+             },
+            {'$project':
+             {
+                 'duration': 1, 'name': '$info.name', 'sector': '$info.sector',
+                 'city': '$info.city', 'country': '$info.country', 'revenue': '$info.revenue', '_id': 0
+             }
+             }])
         companies = list(companies)
         conv = {'wed': 'Mercredi', 'thu': 'Jeudi', 'both': 'Mercredi et Jeudi'}
         for c in companies:

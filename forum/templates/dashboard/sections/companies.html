@@ -78,21 +78,55 @@
         },
         "columns": [
           {
-            data: "info.name",
+            data: "name",
+            defaultContent: "",
             render: function (data, type, row) {
-              s = "<a href='{{ url_for('companies', company_id='') }}" + row.id + "'>" + row.info.name + "</a>";
+              s = "<a href='{{ url_for('companies', company_id='') }}" + row.id + "'>" + row.name + "</a>";
               return s;
             }
           }, {
-            data: "duration"
+            data: "duration",
+            defaultContent: ""
           }, {
-            data: "info.sector"
+            data: "sector",
+            defaultContent: "",
+            render: function (data, type, row) {
+              if (row.sector == undefined) {
+                return "<span class='text-muted'>Non spécifié</span>";
+              } else {
+                return row.sector;
+              }
+            }
           }, {
-            data: "info.city"
+            data: "city",
+            defaultContent: "",
+            render: function (data, type, row) {
+              if (row.sector == undefined) {
+                return "<span class='text-muted'>Non spécifié</span>";
+              } else {
+                return row.sector;
+              }
+            }
           }, {
-            data: "info.country"
+            data: "country",
+            defaultContent: "",
+            render: function (data, type, row) {
+              if (row.sector == undefined) {
+                return "<span class='text-muted'>Non spécifié</span>";
+              } else {
+                return row.sector;
+              }
+            }
           }, {
-            data: "info.revenue"
+            data: "revenue",
+            defaultContent: "",
+            render: function (data, type, row) {
+              if (row.sector == undefined) {
+                return "<span class='text-muted'>Non spécifié</span>";
+              } else {
+                return row.sector;
+              }
+            }
           }
         ],
         "paging": true,
