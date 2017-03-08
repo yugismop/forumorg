@@ -9,10 +9,10 @@
         </div>
         <div class="box-body">
           <div class="row">
-            <div class="col-md-5" style="padding:30px">
+            <div class="col-md-5" style="padding: 30px 20px 30px 20px;">
               {% set code = dict(id = current_user.id) %}
               {% set code = '%s' | format(code.id) %}
-              <img src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=4) }}">
+              <img style="width:250px;" src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=4) }}">
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-5 no-print" style="padding:30px ">
