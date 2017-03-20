@@ -1,5 +1,5 @@
 from flask_script import Manager
-from forum import app
+from app import app
 from pymongo import MongoClient
 import os
 import csv

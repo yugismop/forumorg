@@ -7,7 +7,7 @@ import flask_login
 
 from pymongo import MongoClient
 
-from forum import bcrypt
+from app import bcrypt
 
 db = None
 

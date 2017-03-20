@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from gridfs.errors import NoFile
 import json
 
-from forum import app, GridFS
+from app import app, GridFS
 from mailing import send_mail
 
 

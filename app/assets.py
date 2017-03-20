@@ -1,7 +1,7 @@
 import os
 
 from flask_assets import Bundle, Environment
-from forum import app
+from app import app
 
 assets = Environment(app)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 
-from forum import app
+from app import app
 import os
 
 port = int(os.environ.get('PORT', 3001))

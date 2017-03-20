@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from flask import redirect, url_for
-from forum import app, bcrypt, login_manager
+from app import app, bcrypt, login_manager
 from itsdangerous import URLSafeTimedSerializer
 from storage import get_user, new_user
 
