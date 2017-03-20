@@ -1,12 +1,6 @@
 import os
 
-from flask_assets import Bundle, Environment
-from app import app
-
-assets = Environment(app)
-
-assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
-assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
+from flask_assets import Bundle
 
 bundles = {
     ### COMMON ###
@@ -53,24 +47,25 @@ bundles = {
 
     'css_home': Bundle(
         Bundle(
-            'css/index/nemo.css',
-            'css/index/colors/blue.css',
-            'css/index/index.css',
+            'css/home/nemo.css',
+            'css/home/colors/blue.css',
+            'css/home/home.css',
             filters='cssmin'
         ),
         output='build/home.min.css'),
 
     ### LOGIN ###
-    'css_sign': Bundle(
+    'css_login': Bundle(
         Bundle(
             'AdminLTE/dist/css/AdminLTE.min.css'
         ),
         Bundle(
-            'css/index/login.css',
+            'css/login.css',
             filters='cssmin'
         ),
-        output='build/sign.min.css'),
+        output='build/login.min.css'),
 
+    ### DASHBOARD ###
     'js_dashboard': Bundle(
         Bundle(
             'select2/dist/js/select2.min.js',
@@ -107,6 +102,7 @@ bundles = {
         ),
         output='build/dashboard.min.css'),
 
+    ### SPLIT ###
     'css_split': Bundle(
         Bundle(
             'css/split.css'
@@ -121,6 +117,3 @@ bundles = {
         output='build/admin.min.js'),
 
 }
-
-if os.environ.get('DEBUG'):
-    assets.register(bundles)

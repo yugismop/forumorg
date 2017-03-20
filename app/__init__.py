@@ -3,6 +3,7 @@
 import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_assets import Environment
 from flask_login import LoginManager
 from flask_qrcode import QRcode
 from flask_sslify import SSLify
@@ -31,6 +32,14 @@ bcrypt.init_app(app)
 qrcode = QRcode()
 qrcode.init_app(app)
 
+# Flask-Assets
+from assets import bundles
+assets = Environment(app)
+assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
+assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
+assets.register(bundles)
+
+
 # SSLify
 with app.app_context():
     sslify = SSLify()
@@ -49,5 +58,4 @@ GridFS = GridFS(get_db(), collection='resumes')
 
 
 from users import tools
-import assets
-import views
+from . import views
