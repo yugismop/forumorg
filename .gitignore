@@ -5,7 +5,7 @@
 
 .env
 /env
-/app/static/.webassets-cache
+app/static/.webassets-cache/
 
 # Bower
 app/static/bower_components/*
