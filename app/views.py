@@ -3,7 +3,7 @@
 from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
-from storage import User, confirm_user, get_events, get_user, get_users, user_exists, get_db, set_user
+from storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
 
 from flask import make_response
 from werkzeug import secure_filename
@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from gridfs.errors import NoFile
 import json
 
-from app import app, GridFS
+from app import app, GridFS, get_db
 from mailing import send_mail
 
 

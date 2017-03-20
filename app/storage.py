@@ -1,25 +1,14 @@
 # coding=utf-8
 
 import datetime
-import os
 
 import flask_login
 
-from pymongo import MongoClient
-
-from app import bcrypt
-
-db = None
-
-
-def init_storage():
-    global db
-    client = MongoClient(host=os.environ.get('MONGODB_URI'))
-    db = client.get_default_database()
+from app import bcrypt, get_db
 
 
 def get_user(id):
-    user = db.users.find_one({'id': id})
+    user = get_db().users.find_one({'id': id})
     if user:
         user.pop('_id', None)
         return User(id=user['id'], password=user['password'], data=user)
@@ -28,36 +17,32 @@ def get_user(id):
 
 
 def confirm_user(user):
-    return db.users.update_one(
+    return get_db().users.update_one(
         {'id': user.id},
         {'$set': {'confirmed': True, 'confirmed_on': datetime.datetime.now()}}
     )
 
 
 def set_user(user_id, user_data):
-    return db.users.replace_one({'id': user_id}, user_data)
+    return get_db().users.replace_one({'id': user_id}, user_data)
 
 
 def new_user(user):
     data = user.data
     data.pop('_id', None)
-    return True if db.users.insert_one(data) else False
+    return True if get_db().users.insert_one(data) else False
 
 
 def get_users():
-    return db.users
-
-
-def get_db():
-    return db
+    return get_db().users
 
 
 def get_events():
-    return db.events
+    return get_db().events
 
 
 def user_exists(user_id):
-    return bool(db.users.find_one({'id': user_id}))
+    return bool(get_db().users.find_one({'id': user_id}))
 
 
 class User(flask_login.UserMixin):
