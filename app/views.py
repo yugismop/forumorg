@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file
+from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file, session
 from flask_login import current_user, login_required, login_user, logout_user
 from login import confirm_token, create_user, generate_confirmation_token, validate_login
 from storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
