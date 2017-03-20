@@ -1,0 +1,96 @@
+{% extends 'users/dashboard/section.html' %}
+{% set title = 'Mon billet' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Mon billet ({{ '%s %s'|format(user.profile.first_name, user.profile.name) }})</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-5" style="padding: 30px 20px 30px 20px;">
+              {% set code = dict(id = user.id) %}
+              {% set code = '%s' | format(code.id) %}
+              <img style="width:250px;" src="{{ qrcode(data=code, fill_color='#222d32', error_correction='H', icon_img='images/logo.png', factor=4) }}">
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 no-print" style="padding:30px ">
+              <h3>1ère étape</h3>
+              <p>
+                <a href="javascript:window.print()" target="_blank" class="btn btn-default">
+                  <i class="fa fa-print"></i>
+                  Imprime ton billet</a>
+                ou sauvegarde cette page sur ton smartphone.</p>
+              <h3>2ème étape</h3>
+              <p>Présente ton billet à l'accueil pour accéder au salon.</p>
+              <h3>3ème étape</h3>
+              <p>Profite du Forum Rhône-Alpes ;) !</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $(document).ready(function () {
+      var companies = {{ get_companies() | tojson }};
+      var table = $('.table').DataTable({
+        "data": companies,
+        "language": {
+          "paginate": {
+            "first": "Premier",
+            "previous": "Pr&eacute;c&eacute;dent",
+            "next": "Suivant",
+            "last": "Dernier"
+          },
+          "processing": "Traitement en cours...",
+          "search": "Rechercher&nbsp;:",
+          "lengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+          "info": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+          "infoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+          "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+          "infoPostFix": "",
+          "loadingRecords": "Chargement en cours...",
+          "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
+        },
+        "initComplete": function () {
+          this.api().columns([1, 2, 3]).every(function () {
+            var column = this;
+            var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
+              var val = $.fn.dataTable.util.escapeRegex($(this).val());
+              column.search(val
+                ? '^' + val + '$'
+                : '', true, false).draw();
+            });
+            column.data().unique().sort().each(function (d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>');
+            });
+          });
+        },
+        "columns": [
+          {
+            data: "name"
+          }, {
+            data: "sector"
+          }, {
+            data: "city"
+          }, {
+            data: "country"
+          }, {
+            data: "revenue"
+          }, {
+            data: "salary"
+          }
+        ],
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "dom": 'lrtp'
+      });
+    });
+  </script>
+{% endblock scripts %}

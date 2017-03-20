@@ -1,0 +1,37 @@
+{% extends 'base_home.html' %}
+{% set title = 'Candidats' %}
+{% block navbar %}
+  <div class="collapse navbar-collapse" id="nemo-navigation">
+    <ul class="nav navbar-nav navbar-left">
+      <li class="{{ 'active' if title == 'Accueil' else ''}}">
+        <a href="{{ url_for('index') }}" id="home">Accueil</a>
+      </li>
+      <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
+        <a href="{{ url_for('index', page='forum-rhone-alpes') }}" id="fra">Forum Rhône-Alpes</a>
+      </li>
+      <li class="{{ 'active' if title == 'Master Class' else ''}}">
+        <a href="{{ url_for('index', page='master-class') }}" id="joi">Master Class</a>
+      </li>
+      <li class="{{ 'active' if title == 'STYF' else ''}}">
+        <a href="{{ url_for('index', page='start-up-your-future') }}" id="styf">STYF</a>
+      </li>
+      <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
+        <a href="{{ url_for('index', page='journee-objectif-ingenieur') }}" id="joi">JOI</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+        {% else %}
+          <a href="{{ url_for('signin') }}" id="home">Se connecter</a>
+        {% endif %}
+      </li>
+      {% if current_user.is_authenticated %}
+        <li>
+          <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock navbar %}

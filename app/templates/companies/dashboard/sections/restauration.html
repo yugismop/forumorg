@@ -1,0 +1,162 @@
+{% extends 'companies/dashboard/section.html' %}
+{% set title = 'Restauration' %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des repas</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th>Jour</th>
+                <th>Nombre de repas</th>
+                <th>
+                  <i class="fa fa-remove"></i>
+                </th>
+              </tr>
+              {% for k, v in company.sections.catering | dictsort | reverse %}
+                {% if company.duration == k or company.duration == 'both' %}
+                  <tr>
+                    <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
+                    <td>
+                      <span class="label label-default">{{ company.size|nb_dishes|to_human }}
+                        repas inclus</span>
+                      {% for type, qty in v.items() %}
+                        {% if qty != 0 %}
+                          <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}
+                            repas</span>
+                        {% endif %}
+                      {% endfor %}
+                    </td>
+                    <td>
+                      <i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Ajouter un repas (30€/l'unité)</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <form id="confirm_dish">
+          <div class="box-body">
+            <div class="row r-center">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>jour</label>
+                  <select class="form-control select2 day" style="width: 100%;">
+                    {% if company.duration == 'wed' or company.duration == 'both' %}
+                      <option value="wed">mercredi</option>
+                    {% endif %}
+                    {% if company.duration == 'thu' or company.duration == 'both' %}
+                      <option value="thu">jeudi</option>
+                    {% endif %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>combien</label>
+                  <select class="form-control select2 qty" style="width: 100%;">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+              <!-- /.input group -->
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </div>
+        </form>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+  {% block validate %}{{ super() }}{% endblock %}
+{% endblock content %}
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $('#confirm_dish').on('submit', function (e) {
+      e.preventDefault();
+      $('.box-footer .btn').prop('disabled', true);
+      var company = {{ company|tojson }};
+      var dishes = company.sections.catering;
+      var day = $(".day").val();
+      var qty = Number($(".qty").val());
+      var type = "seated";
+      var old_qty = dishes[day][type] || 0;
+      dishes[day][type] = old_qty + qty;
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_company') }}",
+        data: {
+          "company": JSON.stringify(company),
+          "page": "restauration"
+        },
+        success: function (result) {
+          if (result == "success") {
+            Notify("Changements sauvegardés.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          } else {
+            Notify("Section validée: Impossible à modifier");
+          }
+        }
+      });
+      return false;
+    });
+    function remove_dish(day) {
+      var r = confirm("Confirmer la suppresion ?");
+      if (r) {
+        var company = {{ company|tojson }};
+        var dishes = company.sections.catering;
+        dishes[day] = {};
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('update_company') }}",
+          data: {
+            "company": JSON.stringify(company),
+            "page": "restauration"
+          },
+          success: function (result) {
+            if (result == "success") {
+              Notify("Suppression confirmée.");
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            } else {
+              Notify("Section validée: Impossible à modifier");
+            }
+          }
+        });
+      }
+    }
+  </script>
+{% endblock scripts %}

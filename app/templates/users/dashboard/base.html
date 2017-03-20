@@ -1,0 +1,48 @@
+{% extends 'base_dashboard.html' %}
+{% set body_class = 'hold-transition skin-blue sidebar-mini' %}
+{% set identicode = '%s-%s' | format(user.id[: 5], user.confirmed_on) %}
+{% block user_menu %}
+  <!-- User Account Menu -->
+<li class="dropdown user user-menu">
+  <!-- Menu Toggle Button -->
+  <a>
+    <!-- The user image in the navbar-->
+    <img class="user-image" src="{{ url_for('identicon', text=identicode) }}" alt="User Image">
+    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+    <span class="hidden-xs">
+      {% if not user.profile.first_name %}
+        {{ user.id.split('@')[0] }}
+      {% else %}
+        {{ "%s %s"|format(user.profile.first_name|capitalize, user.profile.name|capitalize)}}
+      {% endif %}
+    </span>
+  </a>
+</li>
+<!-- Sign Out Menu -->
+<li class="dropdown messages-menu">
+  <a href="{{url_for('index')}}">
+    <i class="fa fa-sign-out"></i>
+    <span class="hidden-xs">Retour à l'accueil</span>
+  </a>
+</li>
+{% endblock user_menu %}
+{% block user_panel %}
+<div class="user-panel">
+  <div class="pull-left image">
+    <img class="user-image" src="{{ url_for('identicon', text=identicode) }}" alt="User Image">
+  </div>
+  <div class="pull-left info">
+    <p>
+      {% if not user.profile.first_name %}
+        {{ user.id.split('@')[0] }}
+      {% else %}
+        {{ "%s %s"|format(user.profile.first_name|capitalize, user.profile.name|capitalize)}}
+      {% endif %}
+    </p>
+    <!-- Status -->
+    <a href="#">
+      <i class="fa fa-circle text-success"></i>
+      En Ligne</a>
+  </div>
+</div>
+{% endblock user_panel %}

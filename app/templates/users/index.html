@@ -1,0 +1,95 @@
+{% extends 'users/base.html' %}
+{% set title = 'Accueil'%}
+{% block content %}
+  <section class="home video-bg gradient-overlay text-center editBG" id="home" style="padding-top:120px;padding-bottom:65px;height:100vh; display:flex; align-items:center">
+    <div class="section-video">
+      <video autoplay="" poster="{{ url_for('static', filename='video/video_joi.jpg') }}" class="bgvid" loop="" muted="true">
+        <source src="{{ url_for('static', filename='video/video2.mp4') }}" type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
+      </video>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-{{'7' if not current_user.is_authenticated else '9'}} col-index">
+          <h1 class="text-left" style="color:white; font-size:44px">Nous générons le contact</h1>
+          <p class="text-left" style="font-size:22px; font-weight:100; line-height:1.5">Au sein de Forum Organisation, notre objectif est de générer le contact entre les étudiants et les différents acteurs du monde de l'entreprise.
+          </p>
+        </div>
+        <br>
+        <div class="col-md-5 col-index">
+          {% if not current_user.is_authenticated %}
+            <form action="{{ url_for('signup') }}" method="post">
+              <div class="form-group has-feedback">
+                <input type="email" class="form-control" value="{{request.form.id}}" placeholder="Email" name="email" autofocus required>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+              </div>
+              <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              </div>
+              <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="re_password" value="{{request.form.password}}" required>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              </div>
+              {% if error %}
+                <div class="form-group has-feedback">
+                  {% if error == "user_already_exists" %}
+                    <span class="text-blue">Un utilisateur existe déjà associé à cet email.</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="submit" class="btn btn-white btn-block btn-lg">S'inscrire maintenant</button>
+                </div>
+              </div>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</section>
+<section>
+  <div class="row images">
+    <div class="col-md-4">
+      <a href="{{ url_for('index', page='forum-rhone-alpes') }}"><img src="{{url_for('static', filename='images/fra_1.png')}}" alt="" class="img-responsive img"></a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{
+            url_for('index', page='master-class') }}"><img src="{{ url_for('static', filename='images/mc_ferme.png')}}" alt="" class="img-responsive img"></a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{
+            url_for('index', page='start-up-your-future') }}"><img src="{{ url_for('static', filename='images/joi_ferme.png')}}" alt="" class="img-responsive img"></a>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+{% block style %}
+<style>
+  .images > div > a > img {
+    filter: brightness(70%);
+  }
+  .images > div > a > img:hover {
+    filter: brightness(100%);
+  }
+  .images > div {
+    padding: 0;
+    border: 1px solid white;
+  }
+</style>
+{% endblock style %}
+{% block scripts %}
+<script>
+  $('input[type=password]').change(function () {
+    var $pass = document.getElementsByName("password")[0];
+    var $re_pass = document.getElementsByName("re_password")[0];
+    if ($pass.value !== $re_pass.value) {
+      $pass.setCustomValidity("Les mots de passes ne sont pas identiques.");
+    } else {
+      $pass.setCustomValidity('');
+    }
+  });
+</script>
+{% endblock scripts %}

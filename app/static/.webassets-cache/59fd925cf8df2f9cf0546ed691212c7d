@@ -1,0 +1,3 @@
+Vwindow.MaximumErrorCount = 5;\u000a\u000awindow.onerror = function(errorMsg, file, lineNumber) {\u000a    window.errorCount || (window.errorCount = 0);\u000a\u000a    if (window.errorCount <= window.MaximumErrorCount) {\u000a        jQuery.post("/js_log", {\u000a            errorMessage: errorMsg,\u000a            file: file,\u000a            url: window.location.href,\u000a            lineNumber: lineNumber,\u000a            ua: navigator.userAgent\u000a        });\u000a    }\u000a}
+p1
+.

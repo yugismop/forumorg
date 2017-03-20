@@ -1,0 +1,10 @@
+{
+  "name": "recaptcha",
+  "_cacheHeaders": {
+    "Content-Type": "text/javascript; charset=UTF-8"
+  },
+  "main": "index.js",
+  "_source": "https://www.google.com/recaptcha/api.js?hl=fr",
+  "_target": "*",
+  "_originalSource": "https://www.google.com/recaptcha/api.js?hl=fr"
+}

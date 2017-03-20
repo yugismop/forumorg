@@ -1,0 +1,14 @@
+{% extends 'base_all.html' %}
+{% block css_files %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}"></link>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/sign.min.css') }}"></link>
+{% endblock css_files %}
+{% set body_class = 'hold-transition login-page friendly' %}
+{% block body %}
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}" alt="Forum Organisation"></a>
+    </div>
+    {% block loginbox %}{% endblock loginbox %}
+  </div>
+{% endblock body %}

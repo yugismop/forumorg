@@ -1,0 +1,231 @@
+{% extends 'companies/dashboard/section.html' %}
+{% set title = 'Transport' %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des transports</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          {% if company.sections.transports %}
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th>Lieu de départ</th>
+                  <th>Lieu d'arrivée</th>
+                  <th>Départ</th>
+                  <th>Personnes</th>
+                  <th>Téléphone</th>
+                  <th>Commentaire</th>
+                  <th>
+                    <i class="fa fa-remove"></i>
+                  </th>
+                </tr>
+                {% for transport in company.sections.transports %}
+                  <tr>
+                    <td>{{ transport.departure_place }}</td>
+                    <td>{{ transport.arrival_place }}</td>
+                    <td>{{ transport.departure_time }}</td>
+                    <td>
+                      <span class="label label-primary">{{ transport.nb_persons|to_human }}</span>
+                    </td>
+                    <td>{{ transport.phone }}</td>
+                    <td>
+                      {% if transport.comment %}
+                        {{ transport.comment}}
+                      {% else %}
+                        <span class="text-muted">Pas de commentaire</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <i onclick="remove_transport({{loop.index0}})" class="fa fa-remove" style="color:red"></i>
+                    </td>
+                  </tr>
+                  {% endfor%}
+                {% else %}
+                  <tr>
+                    <td colspan="4">
+                      <h2 class="lead text-center">Aucun transport trouvé :(</h2>
+                    </td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Ajouter un transport</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <form id="confirm_transport">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                  {% set places = 'transports' | to_fields %}
+                  <div class="form-group">
+                    <label>je pars de</label>
+                    <select class="form-control select2 from" style="width: 100%;">
+                      {% for p in places %}
+                        <option>{{ p }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>vers</label>
+                    <select class="form-control select2 to" style="width: 100%;">
+                      {% for p in places %}
+                        <option>{{ p }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>ex: le
+                      <span class="text-muted">08/03/2016</span>
+                      à
+                      <span class="text-muted">07h00</span>
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" id="datetime" class="form-control" data-mask required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>nombre de personnes</label>
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-users"></i>
+                        </div>
+                        <input type="text" id="persons" class="form-control" data-mask required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>appeler le</label>
+                      <div class="input-group">
+                        <input type="tel" id="phone" class="form-control" data-mask required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>commentaire</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-tag"></i>
+                        </div>
+                        <input id="comment" type="text" class="form-control" placeholder="Ex. Terminal T2">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+              </div>
+            </form>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      {% block validate %}{{ super() }}{% endblock %}
+    {% endblock content %}
+    {% block scripts %}
+      {{ super() }}
+      <script>
+        $('#confirm_transport').on('submit', function (e) {
+          e.preventDefault();
+          $('.box-footer .btn').prop('disabled', true);
+          var isValid = $("#phone").intlTelInput("isValidNumber");
+          var isComplete = $('#datetime').inputmask("isComplete");
+          var company = {{ company|tojson }};
+          var transports = company.sections.transports;
+          var transport = {
+            departure_place: $(".from").val(),
+            arrival_place: $(".to").val(),
+            nb_persons: Number($("#persons").val()),
+            comment: $("#comment").val(),
+            phone: $("#phone").intlTelInput("getNumber"),
+            departure_time: $("#datetime").val()
+          };
+          if (!isValid) {
+            Notify("Le numéro saisi n'est pas valide.", null, null, "error");
+            return false;
+          }
+          if (!isComplete) {
+            Notify("L'horaire saisi n'est pas complet.", null, null, "error");
+            return false;
+          }
+          company.sections.transports.push(transport);
+          $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {
+              "company": JSON.stringify(company),
+              "page": "transport"
+            },
+            success: function (result) {
+              if (result == "success") {
+                Notify("Changements sauvegardés.");
+                setTimeout(function () {
+                  location.reload();
+                }, 1000);
+              } else {
+                Notify("Section validée: Impossible à modifier");
+              }
+            }
+          });
+          return false;
+        });
+        function remove_transport(index) {
+          var r = confirm("Confirmer la suppresion ?");
+          if (r) {
+            var company = {{ company|tojson }};
+            company.sections.transports.splice(index, 1);
+            $.ajax({
+              type: "POST",
+              url: "{{ url_for('update_company') }}",
+              data: {
+                "company": JSON.stringify(company),
+                "page": "transport"
+              },
+              success: function (result) {
+                if (result == "success") {
+                  Notify("Suppression confirmée.");
+                  setTimeout(function () {
+                    location.reload();
+                  }, 1000);
+                } else {
+                  Notify("Section validée: Impossible à modifier");
+                }
+              }
+            });
+          }
+        }
+      </script>
+    {% endblock scripts %}

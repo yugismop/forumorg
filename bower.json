@@ -1,20 +1,16 @@
 {
   "name": "forum-org",
   "homepage": "https://github.com/ForumOrganisation/forum-org",
-  "authors": [
-    "Mehdi BAHA <elmehdi.baha@gmail.com>"
-  ],
+  "authors": ["Mehdi BAHA <elmehdi.baha@gmail.com>"],
   "description": "Official website of Forum Organisation",
   "main": "",
   "license": "MIT",
   "private": true,
   "ignore": [
-    "**/.*",
-    "test",
-    "tests",
-    "forum/static/bower_components"
+    "**/.*", "test", "tests", "forum/static/bower_components"
   ],
   "dependencies": {
+    "recaptcha": "https://www.google.com/recaptcha/api.js?hl=fr",
     "jquery": "^3.1.1",
     "bootstrap": "^3.3.7",
     "jQuery-One-Page-Nav": "^3.0.0",
@@ -27,7 +23,11 @@
     "font-awesome": "fontawesome#^4.7.0",
     "intl-tel-input": "^11.0.0",
     "notify-js": "*",
-    "dropzone": "^4.3.0"
+    "dropzone": "^4.3.0",
+    "chart.js": "^2.5.0",
+    "typed.js": "^1.1.6",
+    "jquery.scrollTo": "^2.1.2",
+    "jquery.countdown": "^2.2.0"
   },
   "resolutions": {
     "jquery": "^3.1.1"

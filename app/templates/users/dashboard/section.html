@@ -1,0 +1,96 @@
+{% extends 'users/dashboard/base.html' %}
+{# set user = current_user.data #}
+{% set user = {
+  'id': 'test',
+  'profile': {
+    'name': '',
+    'first_name': ''
+  },
+  'events': {
+    'fra': {},
+    'joi': {},
+    'styf': {},
+    'master_class': {}
+  }
+} %}
+{% set events = get_events() %}
+{% macro section_block(name, icon) -%}
+  {% if name == 'accueil' %}
+    <li class="{{ 'active' if request.path == url_for('dashboard') else '' }}">
+      <a href="{{ url_for('dashboard') }}">
+        <i class="{{ icon }}"></i>
+        <span>
+          {{ 'Accueil' }}
+        </span>
+      </a>
+    </li>
+  {% else %}
+    <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
+      {% if name != 'styf' and name != 'joi' and name != 'master_class' %}
+        <a href="{{ url_for('dashboard', page=name) }}">
+        {% else %}
+          <a href="#">
+          {% endif %}
+          <i class="{{ icon }}"></i>
+          <span>
+            {% if name == 'joi' %}
+              {{ 'J. Objectif Ingénieur' }}
+            {% elif name == 'styf' %}
+              {{ 'Start-Up Your Future' }}
+            {% elif name == 'master_class' %}
+              {{ 'Master Class' }}
+            {% elif name == 'fra' %}
+              {{ 'Général' }}
+            {% elif name == 'companies' %}
+              {{ 'Liste des entreprises' }}
+            {% elif name == 'jobs' %}
+              {{ 'Liste des offres' }}
+            {% elif name == 'ticket' %}
+              {{ 'Mon billet' }}
+            {% elif name == 'profile' %}
+              {{ 'Mon profil' }}
+            {% endif %}
+          </span>
+          {% if name == 'joi' or name == 'styf' or name == 'master_class' %}
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">clôturé</small>
+            </span>
+          {% endif %}
+        </a>
+      </li>
+    {% endif %}
+  {%- endmacro %}
+  {% macro header_section(name) -%}
+    <div class="box-header with-border">
+      <h3 class="box-title">{{ name }}</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+  {%- endmacro %}
+  {% block sections %}
+    {{ section_block('accueil', 'fa fa-home')}}
+    {{ section_block('profile', 'fa fa-user-circle-o')}}
+    <li class="active treeview">
+      <a href="#">
+        <i class="fa fa-briefcase"></i>
+        <span>Forum Rhône-Alpes</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        {{ section_block('fra', 'fa fa-dashboard')}}
+        {% if user.events.fra.registered %}
+          {{ section_block('companies', 'fa fa-building')}}
+          {{ section_block('jobs', 'fa fa-list')}}
+          {{ section_block('ticket', 'fa fa-ticket')}}
+        {% endif %}
+      </ul>
+    </li>
+    {{ section_block('master_class', 'fa fa-graduation-cap')}}
+    {{ section_block('styf', 'fa fa-lightbulb-o')}}
+    {{ section_block('joi', 'fa fa-book')}}
+  {% endblock sections %}

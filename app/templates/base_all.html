@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- TITLE OF SITE -->
+    <title>{{ title }}
+      - Forum Organisation</title>
+    <!-- META DATA -->
+    <meta name="description" content="Forum Organisation est une association étudiante qui a pour but de générer le contact entre les étudiants et les entreprises.">
+    <meta
+      name="keywords"
+      content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
+    <meta name="author" content="ForumOrganisation">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- CSS FILES -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <!-- CUSTOM CSS FILES -->
+    {% block css_files %}{% endblock css_files %}
+    <!-- CUSTOM CSS STYLE -->
+    {% block style %}{% endblock style %}
+  </head>
+  <!-- BODY -->
+  <body class="{{ body_class }}">
+    {% block body %}{% endblock body %}
+    <!-- JS FILES -->
+    <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+    <!-- CUSTOM JS FILES -->
+    {% block js_files %}{% endblock js_files %}
+    <!-- CUSTOM JS SCRIPTS -->
+    {% block scripts %}{% endblock scripts %}
+  </html>

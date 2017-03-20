@@ -1,0 +1,238 @@
+{% extends 'companies/dashboard/section.html' %}
+{% set title = 'Job Board' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des offres</h3>
+        </div>
+        <div class="box-body no-padding">
+          <table class="table responsive table-hover nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Détails</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Durée</th>
+                <th>Lieu</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Ajouter une offre d'emploi</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <form id="confirm_job">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Titre de l'offre</label>
+                  <input type="text" class="form-control input-lg title" placeholder="Ex. Développeur Web Python (H/F)" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Ville/Pays</label>
+                  <input type="text" class="form-control location" placeholder="Ex. Grenoble" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Description de l'offre</label>
+                  <textarea class="form-control description" placeholder="Votre description..." required></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Lien url de l'offre (optionnel)</label>
+                  <input type="text" class="form-control url" placeholder="Ex. www.abc.xyz">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Durée de la mission</label>
+                  <select class="form-control select2 duration" size="50">
+                    <option selected="true">3 mois</option>
+                    <option>6 mois</option>
+                    <option>Indéfini</option>
+                    <option>Autre</option>
+                  </select>
+                  <input type="text" class="duration_" style="display:none"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Type de l'offre</label>
+                  <select class="form-control select2 type">
+                    <option>Stage</option>
+                    <option>CDD</option>
+                    <option>CDI</option>
+                    <option>VIE</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </div>
+        </form>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block style %}
+{{ super() }}
+<style>
+  td.details-control {
+    background: url("../../../static/images/open.png") no-repeat center center;
+    cursor: pointer;
+  }
+  tr.shown td.details-control {
+    background: url("../../../static/images/close.png") no-repeat center center;
+  }
+</style>
+{% endblock style %}
+{% block scripts %}
+{{ super() }}
+<script>
+  function format(d) {
+    s = '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p>';
+    if (d.url) {
+      s += '<h4>Lien url de l\'offre</h4>' + d.url;
+    }
+    s += '</div>';
+    return s;
+  }
+  $(document).ready(function () {
+    $('.duration').change(function () {
+      if ($('.duration').val() == 'Autre') {
+        $('.duration_').show();
+      } else {
+        $('.duration_').hide();
+      }
+    });
+    var jobs = {{ company.id | to_jobs | tojson }};
+    var table = $('.table').DataTable({
+      "data": jobs,
+      "language": {
+        "emptyTable": '<h2 class="lead text-center">Aucune offre de stage trouvée :(</h2>'
+      },
+      "columns": [
+        {
+          width: "3%",
+          className: 'details-control',
+          orderable: false,
+          data: null,
+          defaultContent: ''
+        }, {
+          data: "title",
+          orderable: false,
+          width: "40%"
+        }, {
+          data: "type"
+        }, {
+          data: "duration"
+        }, {
+          data: "location"
+        }, {
+          orderable: false,
+          mRender: function (data, type, row) {
+            return '<a onclick="remove_job(\'' + row._id + '\')" href="#" style="color:red">Supprimer l\'offre</a>';
+          }
+        }
+      ],
+      "paging": false,
+      "info": false,
+      "searching": false
+    });
+    // Add event listener for opening and closing details
+    $('.table tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+      } else {
+        // Open this row
+        console.log(format(row.data()));
+        row.child(format(row.data())).show();
+        tr.addClass('shown');
+      }
+    });
+  });
+  $('#confirm_job').on('submit', function (e) {
+    e.preventDefault();
+    var dur;
+    if ($('.duration').val() == 'Autre') {
+      dur = $('.duration_').val();
+    } else {
+      dur = $('.duration').val()
+    }
+    var job = {
+      company_id: "{{ current_user.id }}",
+      title: $(".title").val(),
+      type: $(".type").val(),
+      duration: dur,
+      description: $(".description").val(),
+      location: $(".location").val(),
+      url: $(".url").val()
+    }
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('add_job') }}",
+      data: {
+        "job": JSON.stringify(job)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    });
+    return false;
+  });
+  function remove_job(job_id) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('remove_job') }}",
+        data: {
+          "id": job_id
+        },
+        success: function () {
+          Notify("Suppression confirmée.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
+      });
+    }
+  }
+</script>
+{% endblock scripts %}

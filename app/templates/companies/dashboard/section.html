@@ -1,0 +1,75 @@
+{% extends 'companies/dashboard/base.html' %}
+{% if not company %}
+  {# set company = current_user.data #}
+  {% set company = { 'duration': 'both', 'id': 'test', 'name': 'test', 'size': 12, 'sections': { 'furnitures': {}, 'catering': { 'wed': {}, 'thu': {} }, 'events': {}, 'persons': [], 'transports': [], 'profile': { 'stand': {}, 'facturation': {} } } } %}
+{% endif %}
+{% macro section_block(name, icon) -%}
+  <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
+    <a href="{{ url_for('dashboard', page=name) }}">
+      <i class="{{ icon }}"></i>
+      <span>{{ name|capitalize|replace("_", " ") }}</span>
+      <span class="pull-right-container">
+        {% if company.get(name) %}
+          <small class="label pull-right bg-green">validé</small>
+        {% endif %}
+        {% if name == 'cvtheque' %}
+          <small class="label pull-right bg-blue">ouverte</small>
+        {% endif %}
+      </span>
+    </a>
+  </li>
+{%- endmacro %}
+{% macro header_section(name) -%}
+  <div class="box-header with-border">
+    <h3 class="box-title">{{ name|capitalize|replace("_", " ") }}</h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <i class="fa fa-minus"></i>
+      </button>
+    </div>
+  </div>
+{%- endmacro %}
+{% block sections %}
+  {{ section_block('accueil', 'fa fa-home')}}
+  {{ section_block('profil', 'fa fa-user')}}
+  {{ section_block('job_board', 'glyphicon glyphicon-bullhorn')}}
+  {{ section_block('cvtheque', 'fa fa-file-pdf-o')}}
+  <li class="active treeview">
+    <a href="#">
+      <i class="fa fa-dashboard"></i>
+      <span>Logistique</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      {{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
+      {{ section_block('restauration', 'fa fa-glass')}}
+      {{ section_block('transport', 'fa fa-car')}}
+      {{ section_block('badges', 'fa fa-clone')}}
+      {{ section_block('programme', 'fa fa-calendar-plus-o')}}
+      {{ section_block('bon_de_commande', 'fa fa-paperclip')}}
+    </ul>
+  </li>
+{% endblock sections %}
+{% block validate %}
+  <div>
+    {% if company.get(page) %}
+      <div class="callout callout-info">
+        <h4>
+          <i class="fa fa-info"></i>Message:
+        </h4>
+        Cette section a été validée. Pour modifier la section, veuillez contactez
+        <a href="mailto:contact-fra@forumorg.org">notre équipe</a>.
+      </div>
+    {% else %}
+      <div class="callout callout-warning">
+        <h4>
+          <i class="fa fa-warning"></i>Message:
+        </h4>
+        Cette section n'est pas encore validée.
+        <a href="#" class="section">Cliquez ici pour valider la section.</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock validate %}

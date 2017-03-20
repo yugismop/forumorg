@@ -1,0 +1,220 @@
+{% extends 'companies/dashboard/section.html' %}
+{% set title = 'Bon de commande' %}
+{% set events = get_events() %}
+{% block content %}
+  {% set count = [0] %}
+  {% set f = company.sections.profile.facturation %}
+  {% set to_display = company.equipement and company.transport and company.restauration
+  and company.badges and company.programme and f.name and f.address and f.city and f.code_postal
+  and f.phone and f.mail %}
+  <div class="row">
+    <div class="pad margin no-print">
+      <div class="callout callout-{{'info' if to_display else 'warning'}}" style="margin-bottom: 0!important;">
+        <h4>
+          <i class="fa fa-{{'info' if to_display else 'warning'}}"></i>
+          Note:</h4>
+        <p>
+          {% if to_display %}
+            Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
+          {% else %}
+            Pour imprimer votre bon de commande, les sections doivent être validées et les informations de facturation (section Profil) complétées.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <i class="fa fa-globe"></i>
+            Forum Organisation.
+            <small class="pull-right">Date:
+              {% now 'local',
+              '%d/%m/%Y' %}</small>
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          De
+          <address>
+            <strong>Forum Organisation.</strong><br>
+            20 Avenue Albert Einstein<br>
+            Villeurbanne, 69100<br>
+            Tel: 04 78 94 29 30<br>
+            Email: contact-fra@forumorg.org
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          À
+          <address>
+            {% if f.address and f.name %}
+              <strong>{{ f.name }}</strong><br/>
+              {{ f.address }}<br/>
+              {{ '%s, %s' | format(f.city, f.code_postal) }}<br/>
+              Tel:
+              {{ f.phone }}<br/>
+              Email:
+              {{ f.mail }}<br/>
+            {% else %}
+              <strong>Veuillez compléter votre profil.</strong>
+            {% endif %}
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <b>Bon de commande</b><br>
+          <br>
+          <b>Paiement avant:</b>
+          10/03/2017<br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      {% if not company.sections.furnitures | empty_furnitures %}
+        <div class="box-header">
+          <h3 class="box-title">Liste des équipements</h3>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 table-responsive">
+            <table class="table
+              table-striped" width="240">
+              <thead>
+                <tr>
+                  <th width="70%">Produit</th>
+                  <th width="15%">Quantité</th>
+                  <th width="15%">Sous-total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for furniture_id, quantity in company.sections.furnitures.items() %}
+                  {% if quantity != 0 %}
+                    {% set f = furniture_id | to_furniture %}
+                    {% if count.append(count.pop() + f.price * quantity) %}{% endif %}
+                    <tr>
+                      <td>{{ f.name }}</td>
+                      <td>{{ quantity }}</td>
+                      <td>{{ quantity * f.price }}
+                        €</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
+      {% if not company.sections.catering | empty_dishes %}
+        <div class="box-header">
+          <h3 class="box-title">Liste des repas</h3>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 table-responsive">
+            <table class="table table-striped" width="240">
+              <thead>
+                <tr>
+                  <th width="70%">Jour</th>
+                  <th width="15%">Quantité</th>
+                  <th width="15%">Sous-total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for k, v in company.sections.catering | dictsort | reverse %}
+                  {% set qty = v.values() | sum %}
+                  {% if
+                  count.append(count.pop() + qty * 30) %}{% endif %}
+                  <tr>
+                    <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
+                    <td>{{ qty }}</td>
+                    <td>{{ qty*30 }}
+                      €</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
+      {% if company.sections.events | empty_events %}
+        <div class="box-header">
+          <h3 class="box-title">Liste des évènements</h3>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 table-responsive">
+            <table class="table table-striped" width="240">
+              <thead>
+                <tr>
+                  <th width="85%">Nom de l'évènement</th>
+                  <th width="15%">Sous-total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for e in events | selectattr('image') %}
+                  {% set registered = company.sections.events.get(e.id) %}
+                  {% if registered %}
+                    {% if count.append(count.pop() + e.price) %}{% endif %}
+                    <tr>
+                      <td>{{ e.name }}</td>
+                      <td>{{ e.price }}
+                        €</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+          <p class="lead">Méthodes de paiement:</p>
+          <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
+          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+            Envoyer un chèque à notre adresse.
+          </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <p class="lead">Montant dû 10/3/2017</p>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th style="width:50%">Sous-total</th>
+                  <td>{{ count.0 }}
+                    €</td>
+                </tr>
+                <tr>
+                  <th>T.V.A</th>
+                  <td>
+                    <span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td>{{ count.0 }}
+                    €</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      <!-- this row will not appear when printing -->
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right {{'disabled' if not to_display else ''}}">
+            <i class="fa fa-print"></i>
+            Imprimer Bon de commande</a>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock content %}

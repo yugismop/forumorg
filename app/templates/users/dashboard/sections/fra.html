@@ -1,0 +1,384 @@
+{% extends 'users/dashboard/section.html' %}
+{% set title = 'Forum Rhône-Alpes' %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">
+            Général
+          </h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          {% if user.events.fra.registered %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Ton inscription au Forum Rhône-Alpes est bien prise en compte.
+                </h2>
+                {% set companies = current_user.id | to_ambassador %}
+                {% if companies %}
+                  {% for k, v in companies.items() %}
+                    {{ '<h4 class="lead text-center">Tu seras ambassadeur de'|safe if loop.first else '' }}
+                    <strong>{{v|to_name}}
+                      ({{k|capitalize}})</strong>
+                    {{ 'et' if not loop.last else '.' }}
+                  {% endfor %}
+                  {{ '</h4>'|safe if loop.last else '' }}
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Tu n'es pas encore inscrit à cet évènement :(</h2>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+{% if not user.events.fra.registered %}
+<div class="row no-print">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          Inscrits-toi au Forum Rhône-Alpes
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="checkbox" name="fra">
+                  Je souhaite m'inscrire à l'évènement Forum Rhône-Alpes.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button id="confirm_fra" type="submit" class="btn btn-primary">Confirmer</button>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+{% else %}
+<div class="row">
+  <div class="col-md-12 no-print">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          Deviens un ambassadeur
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <p class="lead">En consultant la liste des entreprises, tu peux devenir ambassadeur d'une entreprise. Tu auras ainsi l'occasion de côtoyer durant une journée les RH et opérationnels de l'entreprise de ton choix : un bon moyen de te faire remarquer !</p>
+        <p class="lead">En devenant ambassadeur, tu t’engages à libérer les journées où tu participes, ta présence est ainsi
+          <strong>obligatoire</strong>
+          car il y a un unique ambassadeur par entreprise.</p>
+        <form id="confirm_ambassador">
+          <div class="box-body">
+            <div class="row r-center">
+              {% for day in['mercredi',
+                'jeudi'] %}
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>choisis une entreprise à parrainer pour
+                      {{ day }}</label>
+                    <select class="form-control select2 company_{{loop.index}}" style="width: 100%;">
+                      {% set companies = day | to_companies | sort(attribute = 'id') %}
+                      <option value="none">Aucune</option>
+                      {% for c in companies %}
+                        <option {{ 'selected' if user.events.fra.get('ambassador', {}).get(day) == c.id else '' }} value="{{c.id}}" {{ 'disabled' if c.is_filled and not user.events.fra.get('ambassador', {}).get(day) == c.id else ''}}>{{c.name}}
+                          {{ '(complet)' if c.is_filled else '' }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              {% endfor %}
+              <!-- /.input group -->
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+        </form>
+        <!-- /.input group -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box-body -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 no-print">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">
+          Choisis une navette
+        </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <p class="lead">Si tu n’es pas dans la région lyonnaise, Forum Organisation a mis en place un système de navettes gratuites. Tu peux dès maintenant effectuer ta réservation ! -
+        </p>
+        <form id="confirm_transport">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-4">
+                {% set places = ['Saint-Etienne (Mines Saint-Etienne)', 'Ecully (Centrale Lyon)', 'Grenoble (Polytech Grenoble)', 'Grenoble (Phelma Grenoble)', 'Forum Rhône-Alpes'] %}
+                <div class="form-group">
+                  <label>je pars de</label>
+                  <select class="form-control select2 from" style="width: 100%;">
+                    {% for p in places %}
+                      <option>{{ p }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>vers</label>
+                  <select class="form-control select2 to" style="width: 100%;">
+                    {% for p in places %}
+                      <option>{{ p }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>à</label>
+                  <select class="form-control select2 at" style="width: 100%;"></select>
+                </div>
+              </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+              {% if user.events.fra.transports %}
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th>Lieu de départ</th>
+                      <th>Lieu d'arrivée</th>
+                      <th>Jour</th>
+                      <th>
+                        <i class="fa fa-remove"></i>
+                      </th>
+                    </tr>
+                    {% for transport in user.events.fra.transports %}
+                      <tr>
+                        <td>{{ transport.departure_place }}</td>
+                        <td>{{ transport.arrival_place }}</td>
+                        <td>{{ transport.day }}</td>
+                        <td>
+                          <i onclick="remove_transport({{loop.index0}})" class="fa fa-remove" style="color:red"></i>
+                        </td>
+                      </tr>
+                      {% endfor%}
+                    {% else %}
+                      <tr>
+                        <td colspan="4">
+                          <h2 class="lead text-center">Aucune navette enregistrée</h2>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Ajouter navette</button>
+            </div>
+          </form>
+          <!-- /.input group -->
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+  </div>
+{% endif %}
+{% endblock content %}
+{% block scripts %}
+{{ super() }}
+<script>
+  var $from = $('.from');
+  var $to = $('.to');
+  var $at = $('.at');
+  $to.on('select2:open', function (e) {
+    if ($from.val().includes('Alpes')) {
+      $to.empty();
+      $to.append('<option>Saint-Etienne (Mines Saint-Etienne)</option>');
+      $to.append('<option>Ecully (Centrale Lyon)</option>');
+      $to.append('<option>Grenoble (Polytech Grenoble)</option>');
+    } else {
+      $to.empty();
+      $to.append('<option>Forum Rhône-Alpes</option>');
+    }
+  });
+  $at.on('select2:open', function (e) {
+    if ($from.val().includes('Saint')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 10h30</option>');
+      $at.append('<option>Jeudi à 10h30</option>');
+    }
+    if ($from.val().includes('Ecully')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 12h15</option>');
+      $at.append('<option>Jeudi à 12h15</option>');
+    }
+    if ($from.val().includes('Phelma')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 08h15</option>');
+      $at.append('<option>Jeudi à 08h15</option>');
+    }
+    if ($from.val().includes('Polytech')) {
+      $at.empty();
+      $at.append('<option>Mercredi à 10h30</option>');
+      $at.append('<option>Jeudi à 12h00</option>');
+    }
+    if ($from.val().includes('Alpes')) {
+      if ($to.val().includes('Phelma')) {
+        $at.empty();
+        $at.append('<option>Mercredi à 15h00</option>');
+        $at.append('<option>Jeudi à 15h00</option>');
+      } else {
+        $at.empty();
+        $at.append('<option>Mercredi à 16h00</option>');
+        $at.append('<option>Jeudi à 16h00</option>');
+      }
+    }
+  });
+  function update_fra() {
+    $.ajax({
+      type: "POST",
+      data: {
+        'event': 'fra'
+      },
+      url: "{{ url_for('update_event') }}",
+      success: function (result) {
+        if (result == 'success') {
+          Notify("Changements sauvegardés.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
+        }
+      }
+    });
+    return false;
+  }
+  $('#confirm_fra').on('click', function (e) {
+    e.preventDefault();
+    update_fra();
+  });
+  $('#confirm_ambassador').on('submit', function (e) {
+    e.preventDefault();
+    var first = $('.company_1').val();
+    var second = $('.company_2').val();
+    $.ajax({
+      type: "POST",
+      data: {
+        'first': first,
+        'second': second
+      },
+      url: "{{ url_for('update_ambassador') }}",
+      success: function (result) {
+        if (result == 'success') {
+          Notify("Changements sauvegardés.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          Notify("Une erreur est survenue. Réessayez.", null, null, "error");
+        }
+      }
+    });
+    return false;
+  });
+  $('#confirm_transport').on('submit', function (e) {
+    e.preventDefault();
+    var user = {{ user|tojson }};
+    var fra = user.events.fra;
+    if (fra.transports == undefined) {
+      fra['transports'] = [];
+    }
+    var transport = {
+      departure_place: $(".from").val(),
+      arrival_place: $(".to").val(),
+      day: $(".at").val()
+    };
+    fra.transports.push(transport);
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_user') }}",
+      data: {
+        "user": JSON.stringify(user)
+      },
+      success: function (result) {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    });
+    return false;
+  });
+  function remove_transport(index) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+      var user = {{ user|tojson }};
+      user.events.fra.transports.splice(index, 1);
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_user') }}",
+        data: {
+          "user": JSON.stringify(user)
+        },
+        success: function (result) {
+          Notify("Suppression confirmée.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
+      });
+    }
+  }
+</script>
+{% endblock scripts %}

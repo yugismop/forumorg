@@ -1,0 +1,111 @@
+{% extends 'base_dashboard.html' %}
+{% set page = request.path.split('/')[-1] %}
+{% block css_files %}
+  {{ super() }}
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+{% endblock css_files %}
+{% block user_menu %}
+  <!-- User Account Menu -->
+<li class="dropdown user user-menu">
+  <!-- Menu Toggle Button -->
+  <a>
+    <!-- The user image in the navbar-->
+    <img class="user-image" src="{{ url_for('identicon', text=company.id) }}" alt="User Image">
+    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+    <span class="hidden-xs">{{ company.name }}</span>
+  </a>
+</li>
+<!-- Sign Out Menu -->
+<li class="dropdown messages-menu">
+  <a href="{{ url_for('index') }}">
+    <i class="fa fa-sign-out"></i>
+    <span class="hidden-xs">Retour à l'accueil</span>
+  </a>
+</li>
+{% endblock user_menu %}
+{% block user_panel %}
+<div class="user-panel">
+  <div class="pull-left image">
+    <img class="img-circle" src="{{ url_for('identicon', text=company.id) }}" alt="User Image">
+  </div>
+  <div class="pull-left info">
+    <p>{{company.name}}</p>
+    <!-- Status -->
+    <a href="#">
+      <i class="fa fa-circle text-success"></i>
+      En Ligne</a>
+  </div>
+</div>
+{% endblock user_panel %}
+{% block style %}
+<style>
+  .iti-flag {
+    background-image: url("{{ url_for('static', filename='images/flags.png') }}");
+  }
+  .intl-tel-input {
+    width: 100%;
+  }
+</style>
+{% endblock style %}
+<!-- REQUIRED JS SCRIPTS -->
+{% block js_files %}
+{{ super() }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+{% endblock js_files %}
+{% block scripts %}
+<script>
+  function opt(type) {
+    options = {
+      autoPlaceholder: "aggressive",
+      dropdownContainer: "body",
+      geoIpLookup: function (callback) {
+        $.get("http://ipinfo.io", function () {}, "jsonp").always(function (resp) {
+          var countryCode = (resp && resp.country)
+            ? resp.country
+            : "";
+          callback(countryCode);
+        });
+      },
+      placeholderNumberType: type,
+      initialCountry: "auto",
+      preferredCountries: [
+        'fr', 'ch', 'be', 'ma', 'nl'
+      ],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js"
+    };
+    return options;
+  }
+  function validate_section() {
+    var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
+    if (r) {
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('validate_section') }}",
+        data: {
+          "page": "{{ page }}"
+        },
+        success: function (result) {
+          if (result == "success") {
+            Notify("Section validée.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          } else {
+            Notify("Un problème est survenu.");
+          }
+        }
+      });
+    }
+  }
+  if ({{'true' if company.get(page) else 'false'}} && !{{'true' if current_user.id == 'admin' else 'false' }}) {
+    $('input[type=text]').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('button').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('i').attr('onclick', '');
+  }
+  $('#countdown').countdown('2017/03/09', function (event) {
+    $(this).html(event.strftime('ouvre dans %-Dj'));
+  });
+</script>
+{% endblock scripts %}

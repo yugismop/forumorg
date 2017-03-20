@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 
 
 # App init
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my_debug_salt')
 app.config['TEMPLATES_AUTO_RELOAD'] = True

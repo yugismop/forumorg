@@ -13,7 +13,7 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return redirect(url_for('login'))
+    return redirect(url_for('signin'))
 
 
 def validate_login(password_hashed, password_entered):

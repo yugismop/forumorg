@@ -15,6 +15,17 @@ from app import app, GridFS
 from mailing import send_mail
 
 
+# INDEX
+# start of app
+@app.route('/')
+@app.route('/<page>')
+def index(page=None):
+    if page:
+        return render_template('users/{}.html'.format(page))
+    else:
+        return render_template('users/index.html')
+
+
 # ADMIN
 @app.route('/dashboard/')
 @app.route('/dashboard/<page>')
@@ -22,66 +33,60 @@ from mailing import send_mail
 def dashboard(page=None):
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
-            render_template('dashboard/sections/fra.html')
-        return render_template('dashboard/sections/{}.html'.format(page))
+            render_template('users/dashboard/sections/fra.html')
+        return render_template('users/dashboard/sections/{}.html'.format(page))
     else:
-        return render_template('dashboard/dashboard.html')
+        return render_template('users/dashboard/sections/dashboard.html')
 
 
 @app.route('/dashboard/companies/<company_id>')
 @login_required
 def companies(company_id=None):
     company = get_db().companies.find_one({'id': company_id})
-    return render_template('dashboard/sections/company.html', company=company)
-
-
-@app.route('/js_log', methods=["POST"])
-def js_log():
-    print('js_log', request.form.to_dict())
-    return 'success'
+    return render_template('users/dashboard/sections/company.html', company=company)
 
 
 @app.route('/connexion', methods=["GET", "POST"])
-def login():
+def signin():
     if request.method == 'POST':
         email = request.form.get('email').lower()
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-            return render_template('login.html', error=["no_user_found"])
+            return render_template('signin.html', error=["no_user_found"])
         if not validate_login(user.password, password):
-            return render_template('login.html', error=["wrong_password"])
+            return render_template('signin.html', error=["wrong_password"])
         if not user.confirmed:
-            return render_template('login.html', error=["user_not_confirmed"])
+            return render_template('signin.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
         print('connected_as: {}'.format(email))
         login_user(user)
         return redirect(url_for('dashboard'))
     print("flash: {}".format(get_flashed_messages()))
-    return render_template('login.html', error=get_flashed_messages())
+    return render_template('signin.html', error=get_flashed_messages())
 
 
 @app.route('/inscription', methods=["GET", "POST"])
-def register():
+def signup():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
         if not password or not email:
             flash("empty_fields")
-            return render_template('register.html')
+            return render_template('signup.html')
         email = email.lower()
         if user_exists(email):
             user = get_user(id=email)
             if user.confirmed:
-                return render_template('register.html', error="user_already_exists")
+                return render_template('signup.html', error="user_already_exists")
             else:
                 token = generate_confirmation_token(email)
                 confirm_url = url_for(
                     'confirm_email', token=token, _external=True)
                 send_mail(email, confirm_url)
                 flash("user_registered")
-                return redirect(url_for('login'))
+                return redirect(url_for('signin'))
         else:
             user = User(id=email, password=password, created=True)
             token = generate_confirmation_token(email)
@@ -95,8 +100,8 @@ def register():
                     flash('error')
             except Exception as e:
                 print('error', e, user, user.data)
-            return redirect(request.args.get('next') or url_for('login'))
-    return render_template('register.html')
+            return redirect(request.args.get('next') or url_for('signin'))
+    return render_template('signup.html')
 
 
 @app.route('/confirmation/<token>')
@@ -105,18 +110,18 @@ def confirm_email(token):
 
     if not email:
         flash('confirm_link_expired', 'danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('signin'))
 
     user = get_user(id=email)
     if not user:
         flash('error')
-        return redirect(url_for('login'))
+        return redirect(url_for('signin'))
     if user.confirmed:
         flash('account_already_confirmed', 'success')
     else:
         confirm_user(user)
         flash('account_confirmed', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('signin'))
 
 
 @app.route('/identicon', methods=["GET"])
@@ -302,24 +307,15 @@ def _update_ambassador(value, day):
         get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.{}'.format(day): value}})
 
 
-# INDEX
-# start of app
-@app.route('/')
-@app.route('/<page>')
-def index(page=None, methods=['GET']):
-    # asking for specific page
-    if page:
-        try:
-            return render_template('{}.html'.format(page))
-        except:
-            abort(404)
-    # default option is main dashboard
-    else:
-        return render_template('index.html')
-
-
 # SEO
 @app.route('/robots.txt')
 @app.route('/favicon.ico')
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
+
+
+# JS logging
+@app.route('/js_log', methods=["POST"])
+def js_log():
+    print('js_log', request.form.to_dict())
+    return 'success'

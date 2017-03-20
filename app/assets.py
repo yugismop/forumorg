@@ -9,6 +9,7 @@ assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
 assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
 
 bundles = {
+    ### COMMON ###
     'js_common': Bundle(
         Bundle(
             'jquery/dist/jquery.min.js',
@@ -24,36 +25,52 @@ bundles = {
         Bundle(
             'bootstrap/dist/css/bootstrap.min.css',
             'font-awesome/css/font-awesome.min.css',
-            'css/common.css',
             filters='cssrewrite'
+        ),
+        Bundle(
+            'css/common.css',
+            filters='cssmin',
         ),
         output='build/common.min.css'),
 
-    'js_index': Bundle(
+
+    ### HOME ###
+    'js_home': Bundle(
         Bundle(
-            'js/index.js',
-            'jQuery-One-Page-Nav/jquery.nav.js',
+            'recaptcha/index.js',
+            'typed.js/dist/typed.min.js',
+            'jquery.scrollTo/jquery.scrollTo.min.js',
+            Bundle(
+                'jQuery-One-Page-Nav/jquery.nav.js',
+                filters='jsmin',
+            ),
+        ),
+        Bundle(
+            'js/home.js',
             filters='jsmin',
         ),
-        output='build/index.min.js'),
+        output='build/home.min.js'),
 
-    'css_index': Bundle(
+    'css_home': Bundle(
         Bundle(
             'css/index/nemo.css',
             'css/index/colors/blue.css',
             filters='cssmin'
         ),
-        output='build/index.min.css'),
+        output='build/home.min.css'),
 
-    'css_login': Bundle(
+    ### LOGIN ###
+    'css_sign': Bundle(
         Bundle(
-            'AdminLTE/dist/css/AdminLTE.min.css',
+            'AdminLTE/dist/css/AdminLTE.min.css'
+        ),
+        Bundle(
             'css/index/login.css',
             filters='cssmin'
         ),
         output='build/login.min.css'),
 
-    'js_admin': Bundle(
+    'js_dashboard': Bundle(
         Bundle(
             'select2/dist/js/select2.min.js',
             'select2/dist/js/i18n/fr.js',
@@ -63,16 +80,17 @@ bundles = {
             'datatables.net/js/jquery.dataTables.min.js',
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
             'AdminLTE/dist/js/app.min.js',
+            'jquery.countdown/dist/jquery.countdown.min.js',
             'dropzone/dist/min/dropzone.min.js',
         ),
         Bundle(
-            'bootstrap-editable/src/js/bootstrap-editable.js',
             'notify-js/Notify.js',
+            'js/dashboard.js',
             filters='jsmin',
         ),
-        output='build/admin.min.js'),
+        output='build/dashboard.min.js'),
 
-    'css_admin': Bundle(
+    'css_dashboard': Bundle(
         Bundle(
             'AdminLTE/dist/css/AdminLTE.min.css',
             'AdminLTE/dist/css/skins/skin-blue.min.css',
@@ -82,12 +100,24 @@ bundles = {
         ),
         Bundle(
             'PACE/themes/white/pace-theme-minimal.css',
-            'bootstrap-editable/src/css/bootstrap-editable.css',
             'intl-tel-input/build/css/intlTelInput.css',
             'css/admin.css',
             filters='cssmin',
         ),
-        output='build/admin.min.css'),
+        output='build/dashboard.min.css'),
+
+    'css_split': Bundle(
+        Bundle(
+            'css/split.css'
+        ),
+        output='build/split.min.css'),
+
+    ### ADMIN ###
+    'js_admin': Bundle(
+        Bundle(
+            'chart.js/dist/Chart.min.js',
+        ),
+        output='build/admin.min.js'),
 
 }
 

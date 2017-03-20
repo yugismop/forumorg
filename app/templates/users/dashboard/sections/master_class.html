@@ -1,0 +1,98 @@
+{% extends 'users/dashboard/section.html' %}
+{% set title = 'Master Class' %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          {% if user.events.master_class.registered %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Ton inscription à la Master Class est bien prise en compte.
+                </h2>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4">
+                <h2 class="lead text-center">Tu n'es pas encore inscrit à cet évènement :(</h2>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">
+        Inscris-toi à la Master Class
+      </h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <input type="checkbox" name="master">
+                Je souhaite m'inscrire à l'évènement Master Class.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <button id="confirm_master_class" type="submit" class="btn btn-primary">Confirmer</button>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+{% endblock content %}
+{% block scripts %}
+{{ super() }}
+<script>
+function update_master_class() {
+  var registered = $('input[name=master]').is(':checked');
+  $.ajax({
+    type: "POST",
+    data: {
+      'registered': registered
+    },
+    url: "{{ url_for('update_master_class') }}",
+    success: function (result) {
+      if (result == 'success') {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
+        Notify("Veuillez remplir votre profil avant de vous inscrire.", null, null, "warning");
+      }
+    }
+  });
+  return false;
+}
+$('#confirm_master_class').on('click', function (e) {
+  e.preventDefault();
+  update_master_class();
+});
+</script>
+{% endblock scripts %}

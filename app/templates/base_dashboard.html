@@ -1,0 +1,82 @@
+{% extends 'base_all.html' %}
+{% block css_files %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/dashboard.min.css') }}"></link>
+{% endblock %}
+{% set body_class = 'hold-transition skin-blue sidebar-mini' %}
+{% block body %}
+  <div class="wrapper">
+    <!-- Main Header -->
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="{{ url_for('index') }}" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini">
+          <b>F</b>O</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">
+          <b>Forum</b>Organisation</span>
+      </a>
+      <!-- Header Navbar -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            {% block user_menu %}{% endblock user_menu %}
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        {% block user_panel %}{% endblock user_panel %}
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+          <li class="header">Menu</li>
+          {% block sections %}{% endblock sections %}
+        </ul>
+        <!-- /.sidebar-menu -->
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        {% block header %}{% endblock header %}
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        {% block content %}
+          {% block validate %}{% endblock %}
+        {% endblock content %}
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      {% block footer %}
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+          Fait avec
+          <span class="fa fa-heart"></span>
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2016
+          <a href="#">Forum Organisation</a>.</strong>
+        Tous droits réservés.
+      {% endblock footer %}
+    </footer>
+  </div>
+  <div id="notifications"></div>
+{% endblock body %}
+{% block js_files %}
+  <script type="text/javascript" src="{{ url_for('static', filename='build/dashboard.min.js') }}"></script>
+{% endblock js_files %}

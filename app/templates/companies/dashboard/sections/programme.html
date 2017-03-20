@@ -1,0 +1,95 @@
+{% extends 'companies/dashboard/section.html' %}
+{% set title = 'Programme' %}
+{% set events = get_events() %}
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des évènements</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table">
+            <tbody>
+              {% for e in events | selectattr('image') %}
+                {% set registered = company.sections.events.get(e.id) %}
+                <tr {% if registered %} bgcolor="#F6FCFD" {% endif %}>
+                  <td>
+                    <br>
+                    <div class="col-md-1">
+                      <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename=e.image) }}"></div>
+                    </div>
+                    <div class="col-md-11">
+                      <span class="text-primary">
+                        <b>{{ e.name }}</b>
+                      </span>
+                      {% if registered %}
+                        <span class='label label-primary'>Inscrit</span><br>
+                      {% endif %}
+                      <span class="text-muted">{{ e.description }}</span><br>
+                      <br>
+                    </div>
+                  </td>
+                  <td style="min-width:100px">
+                    <br>
+                    <br>
+                    <span class="h4">{{ e.price }}
+                      €</span>
+                  </td>
+                  <td>
+                    <br>
+                    <br>
+                    <div style="text-align:center;">
+                      <button class="btn btn-block btn-default" type="button" onclick="update_event('{{ e.id }}')">
+                        {% if registered %}
+                          Se désinscrire
+                        {% else %}
+                          S'inscrire
+                        {% endif %}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+  {% block validate %}{{ super() }}{% endblock %}
+{% endblock content %}
+{% block scripts %}
+  {{ super() }}
+  <script>
+    function update_event(event) {
+      var r = confirm("Confirmer votre choix ?");
+      if (r) {
+        var company = {{ company|tojson }};
+        var registered = company.sections.events[event] || false;
+        company.sections.events[event] = !registered;
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('update_company') }}",
+          data: {
+            "company": JSON.stringify(company),
+            "page": "programme"
+          },
+          success: function (result) {
+            if (result == "success") {
+              Notify("Programme mis à jour.");
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            } else {
+              Notify("Section validée: Impossible à modifier");
+            }
+          }
+        });
+      }
+    }
+  </script>
+{% endblock scripts %}

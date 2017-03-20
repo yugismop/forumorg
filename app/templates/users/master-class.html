@@ -1,0 +1,105 @@
+{% extends 'users/base.html' %}
+{% set title = 'Master Class' %}
+{% block content %}
+  <section class="home event-home-1 dark-image-bg-2 gradient-overlay" id="event-home-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1 text-center">
+          <div class="logo-home">
+            <!-- REPLACE WITH YOUR LOGO -->
+            <br>
+          </div>
+          <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">15 Février, Amphi Emilie Du Châtelet - BMC</p>
+          <h1 class="heading-text" data-selector="Coming Soon">Master Class</h1>
+          <p class="sub-heading" data-selector="Coming Soon">Rendez-vous avec l'EM Lyon, l'IE Business School
+            <br>et bien d'autres pour débattre sur les Masters Spécialisés !<br></p>
+          <div class="home-download-btn">
+            <a href="{{ url_for('dashboard', page='master_class') }}" class="btn btn-white btn-lg">
+              {{ 'Modifier ma participation' if current_user.is_authenticated else "S'inscrire à la Master Class" }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+  <!-- APP FEATURES -->
+  <section class="features app-features-5 padding-120-75 white-bg" id="app-features-5-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+          <div class="section-heading text-center">
+            <h2 class="heading-text">Une conférence interactive</h2>
+            <hr class="lines">
+            <p class="sub-heading">Intéressé par un Master Spécialisé après l'INSA ? Viens t'informer avec l'EM Lyon, l'IE Business School et d'autres intervenants sur ton campus !</p>
+          </div>
+          <!-- /.section-heading -->
+        </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb50">
+          <div class="media media-chained">
+            <div class="media-left">
+              <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                  <path d="M32 0l-27.063 11.063 8 8-12.938 12.938 27.063-11.063-8-8zM24.875 20.438l-19.688 8 8.625-8.625 0.813-0.875-0.813-0.875-6.688-6.625 19.688-8-9.438 9.5 0.813 0.875z"></path>
+                </svg>
+              </i>
+            </div>
+            <div class="media-body">
+              <h3 class="title-text">Une conférence interactive</h3>
+              <p>Pendant la Master Class, pose tes questions en direct aux intervenants sur Twitter #MasterClass2017 ou par SMS !
+              </p>
+            </div>
+          </div>
+          <div class="media media-chained">
+            <div class="media-left">
+              <i class="icon svg-basic-geolocalize-05 icon-shape width-75 radius-30 icon-border-1">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                  <path
+                    d="M18.5 9.5c0-1.375-1.125-2.5-2.5-2.5s-2.5 1.125-2.5 2.5c0 1.375 1.125 2.5 2.5 2.5s2.5-1.125 2.5-2.5zM14.5 9.5c0-0.813 0.688-1.5 1.5-1.5s1.5 0.688 1.5 1.5c0 0.813-0.688 1.5-1.5 1.5s-1.5-0.688-1.5-1.5zM16 24.313l0.375-0.5c0.25-0.313 6.625-8.188 6.625-13.313 0-4.125-3.188-7.5-7-7.5-3.875 0-7 3.375-7 7.5 0 5.125 6.313 13 6.625 13.313zM16 4c3.313 0 6 2.938 6 6.5 0 4.063-4.625 10.375-6 12.188-1.375-1.813-6-8.125-6-12.188 0-3.563 2.688-6.5 6-6.5zM21.5 18v1h4.188l4.938 9h-29.25l4.938-9h4.188v-1h-4.813l-6.063 11h32.75l-6.063-11z"></path>
+                </svg>
+              </i>
+            </div>
+            <div class="media-body">
+              <h3 class="title-text">Un seul rendez-vous</h3>
+              <p>Mercredi 15 Février 2017 à 12h30, Amphi Emilie du Châtelet (Bibliothèque Marie Curie)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb50">
+          <img src="{{ url_for('static', filename='images/inter.jpg') }}" alt="" class="img-responsive img-right">
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+  <!-- INTERVENANTS -->
+  <section class="sponsors-2 dark-image-bg gradient-overlay padding-120-125 editBG" id="sponsors-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+          <div class="section-heading text-center">
+            <h2 class="heading-text">Intervenants</h2>
+            <hr class="lines">
+          </div>
+          <!-- /.section-heading -->
+        </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <ul class="client-logo">
+            <li><img src="{{ url_for('static', filename='images/em_lyon.png') }}" alt=""></li>
+            <li><img src="{{ url_for('static', filename='images/ie2.png') }}" alt=""></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+{% endblock content %}

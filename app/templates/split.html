@@ -1,0 +1,60 @@
+{% extends 'base_all.html' %}
+{% set title = 'Accueil' %}
+{% block css_files %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}"></link>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/split.min.css') }}"></link>
+{% endblock css_files %}
+{% block body %}
+  <body class="home page page-id-5 page-parent page-template-default not-mobile" cz-shortcut-listen="true">
+    <div id="header">
+      <div id="tagline">
+        <p>Depuis 32 ans, notre objectif est de générer du contact entre les étudiants et les entreprises.</p>
+      </div>
+    </div>
+    <div id="content" class="home" style="height: 918px;">
+      <div class="text">
+        <a class="logo logo-big" href="{{ url_for('index') }}">
+          <img class="svg " src="{{ url_for('static', filename='images/logo-home.png') }}" alt="Forum Organisation">
+        </a>
+        <div class="entry">
+          <p>Depuis 32 ans, notre objectif est de générer du contact entre les étudiants et les entreprises.</p>
+        </div>
+      </div>
+      <div class="section section-branded">
+        <video src="https://player.vimeo.com/external/194611800.hd.mp4?s=6ca9ffb2c636d6a5fbc55669a5e8af0e49ec2a30&amp;profile_id=174" autoplay="" muted="" loop=""></video>
+        <h3 class="title title-branded">
+          <span class="play">je suis une</span>
+          <span class="open-player">entreprise</span>
+          <span class="reel"></span>
+        </h3>
+        <div class="overlay"></div>
+      </div>
+      <div class="section section-originals">
+        <video src="https://player.vimeo.com/external/194611804.hd.mp4?s=6b0a2f5bcfc59703f153e45758998c9e16c33e43&amp;profile_id=119" autoplay="" muted="" loop=""></video>
+        <h3 class="title title-originals">
+          <span class="play">je suis un</span>
+          <span class="open-player">candidat</span>
+          <span class="reel"></span>
+        </h3>
+        <div class="overlay"></div>
+      </div>
+    </div>
+    <div id="footer">
+      <span>Fondée en 1986 à Lyon, France</span>
+    </div>
+  </body>
+{% endblock body %}
+{% block scripts %}
+  <script>
+    function update_section(section) {
+      $.ajax({
+        type: "POST",
+        data: {
+          'section': section
+        },
+        url: "{{ url_for('update_section') }}"
+      });
+      window.location.replace("{{ url_for('index') }}");
+    }
+  </script>
+{% endblock scripts %}
