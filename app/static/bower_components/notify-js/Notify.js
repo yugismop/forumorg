@@ -4,7 +4,7 @@ Notify = function(text, callback, close_callback, style) {
 	var $container = $('#notifications');
 	var icon = '<i class="fa fa-info-circle "></i>';
  
-	if (typeof style == 'undefined' ) style = 'warning'
+	if (typeof style == 'undefined' ) style = 'info'
   
 	var html = $('<div class="alert alert-' + style + '  hide">' + icon +  " " + text + '</div>');
   

@@ -5,15 +5,15 @@
 
 .env
 /env
-forum/static/.webassets-cache/
+/app/static/.webassets-cache
 
 # Bower
-forum/static/bower_components/*
-!forum/static/bower_components/font-awesome
-!forum/static/bower_components/bootstrap
-forum/static/bower_components/font-awesome/*
-forum/static/bower_components/bootstrap/*
-!forum/static/bower_components/font-awesome/fonts
-!forum/static/bower_components/bootstrap/dist
-forum/static/bower_components/bootstrap/dist/*
-!forum/static/bower_components/bootstrap/dist/fonts
+app/static/bower_components/*
+!app/static/bower_components/font-awesome
+!app/static/bower_components/bootstrap
+app/static/bower_components/font-awesome/*
+app/static/bower_components/bootstrap/*
+!app/static/bower_components/font-awesome/fonts
+!app/static/bower_components/bootstrap/dist
+app/static/bower_components/bootstrap/dist/*
+!app/static/bower_components/bootstrap/dist/fonts

@@ -174,6 +174,7 @@ def upload_resume():
 def update_profile():
     users = get_users()
     form = request.form.to_dict()
+    app.logger.info(form)
     if form.get('school_'):
         form['school'] = form.get('school_')
     form.pop('school_', None)

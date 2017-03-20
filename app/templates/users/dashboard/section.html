@@ -1,18 +1,5 @@
 {% extends 'users/dashboard/base.html' %}
-{# set user = current_user.data #}
-{% set user = {
-  'id': 'test',
-  'profile': {
-    'name': '',
-    'first_name': ''
-  },
-  'events': {
-    'fra': {},
-    'joi': {},
-    'styf': {},
-    'master_class': {}
-  }
-} %}
+{% set user = current_user.data %}
 {% set events = get_events() %}
 {% macro section_block(name, icon) -%}
   {% if name == 'accueil' %}
