@@ -55,6 +55,7 @@ bundles = {
         Bundle(
             'css/index/nemo.css',
             'css/index/colors/blue.css',
+            'css/index/index.css',
             filters='cssmin'
         ),
         output='build/home.min.css'),
@@ -68,7 +69,7 @@ bundles = {
             'css/index/login.css',
             filters='cssmin'
         ),
-        output='build/login.min.css'),
+        output='build/sign.min.css'),
 
     'js_dashboard': Bundle(
         Bundle(

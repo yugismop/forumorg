@@ -53,18 +53,18 @@ def signin():
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-            return render_template('signin.html', error=["no_user_found"])
+            return render_template('users/signin.html', error=["no_user_found"])
         if not validate_login(user.password, password):
-            return render_template('signin.html', error=["wrong_password"])
+            return render_template('users/signin.html', error=["wrong_password"])
         if not user.confirmed:
-            return render_template('signin.html', error=["user_not_confirmed"])
+            return render_template('users/signin.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
         print('connected_as: {}'.format(email))
         login_user(user)
         return redirect(url_for('dashboard'))
     print("flash: {}".format(get_flashed_messages()))
-    return render_template('signin.html', error=get_flashed_messages())
+    return render_template('users/signin.html', error=get_flashed_messages())
 
 
 @app.route('/inscription', methods=["GET", "POST"])
@@ -74,12 +74,12 @@ def signup():
         password = request.form.get('password')
         if not password or not email:
             flash("empty_fields")
-            return render_template('signup.html')
+            return render_template('users/users/signup.html')
         email = email.lower()
         if user_exists(email):
             user = get_user(id=email)
             if user.confirmed:
-                return render_template('signup.html', error="user_already_exists")
+                return render_template('users/users/signup.html', error="user_already_exists")
             else:
                 token = generate_confirmation_token(email)
                 confirm_url = url_for(
@@ -101,7 +101,7 @@ def signup():
             except Exception as e:
                 print('error', e, user, user.data)
             return redirect(request.args.get('next') or url_for('signin'))
-    return render_template('signup.html')
+    return render_template('users/signup.html')
 
 
 @app.route('/confirmation/<token>')

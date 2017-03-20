@@ -24,13 +24,17 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # Bcrypt
-bcrypt = Bcrypt(app)
+bcrypt = Bcrypt()
+bcrypt.init_app(app)
 
 # QRCode
-qrcode = QRcode(app)
+qrcode = QRcode()
+qrcode.init_app(app)
 
 # SSLify
-sslify = SSLify(app)
+with app.app_context():
+    sslify = SSLify()
+    sslify.init_app(app)
 
 # Storage init
 from storage import init_storage, get_db

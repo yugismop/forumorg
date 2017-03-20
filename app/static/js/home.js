@@ -7,7 +7,7 @@ $(document).ready(function() {
         animationEndPos = 150,
         logo = animationProp.find('.navbar-brand img');
 
-    if (animationProp.hasClass('navbar-transparent') && matchMedia('only screen and (min-width: 769px)').matches) {
+    if (matchMedia('only screen and (min-width: 769px)').matches && animationProp.hasClass('navbar-transparent')) {
         //if visitor refresh on the middle of the document
         if (scrollPos > animationEndPos) {
             animationProp.removeClass('navbar-transparent');
@@ -55,6 +55,16 @@ $(document).ready(function() {
         } else {
             $('.navbar-nav').removeClass('opaque');
         }
+    });
+
+    /******************** TYPED ********************/
+    $(function() {
+        $(".element").typed({
+            strings: ["Échangez", "Rencontrez", "Recrutez"],
+            typeSpeed: 50,
+            backSpeed: 100,
+            backDelay: 1000,
+        });
     });
 
 });
