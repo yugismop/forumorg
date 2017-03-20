@@ -47,34 +47,8 @@
   }
 </style>
 {% endblock style %}
-<!-- REQUIRED JS SCRIPTS -->
-{% block js_files %}
-{{ super() }}
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-{% endblock js_files %}
 {% block scripts %}
 <script>
-  function opt(type) {
-    options = {
-      autoPlaceholder: "aggressive",
-      dropdownContainer: "body",
-      geoIpLookup: function (callback) {
-        $.get("http://ipinfo.io", function () {}, "jsonp").always(function (resp) {
-          var countryCode = (resp && resp.country)
-            ? resp.country
-            : "";
-          callback(countryCode);
-        });
-      },
-      placeholderNumberType: type,
-      initialCountry: "auto",
-      preferredCountries: [
-        'fr', 'ch', 'be', 'ma', 'nl'
-      ],
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js"
-    };
-    return options;
-  }
   function validate_section() {
     var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
     if (r) {
