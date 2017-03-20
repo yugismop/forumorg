@@ -46,7 +46,7 @@ GridFS = GridFS(get_db(), collection='resumes')
 def to_companies(day):
     if day == 'mercredi':
         duration = 'wed'
-    elif day == 'jeudi':
+    if day == 'jeudi':
         duration = 'thu'
 
     cur = get_db().companies.find({'duration': {'$in': [duration, 'both']}}, {
