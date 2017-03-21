@@ -37,6 +37,11 @@ def index(page=None):
     return render_template(f"{session['section']}/{page}.html")
 
 
+@app.route('/error/')
+def error():
+    x = 1
+
+
 # ADMIN
 @app.route('/dashboard/')
 @app.route('/dashboard/<page>')
