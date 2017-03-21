@@ -56,6 +56,5 @@ def get_db():
 
 GridFS = GridFS(get_db(), collection='resumes')
 
-
 from users import helpers
 from . import views
