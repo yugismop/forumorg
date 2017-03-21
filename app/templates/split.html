@@ -46,15 +46,20 @@
 {% endblock body %}
 {% block scripts %}
   <script>
-    function update_section(section) {
-      $.ajax({
-        type: "POST",
-        data: {
-          'section': section
-        },
-        url: "{{ url_for('update_section') }}"
-      });
-      window.location.replace("{{ url_for('index') }}");
-    }
+    $('.title').on('touchstart', function () {
+      detectTap = true; //detects all touch events
+    });
+    $('.title').on('touchmove', function () {
+      detectTap = false; //Excludes the scroll events from touch events
+    });
+    $('.title').on('click touchend', function (event) {
+      if (event.type == "click")
+        detectTap = true; //detects click events
+      if (detectTap) {
+        if (event.target.innerText.includes('CANDIDAT')) {
+          window.location.assign("{{ url_for('index', section='users') }}");
+        }
+      }
+    });
   </script>
 {% endblock scripts %}
