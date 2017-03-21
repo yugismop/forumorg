@@ -1,9 +1,7 @@
-# coding=utf-8
-
 from flask import redirect, url_for
 from app import app, bcrypt, login_manager
 from itsdangerous import URLSafeTimedSerializer
-from storage import get_user, new_user
+from .storage import get_user, new_user
 
 
 @login_manager.user_loader

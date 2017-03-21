@@ -1,5 +1,3 @@
-# coding=utf-8
-
 import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
@@ -41,7 +39,7 @@ qrcode = QRcode()
 qrcode.init_app(app)
 
 # Flask-Assets
-from assets import bundles
+from .assets import bundles
 assets = Environment(app)
 assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
 assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
@@ -54,5 +52,5 @@ with app.app_context():
 
 GridFS = GridFS(get_db(), collection='resumes')
 
-from users import helpers
+from .users import helpers
 from . import views

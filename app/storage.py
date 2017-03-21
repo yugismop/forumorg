@@ -1,9 +1,7 @@
-# coding=utf-8
-
 import datetime
 
 from app import get_db
-from models import User
+from .models import User
 
 
 def get_user(id):

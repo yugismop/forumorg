@@ -1,9 +1,7 @@
-# coding=utf-8
-
 from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file, session
 from flask_login import current_user, login_required, login_user, logout_user
-from login import confirm_token, create_user, generate_confirmation_token, validate_login
-from storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
+from .login import confirm_token, create_user, generate_confirmation_token, validate_login
+from .storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
 
 from flask import make_response
 from werkzeug import secure_filename
@@ -12,7 +10,7 @@ from gridfs.errors import NoFile
 import json
 
 from app import app, GridFS, get_db
-from mailing import send_mail
+from .mailing import send_mail
 
 
 # INDEX
@@ -31,12 +29,11 @@ def index(page=None):
         section = 'users' if section == 'candidats' else 'companies'
         session['section'] = section
     # session.section != None || page != None
-    if page:
-        return render_template('{}/{}.html'.format(session['section'], page))
-        # session.section != None && page != None
-    else:
-        return render_template('{}/index.html'.format(session['section']))
-        # session.section != None && page != None
+    page = page if page else 'index'
+    if not session.get('section'):
+        return redirect(url_for('index'))
+    # session.section != None && page != None
+    return render_template(f"{session['section']}/{page}.html")
 
 
 # ADMIN
@@ -47,7 +44,7 @@ def dashboard(page=None):
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
             render_template('users/dashboard/sections/fra.html')
-        return render_template('users/dashboard/sections/{}.html'.format(page))
+        return render_template(f"users/dashboard/sections/{page}.html")
     else:
         return render_template('users/dashboard/sections/dashboard.html')
 
@@ -73,10 +70,10 @@ def signin():
             return render_template('users/signin.html', error=["user_not_confirmed"])
         # all is good
         user = User(id=email, password=password)
-        print('connected_as: {}'.format(email))
+        print(f"connected_as: {email}")
         login_user(user)
         return redirect(url_for('dashboard'))
-    print("flash: {}".format(get_flashed_messages()))
+    print(f"flash: {get_flashed_messages()}")
     return render_template('users/signin.html', error=get_flashed_messages())
 
 
