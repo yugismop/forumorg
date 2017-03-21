@@ -13,7 +13,7 @@ def to_companies(day):
         duration = 'thu'
 
     cur = get_db().companies.find({'duration': {'$in': [duration, 'both']}}, {
-        'id': 1, 'name': 1, 'pole': 1, 'ambassadors.{}'.format(day): 1, '_id': 0})
+        'id': 1, 'name': 1, 'pole': 1, f'ambassadors.{day}': 1, '_id': 0})
     cur = list(cur)
     cur = [l for l in cur if l['id'] != 'admin']
     cur = [l for l in cur if l['id'] != 'test']
@@ -52,11 +52,11 @@ def get_jobs():
     def _get_jobs():
         jobs = get_db().jobs.find(
             {},
-            {"_id": 0, "company_id": 1, "description": 1, "title": 1, "url": 1, "location": 1, "duration": 1, "type": 1},
+            {'_id': 0, 'company_id': 1, 'description': 1, 'title': 1, 'url': 1, 'location': 1, 'duration': 1, 'type': 1},
         )
         jobs = list(jobs)
         for j in jobs:
-            doc = get_db().companies.find_one({"id": j["company_id"]})
+            doc = get_db().companies.find_one({'id': j['company_id']})
             j['name'] = doc['info']['name'] if doc.get('info') else doc['name']
         return jobs
     return dict(get_jobs=_get_jobs)
@@ -72,15 +72,15 @@ def get_events():
 @app.template_filter('to_fields')
 def to_fields(type):
     if type == 'specialties':
-        return ['Informatique', 'Electronique', 'Biochimie', u'Télécommunications',
+        return ['Informatique', 'Electronique', 'Biochimie', 'Télécommunications',
                 'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
-                u'Matériaux', 'Agronomie', u'Génie Industriel', u'Génie Civil', u'Génie Mécanique', u'Génie Electrique', u'Génie Énergétique']
+                'Matériaux', 'Agronomie', 'Génie Industriel', 'Génie Civil', 'Génie Mécanique', 'Génie Electrique', 'Génie Énergétique']
     if type == 'schools':
         return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
-                u'Université Lyon 1', u'Université Lyon 2', u'Université Lyon 3', 'IAE Lyon',
+                'Université Lyon 1', 'Université Lyon 2', 'Université Lyon 3', 'IAE Lyon',
                 'ECAM', 'Mines Saint-Etienne', 'INP Grenoble', 'EI Cesi', 'Polytech Grenoble', 'Telecom Saint-Etienne']
     if type == 'years':
-        return ['Bac+{}'.format(i) for i in range(1, 6)]
+        return [f'Bac+{i}' for i in range(1, 6)]
 
 
 @app.template_filter('to_str')
@@ -99,9 +99,9 @@ def to_info(oid):
     if not oid:
         return json.dumps({'empty': True})
     file = GridFS.get(ObjectId(oid))
-    r = {"url": url_for('get_resume', oid=str(oid)),
-         "size": file.length,
-         "name": file.name}
+    r = {'url': url_for('get_resume', oid=str(oid)),
+         'size': file.length,
+         'name': file.name}
     return json.dumps(r)
 
 

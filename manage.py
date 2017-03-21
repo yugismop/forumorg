@@ -11,7 +11,7 @@ db = client.get_default_database()
 
 
 manager = Manager(app)
-manager.add_command("assets", ManageAssets())
+manager.add_command('assets', ManageAssets())
 
 
 @manager.command
@@ -19,12 +19,12 @@ def fix_dates():
     from datetime import datetime
     cur = get_db().users.find({}, {'_id': 1, 'registered_on': 1, 'confirmed_on': 1})
     for c in cur:
-        if type(c['registered_on']) == unicode:
-            print('original: {}'.format(c['registered_on']))
+        if type(c['registered_on']) == str:
+            print(f'original: {c['registered_on']}')
             new_d = datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')
             get_db().users.update_one({'_id': c['_id']}, {'$set': {'registered_on': new_d}})
             print('fixed: {}'.format(new_d))
-        if type(c['confirmed_on']) == unicode:
+        if type(c['confirmed_on']) == str:
             print('original: {}'.format(c['confirmed_on']))
             new_d = datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')
             get_db().users.update_one({'_id': c['_id']}, {'$set': {'confirmed_on': new_d}})
@@ -52,5 +52,5 @@ def create_transport():
     get_db().users.update_many({}, {'$set': {'events.fra.transports': []}})
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     manager.run()

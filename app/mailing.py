@@ -17,12 +17,12 @@ def send_mail(recipient, confirm_url):
     personalization = Personalization()
     personalization.add_to(Email(recipient))
     mail.add_personalization(personalization)
-    mail.personalizations[0].add_substitution(Substitution("-registration_link-", confirm_url))
-    mail.personalizations[0].add_substitution(Substitution("-subject-", subject))
+    mail.personalizations[0].add_substitution(Substitution('-registration_link-', confirm_url))
+    mail.personalizations[0].add_substitution(Substitution('-subject-', subject))
 
     # Sending email
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
-        return 'Email sent. {}'.format(response)
+        return f'Email sent. {response}'
     except:
         return 'Email not sent.'

@@ -34,12 +34,7 @@ def index(page=None):
     if not session.get('section'):
         return redirect(url_for('index'))
     # session.section != None && page != None
-    return render_template(f"{session['section']}/{page}.html")
-
-
-@app.route('/error/')
-def error():
-    x = 1
+    return render_template(f'{session['section']}/{page}.html')
 
 
 # ADMIN
@@ -50,7 +45,7 @@ def dashboard(page=None):
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
             render_template('users/dashboard/sections/fra.html')
-        return render_template(f"users/dashboard/sections/{page}.html")
+        return render_template(f'users/dashboard/sections/{page}.html')
     else:
         return render_template('users/dashboard/sections/dashboard.html')
 
@@ -62,46 +57,46 @@ def companies(company_id=None):
     return render_template('users/dashboard/sections/company.html', company=company)
 
 
-@app.route('/connexion', methods=["GET", "POST"])
+@app.route('/connexion', methods=['GET', 'POST'])
 def signin():
     if request.method == 'POST':
         email = request.form.get('email').lower()
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-            return render_template('users/signin.html', error=["no_user_found"])
+            return render_template('users/signin.html', error=['no_user_found'])
         if not validate_login(user.password, password):
-            return render_template('users/signin.html', error=["wrong_password"])
+            return render_template('users/signin.html', error=['wrong_password'])
         if not user.confirmed:
-            return render_template('users/signin.html', error=["user_not_confirmed"])
+            return render_template('users/signin.html', error=['user_not_confirmed'])
         # all is good
         user = User(id=email, password=password)
-        print(f"connected_as: {email}")
+        print(f'connected_as: {email}')
         login_user(user)
         return redirect(url_for('dashboard'))
-    print(f"flash: {get_flashed_messages()}")
+    print(f'flash: {get_flashed_messages()}')
     return render_template('users/signin.html', error=get_flashed_messages())
 
 
-@app.route('/inscription', methods=["GET", "POST"])
+@app.route('/inscription', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
         if not password or not email:
-            flash("empty_fields")
+            flash('empty_fields')
             return render_template('users/users/signup.html')
         email = email.lower()
         if user_exists(email):
             user = get_user(id=email)
             if user.confirmed:
-                return render_template('users/users/signup.html', error="user_already_exists")
+                return render_template('users/users/signup.html', error='user_already_exists')
             else:
                 token = generate_confirmation_token(email)
                 confirm_url = url_for(
                     'confirm_email', token=token, _external=True)
                 send_mail(email, confirm_url)
-                flash("user_registered")
+                flash('user_registered')
                 return redirect(url_for('signin'))
         else:
             user = User(id=email, password=password, created=True)
@@ -140,7 +135,7 @@ def confirm_email(token):
     return redirect(url_for('signin'))
 
 
-@app.route('/identicon', methods=["GET"])
+@app.route('/identicon', methods=['GET'])
 @login_required
 def identicon():
     from binascii import hexlify
@@ -165,7 +160,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/upload_resume', methods=["POST", "DELETE"])
+@app.route('/upload_resume', methods=['POST', 'DELETE'])
 @login_required
 def upload_resume():
     # Allowed files
@@ -179,13 +174,13 @@ def upload_resume():
             filename = secure_filename(file.filename)
             oid = GridFS.put(file, content_type=file.content_type, filename=filename)
             users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
-        return "success"
+        return 'success'
     if request.method == 'DELETE':
         GridFS.delete(ObjectId(request.form['oid']))
         users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': None}})
 
 
-@app.route('/update_profile', methods=["POST"])
+@app.route('/update_profile', methods=['POST'])
 @login_required
 def update_profile():
     users = get_users()
@@ -211,16 +206,16 @@ def get_resume(oid):
         abort(404)
 
 
-@app.route('/update_user', methods=["POST"])
+@app.route('/update_user', methods=['POST'])
 @login_required
 def update_user():
     user = request.form.get('user')
     user = json.loads(user)
     set_user(user['id'], user)
-    return "success"
+    return 'success'
 
 
-@app.route('/update_event', methods=["POST"])
+@app.route('/update_event', methods=['POST'])
 @login_required
 def update_event():
     mevent = request.form.get('event')
@@ -232,7 +227,7 @@ def update_event():
         events = get_events()
         users = get_users()
 
-        event = events.find_one({"name": name, "type": mtype})
+        event = events.find_one({'name': name, 'type': mtype})
         places_left = event['places_left']
         if mtype == 'table_ronde':
             places_left = event['places_left'][time]
@@ -256,20 +251,20 @@ def update_event():
                                   {'$inc': {'places_left': -1}})
             users.update_one({'id': current_user.id}, {
                              '$set': {'events.joi.{}'.format(mtype): doc}})
-            return "success"
+            return 'success'
         else:
-            return "error"
+            return 'error'
     else:
         users = get_users()
         user = current_user
         if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('school') and user.profile.get('year') and user.profile.get('specialty'):
             users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': True}})
-            return "success"
+            return 'success'
         else:
-            return "incomplete_profile"
+            return 'incomplete_profile'
 
 
-@app.route('/update_styf', methods=["POST"])
+@app.route('/update_styf', methods=['POST'])
 @login_required
 def update_styf():
     users = get_users()
@@ -283,14 +278,14 @@ def update_styf():
             users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
             if not current_user.events['styf'].get('registered'):
                 events.update_one({'name': 'styf'}, {'$inc': {'places_left': -1}})
-            return "success"
+            return 'success'
         else:
-            return "full_event"
+            return 'full_event'
     else:
-        return "incomplete_profile"
+        return 'incomplete_profile'
 
 
-@app.route('/update_master_class', methods=["POST"])
+@app.route('/update_master_class', methods=['POST'])
 @login_required
 def update_master_class():
     registered = request.form.get('registered')
@@ -299,19 +294,19 @@ def update_master_class():
     user = current_user
     if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
         users.update_one({'id': current_user.id}, {'$set': {'events.master_class.registered': registered}})
-        return "success"
+        return 'success'
     else:
-        return "incomplete_profile"
+        return 'incomplete_profile'
 
 
-@app.route('/update_ambassador', methods=["POST"])
+@app.route('/update_ambassador', methods=['POST'])
 @login_required
 def update_ambassador():
     first = request.form.get('first')
     second = request.form.get('second')
     _update_ambassador(first, 'mercredi')
     _update_ambassador(second, 'jeudi')
-    return "success"
+    return 'success'
 
 
 def _update_ambassador(value, day):
@@ -332,7 +327,7 @@ def static_from_root():
 
 
 # JS logging
-@app.route('/js_log', methods=["POST"])
+@app.route('/js_log', methods=['POST'])
 def js_log():
     print('js_log', request.form.to_dict())
     return 'success'
