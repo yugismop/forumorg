@@ -1,5 +1,9 @@
 {% extends 'errors/base_error.html' %}
 {% set title = 'Une erreur est survenue' %}
+{% block logo %}
+  <img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation">
+{% endblock logo %}
 {% block message %}
-  Malheureusement, la plateforme vient de crasher :(. Nous nous excusons (vraiment) pour la gêne occasionée.
+  Oups, la plateforme vient de crasher. Nous faisons tout notre possible pour la refaire marcher.
 {% endblock message %}
+{% block link %}{% endblock link %}

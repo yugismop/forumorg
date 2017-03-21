@@ -25,7 +25,7 @@
       flex-direction: column;
       align-items: center;
       padding: 0 20px;
-      max-width: 450px;
+      max-width: 550px;
     }
     .message__title {
       font-size: 20px;
@@ -94,10 +94,14 @@
 {% block body %}
   <div class="spacer"></div>
   <div class="message">
-    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
+    {% block logo %}
+      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
+    {% endblock logo %}
     <div class="message__title">
       {% block message %}{% endblock message %}
     </div>
-    <a href="{{ url_for('index') }}" class="btn">Retour à la page d'accueil</a>
+    {% block link %}
+      <a href="{{ url_for('index') }}" class="btn">Retour à la page d'accueil</a>
+    {% endblock link %}
   </div>
 {% endblock body %}
