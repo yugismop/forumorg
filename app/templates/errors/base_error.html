@@ -1,5 +1,4 @@
 {% extends 'base_all.html' %}
-{% set title = 'Page non trouvée' %}
 {% block style %}
   <style>
     body,
@@ -97,7 +96,7 @@
   <div class="message">
     <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
     <div class="message__title">
-      La page que vous recherchez n'existe pas.
+      {% block message %}{% endblock message %}
     </div>
     <a href="{{ url_for('index') }}" class="btn">Retour à la page d'accueil</a>
   </div>

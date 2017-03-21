@@ -8,6 +8,7 @@ from werkzeug import secure_filename
 from bson.objectid import ObjectId
 from gridfs.errors import NoFile
 import json
+from jinja2.exceptions import TemplateNotFound
 
 from app import app, GridFS, get_db
 from .mailing import send_mail
@@ -334,5 +335,11 @@ def js_log():
 
 # Error handling
 @app.errorhandler(404)
+@app.errorhandler(TemplateNotFound)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('errors/404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('errors/500.html'), 500
