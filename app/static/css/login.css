@@ -22,7 +22,7 @@ body.friendly {
     width: 440px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
     .login-box {
         width: 90%;
         margin-top: 20px;
@@ -42,6 +42,11 @@ body.friendly {
 
 .login-box-body form {
     padding: 40px;
+}
+@media (max-width: 425px) {
+    .login-box-body form {
+        padding: 40px 10px 40px 10px;
+    }
 }
 
 .login-box-body h3 {

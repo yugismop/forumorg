@@ -1,0 +1,104 @@
+{% extends 'base_all.html' %}
+{% set title = 'Page non trouvée' %}
+{% block style %}
+  <style>
+    body,
+    html {
+      font-family: sans-serif;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      background-color: #F7F8FB;
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .message {
+      text-align: center;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+      max-width: 450px;
+    }
+    .message__title {
+      font-size: 20px;
+      font-weight: 100;
+      margin-top: 15px;
+      color: #47494E;
+      margin-bottom: 8px;
+    }
+    p {
+      -webkit-margin-after: 0;
+      -webkit-margin-before: 0;
+      font-size: 15px;
+      color: #7F828B;
+      line-height: 21px;
+      margin-bottom: 4px;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #7F828B;
+      border: 1px solid #7F828B;
+    }
+    .app-icon,
+    .hk-logo {
+      fill: #DBE1EC;
+    }
+    .info {
+      fill: #9FABBC;
+    }
+    body.friendly {
+      background: linear-gradient(135deg, rgba(40, 40, 40, 0.75), rgba(0, 142, 214, 0.75));
+    }
+    body.friendly .message__title {
+      color: #fff;
+    }
+    body.friendly p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    body.friendly .app-icon,
+    body.friendly .hk-logo {
+      fill: rgba(255, 255, 255, 0.9);
+    }
+    body.friendly .info {
+      fill: rgba(255, 255, 255, 0.9);
+    }
+    body.friendly .btn {
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+    .info_area {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+    }
+    .logo {
+      position: fixed;
+      left: 12px;
+      bottom: 12px;
+    }
+  </style>
+{% endblock style %}
+{% set body_class = 'friendly' %}
+{% block body %}
+  <div class="spacer"></div>
+  <div class="message">
+    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
+    <div class="message__title">
+      La page que vous recherchez n'existe pas.
+    </div>
+    <a href="{{ url_for('index') }}" class="btn">Retour à la page d'accueil</a>
+  </div>
+{% endblock body %}

@@ -22,14 +22,18 @@
     <ul class="nav navbar-nav navbar-right">
       <li>
         {% if current_user.is_authenticated %}
+        <li>
           <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
-        {% else %}
-          <a href="{{ url_for('signin') }}" id="home">Se connecter</a>
-        {% endif %}
-      </li>
-      {% if current_user.is_authenticated %}
+        </li>
         <li>
           <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{{ url_for('index', section='accueil') }}" id="home">Retour à l'écran de choix</a>
+        </li>
+        <li>
+          <a href="{{ url_for('signin') }}" id="home">Se connecter</a>
         </li>
       {% endif %}
     </ul>

@@ -18,12 +18,25 @@ from mailing import send_mail
 # INDEX
 # start of app
 @app.route('/')
-@app.route('/<page>')
+@app.route('/<page>', methods=['GET'])
 def index(page=None):
+    section = request.args.get('section')
+    if section == 'accueil':
+        session.pop('section', None)
+        section = None
+    if not session.get('section') and not page and not section:
+        return render_template('split.html')
+    # session.section != None || page != None || section != None
+    if section:
+        section = 'users' if section == 'candidats' else 'companies'
+        session['section'] = section
+    # session.section != None || page != None
     if page:
-        return render_template('users/{}.html'.format(page))
+        return render_template('{}/{}.html'.format(session['section'], page))
+        # session.section != None && page != None
     else:
-        return render_template('users/index.html')
+        return render_template('{}/index.html'.format(session['section']))
+        # session.section != None && page != None
 
 
 # ADMIN
@@ -320,3 +333,9 @@ def static_from_root():
 def js_log():
     print('js_log', request.form.to_dict())
     return 'success'
+
+
+# Error handling
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
