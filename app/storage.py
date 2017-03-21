@@ -7,12 +7,8 @@ from models import User
 
 
 def get_user(id):
-    user = get_db().users.find_one({'id': id})
-    if user:
-        user.pop('_id', None)
-        return User(id=user['id'], password=user['password'], data=user)
-    else:
-        return None
+    user = get_db().users.find_one({'id': id}, {'_id': 0})
+    return User(id=id, password=user['password'], data=user) if user else None
 
 
 def confirm_user(user):
