@@ -22,7 +22,7 @@
             {% if company.info.website %}
               <li class="list-group-item">
                 <b>Site</b>
-                <a class="pull-right">{{ company.info.website }}</a>
+                <a class="pull-right" href="{{ company.info.website }}" target="_blank">{{ company.info.website }}</a>
               </li>
             {% endif %}
             {% if company.info.revenue %}
