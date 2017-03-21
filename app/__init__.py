@@ -11,6 +11,14 @@ from gridfs import GridFS
 from pymongo import MongoClient
 
 
+# Storage init
+def get_db():
+    global db
+    client = MongoClient(host=os.environ.get('MONGODB_URI'))
+    db = client.get_default_database()
+    return db
+
+
 # App init
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
@@ -39,20 +47,10 @@ assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
 assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
 assets.register(bundles)
 
-
 # SSLify
 with app.app_context():
     sslify = SSLify()
     sslify.init_app(app)
-
-
-# Storage init
-def get_db():
-    global db
-    client = MongoClient(host=os.environ.get('MONGODB_URI'))
-    db = client.get_default_database()
-    return db
-
 
 GridFS = GridFS(get_db(), collection='resumes')
 
