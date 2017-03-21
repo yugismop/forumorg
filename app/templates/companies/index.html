@@ -2,23 +2,25 @@
 {% set title = 'Espace Recruteur' %}
 {% block navbar %}
   <div class="collapse navbar-collapse" id="nemo-navigation">
-    <ul class="nav navbar-nav navbar-left">
-      <li class="active">
-        <a href="#start">Accueil</a>
-      </li>
-      <li class="">
-        <a href="#why">Pourquoi participer ?</a>
-      </li>
-      <li class="">
-        <a href="#contact">Participer</a>
-      </li>
-      <li class="">
-        <a href="#faq">FAQ</a>
-      </li>
-      <li class="">
-        <a href="#press">Presse</a>
-      </li>
-    </ul>
+    {% block navbar_top %}
+      <ul class="nav navbar-nav navbar-left">
+        <li class="active">
+          <a href="#start">Accueil</a>
+        </li>
+        <li class="">
+          <a href="#why">Pourquoi participer ?</a>
+        </li>
+        <li class="">
+          <a href="#contact">Participer</a>
+        </li>
+        <li class="">
+          <a href="#faq">FAQ</a>
+        </li>
+        <li class="">
+          <a href="#press">Presse</a>
+        </li>
+      </ul>
+    {% endblock navbar_top %}
     <ul class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
         <li>
