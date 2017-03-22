@@ -4,7 +4,7 @@ At Forum Organisation, we love pull requests from everyone.
 
 Fork, then clone the repo:
 
-    git clone https://github.com/ForumOrganisation/forum-org.git
+    git clone https://github.com/ForumOrganisation/forumorg.git
 
 Follow the README guidelines to run the project
 
@@ -14,14 +14,14 @@ Since unit tests are not yet implemented in the project, make sure to add a scen
 
 Push to your fork and [submit a pull request][pr].
 
-[pr]: https://github.com/ForumOrganisation/forum-org/compare/
+[pr]: https://github.com/ForumOrganisation/forumorg/compare/
 
 At this point you're waiting on us. We'll make sure to respond as soon as possible. We may suggest some changes or improvements or alternatives.
 
 Some things that will increase the chance that your pull request is accepted:
 
 * Write scenario tests.
-* Python code run w/ yapf, HTML & JS code run w/ JS Beautify.
+* Python code linted w/ flake8, HTML & JS code linted w/ JS Beautify.
 * Write a [good commit message][commit].
 
 [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html

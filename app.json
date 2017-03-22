@@ -1,0 +1,23 @@
+{
+  "name": "forumorg",
+  "description": "Official website of Forum Organisation",
+  "scripts": {},
+  "env": {
+    "FLASK_SECRET_KEY": {
+      "required": true
+    },
+    "FLASK_SECRET_SALT": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    }
+  },
+  "formation": {},
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

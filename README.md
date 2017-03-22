@@ -1,6 +1,6 @@
 # forum-org
 
-This is the repository for the official website of [Forum Organisation](http://www.forumorg.org).
+This is the repository for the official website of [Forum Organisation](https://forumorg.org).
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ These instructions will get help get your own copy of the project running on you
 To get your development environment running, you need
 
 ```
-Python 2.7, pip, mongodb
+Python 3, mongodb
 ```
 
 ### Installing
@@ -36,24 +36,22 @@ python ./runserver.py
 ```
 
 ## Deploying
-We use Heroku for cloud hosting, TravisCI for Continuous Integration and GitHub to tie it all together.
+We use Heroku for Cloud hosting and Continuous Integration.
 
-On ```git push origin master[:master]```:
+On ```git push origin master```:
 
-- The code is pushed to this repository (on master)
+- The code is pushed to this repository (on `master`).
+- A build is triggered on our [staging app](https://forum-stage.herokuapp.com) (very useful for testing in a production-like environment).
 
-On ```git push origin master:staging```:
+On ```any approved PR request```:
 
-- The code is pushed to this repository (on staging)
-- A docker-based test process is trigered on TravisCI:
-	- If the build passes -> The code is deployed to Heroku
-	- If the build fails -> An email is sent
+- A review app is created, which can be live tested.
+- If everything works perfectly, the PR can be merged to `master`.
+- If the app is ready for production, we promote it to [production](https://forumorg.org) thanks to Heroku Pipelines.
 
-On ```git push origin master:production```:
+## Contributions
 
-- The code is pushed to this repository (on production)
-- The code is directly deployed to Heroku
-- This usually applies to quick config changes that need to be deployed instantly (TravisCI builds still take ~30 secs to complete)
+Contributions are very welcome! If you find a bug or some improvements, feel free to raise an issue and send a PR! Please see the [CONTRIBUTING](CONTRIBUTING.md) file for more information on how to contribute.
 
 ## Stack
 
@@ -64,10 +62,6 @@ On ```git push origin master:production```:
 
 * **Mehdi BAHA** - [mehdibaha](https://github.com/mehdibaha)
 * **Juliette BRICOUT** - [jbricout](https://github.com/jbricout)
-
-## Contributions
-
-Contributions are very welcome! If you found a bug or some improvements, feel free to raise an issue and send a PR! Please see the CONTRIBUTING file for more information on how to contribute.
 
 ## License
 
