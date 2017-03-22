@@ -1,20 +1,16 @@
-from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, abort, send_file, session
+from flask import flash, get_flashed_messages, redirect, render_template, request, send_from_directory, url_for, send_file, session
 from flask_login import current_user, login_required, login_user, logout_user
-from .login import confirm_token, create_user, generate_confirmation_token, validate_login
-from .storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
+from .login import create_user, generate_confirmation_token, validate_login
+from .storage import User, get_events, get_user, get_users, user_exists, set_user
 from .identicon import render_identicon
 
 from binascii import hexlify
 from io import BytesIO
 
-from flask import make_response
-from werkzeug import secure_filename
-from bson.objectid import ObjectId
-from gridfs.errors import NoFile
 import json
 from jinja2.exceptions import TemplateNotFound
 
-from app import app, GridFS, get_db
+from app import app, get_db
 from .mailing import send_mail
 
 
@@ -39,13 +35,6 @@ def index(page=None):
         return redirect(url_for('index'))
     # session.section != None && page != None
     return render_template(f'{session["section"]}/{page}.html')
-
-
-@app.route('/dashboard/companies/<company_id>')
-@login_required
-def companies(company_id=None):
-    company = get_db().companies.find_one({'id': company_id})
-    return render_template('users/dashboard/sections/company.html', company=company)
 
 
 @app.route('/connexion', methods=['GET', 'POST'])
@@ -106,26 +95,6 @@ def signup():
     return render_template('users/signup.html')
 
 
-@app.route('/confirmation/<token>')
-def confirm_email(token):
-    email = confirm_token(token)
-
-    if not email:
-        flash('confirm_link_expired', 'danger')
-        return redirect(url_for('signin'))
-
-    user = get_user(id=email)
-    if not user:
-        flash('error')
-        return redirect(url_for('signin'))
-    if user.confirmed:
-        flash('account_already_confirmed', 'success')
-    else:
-        confirm_user(user)
-        flash('account_confirmed', 'success')
-    return redirect(url_for('signin'))
-
-
 @app.route('/identicon', methods=['GET'])
 @login_required
 def identicon():
@@ -148,26 +117,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/upload_resume', methods=['POST', 'DELETE'])
-@login_required
-def upload_resume():
-    # Allowed files
-    def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
-
-    users = get_users()
-    if request.method == 'POST':
-        file = request.files.get('resume')
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            oid = GridFS.put(file, content_type=file.content_type, filename=filename)
-            users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
-        return 'success'
-    if request.method == 'DELETE':
-        GridFS.delete(ObjectId(request.form['oid']))
-        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': None}})
-
-
 @app.route('/update_profile', methods=['POST'])
 @login_required
 def update_profile():
@@ -181,17 +130,6 @@ def update_profile():
         users.update_one({'id': current_user.id}, {'$set': {'profile.{}'.format(k): v}})
     flash('profile_completed')
     return redirect(url_for('dashboard', page='profile'))
-
-
-@app.route('/get_resume/<oid>')
-def get_resume(oid):
-    try:
-        file = GridFS.get(ObjectId(oid))
-        response = make_response(file.read())
-        response.mimetype = file.content_type
-        return response
-    except NoFile:
-        abort(404)
 
 
 @app.route('/update_user', methods=['POST'])

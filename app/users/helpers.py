@@ -1,7 +1,6 @@
 import json
 from flask import url_for
-from app import app, get_db
-from gridfs import GridFS
+from app import app, get_db, GridFS
 from bson.objectid import ObjectId
 
 
@@ -90,7 +89,7 @@ def to_jobs(lst):
 
 @app.template_filter('to_filename')
 def to_filename(oid):
-    file = GridFS.get(ObjectId(oid))
+    file = GridFS.get(file_id=ObjectId(oid))
     return file.filename
 
 
@@ -99,9 +98,10 @@ def to_info(oid):
     if not oid:
         return json.dumps({'empty': True})
     file = GridFS.get(ObjectId(oid))
-    r = {'url': url_for('get_resume', oid=str(oid)),
+    r = {'url': url_for('.resume', oid=str(oid)),
          'size': file.length,
-         'name': file.name}
+         'name': file.name,
+         'oid': str(oid)}
     return json.dumps(r)
 
 

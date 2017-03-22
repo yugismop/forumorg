@@ -58,4 +58,4 @@ app.register_blueprint(bp_users)
 
 # Init
 from .users import helpers
-from . import views
+from . import views, storage, login

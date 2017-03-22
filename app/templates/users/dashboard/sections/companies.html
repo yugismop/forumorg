@@ -85,7 +85,7 @@
               if (row.name == undefined) {
                 return row.name_old;
               }
-              return "<a href='{{ url_for('companies', company_id='') }}" + row.id + "'>" + row.name + "</a>";
+              return "<a href='{{ url_for('users.companies', company_id='') }}" + row.id + "'>" + row.name + "</a>";
             }
           }, {
             data: "duration",

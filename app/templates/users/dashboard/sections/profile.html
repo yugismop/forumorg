@@ -102,7 +102,7 @@
         <!-- /.box-header -->
         <div class="box-body">
           <div style="margin-bottom:0px">
-            <form action="{{ url_for('upload_resume') }}" id="dropzone" style="margin-bottom:0px" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
+            <form id="dropzone" style="margin-bottom:0px" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
               <div class="dz-message">
                 Glisse ton CV ou clique ici pour l'uploader.<br>
                 <span class="note">(Seuls les documents PDF sont acceptés.)</span>
@@ -148,7 +148,7 @@
       $(function () {
         var cur_resume = {{ user.profile.resume_id|to_info|safe }};
         var myDropzone = new Dropzone("#dropzone", {
-          url: "{{ url_for('upload_resume') }}",
+          url: "{{ url_for('users.resume', _method='POST') }}",
           maxFilesize: 5, // in MB
           maxFiles: 1,
           paramName: "resume",
@@ -163,6 +163,20 @@
                 e.stopPropagation();
                 _this.removeFile(file);
                 myDropzone.options.maxFiles = 1;
+                $.ajax({
+                  type: "DELETE",
+                  url: "{{ url_for('users.resume') }}",
+                  data: {
+                    "oid": cur_resume.oid
+                  },
+                  success: function (result) {
+                    if (result == 'success') {
+                      Notify("Changements sauvegardés.");
+                    } else {
+                      Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
+                    }
+                  }
+                });
               });
               file.previewElement.appendChild(removeButton);
               if (!cur_resume.empty) {
