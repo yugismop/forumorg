@@ -3,8 +3,8 @@
 {% set events = get_events() %}
 {% macro section_block(name, icon) -%}
   {% if name == 'accueil' %}
-    <li class="{{ 'active' if request.path == url_for('dashboard') else '' }}">
-      <a href="{{ url_for('dashboard') }}">
+    <li class="{{ 'active' if request.path == url_for('users.dashboard') else '' }}">
+      <a href="{{ url_for('users.dashboard') }}">
         <i class="{{ icon }}"></i>
         <span>
           {{ 'Accueil' }}
@@ -12,9 +12,9 @@
       </a>
     </li>
   {% else %}
-    <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
+    <li class="{{ 'active' if request.path == url_for('users.dashboard', page=name) else '' }}">
       {% if name != 'styf' and name != 'joi' and name != 'master_class' %}
-        <a href="{{ url_for('dashboard', page=name) }}">
+        <a href="{{ url_for('users.dashboard', page=name) }}">
         {% else %}
           <a href="#">
           {% endif %}

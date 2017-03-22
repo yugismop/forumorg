@@ -2,7 +2,7 @@
 {% set title = 'Vue générale' %}
 {% macro more_button(name) -%}
   <strong>
-    <a href="{{ url_for('dashboard', page=name) }}">
+    <a href="{{ url_for('users.dashboard', page=name) }}">
       <span class="pull-right badge bg-grey">Consulter / Modifier</a>
     </span>
   </strong>

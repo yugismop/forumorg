@@ -28,8 +28,8 @@
                     <strong>{{v|to_name}}
                       ({{k|capitalize}})</strong>
                     {{ 'et' if not loop.last else '.' }}
+                    {{ '</h4>'|safe if loop.last else '' }}
                   {% endfor %}
-                  {{ '</h4>'|safe if loop.last else '' }}
                 {% endif %}
               </td>
             </tr>

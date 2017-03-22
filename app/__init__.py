@@ -52,5 +52,10 @@ with app.app_context():
 
 GridFS = GridFS(get_db(), collection='resumes')
 
+# Blueprints
+from .users.views import bp as bp_users
+app.register_blueprint(bp_users)
+
+# Init
 from .users import helpers
 from . import views

@@ -23,7 +23,7 @@
       <li>
         {% if current_user.is_authenticated %}
         <li>
-          <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+          <a href="{{ url_for('users.dashboard') }}" id="home">Dashboard</a>
         </li>
         <li>
           <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>

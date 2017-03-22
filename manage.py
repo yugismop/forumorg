@@ -1,5 +1,5 @@
 from flask_script import Manager
-from app import app
+from app import app, get_db
 from pymongo import MongoClient
 import os
 import csv
@@ -20,15 +20,15 @@ def fix_dates():
     cur = get_db().users.find({}, {'_id': 1, 'registered_on': 1, 'confirmed_on': 1})
     for c in cur:
         if type(c['registered_on']) == str:
-            print(f'original: {c['registered_on']}')
+            print(f'original: {c["registered_on"]}')
             new_d = datetime.strptime(c['registered_on'], '%a, %d %b %Y %H:%M:%S %Z')
             get_db().users.update_one({'_id': c['_id']}, {'$set': {'registered_on': new_d}})
-            print('fixed: {}'.format(new_d))
+            print(f'fixed: {new_d}')
         if type(c['confirmed_on']) == str:
-            print('original: {}'.format(c['confirmed_on']))
+            print(f'original: {c["confirmed_on"]}')
             new_d = datetime.strptime(c['confirmed_on'], '%a, %d %b %Y %H:%M:%S %Z')
             get_db().users.update_one({'_id': c['_id']}, {'$set': {'confirmed_on': new_d}})
-            print('fixed: {}'.format(new_d))
+            print(f'fixed: {new_d}')
 
 
 @manager.command

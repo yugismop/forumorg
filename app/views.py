@@ -2,6 +2,10 @@ from flask import flash, get_flashed_messages, redirect, render_template, reques
 from flask_login import current_user, login_required, login_user, logout_user
 from .login import confirm_token, create_user, generate_confirmation_token, validate_login
 from .storage import User, confirm_user, get_events, get_user, get_users, user_exists, set_user
+from .identicon import render_identicon
+
+from binascii import hexlify
+from io import BytesIO
 
 from flask import make_response
 from werkzeug import secure_filename
@@ -34,20 +38,7 @@ def index(page=None):
     if not session.get('section'):
         return redirect(url_for('index'))
     # session.section != None && page != None
-    return render_template(f'{session['section']}/{page}.html')
-
-
-# ADMIN
-@app.route('/dashboard/')
-@app.route('/dashboard/<page>')
-@login_required
-def dashboard(page=None):
-    if page:
-        if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
-            render_template('users/dashboard/sections/fra.html')
-        return render_template(f'users/dashboard/sections/{page}.html')
-    else:
-        return render_template('users/dashboard/sections/dashboard.html')
+    return render_template(f'{session["section"]}/{page}.html')
 
 
 @app.route('/dashboard/companies/<company_id>')
@@ -73,7 +64,7 @@ def signin():
         user = User(id=email, password=password)
         print(f'connected_as: {email}')
         login_user(user)
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('users.dashboard'))
     print(f'flash: {get_flashed_messages()}')
     return render_template('users/signin.html', error=get_flashed_messages())
 
@@ -138,11 +129,8 @@ def confirm_email(token):
 @app.route('/identicon', methods=['GET'])
 @login_required
 def identicon():
-    from binascii import hexlify
-    from identicon import render_identicon
-    from io import BytesIO
     text = request.args.get('text', 'EMPTY')
-    code = int(hexlify(text), 16)
+    code = int(hexlify(text.encode('utf-8')), 16)
     size = 25
     img = render_identicon(code, size)
     stream = BytesIO()
