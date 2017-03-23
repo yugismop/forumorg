@@ -1,12 +1,11 @@
 from flask import redirect, url_for
-from app import app, bcrypt, login_manager
+from app import app, bcrypt, login_manager, storage
 from itsdangerous import URLSafeTimedSerializer
-from .storage import get_user, new_user
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return get_user(user_id)
+    return storage.get_user(user_id)
 
 
 @login_manager.unauthorized_handler
@@ -16,10 +15,6 @@ def unauthorized_handler():
 
 def validate_login(password_hashed, password_entered):
     return bcrypt.check_password_hash(password_hashed, password_entered)
-
-
-def create_user(user):
-    return new_user(user)
 
 
 def generate_confirmation_token(email):
