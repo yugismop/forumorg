@@ -38,7 +38,6 @@ def index(page=None):
 
 @app.route('/connexion', methods=['GET', 'POST'])
 def signin():
-    raise
     if request.method == 'POST':
         email = request.form.get('email').lower()
         password = request.form.get('password')

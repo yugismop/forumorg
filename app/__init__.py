@@ -23,7 +23,6 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my_debug_salt')
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['TOKEN_EXPIRATION'] = int(os.environ.get('TOKEN_EXPIRATION', 7200))
-db = None
 
 # Login Manager
 login_manager = LoginManager()
