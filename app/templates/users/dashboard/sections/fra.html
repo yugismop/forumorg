@@ -290,7 +290,7 @@
       data: {
         'event': 'fra'
       },
-      url: "{{ url_for('update_event') }}",
+      url: "{{ url_for('users.update_event') }}",
       success: function (result) {
         if (result == 'success') {
           Notify("Changements sauvegardés.");
@@ -318,7 +318,7 @@
         'first': first,
         'second': second
       },
-      url: "{{ url_for('update_ambassador') }}",
+      url: "{{ url_for('users.update_ambassador') }}",
       success: function (result) {
         if (result == 'success') {
           Notify("Changements sauvegardés.");
@@ -347,7 +347,7 @@
     fra.transports.push(transport);
     $.ajax({
       type: "POST",
-      url: "{{ url_for('update_user') }}",
+      url: "{{ url_for('users.update_user') }}",
       data: {
         "user": JSON.stringify(user)
       },
@@ -367,7 +367,7 @@
       user.events.fra.transports.splice(index, 1);
       $.ajax({
         type: "POST",
-        url: "{{ url_for('update_user') }}",
+        url: "{{ url_for('users.update_user') }}",
         data: {
           "user": JSON.stringify(user)
         },

@@ -18,7 +18,7 @@
                   <th>Horaire</th>
                 </tr>
                 {% for k, v in user.events.joi.items() %}
-                  {% if v.registered %}
+                  {% if k != 'registered' %}
                     <tr>
                       <td>{{ v.name }}</td>
                       <td>{{ 'Table Ronde' if v.time else 'Conférence thématique' }}</td>
@@ -31,162 +31,162 @@
                       </td>
                     </tr>
                   {% endif %}
-                  {% endfor%}
-                {% else %}
-                  <tr>
-                    <td colspan="4">
-                      <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
-                    </td>
-                  </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
-          <!-- /.box-body -->
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="4">
+                    <h2 class="lead text-center">Aucune participation enregistrée :(</h2>
+                  </td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
       </div>
+      <!-- /.box -->
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Choisir votre conférence</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-              </button>
-            </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Choisir votre conférence</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>sélectionner</label>
-                  <select id="conference" class="select2 form-control">
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>sélectionner</label>
+                <select id="conference" class="select2 form-control">
+                  {% for e in events %}
+                    {% if e.type == 'conference' %}
+                      <option {{ 'disabled="disabled"' if e.places_left < 1 else '' }}>{{ e.name }}
+                        -
+                        {{e.places_left}}
+                        places(s)</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- /.input group -->
+          </div>
+        </div>
+        <div class="box-footer">
+          <button id="confirm_conference" type="submit" class="btn btn-primary">Confirmer</button>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <div class="col-md-6">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Choisir votre table ronde</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>sélectionner</label>
+                <select id="table_ronde" class="select2 form-control">
+                  <optgroup label="14h00-15h30">
                     {% for e in events %}
-                      {% if e.type == 'conference' %}
-                        <option {{ 'disabled="disabled"' if e.places_left < 1 else '' }}>{{ e.name }}
+                      {% if e.type == 'table_ronde' %}
+                        <option {{ 'disabled="disabled"' if e.places_left.first < 1 else '' }}>{{ e.name }}
                           -
-                          {{e.places_left}}
+                          {{e.places_left.first}}
                           places(s)</option>
                       {% endif %}
                     {% endfor %}
-                  </select>
-                </div>
+                  </optgroup>
+                  <optgroup label="15h30-17h00">
+                    {% for e in events %}
+                      {% if e.type == 'table_ronde' %}
+                        <option {{ 'disabled="disabled"' if e.places_left.second < 1 else '' }}>{{ e.name }}
+                          -
+                          {{e.places_left.second}}
+                          places(s)</option>
+                      {% endif %}
+                    {% endfor %}
+                  </optgroup>
+                </select>
               </div>
-              <!-- /.input group -->
             </div>
+            <!-- /.input group -->
           </div>
-          <div class="box-footer">
-            <button id="confirm_conference" type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
-          <!-- /.box-body -->
         </div>
-        <!-- /.box -->
-      </div>
-      <div class="col-md-6">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Choisir votre table ronde</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-              </button>
-            </div>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>sélectionner</label>
-                  <select id="table_ronde" class="select2 form-control">
-                    <optgroup label="14h00-15h30">
-                      {% for e in events %}
-                        {% if e.type == 'table_ronde' %}
-                          <option {{ 'disabled="disabled"' if e.places_left.first < 1 else '' }}>{{ e.name }}
-                            -
-                            {{e.places_left.first}}
-                            places(s)</option>
-                        {% endif %}
-                      {% endfor %}
-                    </optgroup>
-                    <optgroup label="15h30-17h00">
-                      {% for e in events %}
-                        {% if e.type == 'table_ronde' %}
-                          <option {{ 'disabled="disabled"' if e.places_left.second < 1 else '' }}>{{ e.name }}
-                            -
-                            {{e.places_left.second}}
-                            places(s)</option>
-                        {% endif %}
-                      {% endfor %}
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-              <!-- /.input group -->
-            </div>
-          </div>
-          <div class="box-footer">
-            <button id="confirm_table" type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
-          <!-- /.box-body -->
+        <div class="box-footer">
+          <button id="confirm_table" type="submit" class="btn btn-primary">Confirmer</button>
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
       </div>
+      <!-- /.box -->
     </div>
-  {% endblock content %}
-  {% block scripts %}
-    {{ super() }}
-    <script>
-      var time = "first";
-      $("#table_ronde").on("select2:select", function (e) {
-        var group = e.params.data.element.parentNode.label;
-        if (group == "15h30-17h00") {
-          time = "second";
-        } else {
-          time = "first";
-        }
-        console.log(time);
-      });
-      function update_event(type, name) {
-        var name = $("#" + type).val();
-        name = name.split(" - ")[0];
-        console.log("UPDATE_EVENT", type, name, time);
-        if (!time && type == "table_ronde") {
-          Notify("Veuillez choisir une table ronde.", null, null, "error");
-          return false;
-        }
-        $.ajax({
-          type: "POST",
-          url: "{{ url_for('update_event') }}",
-          data: {
-            "type": type,
-            "name": name,
-            "time": time
-          },
-          success: function (result) {
-            if (result == 'success') {
-              Notify("Changements sauvegardés.");
-            } else {
-              Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
-            }
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
-          }
-        });
+  </div>
+{% endblock content %}
+{% block scripts %}
+  {{ super() }}
+  <script>
+    var time = "first";
+    $("#table_ronde").on("select2:select", function (e) {
+      var group = e.params.data.element.parentNode.label;
+      if (group == "15h30-17h00") {
+        time = "second";
+      } else {
+        time = "first";
+      }
+      console.log(time);
+    });
+    function update_event(type, name) {
+      var name = $("#" + type).val();
+      name = name.split(" - ")[0];
+      console.log("UPDATE_EVENT", type, name, time);
+      if (!time && type == "table_ronde") {
+        Notify("Veuillez choisir une table ronde.", null, null, "error");
         return false;
       }
-      $('#confirm_conference').on('click', function (e) {
-        e.preventDefault();
-        update_event('conference');
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('users.update_event') }}",
+        data: {
+          "type": type,
+          "name": name,
+          "time": time
+        },
+        success: function (result) {
+          if (result == 'success') {
+            Notify("Changements sauvegardés.");
+          } else {
+            Notify("Une erreur est survenue. Réessayez.", null, null, "warning");
+          }
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
       });
-      $('#confirm_table').on('click', function (e) {
-        e.preventDefault();
-        update_event('table_ronde');
-      });
-    </script>
-  {% endblock scripts %}
+      return false;
+    }
+    $('#confirm_conference').on('click', function (e) {
+      e.preventDefault();
+      update_event('conference');
+    });
+    $('#confirm_table').on('click', function (e) {
+      e.preventDefault();
+      update_event('table_ronde');
+    });
+  </script>
+{% endblock scripts %}

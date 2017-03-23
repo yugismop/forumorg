@@ -76,7 +76,7 @@ function update_master_class() {
     data: {
       'registered': registered
     },
-    url: "{{ url_for('update_master_class') }}",
+    url: "{{ url_for('users.update_master_class') }}",
     success: function (result) {
       if (result == 'success') {
         Notify("Changements sauvegardés.");

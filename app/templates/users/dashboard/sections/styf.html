@@ -142,7 +142,7 @@ function update_styf() {
   var problematic = $(".problematic").val();
   $.ajax({
     type: "POST",
-    url: "{{ url_for('update_styf') }}",
+    url: "{{ url_for('users.update_styf') }}",
     data: {
       "team": team,
       "teammates": JSON.stringify(teammates),
