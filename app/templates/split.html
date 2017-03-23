@@ -21,22 +21,22 @@
         </div>
       </div>
       <div class="section section-branded">
-        <video src="https://player.vimeo.com/external/194611800.hd.mp4?s=6ca9ffb2c636d6a5fbc55669a5e8af0e49ec2a30&amp;profile_id=174" autoplay="" muted="" loop=""></video>
+        <video src="{{ url_for('static', filename='video/video.mp4') }}" autoplay="" muted="true" loop=""></video>
         <h3 class="title title-branded">
           <span class="play">je suis</span>
           <span class="open-player">recruteur</span>
           <span class="reel"></span>
         </h3>
-        <div class="overlay"></div>
+        <div class="overlay" style="background-image: linear-gradient(to bottom right, rgba(40, 40, 40, 0.75), rgba(0, 192, 243, 0.2));"></div>
       </div>
       <div class="section section-originals">
-        <video src="https://player.vimeo.com/external/194611804.hd.mp4?s=6b0a2f5bcfc59703f153e45758998c9e16c33e43&amp;profile_id=119" autoplay="" muted="" loop=""></video>
+        <video src="{{ url_for('static', filename='video/video2.mp4') }}" autoplay="" muted="true" loop=""></video>
         <h3 class="title title-originals">
           <span class="play">je suis</span>
           <span class="open-player">candidat</span>
           <span class="reel"></span>
         </h3>
-        <div class="overlay"></div>
+        <div class="overlay" style="background-image: linear-gradient(to bottom right, rgba(40, 40, 40, 0.75), rgba(150, 189, 61, 0.2));"></div>
       </div>
     </div>
     <div id="footer">
