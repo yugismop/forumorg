@@ -11,7 +11,7 @@ class User(flask_login.UserMixin):
         self.data = data
         self.data['id'] = id
         if created:
-            self.data['password'] = bcrypt.generate_password_hash(password)
+            self.data['password'] = bcrypt.generate_password_hash(password).decode('utf-8')
             self.data['registered_on'] = datetime.datetime.now()
             self.data['confirmed'] = False
             self.data['confirmed_on'] = None
