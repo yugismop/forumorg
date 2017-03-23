@@ -1,6 +1,5 @@
-# robots.txt for http://forumorg.org/
+# robots.txt for https://www.forumorg.org/
 
 User-agent: *
 Disallow: /admin/
-Disallow: /connexion/
 Disallow: /dashboard/
