@@ -4,10 +4,10 @@
   "scripts": {},
   "env": {
     "FLASK_SECRET_KEY": {
-      "required": true
+      "generator": "secret"
     },
     "FLASK_SECRET_SALT": {
-      "required": true
+      "generator": "secret"
     },
     "MONGODB_URI": {
       "required": true
