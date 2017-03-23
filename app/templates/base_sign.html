@@ -7,7 +7,7 @@
 {% block body %}
   <div class="login-box">
     <div class="login-logo">
-      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}" alt="Forum Organisation"></a>
+      <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='images/logo-fo.png') }}" alt="Forum Organisation"></a>
     </div>
     {% block loginbox %}{% endblock loginbox %}
   </div>

@@ -25,6 +25,26 @@ def to_companies(day):
     return res
 
 
+@app.template_filter('to_fields')
+def to_fields(type):
+    if type == 'specialties':
+        return ['Informatique', 'Electronique', 'Biochimie', 'Télécommunications',
+                'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
+                'Matériaux', 'Agronomie', 'Génie Industriel', 'Génie Civil', 'Génie Mécanique', 'Génie Electrique', 'Génie Énergétique']
+    if type == 'schools':
+        return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
+                'Université Lyon 1', 'Université Lyon 2', 'Université Lyon 3', 'IAE Lyon',
+                'ECAM', 'Mines Saint-Etienne', 'INP Grenoble', 'EI Cesi', 'Polytech Grenoble', 'Telecom Saint-Etienne']
+    if type == 'years':
+        return [f'Bac+{i}' for i in range(1, 6)]
+    if type == 'transports':
+        return ['Gare Part-Die', 'Forum Rhône-Alpes', 'Hôtel Okko', 'Hôtel Lyon Metropole', 'Aéroport Saint Exupéry',
+                'Soirée Networking', 'Hôtel Ibis Part Die', 'Hôtel Le Roosvelt', 'Hôtel Carlton',
+                'Hôtel Reine Astrid', 'Hôtel Park et Suites Lyon Part-Die', 'Gare Perrache', 'Hôtel Campanile Part-Die',
+                'Hôtel Mercure Lyon Centre', 'B&B Hôtel Lyon Caluire Cité Internationale',
+                'Hotel Ibis Lyon Gerland Musée des Confluences', 'Hôtel Tête d\'Or', 'Hôtel Comfort Suites Rive Gauche Lyon Centre']
+
+
 @app.context_processor
 def get_companies():
     def _get_companies():
@@ -68,20 +88,6 @@ def get_events():
     return dict(get_events=_get_events)
 
 
-@app.template_filter('to_fields')
-def to_fields(type):
-    if type == 'specialties':
-        return ['Informatique', 'Electronique', 'Biochimie', 'Télécommunications',
-                'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
-                'Matériaux', 'Agronomie', 'Génie Industriel', 'Génie Civil', 'Génie Mécanique', 'Génie Electrique', 'Génie Énergétique']
-    if type == 'schools':
-        return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
-                'Université Lyon 1', 'Université Lyon 2', 'Université Lyon 3', 'IAE Lyon',
-                'ECAM', 'Mines Saint-Etienne', 'INP Grenoble', 'EI Cesi', 'Polytech Grenoble', 'Telecom Saint-Etienne']
-    if type == 'years':
-        return [f'Bac+{i}' for i in range(1, 6)]
-
-
 @app.template_filter('to_str')
 def to_jobs(lst):
     return ', '.join(json.loads(lst))
@@ -98,7 +104,7 @@ def to_info(oid):
     if not oid:
         return json.dumps({'empty': True})
     file = GridFS.get(ObjectId(oid))
-    r = {'url': url_for('.resume', oid=str(oid)),
+    r = {'url': url_for('main.resume', oid=str(oid)),
          'size': file.length,
          'name': file.name,
          'oid': str(oid)}

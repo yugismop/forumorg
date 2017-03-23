@@ -13,7 +13,7 @@
     </div>
     <div id="content" class="home" style="height: 918px;">
       <div class="text">
-        <a class="logo logo-big" href="{{ url_for('index') }}">
+        <a class="logo logo-big" href="{{ url_for('main.index') }}">
           <img class="svg " src="{{ url_for('static', filename='images/logo-home.png') }}" alt="Forum Organisation">
         </a>
         <div class="entry">
@@ -56,10 +56,12 @@
       if (event.type == "click")
         detectTap = true; //detects click events
       if (detectTap) {
-        if (event.target.innerText.includes('CANDIDAT')) {
-          window.location.assign("{{ url_for('index', section='candidats') }}");
+        var key = event.target.innerText.toLowerCase().split('\n')[1];
+        console.log(key);
+        if (key == 'candidat') {
+          window.location.assign("{{ url_for('users.index') }}");
         } else {
-          window.location.assign("{{ url_for('index', section='recruteurs') }}");
+          window.location.assign("{{ url_for('companies.index') }}");
         }
       }
     });

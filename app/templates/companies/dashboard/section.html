@@ -1,11 +1,10 @@
 {% extends 'companies/dashboard/base.html' %}
 {% if not company %}
-  {# set company = current_user.data #}
-  {% set company = { 'duration': 'both', 'id': 'test', 'name': 'test', 'size': 12, 'sections': { 'furnitures': {}, 'catering': { 'wed': {}, 'thu': {} }, 'events': {}, 'persons': [], 'transports': [], 'profile': { 'stand': {}, 'facturation': {} } } } %}
+  {% set company = current_user.data %}
 {% endif %}
 {% macro section_block(name, icon) -%}
-  <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
-    <a href="{{ url_for('dashboard', page=name) }}">
+  <li class="{{ 'active' if request.path == url_for('companies.dashboard', page=name) else '' }}">
+    <a href="{{ url_for('companies.dashboard', page=name) }}">
       <i class="{{ icon }}"></i>
       <span>{{ name|capitalize|replace("_", " ") }}</span>
       <span class="pull-right-container">

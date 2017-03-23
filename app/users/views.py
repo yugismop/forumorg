@@ -1,14 +1,80 @@
 import json
-from flask import Blueprint, render_template, flash, redirect, url_for, request, make_response, abort
-from flask_login import login_required, current_user
-from app import get_db, GridFS
-from app.storage import get_user, confirm_user, get_users, set_user, get_events
-from app import login as login
-from werkzeug import secure_filename
-from bson.objectid import ObjectId
-from gridfs.errors import NoFile
+from flask import Blueprint, render_template, flash, redirect, url_for, request, session, get_flashed_messages
+from flask_login import login_required, current_user, login_user
+from app import app, get_db
+from app.storage import get_user, confirm_user, get_users, set_user, get_events, user_exists, new_user
+from app.login import validate_login, confirm_token, generate_confirmation_token
+from app.models import User
+from .mailing import send_mail
 
 bp = Blueprint('users', __name__)
+
+
+# INDEX
+@bp.route('/')
+@bp.route('/<page>')
+def index(page='index'):
+    session['section'] = 'users'
+    app.logger.info(f'USERS->{page}//{session["section"]}')
+    return render_template(f'users/{page}.html')
+
+
+@bp.route('/connexion', methods=['GET', 'POST'])
+def signin():
+    if request.method == 'POST':
+        email = request.form.get('email').lower()
+        password = request.form.get('password')
+        user = get_user(id=email)
+        if not user:
+            return render_template('users/signin.html', error=['no_user_found'])
+        if not validate_login(user.password, password, 'users'):
+            return render_template('users/signin.html', error=['wrong_password'])
+        if not user.confirmed:
+            return render_template('users/signin.html', error=['user_not_confirmed'])
+        # all is good
+        user = User(id=email, password=password)
+        print(f'connected_as: {email}')
+        login_user(user)
+        return redirect(url_for('users.dashboard'))
+    print(f'flash: {get_flashed_messages()}')
+    return render_template('users/signin.html', error=get_flashed_messages())
+
+
+@bp.route('/inscription', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if not password or not email:
+            flash('empty_fields')
+            return render_template('users/signup.html')
+        email = email.lower()
+        if user_exists(email):
+            user = get_user(id=email)
+            if user.confirmed:
+                return render_template('users/signup.html', error='user_already_exists')
+            else:
+                token = generate_confirmation_token(email)
+                confirm_url = url_for(
+                    'users.confirm_email', token=token, _external=True)
+                send_mail(email, confirm_url)
+                flash('user_registered')
+                return redirect(url_for('main.signin'))
+        else:
+            user = User(id=email, password=password, created=True)
+            token = generate_confirmation_token(email)
+            confirm_url = url_for('users.confirm_email', token=token, _external=True)
+            try:
+                created = new_user(user)
+                if created:
+                    send_mail(email, confirm_url)
+                    flash('user_registered')
+                else:
+                    flash('error')
+            except Exception as e:
+                print('error', e, user, user.data)
+            return redirect(url_for('main.signin'))
+    return render_template('users/signup.html')
 
 
 # ADMIN
@@ -16,6 +82,7 @@ bp = Blueprint('users', __name__)
 @bp.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
+    app.logger.info('im here')
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
             render_template('users/dashboard/sections/fra.html')
@@ -33,52 +100,22 @@ def companies(company_id=None):
 
 @bp.route('/confirmation/<token>')
 def confirm_email(token):
-    email = login.confirm_token(token)
+    email = confirm_token(token)
 
     if not email:
         flash('confirm_link_expired', 'danger')
-        return redirect(url_for('signin'))
+        return redirect(url_for('main.signin'))
 
     user = get_user(id=email)
     if not user:
         flash('error')
-        return redirect(url_for('signin'))
+        return redirect(url_for('main.signin'))
     if user.confirmed:
         flash('account_already_confirmed', 'success')
     else:
         confirm_user(user)
         flash('account_confirmed', 'success')
-    return redirect(url_for('signin'))
-
-
-@bp.route('/cv', methods=['POST', 'DELETE'])
-@bp.route('/cv/<oid>', methods=['GET'])
-@login_required
-def resume(oid=None):
-    # Allowed files
-    def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
-
-    users = get_users()
-    if request.method == 'POST':
-        file = request.files.get('resume')
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            oid = GridFS.put(file, content_type=file.content_type, filename=filename)
-            users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
-        return 'success'
-    if request.method == 'DELETE':
-        GridFS.delete(ObjectId(request.form['oid']))
-        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': None}})
-        return 'success'
-    if request.method == 'GET':
-        try:
-            file = GridFS.get(ObjectId(oid))
-            response = make_response(file.read())
-            response.mimetype = file.content_type
-            return response
-        except NoFile:
-            abort(404)
+    return redirect(url_for('main.signin'))
 
 
 @bp.route('/update_profile', methods=['POST'])

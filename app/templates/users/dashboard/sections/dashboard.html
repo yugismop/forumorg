@@ -14,7 +14,7 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{ url_for('identicon', text=identicode) }}" alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" src="{{ url_for('main.identicon', text=identicode) }}" alt="User profile picture">
           <h3 class="profile-username text-center">
             {% if not user.profile.first_name %}
               Profil incomplet

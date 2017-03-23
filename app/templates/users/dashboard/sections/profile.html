@@ -148,7 +148,7 @@
       $(function () {
         var cur_resume = {{ user.profile.resume_id|to_info|safe }};
         var myDropzone = new Dropzone("#dropzone", {
-          url: "{{ url_for('users.resume', _method='POST') }}",
+          url: "{{ url_for('main.resume', _method='POST') }}",
           maxFilesize: 5, // in MB
           maxFiles: 1,
           paramName: "resume",
@@ -165,7 +165,7 @@
                 myDropzone.options.maxFiles = 1;
                 $.ajax({
                   type: "DELETE",
-                  url: "{{ url_for('users.resume') }}",
+                  url: "{{ url_for('main.resume') }}",
                   data: {
                     "oid": cur_resume.oid
                   },

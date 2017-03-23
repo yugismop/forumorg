@@ -203,7 +203,7 @@
     }
     $.ajax({
       type: "POST",
-      url: "{{ url_for('add_job') }}",
+      url: "{{ url_for('companies.add_job') }}",
       data: {
         "job": JSON.stringify(job)
       },
@@ -221,7 +221,7 @@
     if (r) {
       $.ajax({
         type: "POST",
-        url: "{{ url_for('remove_job') }}",
+        url: "{{ url_for('companies.remove_job') }}",
         data: {
           "id": job_id
         },

@@ -114,7 +114,7 @@
       dishes[day][type] = old_qty + qty;
       $.ajax({
         type: "POST",
-        url: "{{ url_for('update_company') }}",
+        url: "{{ url_for('companies.update_company') }}",
         data: {
           "company": JSON.stringify(company),
           "page": "restauration"
@@ -140,7 +140,7 @@
         dishes[day] = {};
         $.ajax({
           type: "POST",
-          url: "{{ url_for('update_company') }}",
+          url: "{{ url_for('companies.update_company') }}",
           data: {
             "company": JSON.stringify(company),
             "page": "restauration"

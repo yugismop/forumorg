@@ -9,6 +9,14 @@ def get_user(id):
     return User(id=id, password=user['password'], data=user) if user else None
 
 
+def get_company(company_id):
+    return get_db().companies.find_one({'id': company_id}, {'_id': 0})
+
+
+def set_company(company_id, company_data):
+    return get_db().companies.replace_one({'id': company_id}, company_data)
+
+
 def confirm_user(user):
     return get_db().users.update_one(
         {'id': user.id},

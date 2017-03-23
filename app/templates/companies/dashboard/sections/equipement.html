@@ -220,7 +220,7 @@
     furnitures[furniture_id] = old_quantity + new_quantity;
     $.ajax({
       type: "POST",
-      url: "{{ url_for('update_company') }}",
+      url: "{{ url_for('companies.update_company') }}",
       data: {
         "company": JSON.stringify(company),
         "page": "equipement"
@@ -246,7 +246,7 @@
       delete furnitures[furniture_id];
       $.ajax({
         type: "POST",
-        url: "{{ url_for('update_company') }}",
+        url: "{{ url_for('companies.update_company') }}",
         data: {
           "company": JSON.stringify(company),
           "page": "equipement"

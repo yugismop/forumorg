@@ -27,3 +27,14 @@ class User(flask_login.UserMixin):
             return self.data[item]
         except KeyError:
             raise AttributeError(item)
+
+
+class Company(flask_login.UserMixin):
+
+    def __init__(self, id, password=None, data=None):
+        self.id = id
+        self.password = password
+        self.data = data
+
+    def get_id(self):
+        return self.id

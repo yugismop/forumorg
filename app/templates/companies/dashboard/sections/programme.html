@@ -73,7 +73,7 @@
         company.sections.events[event] = !registered;
         $.ajax({
           type: "POST",
-          url: "{{ url_for('update_company') }}",
+          url: "{{ url_for('companies.update_company') }}",
           data: {
             "company": JSON.stringify(company),
             "page": "programme"

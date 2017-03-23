@@ -95,13 +95,13 @@
   <div class="spacer"></div>
   <div class="message">
     {% block logo %}
-      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
+      <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='images/logo-fo-blanc.png') }}" style="width:75px" alt="Forum Organisation"></a>
     {% endblock logo %}
     <div class="message__title">
       {% block message %}{% endblock message %}
     </div>
     {% block link %}
-      <a href="{{ url_for('index') }}" class="btn">Retour à la page d'accueil</a>
+      <a href="{{ url_for('main.index') }}" class="btn">Retour à la page d'accueil</a>
     {% endblock link %}
   </div>
 {% endblock body %}

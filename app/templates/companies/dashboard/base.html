@@ -10,14 +10,14 @@
   <!-- Menu Toggle Button -->
   <a>
     <!-- The user image in the navbar-->
-    <img class="user-image" src="{{ url_for('identicon', text=company.id) }}" alt="User Image">
+    <img class="user-image" src="{{ url_for('main.identicon', text=company.id) }}" alt="User Image">
     <!-- hidden-xs hides the username on small devices so only the image appears. -->
     <span class="hidden-xs">{{ company.name }}</span>
   </a>
 </li>
 <!-- Sign Out Menu -->
 <li class="dropdown messages-menu">
-  <a href="{{ url_for('index') }}">
+  <a href="{{ url_for('main.index') }}">
     <i class="fa fa-sign-out"></i>
     <span class="hidden-xs">Retour à l'accueil</span>
   </a>
@@ -26,7 +26,7 @@
 {% block user_panel %}
 <div class="user-panel">
   <div class="pull-left image">
-    <img class="img-circle" src="{{ url_for('identicon', text=company.id) }}" alt="User Image">
+    <img class="img-circle" src="{{ url_for('main.identicon', text=company.id) }}" alt="User Image">
   </div>
   <div class="pull-left info">
     <p>{{company.name}}</p>
@@ -54,7 +54,7 @@
     if (r) {
       $.ajax({
         type: "POST",
-        url: "{{ url_for('validate_section') }}",
+        url: "{{ url_for('companies.validate_section') }}",
         data: {
           "page": "{{ page }}"
         },
