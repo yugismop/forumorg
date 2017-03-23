@@ -28,7 +28,7 @@ db = None
 # Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'signin'
 
 # Bcrypt
 bcrypt = Bcrypt()
@@ -57,5 +57,5 @@ from .users.views import bp as bp_users
 app.register_blueprint(bp_users)
 
 # Init
-from .users import helpers
+from .users import helpers, mailing
 from . import views, storage, login
