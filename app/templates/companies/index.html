@@ -305,8 +305,6 @@ $(function () {
     backDelay: 1000
   });
 });
-/******************** ONE PAGE NAVIGATION ********************/
-$('.navbar-nav').onePageNav({currentClass: 'active', scrollOffset: 74});
 /****************** MAP *******************************/
 var initMapBig = function () {
   var map = new google.maps.Map(document.getElementById('mapBig'), {
@@ -348,7 +346,8 @@ if (document.getElementById('mapBig') != null) {
 $('a[href^="#"]').click(function (e) {
   e.preventDefault();
   $(window).stop(true).scrollTo(this.hash, {
-    duration: 750,
+    duration: 650,
+    offset: -74,
     interrupt: true
   });
 });
