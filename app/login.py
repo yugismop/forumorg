@@ -1,4 +1,4 @@
-from flask import redirect, url_for
+from flask import redirect, url_for, request
 from app import app, bcrypt, login_manager, storage
 from app.models import Company
 from itsdangerous import URLSafeTimedSerializer
@@ -14,7 +14,10 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return redirect(url_for('main.signin'))
+    if 'candidats' in request.path:
+        return redirect(url_for('users.signin'))
+    else:
+        return redirect(url_for('companies.signin'))
 
 
 def validate_login(password_hashed, password_entered, section):

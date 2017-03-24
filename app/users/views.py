@@ -58,7 +58,7 @@ def signup():
                     'users.confirm_email', token=token, _external=True)
                 send_mail(email, confirm_url)
                 flash('user_registered')
-                return redirect(url_for('main.signin'))
+                return redirect(url_for('users.signin'))
         else:
             user = User(id=email, password=password, created=True)
             token = generate_confirmation_token(email)
@@ -72,7 +72,7 @@ def signup():
                     flash('error')
             except Exception as e:
                 print('error', e, user, user.data)
-            return redirect(url_for('main.signin'))
+            return redirect(url_for('users.signin'))
     return render_template('users/signup.html')
 
 
@@ -102,18 +102,18 @@ def confirm_email(token):
 
     if not email:
         flash('confirm_link_expired', 'danger')
-        return redirect(url_for('main.signin'))
+        return redirect(url_for('users.signin'))
 
     user = get_user(id=email)
     if not user:
         flash('error')
-        return redirect(url_for('main.signin'))
+        return redirect(url_for('users.signin'))
     if user.confirmed:
         flash('account_already_confirmed', 'success')
     else:
         confirm_user(user)
         flash('account_confirmed', 'success')
-    return redirect(url_for('main.signin'))
+    return redirect(url_for('users.signin'))
 
 
 @bp.route('/update_profile', methods=['POST'])

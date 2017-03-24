@@ -29,7 +29,6 @@ app.jinja_env.add_extension('jinja2_time.TimeExtension')
 # Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'main.signin'
 
 # Bcrypt
 bcrypt = Bcrypt()
