@@ -103,7 +103,7 @@ def to_filename(oid):
 def to_info(oid):
     if not oid:
         return json.dumps({'empty': True})
-    file = GridFS.get(ObjectId(oid))
+    file = GridFS.get(file_id=ObjectId(oid))
     r = {'url': url_for('main.resume', oid=str(oid)),
          'size': file.length,
          'name': file.name,
