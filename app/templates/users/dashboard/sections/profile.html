@@ -47,16 +47,16 @@
                   {% set schools = 'schools' | to_fields %}
                   <label for="school">Ecole</label>
                   <div class="input-group col-md-12">
-                    <select id="school" name="school" style="width:{{'100' if user.profile.school in schools else '50' }}%" class="form-control" required>
+                    <select id="school" name="school" style="width:{{'100' if user.profile.school in schools or not user.profile.school else '50' }}%" class="form-control" required>
                       {% for s in schools | sort %}
-                        <option {{ 'selected' if user.profile.school == s else '' }}>{{ s }}</option>
+                        <option {{ 'selected' if user.profile.school == s or loop.first else '' }}>{{ s }}</option>
                       {% endfor %}
-                      <option {{ 'selected' if user.profile.school not in schools else '' }}>Autre</option>
+                      <option {{ 'selected' if user.profile.school and user.profile.school not in schools else '' }}>Autre</option>
                     </select>
                     <input
                       type="text"
                       name="school_"
-                      style="{{ 'display:none;' if user.profile.school in schools else '' }} margin:3px 0px 3px 5px; width:45%;"
+                      style="{{ 'display:none;' if user.profile.school in schools or not user.profile.school else '' }} margin:3px 0px 3px 5px; width:45%;"
                       placeholder="Votre école..."
                       value="{{ user.profile.school if user.profile.school not in schools else ''}}"
                       class="school_"
@@ -68,7 +68,7 @@
                 {% set specialties = 'specialties' | to_fields %}
                 <div class="form-group">
                   <label for="specialty">Spécialité</label>
-                  <select id="specialty" name="specialty" class="form-control select2" style="width: 100%;">
+                  <select id="specialty" name="specialty" class="form-control" style="width: 100%;">
                     {% for s in specialties | sort %}
                       <option {{ 'selected' if user.profile.specialty == s else '' }}>{{ s }}</option>
                     {% endfor %}
@@ -79,7 +79,7 @@
                 {% set years = 'years' | to_fields %}
                 <div class="form-group">
                   <label for="year">Année d'étude</label>
-                  <select id="year" name="year" class="form-control select2" style="width: 100%;">
+                  <select id="year" name="year" class="form-control" style="width: 100%;">
                     {% for y in years | sort %}
                       <option {{ 'selected' if user.profile.year == y else '' }}>{{ y }}</option>
                     {% endfor %}
