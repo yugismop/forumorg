@@ -42,12 +42,6 @@ $(document).ready(function() {
         });
     }
 
-    /******************** ONE PAGE NAVIGATION ********************/
-    $('.navbar-nav').onePageNav({
-        currentClass: 'active',
-        scrollOffset: 74
-    });
-
     /******************** SCROLL HACK ********************/
     $(window).scroll(function() {
         if ($(this).scrollTop() > 50) {
@@ -55,16 +49,6 @@ $(document).ready(function() {
         } else {
             $('.navbar-nav').removeClass('opaque');
         }
-    });
-
-    /******************** TYPED ********************/
-    $(function() {
-        $(".element").typed({
-            strings: ["Échangez", "Rencontrez", "Recrutez"],
-            typeSpeed: 50,
-            backSpeed: 100,
-            backDelay: 1000,
-        });
     });
 
 });

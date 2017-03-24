@@ -25,7 +25,6 @@ bp = Blueprint('companies', __name__)
 @bp.route('/<page>')
 def index(page='index'):
     session['section'] = 'companies'
-    app.logger.info(f'COMPANIES->{page}//{session["section"]}')
     return render_template(f'companies/{page}.html')
 
 

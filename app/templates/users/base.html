@@ -1,41 +1,22 @@
 {% extends 'base_home.html' %}
 {% set title = 'Espace Candidats' %}
-{% block navbar %}
-  <div class="collapse navbar-collapse" id="nemo-navigation">
-    <ul class="nav navbar-nav navbar-left">
-      <li class="{{ 'active' if title == 'Accueil' else ''}}">
-        <a href="{{ url_for('main.index') }}" id="home">Accueil</a>
-      </li>
-      <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
-        <a href="{{ url_for('main.index', page='forum-rhone-alpes') }}" id="fra">Forum Rhône-Alpes</a>
-      </li>
-      <li class="{{ 'active' if title == 'Master Class' else ''}}">
-        <a href="{{ url_for('main.index', page='master-class') }}" id="joi">Master Class</a>
-      </li>
-      <li class="{{ 'active' if title == 'STYF' else ''}}">
-        <a href="{{ url_for('main.index', page='start-up-your-future') }}" id="styf">STYF</a>
-      </li>
-      <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
-        <a href="{{ url_for('main.index', page='journee-objectif-ingenieur') }}" id="joi">JOI</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        {% if current_user.is_authenticated %}
-        <li>
-          <a href="{{ url_for('users.dashboard') }}" id="home">Dashboard</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.logout') }}" id="home">Se déconnecter</a>
-        </li>
-      {% else %}
-        <li>
-          <a href="{{ url_for('main.index', section='accueil') }}" id="home">Retour à l'écran de choix</a>
-        </li>
-        <li>
-          <a href="{{ url_for('users.signin', section='candidats') }}" id="home">Se connecter</a>
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-{% endblock navbar %}
+{% set section = 'users' %}
+{% block navbar_left %}
+  <ul class="nav navbar-nav navbar-left">
+    <li class="{{ 'active' if title == 'Accueil' else ''}}">
+      <a href="{{ url_for('main.index') }}" id="home">Accueil</a>
+    </li>
+    <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
+      <a href="{{ url_for('main.index', page='forum-rhone-alpes') }}" id="fra">Forum Rhône-Alpes</a>
+    </li>
+    <li class="{{ 'active' if title == 'Master Class' else ''}}">
+      <a href="{{ url_for('main.index', page='master-class') }}" id="joi">Master Class</a>
+    </li>
+    <li class="{{ 'active' if title == 'STYF' else ''}}">
+      <a href="{{ url_for('main.index', page='start-up-your-future') }}" id="styf">STYF</a>
+    </li>
+    <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
+      <a href="{{ url_for('main.index', page='journee-objectif-ingenieur') }}" id="joi">JOI</a>
+    </li>
+  </ul>
+{% endblock navbar_left %}

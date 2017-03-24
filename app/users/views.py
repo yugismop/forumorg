@@ -15,7 +15,6 @@ bp = Blueprint('users', __name__)
 @bp.route('/<page>')
 def index(page='index'):
     session['section'] = 'users'
-    app.logger.info(f'USERS->{page}//{session["section"]}')
     return render_template(f'users/{page}.html')
 
 
@@ -82,7 +81,6 @@ def signup():
 @bp.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
-    app.logger.info('im here')
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
             render_template('users/dashboard/sections/fra.html')

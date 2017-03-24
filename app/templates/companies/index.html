@@ -1,45 +1,25 @@
 {% extends 'companies/base.html' %}
 {% set title = 'Espace Recruteur' %}
-{% block navbar %}
-  <div class="collapse navbar-collapse" id="nemo-navigation">
-    {% block navbar_top %}
-      <ul class="nav navbar-nav navbar-left">
-        <li class="active">
-          <a href="#start">Accueil</a>
-        </li>
-        <li class="">
-          <a href="#why">Pourquoi ?</a>
-        </li>
-        <li class="">
-          <a href="#contact">Comment ?</a>
-        </li>
-        <li class="">
-          <a href="#faq">FAQ</a>
-        </li>
-        <li class="">
-          <a href="#press">Presse</a>
-        </li>
-      </ul>
-    {% endblock navbar_top %}
-    <ul class="nav navbar-nav navbar-right">
-      {% if current_user.is_authenticated %}
-        <li>
-          <a href="{{ url_for('companies.dashboard') }}" id="home">Dashboard</a>
-        </li>
-        <li>
-          <a href="{{ url_for('main.logout') }}" id="home">Se déconnecter</a>
-        </li>
-      {% else %}
-        <li>
-          <a href="{{ url_for('main.index', section='accueil') }}" id="home">Retour à l'écran de choix</a>
-        </li>
-        <li>
-          <a href="{{ url_for('companies.signin') }}" id="home">Se connecter</a>
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-{% endblock navbar %}
+{% set section = 'users' %}
+{% block navbar_left %}
+  <ul class="nav navbar-nav navbar-left">
+    <li class="active">
+      <a href="#start">Accueil</a>
+    </li>
+    <li class="">
+      <a href="#why">Pourquoi ?</a>
+    </li>
+    <li class="">
+      <a href="#contact">Comment ?</a>
+    </li>
+    <li class="">
+      <a href="#faq">FAQ</a>
+    </li>
+    <li class="">
+      <a href="#press">Presse</a>
+    </li>
+  </ul>
+{% endblock navbar_left %}
 {% block content %}
   <section class="home app-home-1 video-bg" id="start">
     <div class="section-video">
@@ -333,6 +313,8 @@
       backDelay: 1000
     });
   });
+  /******************** ONE PAGE NAVIGATION ********************/
+  $('.navbar-nav').onePageNav({currentClass: 'active', scrollOffset: 74});
   /****************** MAP *******************************/
   var initMapBig = function () {
     var map = new google.maps.Map(document.getElementById('mapBig'), {

@@ -24,9 +24,7 @@ bp = Blueprint('main', __name__)
 def index(page=None):
     cur_section = session.get('section')
     arg_section = request.args.get('section')
-    app.logger.info(f'{cur_section}//{arg_section}')
     if cur_section and not arg_section:
-        app.logger.info(f'{cur_section}.index')
         return redirect(url_for(f'{cur_section}.index', page=page))
     return render_template('split.html')
 
@@ -89,8 +87,8 @@ def identicon():
 
 
 # SEO
-@bp.route('/robots.txt')
-@bp.route('/favicon.ico')
+@app.route('/robots.txt')
+@app.route('/favicon.ico')
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
@@ -103,12 +101,12 @@ def js_log():
 
 
 # Error handling
-@bp.errorhandler(404)
-@bp.errorhandler(TemplateNotFound)
+@app.errorhandler(404)
+@app.errorhandler(TemplateNotFound)
 def page_not_found(e):
     return render_template('errors/404.html'), 404
 
 
-@bp.errorhandler(500)
+@app.errorhandler(500)
 def internal_server_error(e):
     return render_template('errors/500.html'), 500

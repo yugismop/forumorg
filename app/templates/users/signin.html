@@ -3,7 +3,7 @@
 {% block loginbox %}
   <div class="login-box-body">
     <h3 class="login-box-msg">Se connecter à la plateforme</h3>
-    <form action="{{ url_for('users.signin', section='candidats') }}" method="post">
+    <form action="{{ url_for('users.signin') }}" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" value="{{request.form.email}}" placeholder="Email" name="email" required>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

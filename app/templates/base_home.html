@@ -21,7 +21,50 @@
             <img src="{{ url_for('static', filename='images/fo-alt.png')}}" alt="Forum Organisation">
           </a>
         </div>
-        {% block navbar %}{% endblock navbar %}
+        {% block navbar %}
+          <div class="collapse navbar-collapse" id="nemo-navigation">
+            {% block navbar_left %}
+              <ul class="nav navbar-nav navbar-left">
+                <li class="active">
+                  <a href="#start">Accueil</a>
+                </li>
+                <li class="">
+                  <a href="#why">Pourquoi ?</a>
+                </li>
+                <li class="">
+                  <a href="#contact">Comment ?</a>
+                </li>
+                <li class="">
+                  <a href="#faq">FAQ</a>
+                </li>
+                <li class="">
+                  <a href="#press">Presse</a>
+                </li>
+              </ul>
+            {% endblock navbar_left %}
+            {% block navbar_right %}
+              {% set dashboard_url = '%s.dashboard' | format(section) %}
+              {% set signin_url = '%s.signin' | format(section) %}
+              <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                  <li>
+                    <a href="{{ url_for(dashboard_url) }}" id="home">Dashboard</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('main.logout') }}" id="home">Se déconnecter</a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a href="{{ url_for('main.index', section='accueil') }}" id="home">Retour à l'écran de choix</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for(signin_url) }}" id="home">Se connecter</a>
+                  </li>
+                {% endif %}
+              {% endblock navbar_right %}
+            </ul>
+          </div>
+        {% endblock navbar %}
       </div>
     </div>
     <!-- CONTENT -->
