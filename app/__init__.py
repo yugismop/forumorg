@@ -58,9 +58,9 @@ GridFS = GridFS(get_db(), collection='resumes')
 from .views import bp as bp_main
 app.register_blueprint(bp_main)
 from .users.views import bp as bp_users
-app.register_blueprint(bp_users, url_prefix='/candidats')
+app.register_blueprint(bp_users)
 from .companies.views import bp as bp_companies
-app.register_blueprint(bp_companies, url_prefix='/recruteurs')
+app.register_blueprint(bp_companies, subdomain='recruteurs')
 
 # Init
 from .users import helpers
