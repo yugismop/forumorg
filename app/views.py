@@ -87,6 +87,12 @@ def identicon():
 
 
 # SEO
+@app.route('/sondage')
+def typeform():
+    return render_template('typeform.html')
+
+
+# SEO
 @app.route('/robots.txt')
 @app.route('/favicon.ico')
 def static_from_root():
