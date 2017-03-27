@@ -59,11 +59,6 @@ def resume(oid=None):
             abort(404)
 
 
-@bp.route('/clear')
-def clear():
-    return str(session.clear())
-
-
 @bp.route('/deconnexion')
 def logout():
     logout_user()
