@@ -46,19 +46,18 @@
 {% endblock body %}
 {% block scripts %}
   <script>
-    $('.title').on('touchstart', function () {
+    $('[class^=title]').on('touchstart', function () {
       detectTap = true; //detects all touch events
     });
-    $('.title').on('touchmove', function () {
+    $('[class^=title]').on('touchmove', function () {
       detectTap = false; //Excludes the scroll events from touch events
     });
-    $('.title').on('click touchend', function (event) {
+    $('[class^=title]').on('click touchend', function (event) {
       if (event.type == "click")
         detectTap = true; //detects click events
       if (detectTap) {
-        var key = event.target.innerText.toLowerCase().split('\n')[1];
-        console.log(key);
-        if (key == 'candidat') {
+        var key = event.currentTarget.className.indexOf('branded');
+        if (key == -1) {
           window.location.assign("{{ url_for('users.index') }}");
         } else {
           window.location.assign("{{ url_for('companies.index') }}");
