@@ -1,18 +1,15 @@
-# coding=utf-8
-
 import json
 import os
 import requests
 import datetime
 
-from flask import abort, redirect, render_template, request, make_response, session, Blueprint, url_for
+from flask import abort, redirect, render_template, request, session, Blueprint, url_for
 from flask_login import current_user, login_required, login_user
 from app.storage import get_company, set_company
 from app.login import validate_login
 from app.models import Company
 
-from app import app, GridFS, get_db
-from gridfs.errors import NoFile
+from app import get_db
 from .mailing import send_mail
 from bson.objectid import ObjectId
 from .stream import get_diff

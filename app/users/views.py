@@ -1,7 +1,7 @@
 import json
 from flask import Blueprint, render_template, flash, redirect, url_for, request, session, get_flashed_messages
 from flask_login import login_required, current_user, login_user
-from app import app, get_db
+from app import get_db
 from app.storage import get_user, confirm_user, get_users, set_user, get_events, user_exists, new_user
 from app.login import validate_login, confirm_token, generate_confirmation_token
 from app.models import User

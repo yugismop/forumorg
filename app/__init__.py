@@ -1,12 +1,16 @@
 import os
-from flask import Flask, g
+from flask import Flask, g, request
 from flask_bcrypt import Bcrypt
 from flask_assets import Environment
 from flask_login import LoginManager
 from flask_qrcode import QRcode
 from flask_sslify import SSLify
+from flask_admin import Admin
+from flask_admin.base import MenuLink
 from gridfs import GridFS
+from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
+from flask_babelex import Babel
 
 
 # Storage init
@@ -38,12 +42,25 @@ bcrypt.init_app(app)
 qrcode = QRcode()
 qrcode.init_app(app)
 
+# Babel
+babel = Babel()
+babel.localeselector(lambda: request.accept_languages.best_match(['fr', 'en']))
+babel.init_app(app)
+
 # Flask-Assets
 from .assets import bundles
 assets = Environment(app)
 assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
 assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
 assets.register(bundles)
+
+# Flask-Admin
+admin = Admin(app, name='Interface Admin', index_view=StatisticsView(url='/admin', name='Vue générale'))
+admin.add_view(CompanyView(get_db().companies, name='Entreprises'))
+admin.add_view(UserView(get_db().users, name='Utilisateurs'))
+admin.add_view(JobView(get_db().jobs, name='Offres'))
+admin.add_view(StreamView(get_db().stream, name='Stream'))
+admin.add_link(MenuLink(name='Se déconnecter', url='/deconnexion'))
 
 # SSLify
 with app.app_context():
@@ -63,4 +80,5 @@ app.register_blueprint(bp_companies, url_prefix='/recruteurs')
 # Init
 from .users import helpers
 from .companies import helpers
+from .admin import helpers
 from . import helpers, storage, login
