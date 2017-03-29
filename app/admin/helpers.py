@@ -15,6 +15,7 @@ def get_stats():
                 result[pole][s] = round(100.0 * validated / total, 2)
         for k, v in result.items():
             result[k] = list(OrderedDict(sorted(v.items())).values())
+            print(result[k], v)
         result = OrderedDict(sorted(result.items()))
         return result
     return dict(get_stats=_get_stats)
