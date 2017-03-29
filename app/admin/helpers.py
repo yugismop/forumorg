@@ -16,7 +16,6 @@ def get_stats():
                 result[pole][s] = round(100.0 * validated / total, 2)
         result = {k: list(v.values()) for k, v in result.items()}
         result['labels'] = sections
-        print(result)
         return result
     return dict(get_stats=_get_stats)
 
