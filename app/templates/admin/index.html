@@ -80,9 +80,7 @@
       function initLog() {
         var ctx = document.getElementById("log");
         var data = {
-          labels: [
-            'Badges', 'Equipement', 'Programme', 'Restauration', 'Transport'
-          ],
+          labels: {{ stats.get('labels')|safe }},
           datasets: [
             {
               label: "FRA",

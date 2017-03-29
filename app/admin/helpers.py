@@ -7,16 +7,16 @@ from app import app, get_db
 def get_stats():
     def _get_stats():
         result = defaultdict(dict)
-        for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
+        sections = ['equipement', 'restauration', 'badges', 'transport', 'programme']
+        for s in sections:
             cur = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': '$pole', 'all': {
                 '$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
             for c in cur:
                 pole, total, validated = c['_id'], c['all'], c['validated']
                 result[pole][s] = round(100.0 * validated / total, 2)
-        for k, v in result.items():
-            result[k] = list(OrderedDict(sorted(v.items())).values())
-            print(result[k], v)
-        result = OrderedDict(sorted(result.items()))
+        result = {k: list(v.values()) for k, v in result.items()}
+        result['labels'] = sections
+        print(result)
         return result
     return dict(get_stats=_get_stats)
 
