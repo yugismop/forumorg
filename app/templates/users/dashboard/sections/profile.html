@@ -1,5 +1,22 @@
 {% extends 'users/dashboard/section.html' %}
 {% set title = 'Master Class' %}
+{% block style %}
+  {{ super() }}
+  <style>
+    @media (min-width: 992px) {
+      .dropzone .dz-preview {
+        min-width: 40% !important;
+      }
+    }
+    .dropzone .dz-preview {
+      margin: 0;
+      min-width: 100%;
+    }
+    .dz-image {
+      width: auto !important;
+    }
+  </style>
+{% endblock style %}
 {% block content %}
   <div class="row">
     <div class="col-md-12">
