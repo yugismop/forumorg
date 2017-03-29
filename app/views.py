@@ -51,7 +51,7 @@ def resume(oid=None):
         return 'success'
     if request.method == 'GET':
         try:
-            file = GridFS.get(ObjectId(file_id=oid))
+            file = GridFS.get(file_id=ObjectId(oid))
             response = make_response(file.read())
             response.mimetype = file.content_type
             return response
