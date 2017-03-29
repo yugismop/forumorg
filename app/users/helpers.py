@@ -32,15 +32,15 @@ def to_fields(type):
                 'Bioinformatique', 'Commercial & Marketing', 'Chimie', 'Biologie',
                 'Matériaux', 'Agronomie', 'Génie Industriel', 'Génie Civil', 'Génie Mécanique', 'Génie Electrique', 'Génie Énergétique']
     if type == 'schools':
-        return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon',
-                'Université Lyon 1', 'Université Lyon 2', 'Université Lyon 3', 'IAE Lyon',
+        return ['INSA Lyon', 'CPE Lyon', 'Polytech Lyon', 'Centrale Lyon', 'EM Lyon', 'Université Jean Monnet',
+                'Université Lyon 1', 'Université Lyon 2', 'Université Grenoble Alpes', 'Université Lyon 3', 'IAE Lyon',
                 'ECAM', 'Mines Saint-Etienne', 'INP Grenoble', 'EI Cesi', 'Polytech Grenoble', 'Telecom Saint-Etienne']
     if type == 'years':
         return [f'Bac+{i}' for i in range(1, 6)]
     if type == 'transports':
-        return ['Gare Part-Die', 'Forum Rhône-Alpes', 'Hôtel Okko', 'Hôtel Lyon Metropole', 'Aéroport Saint Exupéry',
-                'Soirée Networking', 'Hôtel Ibis Part Die', 'Hôtel Le Roosvelt', 'Hôtel Carlton',
-                'Hôtel Reine Astrid', 'Hôtel Park et Suites Lyon Part-Die', 'Gare Perrache', 'Hôtel Campanile Part-Die',
+        return ['Gare Part-Dieu', 'Forum Rhône-Alpes', 'Hôtel Okko', 'Hôtel Lyon Metropole', 'Aéroport Saint Exupéry',
+                'Soirée Networking', 'Hôtel Ibis Part Dieu', 'Hôtel Le Roosvelt', 'Hôtel Carlton',
+                'Hôtel Reine Astrid', 'Hôtel Park et Suites Lyon Part-Dieu', 'Gare Perrache', 'Hôtel Campanile Part-Dieu',
                 'Hôtel Mercure Lyon Centre', 'B&B Hôtel Lyon Caluire Cité Internationale',
                 'Hotel Ibis Lyon Gerland Musée des Confluences', 'Hôtel Tête d\'Or', 'Hôtel Comfort Suites Rive Gauche Lyon Centre']
 
