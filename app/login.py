@@ -1,7 +1,8 @@
-from flask import redirect, url_for, request
+from flask import redirect, request, url_for
+from itsdangerous import URLSafeTimedSerializer
+
 from app import app, bcrypt, login_manager, storage
 from app.models import Company
-from itsdangerous import URLSafeTimedSerializer
 
 
 @login_manager.user_loader

@@ -1,6 +1,7 @@
 import datetime
 
 from app import get_db
+
 from .models import User
 
 

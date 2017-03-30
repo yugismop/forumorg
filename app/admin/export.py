@@ -1,11 +1,13 @@
-from flask_admin._compat import csv_encode
+import csv
+import json
+import os
+
+from flask import Response, flash, redirect, stream_with_context
 from werkzeug import secure_filename
-from flask import stream_with_context, Response, redirect, flash
+
+from flask_admin._compat import csv_encode
 from flask_admin.babel import gettext
 from flask_admin.helpers import get_redirect_target
-import csv
-import os
-import json
 
 
 def find_qty(key, size):

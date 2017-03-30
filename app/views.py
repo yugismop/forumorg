@@ -1,18 +1,18 @@
-from flask import redirect, render_template, request, send_from_directory, url_for, send_file, session, Blueprint, make_response, abort
-from flask_login import login_required, logout_user
-from .identicon import render_identicon
-
 from binascii import hexlify
 from io import BytesIO
+
+from flask import (Blueprint, abort, make_response, redirect, render_template,
+                   request, send_file, send_from_directory, session, url_for)
 from jinja2.exceptions import TemplateNotFound
-
-from app import app, GridFS
-
-from flask_login import current_user
-from app.storage import get_users
 from werkzeug import secure_filename
+
+from app import GridFS, app
+from app.storage import get_users
 from bson.objectid import ObjectId
+from flask_login import current_user, login_required, logout_user
 from gridfs.errors import NoFile
+
+from .identicon import render_identicon
 
 bp = Blueprint('main', __name__)
 

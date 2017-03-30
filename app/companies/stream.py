@@ -1,5 +1,6 @@
-from deepdiff import DeepDiff
 import json
+
+from deepdiff import DeepDiff
 
 
 def get_diff(old_company, company):

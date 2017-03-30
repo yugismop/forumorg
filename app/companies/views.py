@@ -1,17 +1,19 @@
+import datetime
 import json
 import os
-import requests
-import datetime
 
-from flask import abort, redirect, render_template, request, session, Blueprint, url_for
-from flask_login import current_user, login_required, login_user
-from app.storage import get_company, set_company
-from app.login import validate_login
-from app.models import Company
+import requests
+from flask import (Blueprint, abort, redirect, render_template, request,
+                   session, url_for)
 
 from app import get_db
-from .mailing import send_mail
+from app.login import validate_login
+from app.models import Company
+from app.storage import get_company, set_company
 from bson.objectid import ObjectId
+from flask_login import current_user, login_required, login_user
+
+from .mailing import send_mail
 from .stream import get_diff
 
 bp = Blueprint('companies', __name__)

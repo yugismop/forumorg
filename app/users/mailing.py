@@ -1,7 +1,6 @@
 import os
 
 import sendgrid
-
 from sendgrid.helpers.mail import Email, Mail, Personalization, Substitution
 
 

@@ -1,14 +1,14 @@
-from .export import _export
-from .filters import FilterRegister, FilterField
-from .forms import CompanyForm, UserForm, JobForm, StreamForm
+from flask import url_for
+from jinja2 import Markup
 
-from flask_admin.base import expose, BaseView
+from flask_admin.base import BaseView, expose
 from flask_admin.contrib.pymongo import ModelView
 from flask_admin.form import rules
 from flask_login import current_user
 
-from flask import url_for
-from jinja2 import Markup
+from .export import _export
+from .filters import FilterField, FilterRegister
+from .forms import CompanyForm, JobForm, StreamForm, UserForm
 
 
 def formatter(view, context, model, name):

@@ -1,10 +1,10 @@
-from flask_script import Manager
-from app import app, get_db
-from pymongo import MongoClient
-import os
 import csv
-from flask_assets import ManageAssets
+import os
 
+from app import app, get_db
+from flask_assets import ManageAssets
+from flask_script import Manager
+from pymongo import MongoClient
 
 client = MongoClient(host=os.environ.get('MONGODB_URI'))
 db = client.get_default_database()

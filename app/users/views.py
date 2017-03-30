@@ -1,10 +1,16 @@
 import json
-from flask import Blueprint, render_template, flash, redirect, url_for, request, session, get_flashed_messages
-from flask_login import login_required, current_user, login_user
+
+from flask import (Blueprint, flash, get_flashed_messages, redirect,
+                   render_template, request, session, url_for)
+
 from app import get_db
-from app.storage import get_user, confirm_user, get_users, set_user, get_events, user_exists, new_user
-from app.login import validate_login, confirm_token, generate_confirmation_token
+from app.login import (confirm_token, generate_confirmation_token,
+                       validate_login)
 from app.models import User
+from app.storage import (confirm_user, get_events, get_user, get_users,
+                         new_user, set_user, user_exists)
+from flask_login import current_user, login_required, login_user
+
 from .mailing import send_mail
 
 bp = Blueprint('users', __name__)

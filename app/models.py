@@ -1,7 +1,6 @@
 import datetime
 
 import flask_login
-
 from app import bcrypt
 
 
