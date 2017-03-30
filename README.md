@@ -1,4 +1,4 @@
-# forum-org
+# forumorg
 
 This is the repository for the official website of [Forum Organisation](https://forumorg.org).
 
