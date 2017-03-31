@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_qrcode import QRcode
 from flask_sslify import SSLify
 from flask_cdn import CDN
+from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin.base import MenuLink
 from gridfs import GridFS
@@ -71,6 +72,9 @@ admin.add_link(MenuLink(name='Se déconnecter', url='/deconnexion'))
 with app.app_context():
     sslify = SSLify()
     sslify.init_app(app)
+
+# CORS
+cors = CORS(app)
 
 # CDN
 cdn = CDN()
