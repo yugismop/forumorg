@@ -28,9 +28,9 @@ app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my_debug_salt')
 app.config['TOKEN_EXPIRATION'] = int(os.environ.get('TOKEN_EXPIRATION', 7200))
-app.config['CDN_DOMAIN'] = 'd2jaupgkjk4f5o.cloudfront.net'
-app.config['CDN_HTTPS'] = True
+app.config['CDN_DOMAIN'] = os.environ.get('CLOUDFRONT_DOMAIN')
 app.config['CDN_DEBUG'] = os.environ.get('DEBUG')
+app.config['CDN_HTTPS'] = True
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
