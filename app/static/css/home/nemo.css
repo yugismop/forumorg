@@ -3226,16 +3226,16 @@ button:focus {
   padding-top: 120px;
 }
 .recap-gallery.image-bg {
-  background: url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center center;
+  background: url(../../images/event-bg-1.jpg) center center;
   background-size: cover;
 }
 .recap-gallery.dark-image-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../../images/event-bg-1.jpg) center center;
   background-size: cover;
 }
 
 .recap-gallery.dark-image-bg-2 {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../../images/event-bg-1.jpg) center center;
   background-size: cover;
 }
 
@@ -3605,16 +3605,16 @@ button:focus {
 }
 /******************** SPONSORS 2 ********************/
 .sponsors-2.image-bg {
-  background: url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center top;
+  background: url(../../images/event-bg-1.jpg) center top;
   background-size: cover;
 }
 .sponsors-2.dark-image-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center top;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../../images/event-bg-1.jpg) center top;
   background-size: cover;
 }
 
 .sponsors-2.dark-image-bg-2 {
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(//nemolandingpage.com/nemo-builder/elements/images/event-bg-1.jpg) center top;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../../images/event-bg-1.jpg) center top;
   background-size: cover;
 }
 

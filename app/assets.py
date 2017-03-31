@@ -44,7 +44,7 @@ bundles = {
             'css/home/nemo.css',
             'css/home/colors/blue.css',
             'css/home/home.css',
-            filters='cssmin'
+            filters='cssrewrite,cssmin'
         ),
         output='build/home.min.css'),
 
