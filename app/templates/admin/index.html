@@ -1,6 +1,6 @@
 {% extends 'admin/master.html' %}
 {% block head %}
-  <script src="{{ url_for('static', filename='build/admin.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script>
     {% set stats = get_stats() %}
     {% set users = get_users() %}

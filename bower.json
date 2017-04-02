@@ -1,6 +1,6 @@
 {
-  "name": "forum-org",
-  "homepage": "https://github.com/ForumOrganisation/forum-org",
+  "name": "forumorg",
+  "homepage": "https://github.com/ForumOrganisation/forumorg",
   "authors": [
     "Mehdi BAHA <elmehdi.baha@gmail.com>"
   ],
@@ -12,12 +12,13 @@
     "**/.*",
     "test",
     "tests",
-    "forum/static/bower_components"
+    "forum/static/bower_components",
+    "node_modules",
+    "bower_components",
+    "app/static/bower_components/"
   ],
   "dependencies": {
     "recaptcha": "https://www.google.com/recaptcha/api.js?hl=fr",
-    "jquery": "^3.1.1",
-    "bootstrap": "^3.3.7",
     "AdminLTE": "admin-lte#^2.3.11",
     "select2": "^4.0.3",
     "PACE": "pace#^1.0.2",

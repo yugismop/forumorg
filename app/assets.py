@@ -4,21 +4,12 @@ bundles = {
     ### COMMON ###
     'js_common': Bundle(
         Bundle(
-            'jquery/dist/jquery.min.js',
-            'bootstrap/dist/js/bootstrap.min.js',
-        ),
-        Bundle(
             'js/common.js',
             filters='jinja2'
         ),
         output='build/common.min.js'),
 
     'css_common': Bundle(
-        Bundle(
-            'bootstrap/dist/css/bootstrap.min.css',
-            'font-awesome/css/font-awesome.min.css',
-            filters='cssrewrite'
-        ),
         Bundle(
             'css/common.css',
             filters='cssmin',
@@ -102,12 +93,5 @@ bundles = {
             'css/split.css'
         ),
         output='build/split.min.css'),
-
-    ### ADMIN ###
-    'js_admin': Bundle(
-        Bundle(
-            'chart.js/dist/Chart.min.js',
-        ),
-        output='build/admin.min.js'),
 
 }

@@ -9,16 +9,8 @@ app/static/.webassets-cache/
 
 # Bower
 app/static/bower_components/*
-!app/static/bower_components/font-awesome
-!app/static/bower_components/bootstrap
 !app/static/bower_components/intl-tel-input
-app/static/bower_components/font-awesome/*
-app/static/bower_components/bootstrap/*
 app/static/bower_components/intl-tel-input/*
-!app/static/bower_components/font-awesome/fonts
-!app/static/bower_components/bootstrap/dist
 !app/static/bower_components/intl-tel-input/build
-app/static/bower_components/bootstrap/dist/*
 app/static/bower_components/intl-tel-input/build/*
 !app/static/bower_components/intl-tel-input/build/img
-!app/static/bower_components/bootstrap/dist/fonts
