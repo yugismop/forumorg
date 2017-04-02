@@ -74,7 +74,7 @@ with app.app_context():
     sslify.init_app(app)
 
 # CORS
-cors = CORS(app)
+cors = CORS(app, send_wildcard=True)
 
 # CDN
 cdn = CDN()
