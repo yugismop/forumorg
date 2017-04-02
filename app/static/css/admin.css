@@ -1,5 +1,5 @@
 .iti-flag {
-  background-image: url("{{ url_for('static', filename='images/flags.png') }}");
+  background-image: url({{ url_for('static', filename='images/flags.png') }});
 }
 
 .intl-tel-input {

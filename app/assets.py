@@ -92,7 +92,7 @@ bundles = {
             'PACE/themes/white/pace-theme-minimal.css',
             'intl-tel-input/build/css/intlTelInput.css',
             'css/admin.css',
-            filters='cssmin',
+            filters='cssmin,cssrewrite',
         ),
         output='build/dashboard.min.css'),
 
