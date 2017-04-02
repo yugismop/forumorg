@@ -1,15 +1,21 @@
-window.MaximumErrorCount = 5;
+$(document).ready(function() {
 
-window.onerror = function(errorMsg, file, lineNumber) {
-    window.errorCount || (window.errorCount = 0);
+    window.MaximumErrorCount = 5;
 
-    if (window.errorCount <= window.MaximumErrorCount) {
-        jQuery.post("{{ url_for('main.js_log') }}", {
-            errorMessage: errorMsg,
-            file: file,
-            url: window.location.href,
-            lineNumber: lineNumber,
-            ua: navigator.userAgent
-        });
+    window.onerror = function(errorMsg, file, lineNumber, colNumber, error) {
+        window.errorCount || (window.errorCount = 0);
+
+        if (window.errorCount <= window.MaximumErrorCount) {
+            jQuery.post("{{ url_for('main.js_log') }}", {
+                file: file,
+                lineNumber: lineNumber,
+                colNumber: colNumber,
+                errorMessage: errorMsg,
+                error: error,
+                url: window.location.href,
+                ua: navigator.userAgent
+            });
+        }
     }
-}
+
+});
