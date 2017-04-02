@@ -4,12 +4,12 @@ bundles = {
     ### COMMON ###
     'js_common': Bundle(
         Bundle(
-            'js/common.js',
-            filters='jinja2'
-        ),
-        Bundle(
             'jquery/dist/jquery.min.js',
             'bootstrap/dist/js/bootstrap.min.js',
+        ),
+        Bundle(
+            'js/common.js',
+            filters='jinja2'
         ),
         output='build/common.min.js'),
 
