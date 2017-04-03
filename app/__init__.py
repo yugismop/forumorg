@@ -7,7 +7,7 @@ from flask_qrcode import QRcode
 from flask_sslify import SSLify
 from flask_cdn import CDN
 from flask_admin import Admin
-from flask_phrase import Phrase, gettext, ngettext
+from flask_phrase.flask_phrase import Phrase, gettext, ngettext
 from flask_admin.base import MenuLink
 from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
