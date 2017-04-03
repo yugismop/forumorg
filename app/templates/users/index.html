@@ -81,6 +81,7 @@
 </style>
 {% endblock style %}
 {% block scripts %}
+{{ super() }}
 <script>
   $('input[type=password]').change(function () {
     var $pass = document.getElementsByName("password")[0];
