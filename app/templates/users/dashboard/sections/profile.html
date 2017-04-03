@@ -197,7 +197,7 @@
               });
               file.previewElement.appendChild(removeButton);
               if (!cur_resume.empty) {
-                var previewButton = Dropzone.createElement("<a href='" + cur_resume.url + "' class='dz-remove'>Visualiser CV</a>");
+                var previewButton = Dropzone.createElement("<a target='_blank' href='" + cur_resume.url + "' class='dz-remove'>Visualiser CV</a>");
                 file.previewElement.appendChild(previewButton);
               }
             });
