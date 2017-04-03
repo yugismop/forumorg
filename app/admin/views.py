@@ -16,7 +16,7 @@ def formatter(view, context, model, name):
         url = url_for('admin.index')
     else:
         url = url_for('companies.dashboard', id=model['id'])
-    return Markup("<a href='{}'>{}</a>".format(url, model['id']))
+    return Markup("<a target='_blank' href='{}'>{}</a>".format(url, model['id']))
 
 
 class AdminView(ModelView):

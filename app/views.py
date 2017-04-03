@@ -2,13 +2,13 @@ import os
 from binascii import hexlify
 from io import BytesIO
 
-from flask import (Blueprint, abort, make_response, redirect, render_template,
-                   request, send_file, send_from_directory, session, url_for)
+from flask import (Blueprint, redirect, render_template, request, send_file,
+                   send_from_directory, session, url_for)
 from jinja2.exceptions import TemplateNotFound
 from werkzeug import secure_filename
 
-from app import app, s3_client
-from app.storage import get_users
+from app import app, get_db, s3_client
+from bson.objectid import ObjectId
 from flask_login import current_user, login_required, logout_user
 
 from .identicon import render_identicon
@@ -36,29 +36,20 @@ def resume(oid=None):
     def allowed_file(filename):
         return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf']
 
-    users = get_users()
     if request.method == 'POST':
         file = request.files.get('resume')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            s3_client.put_object(ACL='public-read', Bucket=os.environ.get('BUCKET_NAME'), Metadata={'filename': filename},
+            oid = ObjectId()
+            s3_client.put_object(Bucket=os.environ.get('BUCKET_NAME'), Metadata={'filename': filename},
                                  ContentType=file.content_type, Body=file, Key=f'resumes/{oid}.pdf')
-            users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
+            get_db().users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
         return 'success'
     if request.method == 'DELETE':
         oid = request.form['oid']
         s3_client.delete_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
-        users.update_one({'id': current_user.id}, {'$unset': {'profile.resume_id': 1}})
+        get_db().users.update_one({'id': current_user.id}, {'$unset': {'profile.resume_id': 1}})
         return 'success'
-    if request.method == 'GET':
-        try:
-            file = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf').get('Body')
-            res = file.get('Body').read()
-            response = make_response(res)
-            response.mimetype = file.get('ContentType')
-            return response
-        except:
-            abort(404)
 
 
 @bp.route('/deconnexion')

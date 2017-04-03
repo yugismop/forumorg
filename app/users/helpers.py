@@ -1,10 +1,7 @@
 import json
 import os
 
-from flask import url_for
-
 from app import app, get_db, s3_client
-from bson.objectid import ObjectId
 
 
 @app.template_filter('to_companies')
@@ -98,16 +95,21 @@ def to_jobs(lst):
 
 @app.template_filter('to_filename')
 def to_filename(oid):
-    name = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf').get('Metadata').get('filename')
-    return name
+    try:
+        return s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf').get('Metadata').get('filename')
+    except:
+        return None
 
 
 @app.template_filter('to_info')
 def to_info(oid):
     if not oid:
         return json.dumps({'empty': True})
-    file = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
-    url = s3_client.generate_presigned_url('get_object', Params={'Bucket': os.environ.get('BUCKET_NAME'), 'Key': oid})
+    try:
+        file = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
+    except:
+        return json.dumps({'empty': True})
+    url = s3_client.generate_presigned_url('get_object', Params={'Bucket': os.environ.get('BUCKET_NAME'), 'Key': f'resumes/{oid}.pdf'})
     r = {'url': url,
          'size': file.get('ContentLength'),
          'name': file.get('Metadata').get('filename'),
