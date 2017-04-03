@@ -52,8 +52,8 @@ qrcode.init_app(app)
 
 # Babel
 babel = Babel()
-# babel.localeselector(lambda: request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
-babel.localeselector(lambda: 'fr')
+babel.localeselector(lambda: request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
+# babel.localeselector(lambda: 'fr')
 babel.init_app(app)
 
 # Flask-Assets
