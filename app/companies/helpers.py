@@ -1,4 +1,6 @@
-from flask import url_for
+import os
+
+import boto3
 
 from app import app, get_db
 
@@ -20,11 +22,13 @@ def get_events():
 @app.context_processor
 def get_resumes():
     def _get_resumes():
+        client = boto3.client('s3')
         users = list(get_db().users.find({'events.fra.registered': True, 'profile.resume_id': {'$ne': None}}, {'profile': 1, '_id': 0}))
         users = [u['profile'] for u in users]
         for u in users:
             u['name'] = u'{} {}'.format(u.pop('name', None), u.pop('first_name', None))
-            u['resume_url'] = url_for('main.resume', oid=u.pop('resume_id', None))
+            u['resume_url'] = client.generate_presigned_url(
+                'get_object', Params={'Bucket': os.environ.get('BUCKET_NAME'), 'Key': u.pop('resume_id', None)})
         return users
     return dict(get_resumes=_get_resumes)
 

@@ -8,10 +8,10 @@ from flask_sslify import SSLify
 from flask_cdn import CDN
 from flask_admin import Admin
 from flask_admin.base import MenuLink
-from gridfs import GridFS
 from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
 from flask_babelex import Babel
+import boto3
 
 
 # Storage init
@@ -76,8 +76,8 @@ with app.app_context():
 cdn = CDN()
 cdn.init_app(app)
 
-# GridFS
-GridFS = GridFS(get_db(), collection='resumes')
+# S3 client
+s3_client = boto3.client('s3')
 
 # Blueprints
 from .views import bp as bp_main

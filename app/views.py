@@ -1,3 +1,4 @@
+import os
 from binascii import hexlify
 from io import BytesIO
 
@@ -6,11 +7,9 @@ from flask import (Blueprint, abort, make_response, redirect, render_template,
 from jinja2.exceptions import TemplateNotFound
 from werkzeug import secure_filename
 
-from app import GridFS, app
+from app import app, s3_client
 from app.storage import get_users
-from bson.objectid import ObjectId
 from flask_login import current_user, login_required, logout_user
-from gridfs.errors import NoFile
 
 from .identicon import render_identicon
 
@@ -35,27 +34,30 @@ def index(page=None):
 def resume(oid=None):
     # Allowed files
     def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf', 'txt']
+        return '.' in filename and filename.rsplit('.', 1)[1] in ['pdf']
 
     users = get_users()
     if request.method == 'POST':
         file = request.files.get('resume')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            oid = GridFS.put(file, content_type=file.content_type, filename=filename)
+            s3_client.put_object(ACL='public-read', Bucket=os.environ.get('BUCKET_NAME'), Metadata={'filename': filename},
+                                 ContentType=file.content_type, Body=file, Key=f'resumes/{oid}.pdf')
             users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
         return 'success'
     if request.method == 'DELETE':
-        GridFS.delete(ObjectId(request.form['oid']))
-        users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': None}})
+        oid = request.form['oid']
+        s3_client.delete_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
+        users.update_one({'id': current_user.id}, {'$unset': {'profile.resume_id': 1}})
         return 'success'
     if request.method == 'GET':
         try:
-            file = GridFS.get(file_id=ObjectId(oid))
-            response = make_response(file.read())
-            response.mimetype = file.content_type
+            file = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf').get('Body')
+            res = file.get('Body').read()
+            response = make_response(res)
+            response.mimetype = file.get('ContentType')
             return response
-        except NoFile:
+        except:
             abort(404)
 
 
