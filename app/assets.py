@@ -90,7 +90,8 @@ bundles = {
     ### SPLIT ###
     'css_split': Bundle(
         Bundle(
-            'css/split.css'
+            'css/split.css',
+            filters='cssmin',
         ),
         output='build/split.min.css'),
 
