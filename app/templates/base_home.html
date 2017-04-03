@@ -23,25 +23,7 @@
         </div>
         {% block navbar %}
           <div class="collapse navbar-collapse" id="nemo-navigation">
-            {% block navbar_left %}
-              <ul class="nav navbar-nav navbar-left">
-                <li class="active">
-                  <a href="#start">{{ _('Accueil') }}</a>
-                </li>
-                <li class="">
-                  <a href="#why">Pourquoi ?</a>
-                </li>
-                <li class="">
-                  <a href="#contact">Comment ?</a>
-                </li>
-                <li class="">
-                  <a href="#faq">FAQ</a>
-                </li>
-                <li class="">
-                  <a href="#press">Presse</a>
-                </li>
-              </ul>
-            {% endblock navbar_left %}
+            {% block navbar_left %}{% endblock navbar_left %}
             {% block navbar_right %}
               {% set dashboard_url = '%s.dashboard' | format(section) %}
               {% set signin_url = '%s.signin' | format(section) %}

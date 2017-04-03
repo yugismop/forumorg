@@ -34,7 +34,7 @@ app.config['CDN_DEBUG'] = os.environ.get('DEBUG')
 app.config['PHRASEAPP_PREFIX'] = '{{__'
 app.config['PHRASEAPP_SUFFIX'] = '__}}'
 app.config['CDN_HTTPS'] = True
-app.config['PHRASEAPP_ENABLED'] = True
+app.config['PHRASEAPP_ENABLED'] = bool(os.environ.get('PHRASEAPP_ENABLED', False))
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 app.config['LANGUAGES'] = {
