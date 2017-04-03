@@ -11,10 +11,12 @@ docutils==0.13.1
 Flask==0.12
 Flask-Admin==1.5.0
 Flask-Assets==0.12
+Flask-Babel==0.11.1
 Flask-BabelEx==0.9.3
 Flask-Bcrypt==0.7.1
 Flask-CDN==1.5.3
 Flask-Login==0.4.0
+Flask-Phrase==1.0.0
 Flask-QRcode==0.10.0
 Flask-Script==2.0.5
 Flask-SSLify==0.1.5

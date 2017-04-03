@@ -29,6 +29,19 @@
     <!-- JS FILES -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+      window.PHRASEAPP_CONFIG = {
+        projectId: "12b0dedee4b1d581f4dbcedbb324c574"
+      };
+      (function () {
+        var phraseapp = document.createElement('script');
+        phraseapp.type = 'text/javascript';
+        phraseapp.async = true;
+        phraseapp.src = ['https://', 'phraseapp.com/assets/in-context-editor/2.0/app.js?', new Date().getTime()].join('');
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(phraseapp, s);
+      })();
+    </script>
     <!-- CUSTOM JS FILES -->
     {% block js_files %}{% endblock js_files %}
     <!-- CUSTOM JS SCRIPTS -->

@@ -7,6 +7,7 @@ from flask_qrcode import QRcode
 from flask_sslify import SSLify
 from flask_cdn import CDN
 from flask_admin import Admin
+from flask_phrase import Phrase, gettext, ngettext
 from flask_admin.base import MenuLink
 from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
@@ -30,10 +31,16 @@ app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my
 app.config['TOKEN_EXPIRATION'] = int(os.environ.get('TOKEN_EXPIRATION', 7200))
 app.config['CDN_DOMAIN'] = os.environ.get('CLOUDFRONT_DOMAIN')
 app.config['CDN_DEBUG'] = os.environ.get('DEBUG')
+app.config['PHRASEAPP_PREFIX'] = '{{__'
+app.config['PHRASEAPP_SUFFIX'] = '__}}'
 app.config['CDN_HTTPS'] = True
-
+app.config['PHRASEAPP_ENABLED'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
+app.config['LANGUAGES'] = {
+    'fr': 'Français',
+    'en': 'English'
+}
 
 # Login Manager
 login_manager = LoginManager()
@@ -49,8 +56,11 @@ qrcode.init_app(app)
 
 # Babel
 babel = Babel()
-babel.localeselector(lambda: request.accept_languages.best_match(['fr', 'en']))
+babel.localeselector(lambda: request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
 babel.init_app(app)
+
+# Phrase
+phrase = Phrase(app)
 
 # Flask-Assets
 from .assets import bundles
