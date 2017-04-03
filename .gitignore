@@ -5,6 +5,7 @@
 
 .env
 /env
+/messages.pot
 app/static/.webassets-cache/
 
 # Bower
