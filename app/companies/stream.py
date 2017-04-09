@@ -45,4 +45,4 @@ def get_diff(old_company, company):
                 furniture = root.keys()[0].split('[')[3].replace(']', '').replace('\'', '')
                 diff = 'Passage de {} à {} unités pour {}'.format(equipement.get('old_value'), equipement.get('new_value'), furniture)
     except Exception as e:
-        pass  # do nothing if translation fails
+        print('JSON parsing has failed')  # do nothing if translation fails
