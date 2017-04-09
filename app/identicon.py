@@ -28,7 +28,6 @@ class Matrix2D(list):
     """Matrix for Patch rotation"""
 
     def __init__(self, initial=[0.] * 9):
-        assert isinstance(initial, list) and len(initial) == 9
         list.__init__(self, initial)
 
     def clear(self):
