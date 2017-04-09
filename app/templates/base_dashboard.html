@@ -20,7 +20,7 @@
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">{{ _("Toggle navigation") }}</span>
         </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
@@ -38,7 +38,7 @@
         {% block user_panel %}{% endblock user_panel %}
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-          <li class="header">Menu</li>
+          <li class="header">{{ _("Menu") }}</li>
           {% block sections %}{% endblock sections %}
         </ul>
         <!-- /.sidebar-menu -->
@@ -52,7 +52,7 @@
         {% block header %}
           <h1>
             {{ title }}
-            <small>Dashboard</small>
+            <small>{{ _("Dashboard") }}</small>
           </h1>
         {% endblock header %}
       </section>
@@ -70,13 +70,13 @@
       {% block footer %}
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-          Fait avec
+          {{ _("Fait avec") }}
           <span class="fa fa-heart"></span>
         </div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2016
           <a href="#">Forum Organisation</a>.</strong>
-        Tous droits réservés.
+        {{ _("Tous droits réservés.") }}
       {% endblock footer %}
     </footer>
   </div>

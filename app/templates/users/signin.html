@@ -2,7 +2,7 @@
 {% set title = 'Se connecter' %}
 {% block loginbox %}
   <div class="login-box-body">
-    <h3 class="login-box-msg">Se connecter à la plateforme</h3>
+    <h3 class="login-box-msg">{{ _("Se connecter à la plateforme") }}</h3>
     <form action="{{ url_for('users.signin') }}" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" value="{{request.form.email}}" placeholder="Email" name="email" required>
@@ -15,7 +15,7 @@
       {% if error %}
         <div class="form-group has-feedback">
           {% if "wrong_password" in error %}
-            <span class="text-red">Mauvais identifiants. Veuillez réessayer.</span>
+            <span class="text-red">{{ _("Mauvais identifiants. Veuillez réessayer.") }}</span>
           {% endif %}
           {% if "no_user_found" in error %}
             <span class="text-orange">Aucun utilisateur n'est associé à cet email.</span>
@@ -27,22 +27,22 @@
             <span class="text-green">Un email d'activation vous a été envoyé (checkez vos spams) !</span>
           {% endif %}
           {% if "account_confirmed" in error %}
-            <span class="text-green">Votre compte a été confirmé!</span>
+            <span class="text-green">{{ _("Votre compte a été confirmé!") }}</span>
           {% endif %}
           {% if "confirm_link_expired" in error %}
-            <span class="text-red">Lien de confirmation expiré ou invalide. Tentez de vous réinscrire.</span>
+            <span class="text-red">{{ _("Lien de confirmation expiré ou invalide. Tentez de vous réinscrire.") }}</span>
           {% endif %}
           {% if "account_already_confirmed" in error %}
-            <span class="text-red">Votre compte est déjà confirmé.</span>
+            <span class="text-red">{{ _("Votre compte est déjà confirmé.") }}</span>
           {% endif %}
           {% if "error" in error %}
-            <span class="text-red">Une erreur est survenue.</span>
+            <span class="text-red">{{ _("Une erreur est survenue.") }}</span>
           {% endif %}
         </div>
       {% endif %}
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Se connecter</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">{{ _("Se connecter") }}</button>
         </div>
       </div>
     </form>

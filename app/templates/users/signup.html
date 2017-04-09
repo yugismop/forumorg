@@ -19,10 +19,10 @@
       {% if error or get_flashed_messages() %}
         <div class="form-group has-feedback">
           {% if error == "user_already_exists" %}
-            <span class="text-blue">Un utilisateur existe déjà associé à cet email.</span>
+            <span class="text-blue">{{ _("Un utilisateur existe déjà associé à cet email.") }}</span>
           {% endif %}
           {% if "empty_fields" in get_flashed_messages() %}
-            <span class="text-error">Des champs sont manquants...</span>
+            <span class="text-error">{{ _("Des champs sont manquants...") }}</span>
           {% endif %}
         </div>
       {% endif %}

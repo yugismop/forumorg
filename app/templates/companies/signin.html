@@ -2,7 +2,7 @@
 {% set title = 'Se connecter' %}
 {% block loginbox %}
   <div class="login-box-body">
-    <h3 class="login-box-msg">Se connecter à la plateforme</h3>
+    <h3 class="login-box-msg">{{ _("Se connecter à la plateforme") }}</h3>
     <form action="{{ url_for('companies.signin') }}" method="post">
       <div class="form-group has-feedback">
         <input type="id" class="form-control" value="{{request.form.id}}" placeholder="Identifiant" name="id" required>
@@ -15,10 +15,10 @@
       {% if error %}
         <div class="form-group has-feedback">
           {% if error == "wrong_password" %}
-            <span class="text-red">Mauvais identifiants. Veuillez réessayer.</span>
+            <span class="text-red">{{ _("Mauvais identifiants. Veuillez réessayer.") }}</span>
           {% endif %}
           {% if error == "blank_fields" %}
-            <span class="text-orange">Veuillez remplir tous les champs.</span>
+            <span class="text-orange">{{ _("Veuillez remplir tous les champs.") }}</span>
           {% endif %}
           {% if error == "no_company_found" %}
             <span class="text-blue">Aucune entreprise n'est associée à cet identifiant.</span>
@@ -27,7 +27,7 @@
       {% endif %}
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Se connecter</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">{{ _("Se connecter") }}</button>
         </div>
       </div>
     </form>

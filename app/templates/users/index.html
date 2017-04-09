@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-{{'7' if not current_user.is_authenticated else '9'}} col-index">
-          <h1 class="text-left" style="color:white; font-size:44px">Nous générons le contact</h1>
+          <h1 class="text-left" style="color:white; font-size:44px">{{ _("Nous générons le contact") }}</h1>
           <p class="text-left" style="font-size:22px; font-weight:100; line-height:1.5">Au sein de Forum Organisation, notre objectif est de générer le contact entre les étudiants et les différents acteurs du monde de l'entreprise.
           </p>
         </div>
@@ -33,7 +33,7 @@
               {% if error %}
                 <div class="form-group has-feedback">
                   {% if error == "user_already_exists" %}
-                    <span class="text-blue">Un utilisateur existe déjà associé à cet email.</span>
+                    <span class="text-blue">{{ _("Un utilisateur existe déjà associé à cet email.") }}</span>
                   {% endif %}
                 </div>
               {% endif %}

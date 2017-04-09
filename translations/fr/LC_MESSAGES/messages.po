@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-04-07 22:08+0200\n"
-"PO-Revision-Date: 2017-04-07 10:53+0200\n"
+"POT-Creation-Date: 2017-04-09 18:34+0200\n"
+"PO-Revision-Date: 2017-04-09 18:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -20,7 +20,224 @@ msgstr ""
 
 #: app/admin/export.py:180
 msgid "Permission denied."
-msgstr "Autorisation refusée."
+msgstr ""
+
+#: app/templates/base_dashboard.html:23
+msgid "Toggle navigation"
+msgstr ""
+
+#: app/templates/base_dashboard.html:41
+msgid "Menu"
+msgstr ""
+
+#: app/templates/base_dashboard.html:55 app/templates/base_home.html:33
+msgid "Dashboard"
+msgstr ""
+
+#: app/templates/base_dashboard.html:73
+msgid "Fait avec"
+msgstr ""
+
+#: app/templates/base_dashboard.html:79
+msgid "Tous droits réservés."
+msgstr ""
+
+#: app/templates/base_home.html:36
+msgid "Se déconnecter"
+msgstr ""
+
+#: app/templates/base_home.html:43 app/templates/companies/signin.html:30
+#: app/templates/users/signin.html:45
+msgid "Se connecter"
+msgstr ""
+
+#: app/templates/base_home.html:101
+msgid "Open Source"
+msgstr ""
+
+#: app/templates/base_home.html:106
+msgid "Licence MIT"
+msgstr ""
+
+#: app/templates/split.html:11 app/templates/split.html:20
+msgid ""
+"Depuis 32 ans, notre objectif est de générer du contact entre les "
+"étudiants et les entreprises."
+msgstr ""
+
+#: app/templates/split.html:26 app/templates/split.html:35
+msgid "je suis"
+msgstr ""
+
+#: app/templates/split.html:27
+msgid "recruteur"
+msgstr ""
+
+#: app/templates/split.html:36
+msgid "candidat"
+msgstr ""
+
+#: app/templates/split.html:43
+msgid "Fondée en 1986 à Lyon, France"
+msgstr ""
+
+#: app/templates/companies/index.html:7 app/templates/companies/presse.html:6
+#: app/templates/users/base.html:7
+msgid "Accueil"
+msgstr ""
+
+#: app/templates/companies/index.html:10
+msgid "Pourquoi ?"
+msgstr ""
+
+#: app/templates/companies/index.html:13
+msgid "Comment ?"
+msgstr ""
+
+#: app/templates/companies/index.html:19 app/templates/companies/index.html:263
+#: app/templates/companies/presse.html:18
+msgid "Presse"
+msgstr ""
+
+#: app/templates/companies/index.html:37
+msgid "Recrutez"
+msgstr ""
+
+#: app/templates/companies/index.html:43
+msgid "Participez dès maintenant"
+msgstr ""
+
+#: app/templates/companies/index.html:58 app/templates/companies/presse.html:9
+msgid "Pourquoi participer ?"
+msgstr ""
+
+#: app/templates/companies/index.html:60
+msgid ""
+"Notre dernière édition a réuni plus de 180 exposants et plus de 4000 "
+"étudiants et jeunes diplômés"
+msgstr ""
+
+#: app/templates/companies/index.html:78
+msgid "Un seul événement pour tous vos besoins en recrutement"
+msgstr ""
+
+#: app/templates/companies/index.html:93
+msgid "Un recrutement qui correspond à vos besoins"
+msgstr ""
+
+#: app/templates/companies/index.html:108
+msgid "Une diversité sans concession"
+msgstr ""
+
+#: app/templates/companies/index.html:130
+msgid "Participer dès maintenant"
+msgstr ""
+
+#: app/templates/companies/index.html:137
+msgid "Nom complet"
+msgstr ""
+
+#: app/templates/companies/index.html:148
+msgid "Téléphone"
+msgstr ""
+
+#: app/templates/companies/index.html:154
+msgid "Je suis"
+msgstr ""
+
+#: app/templates/companies/index.html:157
+msgid "une entreprise"
+msgstr ""
+
+#: app/templates/companies/index.html:158
+msgid "une école"
+msgstr ""
+
+#: app/templates/companies/index.html:165
+msgid "Nom de la structure"
+msgstr ""
+
+#: app/templates/companies/index.html:178
+msgid "Envoyer votre demande"
+msgstr ""
+
+#: app/templates/companies/index.html:218
+msgid "Vous avez des questions ? On y répond ici."
+msgstr ""
+
+#: app/templates/companies/index.html:232
+msgid "Que faire une fois arrivés à Lyon ?"
+msgstr ""
+
+#: app/templates/companies/index.html:238
+msgid "déplaçons"
+msgstr ""
+
+#: app/templates/companies/index.html:240
+msgid "communiquer et conseiller"
+msgstr ""
+
+#: app/templates/companies/index.html:245
+msgid ""
+"Notre salon ouvre ses portes à 8h pour les entreprises, et les premiers "
+"candidats arrivent dès 9h. Chaque jour, notre salon ferme à 18h."
+msgstr ""
+
+#: app/templates/companies/presse.html:12
+msgid "Participer"
+msgstr ""
+
+#: app/templates/companies/presse.html:30
+msgid "Ils parlent de nous"
+msgstr ""
+
+#: app/templates/companies/presse.html:48
+msgid "Communiqués de presse"
+msgstr ""
+
+#: app/templates/companies/presse.html:62
+msgid "La Section Internationale"
+msgstr ""
+
+#: app/templates/companies/presse.html:65
+msgid "Espace Ecoles"
+msgstr ""
+
+#: app/templates/companies/presse.html:72
+msgid "Espace Conseil"
+msgstr ""
+
+#: app/templates/companies/presse.html:87
+msgid "Télécharger le dossier de presse"
+msgstr ""
+
+#: app/templates/companies/signin.html:5 app/templates/users/signin.html:5
+msgid "Se connecter à la plateforme"
+msgstr ""
+
+#: app/templates/companies/signin.html:18 app/templates/users/signin.html:18
+msgid "Mauvais identifiants. Veuillez réessayer."
+msgstr ""
+
+#: app/templates/companies/signin.html:21
+msgid "Veuillez remplir tous les champs."
+msgstr ""
+
+#: app/templates/users/base.html:13 app/templates/users/master-class.html:13
+msgid "Master Class"
+msgstr ""
+
+#: app/templates/users/base.html:16
+msgid "STYF"
+msgstr ""
+
+#: app/templates/users/forum-rhone-alpes.html:15
+msgid "FRA 2017"
+msgstr ""
+
+#: app/templates/users/forum-rhone-alpes.html:17
+msgid "8 et 9 Mars 2017, Double Mixte"
+msgstr ""
 
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "Modifier ma participation"
@@ -29,3 +246,183 @@ msgstr ""
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "S'inscrire au Forum Rhône-Alpes"
 msgstr ""
+
+#: app/templates/users/forum-rhone-alpes.html:56
+msgid "Des entreprises prestigieuses"
+msgstr ""
+
+#: app/templates/users/forum-rhone-alpes.html:73
+msgid "Un évènement international"
+msgstr ""
+
+#: app/templates/users/forum-rhone-alpes.html:93
+msgid "Les entreprises présentes"
+msgstr ""
+
+#: app/templates/users/index.html:13
+msgid "Nous générons le contact"
+msgstr ""
+
+#: app/templates/users/index.html:36 app/templates/users/signup.html:22
+msgid "Un utilisateur existe déjà associé à cet email."
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:18
+#: app/templates/users/journee-objectif-ingenieur.html:37
+msgid "Journée Objectif Ingénieur"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:19
+msgid "11 Janvier 2017, Amphi Capelle"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:58
+msgid "Ajuste ton projet professionnel"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:75
+msgid "Programme de la journée"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:96
+msgid "Planning"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:122
+msgid "Conférence plénière"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:155
+msgid "Conférences"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:191
+#: app/templates/users/journee-objectif-ingenieur.html:287
+msgid "Tables rondes"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:202
+#: app/templates/users/journee-objectif-ingenieur.html:298
+msgid "Gestion de carrière"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:208
+#: app/templates/users/journee-objectif-ingenieur.html:304
+msgid "Ingénieur Informatique"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:214
+#: app/templates/users/journee-objectif-ingenieur.html:310
+msgid "Ingénieur Travaux"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:220
+#: app/templates/users/journee-objectif-ingenieur.html:316
+msgid "Chef de Projet"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:232
+#: app/templates/users/journee-objectif-ingenieur.html:328
+msgid "Ingénieur Entrepreneur"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:238
+#: app/templates/users/journee-objectif-ingenieur.html:334
+msgid "Audit et Conseil"
+msgstr ""
+
+#: app/templates/users/journee-objectif-ingenieur.html:262
+msgid "Logistique et Achats"
+msgstr ""
+
+#: app/templates/users/master-class.html:32
+#: app/templates/users/master-class.html:52
+msgid "Une conférence interactive"
+msgstr ""
+
+#: app/templates/users/master-class.html:87
+msgid "Intervenants"
+msgstr ""
+
+#: app/templates/users/signin.html:30
+msgid "Votre compte a été confirmé!"
+msgstr ""
+
+#: app/templates/users/signin.html:33
+msgid "Lien de confirmation expiré ou invalide. Tentez de vous réinscrire."
+msgstr ""
+
+#: app/templates/users/signin.html:36
+msgid "Votre compte est déjà confirmé."
+msgstr ""
+
+#: app/templates/users/signin.html:39
+msgid "Une erreur est survenue."
+msgstr ""
+
+#: app/templates/users/signup.html:25
+msgid "Des champs sont manquants..."
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:14
+msgid "3, 4, 5 Février 2017"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:31
+msgid "Afterwork"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:35
+msgid "Rencontre des entrepreneurs et startups à succès"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:52
+msgid ""
+"Chaque entrepreneur viendra te raconter de quelle manière il a réussi à "
+"développer son projet pour en faire une entreprise des plus compétitives."
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:71
+msgid "Échange"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:97
+msgid "Concours de Pitch"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:99
+msgid "Assiste à un véritable concours de pitchs entre startups"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:133
+msgid "Ateliers"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:137
+msgid "Deviens un véritable entrepreneur durant 2 jours"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:166
+msgid "Equipe"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:167
+msgid "5 à 6 personnes."
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:187
+msgid "Profils"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:188
+msgid "Ingénieurs et commerciaux."
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:206
+msgid "Lieu"
+msgstr ""
+
+#: app/templates/users/start-up-your-future.html:220
+msgid "Nos partenaires"
+msgstr ""
+

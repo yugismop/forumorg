@@ -4,19 +4,19 @@
 {% block navbar_left %}
   <ul class="nav navbar-nav navbar-left">
     <li class="active">
-      <a href="#start">Accueil</a>
+      <a href="#start">{{ _("Accueil") }}</a>
     </li>
     <li class="">
-      <a href="#why">Pourquoi ?</a>
+      <a href="#why">{{ _("Pourquoi ?") }}</a>
     </li>
     <li class="">
-      <a href="#contact">Comment ?</a>
+      <a href="#contact">{{ _("Comment ?") }}</a>
     </li>
     <li class="">
       <a href="#faq">FAQ</a>
     </li>
     <li class="">
-      <a href="#press">Presse</a>
+      <a href="#press">{{ _("Presse") }}</a>
     </li>
   </ul>
 {% endblock navbar_left %}
@@ -34,13 +34,13 @@
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;">
           </div>
           <h2 class="heading-text">
-            <span class="element">Recrutez</span>
+            <span class="element">{{ _("Recrutez") }}</span>
             au Forum Rhône-Alpes<br></h2>
           <h3 class="heading-text">Le n°1 des salons de recrutement d'élèves-ingénieurs de France</h3>
           <h4 class="heading-text">Rendez-vous la semaine du 7 et 8 Mars 2018 au Double Mixte de Lyon</h4>
           <br>
           <div class="home-download-btn">
-            <a href="#contact" class="btn btn-white btn-lg">Participez dès maintenant</a>
+            <a href="#contact" class="btn btn-white btn-lg">{{ _("Participez dès maintenant") }}</a>
           </div>
         </div>
       </div>
@@ -55,9 +55,9 @@
     <div class="row">
       <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
         <div class="section-heading text-center">
-          <h2 class="heading-text">Pourquoi participer ?</h2>
+          <h2 class="heading-text">{{ _("Pourquoi participer ?") }}</h2>
           <hr class="lines">
-          <p class="sub-heading" style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">Notre dernière édition a réuni plus de 180 exposants et plus de 4000 étudiants et jeunes diplômés<br></p>
+          <p class="sub-heading" style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">{{ _("Notre dernière édition a réuni plus de 180 exposants et plus de 4000 étudiants et jeunes diplômés") }}<br></p>
         </div>
         <!-- /.section-heading -->
       </div>
@@ -75,7 +75,7 @@
             </i>
           </div>
           <div class="media-body">
-            <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">Un seul événement pour tous vos besoins en recrutement<br></h3>
+            <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">{{ _("Un seul événement pour tous vos besoins en recrutement") }}<br></h3>
             <p>Profitez du Forum Rhônes-Alpes pour rencontrer les profils de la région Rhône-Alpes Auvergne avec une sélection de choix parmi les étudiants de l'INSA Lyon, Grenoble INP, l'ECAM et nos autres écoles partenaires...</p>
           </div>
         </div>
@@ -90,7 +90,7 @@
             </i>
           </div>
           <div class="media-body">
-            <h3 class="title-text">Un recrutement qui correspond à vos besoins</h3>
+            <h3 class="title-text">{{ _("Un recrutement qui correspond à vos besoins") }}</h3>
             <p>Nous communiquons de manière personnalisée sur votre présence au Forum Rhône-Alpes. Vous êtes alors sûrs d'avoir les profils qui vous conviennent le plus.</p>
           </div>
         </div>
@@ -105,7 +105,7 @@
             </i>
           </div>
           <div class="media-body">
-            <h3 class="title-text">Une diversité sans concession</h3>
+            <h3 class="title-text">{{ _("Une diversité sans concession") }}</h3>
             <p>Que vous soyez grand groupe, PME ou startup, le Forum Rhône-Alpes s'adapte à vos objectifs et moyens. Sa dimension internationale en fait de plus, un lieu de rencontre pour des entreprises présentes partout dans le monde.</p>
           </div>
         </div>
@@ -127,14 +127,14 @@
           <h4 class="text-center" style="margin-bottom: 15px;">Si vous disposez de vos identifiants,
             <a href="{{ url_for('companies.dashboard') }}">connectez-vous par ici</a>
           </h4>
-          <h2 class="heading-text text-center" style="margin-top: 10px;margin-bottom: 20px;">Participer dès maintenant</h2>
+          <h2 class="heading-text text-center" style="margin-top: 10px;margin-bottom: 20px;">{{ _("Participer dès maintenant") }}</h2>
           <form action="send_request" method="GET" id="contact-form">
             <div>
               <table class="table table-bordered table-form">
                 <tbody>
                   <tr>
                     <td>
-                      <label for="nom_complet" class="text-uppercase">Nom complet</label>
+                      <label for="nom_complet" class="text-uppercase">{{ _("Nom complet") }}</label>
                       <input type="text" id="nom_complet" name="nom_complet" class="form-control" placeholder="ex. Henry Martin">
                     </td>
                   </tr>
@@ -145,24 +145,24 @@
                     </td>
                   </tr>
                   <td>
-                    <label for="tel" class="text-uppercase">Téléphone</label>
+                    <label for="tel" class="text-uppercase">{{ _("Téléphone") }}</label>
                     <input type="tel" id="tel" name="tel" class="form-control" placeholder="ex. 06 65 59 90 15">
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label for="type" class="text-uppercase">Je suis</label>
+                    <label for="type" class="text-uppercase">{{ _("Je suis") }}</label>
                     <div class="select-outer">
                       <select class="form-inline-input" name="type" id="type">
-                        <option value="1">une entreprise</option>
-                        <option value="2">une école</option>
+                        <option value="1">{{ _("une entreprise") }}</option>
+                        <option value="2">{{ _("une école") }}</option>
                       </select>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label for="nom" class="text-uppercase">Nom de la structure</label>
+                    <label for="nom" class="text-uppercase">{{ _("Nom de la structure") }}</label>
                     <input type="text" id="nom" name="nom" class="form-control" placeholder="ex. JP Morgan">
                   </td>
                 </tr>
@@ -175,7 +175,7 @@
           <br>
           <div class="text-center">
             <button id="send_mail" type="submit" class="btn btn-base btn-lg">
-              <span>Envoyer votre demande</span>
+              <span>{{ _("Envoyer votre demande") }}</span>
             </button>
           </div>
           <div class="result">
@@ -215,7 +215,7 @@
       <div class="section-heading text-center">
         <h2 class="heading-text">FAQ</h2>
         <hr class="lines">
-        <p class="sub-heading">Vous avez des questions ? On y répond ici.</p>
+        <p class="sub-heading">{{ _("Vous avez des questions ? On y répond ici.") }}</p>
       </div>
       <!-- /.section-heading -->
     </div>
@@ -229,20 +229,20 @@
         (60% des étudiants ne sont pas originaires de la région Rhône-Alpes-Auvergne).</p>
     </div>
     <div class="col-md-6 mb60">
-      <h5 class="title-text">Que faire une fois arrivés à Lyon ?</h5>
+      <h5 class="title-text">{{ _("Que faire une fois arrivés à Lyon ?") }}</h5>
       <p>Nous prenons en charge vos déplacements vers Lyon pendant les deux jours du salon. Nous organisons également une soirée-cocktail entre les deux jours du salon pour que vous puissiez échanger avec différents acteurs du monde étudiant.</p>
     </div>
     <div class="col-md-6 mb60">
       <h5 class="title-text">Vous communiquez comment sur le Forum Rhône-Alpes?</h5>
       <p>Par mail et via les réseaux sociaux. Nous nous
-        <b>déplaçons</b>
+        <b>{{ _("déplaçons") }}</b>
         aussi sur nos campus partenaires afin de
-        <b>communiquer et conseiller</b>
+        <b>{{ _("communiquer et conseiller") }}</b>
         nos futurs visiteurs.</p>
     </div>
     <div class="col-md-6 mb60">
       <h5 class="title-text">Quels sont les horaires d'ouverture/fermeture du salon ?</h5>
-      <p>Notre salon ouvre ses portes à 8h pour les entreprises, et les premiers candidats arrivent dès 9h. Chaque jour, notre salon ferme à 18h.</p>
+      <p>{{ _("Notre salon ouvre ses portes à 8h pour les entreprises, et les premiers candidats arrivent dès 9h. Chaque jour, notre salon ferme à 18h.") }}</p>
     </div>
     <div class="col-md-6 mb60">
       <h5 class="title-text">A quels secteurs appartiennent les entreprises présentes sur le Forum Rhône-Alpes ?</h5>
@@ -260,7 +260,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1">
-      <h1 class="heading-text">Presse</h1>
+      <h1 class="heading-text">{{ _("Presse") }}</h1>
       <p class="sub-heading">Fort de nos 32 années d'expériences, nous sommes leaders dans le marché du recrutement. Découvrez pourquoi la presse parle de nous.</p>
       <a href="{{ url_for('main.index', page='presse') }}" class="btn btn-base btn-lg">
         <span>Accéder à l'espace Presse</span>

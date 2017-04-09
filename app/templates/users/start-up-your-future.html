@@ -11,7 +11,7 @@
           </div>
           <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">Le week-end pour entreprendre</p>
           <h1 class="heading-text" data-selector="Coming Soon">Start-Up Your Future</h1>
-          <p class="sub-heading" data-selector="Coming Soon">3, 4, 5 Février 2017<br></p>
+          <p class="sub-heading" data-selector="Coming Soon">{{ _("3, 4, 5 Février 2017") }}<br></p>
           <div class="home-download-btn">
             <a href="{{ url_for('users.dashboard') }}" class="btn btn-white btn-lg">
               {{ 'Modifier ma participation' if current_user.is_authenticated else "S'inscrire à Start-Up Your Future" }}
@@ -28,11 +28,11 @@
       <div class="row">
         <div class="col-md-6 mb50">
           <div class="section-heading">
-            <h2 class="heading-text">Afterwork</h2>
+            <h2 class="heading-text">{{ _("Afterwork") }}</h2>
             <hr class="lines">
           </div>
           <!-- /.section-heading -->
-          <p class="sub-heading">Rencontre des entrepreneurs et startups à succès<br>
+          <p class="sub-heading">{{ _("Rencontre des entrepreneurs et startups à succès") }}<br>
             <span class="bold h4">Vendredi 19h - La Tour du Web</span>
           </p>
           <div class="media">
@@ -49,7 +49,7 @@
             </div>
             <div class="media-body">
               <h5 class="title-text">Partage d'expérience</h5>
-              <p>Chaque entrepreneur viendra te raconter de quelle manière il a réussi à développer son projet pour en faire une entreprise des plus compétitives.</p>
+              <p>{{ _("Chaque entrepreneur viendra te raconter de quelle manière il a réussi à développer son projet pour en faire une entreprise des plus compétitives.") }}</p>
             </div>
           </div>
           <div class="media">
@@ -68,7 +68,7 @@
               </span>
             </div>
             <div class="media-body">
-              <h5 class="title-text">Echange</h5>
+              <h5 class="title-text">{{ _("Échange") }}</h5>
               <p>
                 Pose toutes tes questions et élargis ton réseau, une voie indispensable pour ta propre réussite !</p>
             </div>
@@ -94,9 +94,9 @@
         </div>
         <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb50">
           <div class="section-heading text-left">
-            <h2 class="heading-text">Concours de Pitch</h2>
+            <h2 class="heading-text">{{ _("Concours de Pitch") }}</h2>
             <hr class="lines">
-            <p class="sub-heading">Assiste à un véritable concours de pitchs entre startups<br>
+            <p class="sub-heading">{{ _("Assiste à un véritable concours de pitchs entre startups") }}<br>
               <span class="bold h4">Samedi 19h - Campus LyonTech La Doua</span>
             </p>
             <div class="media media-chained">
@@ -130,11 +130,11 @@
       <div class="row">
         <div class="col-md-6 mb50">
           <div class="section-heading">
-            <h2 class="heading-text">Ateliers</h2>
+            <h2 class="heading-text">{{ _("Ateliers") }}</h2>
             <hr class="lines">
           </div>
           <!-- /.section-heading -->
-          <p class="sub-heading">Deviens un véritable entrepreneur durant 2 jours<br>
+          <p class="sub-heading">{{ _("Deviens un véritable entrepreneur durant 2 jours") }}<br>
             <span class="bold h4">Samedi et Dimanche - Campus LyonTech La Doua</span>
           </p>
           <div class="media">
@@ -163,8 +163,8 @@
               </i>
             </div>
             <div class="media-body">
-              <h3 class="title-text">Equipe</h3>
-              <p>5 à 6 personnes.</p>
+              <h3 class="title-text">{{ _("Equipe") }}</h3>
+              <p>{{ _("5 à 6 personnes.") }}</p>
             </div>
           </div>
         </div>
@@ -184,8 +184,8 @@
               </i>
             </div>
             <div class="media-body">
-              <h3 class="title-text">Profils</h3>
-              <p>Ingénieurs et commerciaux.</p>
+              <h3 class="title-text">{{ _("Profils") }}</h3>
+              <p>{{ _("Ingénieurs et commerciaux.") }}</p>
             </div>
           </div>
         </div>
@@ -203,7 +203,7 @@
               </i>
             </div>
             <div class="media-body">
-              <h3 class="title-text">Lieu</h3>
+              <h3 class="title-text">{{ _("Lieu") }}</h3>
               <p>Campus LyonTech La Doua - INSA Lyon.</p>
             </div>
           </div>
@@ -217,7 +217,7 @@
       <div class="row">
         <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
           <div class="section-heading text-center">
-            <h2 class="heading-text">Nos partenaires</h2>
+            <h2 class="heading-text">{{ _("Nos partenaires") }}</h2>
             <hr class="lines">
           </div>
           <!-- /.section-heading -->

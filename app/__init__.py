@@ -52,7 +52,8 @@ qrcode.init_app(app)
 # Babel
 domain = Domain(dirname='translations')
 babel = Babel(default_domain=domain)
-babel.localeselector(lambda: request.accept_languages.best_match(['fr', 'en']))
+#babel.localeselector(lambda: request.accept_languages.best_match(['fr', 'en']))
+babel.localeselector(lambda: 'fr')
 babel.init_app(app)
 
 # Toolbar

@@ -1,31 +1,428 @@
-# English translations for PROJECT.
-# Copyright (C) 2017 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-04-07 22:08+0200\n"
-"PO-Revision-Date: 2017-04-07 10:53+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.4.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: PhraseApp (phraseapp.com)\n"
 
-#: app/admin/export.py:180
-msgid "Permission denied."
-msgstr ""
+#: app/templates/users/journee-objectif-ingenieur.html:19
+msgid "11 Janvier 2017, Amphi Capelle"
+msgstr "January 11 2017, Amphi Capelle"
+
+#: app/templates/users/start-up-your-future.html:14
+msgid "3, 4, 5 Février 2017"
+msgstr "February 3, 4, 5, 2017"
+
+#: app/templates/users/start-up-your-future.html:167
+msgid "5 à 6 personnes."
+msgstr "5 to 6 persons."
+
+#: app/templates/users/forum-rhone-alpes.html:17
+msgid "8 et 9 Mars 2017, Double Mixte"
+msgstr "8th and 9th March 2017, Double Mixte"
+
+#: app/templates/users/forum-rhone-alpes.html:112
+msgid "Accéder à la liste complète des entreprises"
+msgstr "See all the companies"
+
+#: app/templates/companies/index.html:7 app/templates/companies/presse.html:6
+#: app/templates/users/base.html:7
+msgid "Accueil"
+msgstr "Home"
+
+#: app/templates/users/start-up-your-future.html:31
+msgid "Afterwork"
+msgstr "Afterwork"
+
+#: app/templates/users/journee-objectif-ingenieur.html:58
+msgid "Ajuste ton projet professionnel"
+msgstr "Build your professional project"
+
+#: app/templates/users/start-up-your-future.html:99
+msgid "Assiste à un véritable concours de pitchs entre startups"
+msgstr "Attend a real pitch contest between startups"
+
+#: app/templates/users/start-up-your-future.html:133
+msgid "Ateliers"
+msgstr "Workshops"
+
+#: app/templates/users/journee-objectif-ingenieur.html:238
+#: app/templates/users/journee-objectif-ingenieur.html:334
+msgid "Audit et Conseil"
+msgstr "Auditing and consulting"
+
+#: app/templates/split.html:36
+msgid "candidat"
+msgstr "candidate"
+
+#: app/templates/users/start-up-your-future.html:52
+msgid "Chaque entrepreneur viendra te raconter de quelle manière il a réussi à développer son projet pour en faire une entreprise des plus compétitives."
+msgstr "Entrepreneurs will tell you about their success stories building new and competitive companies."
+
+#: app/templates/users/journee-objectif-ingenieur.html:220
+#: app/templates/users/journee-objectif-ingenieur.html:316
+msgid "Chef de Projet"
+msgstr "Project Manager"
+
+#: app/templates/companies/index.html:13
+msgid "Comment ?"
+msgstr "How ?"
+
+#: app/templates/companies/index.html:240
+msgid "communiquer et conseiller"
+msgstr "communicate and advise"
+
+#: app/templates/companies/presse.html:48
+msgid "Communiqués de presse"
+msgstr "Press releases"
+
+#: app/templates/users/start-up-your-future.html:97
+msgid "Concours de Pitch"
+msgstr "Pitch contest"
+
+#: app/templates/users/journee-objectif-ingenieur.html:122
+msgid "Conférence plénière"
+msgstr "Plenary conference"
+
+#: app/templates/users/journee-objectif-ingenieur.html:155
+msgid "Conférences"
+msgstr "Conferences"
+
+#: app/templates/users/forum-rhone-alpes.html:112
+msgid "Connectez-vous pour accéder à la liste complète"
+msgstr "Login to view the full list"
+
+#: app/templates/base_dashboard.html:55 app/templates/base_home.html:33
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: app/templates/companies/index.html:238
+msgid "déplaçons"
+msgstr "move"
+
+#: app/templates/split.html:11 app/templates/split.html:20
+msgid "Depuis 32 ans, notre objectif est de générer du contact entre les étudiants et les entreprises."
+msgstr "For 32 years, our goal has been to generate contact between students and companies."
+
+#: app/templates/users/signup.html:25
+msgid "Des champs sont manquants..."
+msgstr "Some fields are empty..."
+
+#: app/templates/users/forum-rhone-alpes.html:56
+msgid "Des entreprises prestigieuses"
+msgstr "Prestigious companies"
+
+#: app/templates/users/start-up-your-future.html:137
+msgid "Deviens un véritable entrepreneur durant 2 jours"
+msgstr "Become a real entrepreneur for 2 days"
+
+#: app/templates/users/start-up-your-future.html:71
+msgid "Échange"
+msgstr "Exchange"
+
+#: app/templates/companies/index.html:178
+msgid "Envoyer votre demande"
+msgstr "Send your request"
+
+#: app/templates/users/start-up-your-future.html:166
+msgid "Equipe"
+msgstr "team"
+
+#: app/templates/companies/presse.html:72
+msgid "Espace Conseil"
+msgstr "Guidance Area"
+
+#: app/templates/companies/presse.html:65
+msgid "Espace Ecoles"
+msgstr "Schools Area"
+
+#: app/templates/base_dashboard.html:73
+msgid "Fait avec"
+msgstr "Made with"
+
+#: app/templates/split.html:43
+msgid "Fondée en 1986 à Lyon, France"
+msgstr "Founded in 1986 in Lyon, France"
+
+#: app/templates/users/forum-rhone-alpes.html:15
+msgid "FRA 2017"
+msgstr "FRA 2017"
+
+#: app/templates/users/journee-objectif-ingenieur.html:202
+#: app/templates/users/journee-objectif-ingenieur.html:298
+msgid "Gestion de carrière"
+msgstr "Career management"
+
+#: app/templates/companies/presse.html:30
+msgid "Ils parlent de nous"
+msgstr "They talk about us"
+
+#: app/templates/users/journee-objectif-ingenieur.html:232
+#: app/templates/users/journee-objectif-ingenieur.html:328
+msgid "Ingénieur Entrepreneur"
+msgstr "Engineer/Entrepreneur"
+
+#: app/templates/users/journee-objectif-ingenieur.html:208
+#: app/templates/users/journee-objectif-ingenieur.html:304
+msgid "Ingénieur Informatique"
+msgstr "Computer Science Engineer"
+
+#: app/templates/users/journee-objectif-ingenieur.html:214
+#: app/templates/users/journee-objectif-ingenieur.html:310
+msgid "Ingénieur Travaux"
+msgstr "Construction Engineer"
+
+#: app/templates/users/start-up-your-future.html:188
+msgid "Ingénieurs et commerciaux."
+msgstr "Engineers and commercials."
+
+#: app/templates/users/master-class.html:87
+msgid "Intervenants"
+msgstr "Speakers"
+
+#: app/templates/split.html:26 app/templates/split.html:35
+msgid "je suis"
+msgstr "i am"
+
+#: app/templates/companies/index.html:154
+msgid "Je suis"
+msgstr "I am"
+
+#: app/templates/users/journee-objectif-ingenieur.html:18
+#: app/templates/users/journee-objectif-ingenieur.html:37
+msgid "Journée Objectif Ingénieur"
+msgstr "Journée Objectif Ingénieur"
+
+#: app/templates/companies/presse.html:62
+msgid "La Section Internationale"
+msgstr "The International Section"
+
+#: app/templates/users/forum-rhone-alpes.html:93
+msgid "Les entreprises présentes"
+msgstr "Companies present on the fair"
+
+#: app/templates/base_home.html:106
+msgid "Licence MIT"
+msgstr "MIT license"
+
+#: app/templates/users/signin.html:33
+msgid "Lien de confirmation expiré ou invalide. Tentez de vous réinscrire."
+msgstr "The confirmation link is invalid or expired. Please try registering again."
+
+#: app/templates/users/start-up-your-future.html:206
+msgid "Lieu"
+msgstr "Place"
+
+#: app/templates/users/journee-objectif-ingenieur.html:262
+msgid "Logistique et Achats"
+msgstr "Logistics and Purchasing"
+
+#: app/templates/users/base.html:13 app/templates/users/master-class.html:13
+msgid "Master Class"
+msgstr "Master Class"
+
+#: app/templates/companies/signin.html:18 app/templates/users/signin.html:18
+msgid "Mauvais identifiants. Veuillez réessayer."
+msgstr "Invalid credentials. Please try again."
+
+#: app/templates/base_dashboard.html:41
+msgid "Menu"
+msgstr "Menu"
 
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "Modifier ma participation"
-msgstr ""
+msgstr "Edit my participation"
+
+#: app/templates/companies/index.html:137
+msgid "Nom complet"
+msgstr "Full name"
+
+#: app/templates/companies/index.html:165
+msgid "Nom de la structure"
+msgstr "Name of the structure"
+
+#: app/templates/users/start-up-your-future.html:220
+msgid "Nos partenaires"
+msgstr "Our partners"
+
+#: app/templates/users/forum-rhone-alpes.html:38
+msgid "Notre dernière édition a réuni plus de 180 exposants et plus de 4000 étudiants et jeunes diplômés"
+msgstr "Our last edition brought together more than 180 exhibitors and more than 4000 students and graduates"
+
+#: app/templates/users/forum-rhone-alpes.html:95
+msgid "Notre salon de recrutement se distingue par la présence de partenaires privilégiés provenant de secteurs divers et variés"
+msgstr "Our recruitment fair is characterised by the presence of partners coming from various sectors"
+
+#: app/templates/companies/index.html:245
+msgid "Notre salon ouvre ses portes à 8h pour les entreprises, et les premiers candidats arrivent dès 9h. Chaque jour, notre salon ferme à 18h."
+msgstr "Our fair opens at 8am for companies, and 9am for candidates. Both days, our fair closes at 6pm."
+
+#: app/templates/users/index.html:13
+msgid "Nous générons le contact"
+msgstr "We generate contact"
+
+#: app/templates/base_home.html:101
+msgid "Open Source"
+msgstr "Open Source"
+
+#: app/templates/users/forum-rhone-alpes.html:57
+msgid "Organisé par Forum Organisation, notre évènement vous permettra de parler à des entreprises de renom (SNCF, Wavestone...) pour réussir votre projet professionel."
+msgstr "Planned by Forum Organisation, our event allows you to talk to famous companies (SNCF, Wavestone ...) in order to make your professional project a success."
+
+#: app/templates/companies/presse.html:12
+msgid "Participer"
+msgstr "Participate"
+
+#: app/templates/companies/index.html:130
+msgid "Participer dès maintenant"
+msgstr "Participate now"
+
+#: app/templates/companies/index.html:43
+msgid "Participez dès maintenant"
+msgstr "Participate now"
+
+#: app/templates/users/forum-rhone-alpes.html:74
+msgid "Pendant deux jours, vous aurez la chance de rencontrer de grands acteurs du recrutement à la fois en France mais aussi à l'étranger."
+msgstr "For two days, you will have the opportunity to meet major recruitment figures, coming from France and abroad."
+
+#: app/admin/export.py:180
+msgid "Permission denied."
+msgstr "Permission denied."
+
+#: app/templates/users/journee-objectif-ingenieur.html:96
+msgid "Planning"
+msgstr "Program"
+
+#: app/templates/companies/index.html:10
+msgid "Pourquoi ?"
+msgstr "Why ?"
+
+#: app/templates/companies/index.html:58 app/templates/companies/presse.html:9
+msgid "Pourquoi participer ?"
+msgstr "Why attend ?"
+
+#: app/templates/companies/index.html:19 app/templates/companies/index.html:263
+#: app/templates/companies/presse.html:18
+msgid "Presse"
+msgstr "Press"
+
+#: app/templates/users/start-up-your-future.html:187
+msgid "Profils"
+msgstr "Profiles"
+
+#: app/templates/users/journee-objectif-ingenieur.html:75
+msgid "Programme de la journée"
+msgstr "The day's program"
+
+#: app/templates/companies/index.html:232
+msgid "Que faire une fois arrivés à Lyon ?"
+msgstr "What to do once you arrive in Lyon ?"
+
+#: app/templates/split.html:27
+msgid "recruteur"
+msgstr "recruiter"
+
+#: app/templates/companies/index.html:37
+msgid "Recrutez"
+msgstr "Recruit"
+
+#: app/templates/users/start-up-your-future.html:35
+msgid "Rencontre des entrepreneurs et startups à succès"
+msgstr "Meet entrepreneurs and successful startups"
 
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "S'inscrire au Forum Rhône-Alpes"
-msgstr ""
+msgstr "Register for Forum Rhône-Alpes"
+
+#: app/templates/base_home.html:43 app/templates/companies/signin.html:30
+#: app/templates/users/signin.html:45
+msgid "Se connecter"
+msgstr "Login"
+
+#: app/templates/companies/signin.html:5 app/templates/users/signin.html:5
+msgid "Se connecter à la plateforme"
+msgstr "Login to the platform"
+
+#: app/templates/base_home.html:36
+msgid "Se déconnecter"
+msgstr "Logout"
+
+#: app/templates/users/base.html:16
+msgid "STYF"
+msgstr "STYF"
+
+#: app/templates/users/journee-objectif-ingenieur.html:191
+#: app/templates/users/journee-objectif-ingenieur.html:287
+msgid "Tables rondes"
+msgstr "Panel discussions"
+
+#: app/templates/companies/presse.html:87
+msgid "Télécharger le dossier de presse"
+msgstr "Download the press file"
+
+#: app/templates/companies/index.html:148
+msgid "Téléphone"
+msgstr "Phone"
+
+#: app/templates/base_dashboard.html:23
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: app/templates/base_dashboard.html:79
+msgid "Tous droits réservés."
+msgstr "All rights reserved."
+
+#: app/templates/users/forum-rhone-alpes.html:73
+msgid "Un évènement international"
+msgstr "An international event"
+
+#: app/templates/companies/index.html:93
+msgid "Un recrutement qui correspond à vos besoins"
+msgstr "An event that suits your needs"
+
+#: app/templates/companies/index.html:78
+msgid "Un seul événement pour tous vos besoins en recrutement"
+msgstr "The only event that suits all your recruiting needs"
+
+#: app/templates/users/index.html:36 app/templates/users/signup.html:22
+msgid "Un utilisateur existe déjà associé à cet email."
+msgstr "An account with this e-mail address already exists."
+
+#: app/templates/users/master-class.html:32
+#: app/templates/users/master-class.html:52
+msgid "Une conférence interactive"
+msgstr "An interactive conference"
+
+#: app/templates/companies/index.html:108
+msgid "Une diversité sans concession"
+msgstr "Uncompromising diversity"
+
+#: app/templates/companies/index.html:158
+msgid "une école"
+msgstr "a school"
+
+#: app/templates/companies/index.html:157
+msgid "une entreprise"
+msgstr "a company"
+
+#: app/templates/users/signin.html:39
+msgid "Une erreur est survenue."
+msgstr "An error has occurred."
+
+#: app/templates/companies/signin.html:21
+msgid "Veuillez remplir tous les champs."
+msgstr "Please fill out all fields completely. "
+
+#: app/templates/users/signin.html:30
+msgid "Votre compte a été confirmé!"
+msgstr "Your account has been confirmed!"
+
+#: app/templates/users/signin.html:36
+msgid "Votre compte est déjà confirmé."
+msgstr "Your account is already confirmed."
+
+#: app/templates/companies/index.html:218
+msgid "Vous avez des questions ? On y répond ici."
+msgstr "You have questions ? We answer it here."

@@ -3,19 +3,19 @@
 {% block navbar_left %}
   <ul class="nav navbar-nav navbar-left">
     <li>
-      <a href="{{ url_for('main.index', _anchor='start') }}">Accueil</a>
+      <a href="{{ url_for('main.index', _anchor='start') }}">{{ _("Accueil") }}</a>
     </li>
     <li class="">
-      <a href="{{ url_for('main.index', _anchor='why') }}">Pourquoi participer ?</a>
+      <a href="{{ url_for('main.index', _anchor='why') }}">{{ _("Pourquoi participer ?") }}</a>
     </li>
     <li class="">
-      <a href="{{ url_for('main.index', _anchor='contact') }}">Participer</a>
+      <a href="{{ url_for('main.index', _anchor='contact') }}">{{ _("Participer") }}</a>
     </li>
     <li class="">
       <a href="{{ url_for('main.index', _anchor='faq') }}">FAQ</a>
     </li>
     <li class="">
-      <a href="{{ url_for('main.index', page='presse') }}">Presse</a>
+      <a href="{{ url_for('main.index', page='presse') }}">{{ _("Presse") }}</a>
     </li>
   </ul>
 {% endblock navbar_left %}
@@ -27,7 +27,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 mb60">
-          <h2 class="heading-text text-center">Ils parlent de nous</h2>
+          <h2 class="heading-text text-center">{{ _("Ils parlent de nous") }}</h2>
         </div>
         <!--/.row -->
       </div>
@@ -45,7 +45,7 @@
     </div>
     <section class="why app-features-5 white-bg" id="why" style="outline-offset: -3px; padding:50px 50px 50px 50px">
       <div class="container">
-        <h3 style="padding-bottom:30px">Communiqués de presse</h3>
+        <h3 style="padding-bottom:30px">{{ _("Communiqués de presse") }}</h3>
         <div class="row faqs-2-items">
           <div class="col-md-12 mb60">
             <h5 class="title-text">Ingénieurs, les filières qui recrutent</h5>
@@ -59,17 +59,17 @@
             <p>De nombreux espaces feront l'objet d'une attention particulière pour cette édition :</p>
             <ul class="order-list">
               <li>
-                <strong>La Section Internationale</strong>
+                <strong>{{ _("La Section Internationale") }}</strong>
                 pour une première entrée sur le marché européen</li>
               <li>
-                <strong>Espace Ecoles</strong>: des écoles du 3ème cycle venues informer les étudiants sur la poursuite d’études en Master spécialisé</li>
+                <strong>{{ _("Espace Ecoles") }}</strong>: des écoles du 3ème cycle venues informer les étudiants sur la poursuite d’études en Master spécialisé</li>
               <li>
                 <strong>Le Carrefour Maghrébin</strong>: des rencontres avec des entreprises maghrébines</li>
               <li>
                 <strong>Espace Start-Up</strong>
                 pour faire découvrir le monde de l'entreprenariat</li>
               <li>
-                <strong>Espace Conseil</strong>
+                <strong>{{ _("Espace Conseil") }}</strong>
                 préparer les étudiants avec des simulations d'entretiens et des conseils sur la rédaction des CV et lettre de motivation</li>
               <li>
                 <strong>Espace Handicafés</strong>
@@ -84,7 +84,7 @@
           </div>
           <div class="home-download-btn">
             <a href="{{ url_for('static', filename='dossier_forum.pdf') }}" class="btn btn-base btn-lg" download>
-              <span>Télécharger le dossier de presse</span>
+              <span>{{ _("Télécharger le dossier de presse") }}</span>
             </a>
           </div>
         </div>

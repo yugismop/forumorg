@@ -4,16 +4,16 @@
 {% block navbar_left %}
   <ul class="nav navbar-nav navbar-left">
     <li class="{{ 'active' if title == 'Accueil' else ''}}">
-      <a href="{{ url_for('main.index') }}" id="home">Accueil</a>
+      <a href="{{ url_for('main.index') }}" id="home">{{ _("Accueil") }}</a>
     </li>
     <li class="{{ 'active' if title == 'Forum Rhône-Alpes' else ''}}">
       <a href="{{ url_for('main.index', page='forum-rhone-alpes') }}" id="fra">Forum Rhône-Alpes</a>
     </li>
     <li class="{{ 'active' if title == 'Master Class' else ''}}">
-      <a href="{{ url_for('main.index', page='master-class') }}" id="joi">Master Class</a>
+      <a href="{{ url_for('main.index', page='master-class') }}" id="joi">{{ _("Master Class") }}</a>
     </li>
     <li class="{{ 'active' if title == 'STYF' else ''}}">
-      <a href="{{ url_for('main.index', page='start-up-your-future') }}" id="styf">STYF</a>
+      <a href="{{ url_for('main.index', page='start-up-your-future') }}" id="styf">{{ _("STYF") }}</a>
     </li>
     <li class="{{ 'active' if title == 'Journée Objectif Ingénieur' else ''}}">
       <a href="{{ url_for('main.index', page='journee-objectif-ingenieur') }}" id="joi">JOI</a>

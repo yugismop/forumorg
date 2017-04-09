@@ -12,9 +12,9 @@
             <!-- REPLACE WITH YOUR LOGO -->
             <br>
           </div>
-          <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">FRA 2017</p>
+          <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">{{ _("FRA 2017") }}</p>
           <h1 class="heading-text" data-selector="Coming Soon">Forum Rhône-Alpes</h1>
-          <p class="sub-heading" data-selector="Coming Soon">8 et 9 Mars 2017, Double Mixte<br></p>
+          <p class="sub-heading" data-selector="Coming Soon">{{ _("8 et 9 Mars 2017, Double Mixte") }}<br></p>
           <div class="home-download-btn">
             <a href="{{ url_for('users.dashboard', page='fra') }}" class="btn btn-white btn-lg">
               {{ _("Modifier ma participation") if current_user.is_authenticated else _("S'inscrire au Forum Rhône-Alpes") }}
@@ -53,7 +53,7 @@
               </i>
             </div>
             <div class="media-body">
-              <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">Des entreprises prestigieuses<br></h3>
+              <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">{{ _("Des entreprises prestigieuses") }}<br></h3>
               <p>Organisé par Forum Organisation, notre évènement vous permettra de parler à des entreprises de renom (SNCF, Wavestone...) pour réussir votre projet professionel
               </p>
             </div>
@@ -70,7 +70,7 @@
               </i>
             </div>
             <div class="media-body">
-              <h3 class="title-text">Un évènement international</h3>
+              <h3 class="title-text">{{ _("Un évènement international") }}</h3>
               <p>Pendant deux jours, vous aurez la chance de rencontrer de grands acteurs du recrutement à la fois en France mais aussi à l'étranger.
               </p>
             </div>
@@ -90,7 +90,7 @@
       <div class="row">
         <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
           <div class="section-heading text-center">
-            <h2 class="heading-text">Les entreprises présentes</h2>
+            <h2 class="heading-text">{{ _("Les entreprises présentes") }}</h2>
             <hr class="lines">
             <p class="sub-heading" style="margin-bottom:30px">Notre salon de recrutement se distingue par la présence de partenaires privilégiés provenant de secteurs divers et variés
             </p>
