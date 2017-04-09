@@ -7,7 +7,8 @@ from flask_qrcode import QRcode
 from flask_sslify import SSLify
 from flask_cdn import CDN
 from flask_admin import Admin
-from flask_babelex import Babel
+from flask_babelex import Babel, Domain
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_admin.base import MenuLink
 from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
@@ -25,18 +26,16 @@ def get_db():
 
 # App init
 app = Flask(__name__, template_folder='templates')
+app.debug = bool(os.environ.get('DEBUG', False))
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my_debug_salt')
 app.config['TOKEN_EXPIRATION'] = int(os.environ.get('TOKEN_EXPIRATION', 7200))
 app.config['CDN_DOMAIN'] = os.environ.get('CLOUDFRONT_DOMAIN')
-app.config['CDN_DEBUG'] = bool(os.environ.get('DEBUG', False))
+app.config['CDN_DEBUG'] = app.debug
 app.config['CDN_HTTPS'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
-app.config['LANGUAGES'] = {
-    'fr': 'French',
-    'en': 'English'
-}
 
 # Login Manager
 login_manager = LoginManager()
@@ -51,10 +50,14 @@ qrcode = QRcode()
 qrcode.init_app(app)
 
 # Babel
-babel = Babel()
-babel.localeselector(lambda: request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
-# babel.localeselector(lambda: 'fr')
+domain = Domain(dirname='translations')
+babel = Babel(default_domain=domain)
+babel.localeselector(lambda: request.accept_languages.best_match(['fr', 'en']))
 babel.init_app(app)
+
+# Toolbar
+toolbar = DebugToolbarExtension()
+toolbar.init_app(app)
 
 # Flask-Assets
 from .assets import bundles
