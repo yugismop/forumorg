@@ -24,9 +24,8 @@ msgstr ""
 
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "Modifier ma participation"
-msgstr "Change my event"
+msgstr ""
 
 #: app/templates/users/forum-rhone-alpes.html:20
 msgid "S'inscrire au Forum Rhône-Alpes"
-msgstr "Register at Forum Rhone-Alpes"
-
+msgstr ""
