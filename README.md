@@ -66,3 +66,7 @@ Contributions are very welcome! If you find a bug or some improvements, feel fre
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## (Experimental) Packages view
+
+![img](https://s3-eu-west-1.amazonaws.com/forumorg/packages_Pyreverse.png)
