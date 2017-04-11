@@ -41,13 +41,13 @@ We use Heroku for Cloud hosting and Continuous Integration.
 On ```git push origin master```:
 
 - The code is pushed to this repository (on `master`).
-- A build is triggered on our [staging app](https://forum-stage.herokuapp.com) (very useful for testing in a production-like environment).
+- A build is triggered on our [staging app](https://forumorg-staging.herokuapp.com) (very useful for testing in a production-like environment).
 
 On ```any approved PR request```:
 
 - A review app is created, which can be live tested.
 - If everything works perfectly, the PR can be merged to `master`.
-- If the app is ready for production, we promote it to [production](https://forumorg.org) thanks to Heroku Pipelines.
+- If the app is ready for production, we promote it to [production](https://www.forumorg.org) thanks to Heroku Pipelines.
 
 ## Contributions
 
