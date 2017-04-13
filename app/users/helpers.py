@@ -2,6 +2,8 @@ import json
 import os
 
 from app import app, get_db, s3_client
+from app.helpers import get_resume_url
+from flask_login import current_user
 
 
 @app.template_filter('to_companies')
@@ -69,14 +71,12 @@ def get_companies():
 @app.context_processor
 def get_jobs():
     def _get_jobs():
-        jobs = get_db().jobs.find(
-            {},
-            {'_id': 0, 'company_id': 1, 'description': 1, 'title': 1, 'url': 1, 'location': 1, 'duration': 1, 'type': 1},
-        )
+        jobs = get_db().jobs.aggregate([
+            {"$lookup": {"from": "companies", "localField": "company_id", "foreignField": "id", "as": "info"}},
+            {"$project": {"_id": 0, "info.name": 1, "description": 1, "title": 1, "url": 1, "location": 1, "duration": 1, "type": 1}},
+            {"$unwind": "$info"}
+        ])
         jobs = list(jobs)
-        for j in jobs:
-            doc = get_db().companies.find_one({'id': j['company_id']})
-            j['name'] = doc['info']['name'] if doc.get('info') else doc['name']
         return jobs
     return dict(get_jobs=_get_jobs)
 
@@ -103,18 +103,17 @@ def to_filename(oid):
 
 @app.template_filter('to_info')
 def to_info(oid):
-    if not oid:
-        return json.dumps({'empty': True})
     try:
         file = s3_client.get_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
+        profile = current_user.data.get('profile')
+        full_name = f'[{profile["name"]} {profile["first_name"]}'
+        r = {'url': get_resume_url(oid, full_name),
+             'size': file.get('ContentLength'),
+             'name': file.get('Metadata').get('filename'),
+             'oid': str(oid)}
+        return json.dumps(r)
     except:
         return json.dumps({'empty': True})
-    url = s3_client.generate_presigned_url('get_object', Params={'Bucket': os.environ.get('BUCKET_NAME'), 'Key': f'resumes/{oid}.pdf'})
-    r = {'url': url,
-         'size': file.get('ContentLength'),
-         'name': file.get('Metadata').get('filename'),
-         'oid': str(oid)}
-    return json.dumps(r)
 
 
 @app.template_filter('to_ambassador')

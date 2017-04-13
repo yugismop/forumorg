@@ -2,8 +2,8 @@ import os
 from binascii import hexlify
 from io import BytesIO
 
-from flask import (Blueprint, redirect, render_template, request, send_file,
-                   send_from_directory, session, url_for)
+from flask import (Blueprint, abort, redirect, render_template, request,
+                   send_file, send_from_directory, session, url_for)
 from jinja2.exceptions import TemplateNotFound
 from werkzeug import secure_filename
 
@@ -11,6 +11,7 @@ from app import app, get_db, s3_client
 from bson.objectid import ObjectId
 from flask_login import current_user, login_required, logout_user
 
+from .helpers import get_resume_url
 from .identicon import render_identicon
 
 bp = Blueprint('main', __name__)
@@ -38,13 +39,17 @@ def resume(oid=None):
 
     if request.method == 'POST':
         file = request.files.get('resume')
-        if file and allowed_file(file.filename):
+        profile = current_user.data.get('profile')
+        is_valid_profile = profile.get('first_name') and profile.get('name')
+        if file and allowed_file(file.filename) and is_valid_profile:
             filename = secure_filename(file.filename)
             oid = ObjectId()
             s3_client.put_object(Bucket=os.environ.get('BUCKET_NAME'), Metadata={'filename': filename},
                                  ContentType=file.content_type, Body=file, Key=f'resumes/{oid}.pdf')
             get_db().users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
-        return 'success'
+            return 'success'
+        else:
+            abort(500)
     if request.method == 'DELETE':
         oid = request.form['oid']
         s3_client.delete_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')

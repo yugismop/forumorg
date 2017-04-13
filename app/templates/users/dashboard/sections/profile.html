@@ -173,6 +173,7 @@
           acceptedFiles: "application/pdf",
           init: function () {
             this.on("addedfile", function (file) {
+              console.log(file);
               var removeButton = Dropzone.createElement("<a class='dz-remove'>Supprimer CV</a>");
               var _this = this;
               removeButton.addEventListener("click", function (e) {
