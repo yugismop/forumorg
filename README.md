@@ -1,38 +1,46 @@
 # forumorg
 
-This is the repository for the official website of [Forum Organisation](https://forumorg.org).
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://www.forumorg.org)
+[![GitHub repository](https://img.shields.io/badge/GitHub-ForumOrganisation%2Fforumorg-blue.svg)](https://github.com/ForumOrganisation/forumorg)
+
+This is the repository for the official website of [Forum Organisation](https://www.forumorg.org)
 
 ## Getting Started
 
 These instructions will get help get your own copy of the project running on your local machine for development and testing purposes.
 
-### Prerequisites
+### Requirements
 
 To get your development environment running, you need
 
-```
-Python 3, mongodb
-```
+- Python 3.6
+- bower
+- mongodb
 
-### Installing
+### Install
 
 To install the necessary python dependencies
 
-```
+```sh
+git clone https://github.com/ForumOrganisation/forumorg.git
+cd forumorg
 pip install -r requirements.txt
+bower install
 ```
 
-Before starting the application, launch a mongodb instance (`sudo mongod`).
-Don't forget to set the environnement variable `MONDODB_URI` to the database uri.
+### Configuration
+To start the project, you need to provide the `MONDODB_URI` environment variable, and a S3 bucket names.
 
-```
-export MONGODB_URI=mongodb://localhost:27017/<db-name>
+```sh
+export MONGODB_URI="mongodb://host:port/dbname"
+export BUCKET_NAME="bucket_name"
+export DEBUG=True # Optional: Nice for debugging
+export SENDGRID_API_KEY="sendgrid_key" # Optional: for emailing events
 ```
 
-Finally, to get the project running, simply start the Flask server:
-
-```
-python ./runserver.py
+### Run
+```sh
+python runserver.py
 ```
 
 ## Deploying
@@ -41,13 +49,13 @@ We use Heroku for Cloud hosting and Continuous Integration.
 On ```git push origin master```:
 
 - The code is pushed to this repository (on `master`).
-- A build is triggered on our [staging app](https://forumorg-staging.herokuapp.com) (very useful for testing in a production-like environment).
+- A build is triggered on our [staging app](https://forumorg-staging.herokuapp.com) (useful for testing in a production-like environment).
 
 On ```any approved PR request```:
 
 - A review app is created, which can be live tested.
-- If everything works perfectly, the PR can be merged to `master`.
-- If the app is ready for production, we promote it to [production](https://www.forumorg.org) thanks to Heroku Pipelines.
+- If everything is working OK, the PR can be merged to `master`.
+- If the app is ready for production, it is promoted to [production](https://www.forumorg.org).
 
 ## Contributions
 
