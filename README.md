@@ -3,7 +3,7 @@
 [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://www.forumorg.org)
 [![GitHub repository](https://img.shields.io/badge/GitHub-ForumOrganisation%2Fforumorg-blue.svg)](https://github.com/ForumOrganisation/forumorg)
 
-This is the repository for the official website of [Forum Organisation](https://www.forumorg.org)
+This is the repository for the recruitment website of [Forum Organisation](https://www.forumorg.org)
 
 ## Getting Started
 
@@ -11,15 +11,15 @@ These instructions will get help get your own copy of the project running on you
 
 ### Requirements
 
-To get your development environment running, you need
+To get your development environment running, you need:
 
-- Python 3.6
+- python 3.6
 - bower
 - mongodb
 
 ### Install
 
-To install the necessary python dependencies
+To install the necessary dependencies:
 
 ```sh
 git clone https://github.com/ForumOrganisation/forumorg.git
@@ -29,11 +29,11 @@ bower install
 ```
 
 ### Configuration
-To start the project, you need to provide the `MONDODB_URI` environment variable, and a S3 bucket names.
+To start the project, you need to provide the following environment variables:
 
 ```sh
-export MONGODB_URI="mongodb://host:port/dbname"
-export BUCKET_NAME="bucket_name"
+export MONGODB_URI="mongodb://host:port/dbname" # Required: running mongodb instance
+export BUCKET_NAME="bucket_name" # Required: S3 bucket name
 export DEBUG=True # Optional: Nice for debugging
 export SENDGRID_API_KEY="sendgrid_key" # Optional: for emailing events
 ```
