@@ -61,11 +61,6 @@ On ```any approved PR request```:
 
 Contributions are very welcome! If you find a bug or some improvements, feel free to raise an issue and send a PR! Please see the [CONTRIBUTING](CONTRIBUTING.md) file for more information on how to contribute.
 
-## Stack
-
-* [Python](https://www.python.org/) - Primary language for development
-* [Mongodb](https://www.mongodb.com/) - Database platform
-
 ## Authors
 
 * **Mehdi BAHA** - [mehdibaha](https://github.com/mehdibaha)
