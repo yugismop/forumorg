@@ -8,7 +8,7 @@ from app import app, get_db
 @app.context_processor
 def get_stats():
     def _get_stats():
-        s = time.time()
+        s = int(time.time())
         result = defaultdict(dict)
         sections = ['equipement', 'restauration', 'badges', 'transport', 'programme']
         for s in sections:
@@ -20,7 +20,7 @@ def get_stats():
         result = {k: list(v.values()) for k, v in result.items()}
         result['labels'] = sections
         print('GET_STATS()')
-        print(time.time()-s)
+        print(int(time.time())-s)
         return result
     return dict(get_stats=_get_stats)
 
@@ -45,7 +45,7 @@ def get_users():
         result['confirmed'] = confirmed
         result['registered'] = registered
         print('GET_USERS()')
-        print(time.time()-s)
+        print(int(time.time())-s)
         return result
     return dict(get_users=_get_users)
 
@@ -60,6 +60,6 @@ def get_schools():
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]
         print('GET_SCHOOLS()')
-        print(time.time()-s)
+        print(int(time.time())-s)
         return result
     return dict(get_schools=_get_schools)
