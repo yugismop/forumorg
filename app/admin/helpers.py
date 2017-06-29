@@ -19,7 +19,8 @@ def get_stats():
                 result[pole][s] = round(100.0 * validated / total, 2)
         result = {k: list(v.values()) for k, v in result.items()}
         result['labels'] = sections
-        print(f'GET_STATS()//{time.time()-s}')
+        print('GET_STATS()')
+        print(time.time()-s)
         return result
     return dict(get_stats=_get_stats)
 
@@ -43,7 +44,8 @@ def get_users():
         result['fra'] = fra
         result['confirmed'] = confirmed
         result['registered'] = registered
-        print(f'GET_USERS()//{time.time()-s}')
+        print('GET_USERS()')
+        print(time.time()-s)
         return result
     return dict(get_users=_get_users)
 
@@ -57,6 +59,7 @@ def get_schools():
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]
-        print(f'GET_SCHOOLS()//{time.time()-s}')
+        print('GET_SCHOOLS()')
+        print(time.time()-s)
         return result
     return dict(get_schools=_get_schools)
