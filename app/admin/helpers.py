@@ -25,7 +25,7 @@ def get_stats():
 def get_users():
     def _get_users():
         start = datetime.datetime(2017, 1, 9)  # pre-launch date
-        days = (datetime.datetime.today() - start).days
+        days = (datetime.datetime.today() - start).days // 10 # Stats every 10 days
         dates = [start + datetime.timedelta(inc) for inc in range(days + 2)]
         result = {}
         confirmed = []
