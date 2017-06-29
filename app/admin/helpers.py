@@ -8,7 +8,6 @@ from app import app, get_db
 @app.context_processor
 def get_stats():
     def _get_stats():
-        st = time.time()
         result = defaultdict(dict)
         sections = ['equipement', 'restauration', 'badges', 'transport', 'programme']
         for s in sections:
@@ -19,7 +18,6 @@ def get_stats():
                 result[pole][s] = round(100.0 * validated / total, 2)
         result = {k: list(v.values()) for k, v in result.items()}
         result['labels'] = sections
-        print(f'GET_STATS()//{time.time()-st}')
         return result
     return dict(get_stats=_get_stats)
 
@@ -27,7 +25,6 @@ def get_stats():
 @app.context_processor
 def get_users():
     def _get_users():
-        st = time.time()
         start = datetime.datetime(2017, 1, 9)  # pre-launch date
         days = (datetime.datetime.today() - start).days
         dates = [start + datetime.timedelta(inc) for inc in range(1, days + 2, 10)] # Stats every 10 days
@@ -43,7 +40,6 @@ def get_users():
         result['fra'] = fra
         result['confirmed'] = confirmed
         result['registered'] = registered
-        print(f'GET_USERS()//{time.time()-st}')
         return result
     return dict(get_users=_get_users)
 
@@ -51,12 +47,10 @@ def get_users():
 @app.context_processor
 def get_schools():
     def _get_schools():
-        st = time.time()
         res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {
                    '_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 6}]))
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]
-        print(f'GET_SCHOOLS()//{time.time()-st}')
         return result
     return dict(get_schools=_get_schools)
