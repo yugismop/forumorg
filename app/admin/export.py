@@ -148,7 +148,7 @@ def generate_vals(writer, export_type, data):
 
 
 def _export_fields(obj, export_type, return_url):
-    count, data = obj._export_data()
+    _, data = obj._export_data()
 
     class Echo(object):
 
