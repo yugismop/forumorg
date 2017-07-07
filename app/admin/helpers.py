@@ -1,5 +1,4 @@
 import datetime
-import time
 from collections import defaultdict
 
 from app import app, get_db
