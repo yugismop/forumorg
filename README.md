@@ -1,5 +1,6 @@
 # forumorg
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9434218caecf4ca08121ec60ed4accea)](https://www.codacy.com/app/app65382894/forumorg?utm_source=github.com&utm_medium=referral&utm_content=ForumOrganisation/forumorg&utm_campaign=badger)
 [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://www.forumorg.org)
 [![GitHub repository](https://img.shields.io/badge/GitHub-ForumOrganisation%2Fforumorg-blue.svg)](https://github.com/ForumOrganisation/forumorg)
 
