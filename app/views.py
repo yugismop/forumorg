@@ -11,7 +11,6 @@ from app import app, get_db, s3_client
 from bson.objectid import ObjectId
 from flask_login import current_user, login_required, logout_user
 
-from .helpers import get_resume_url
 from .identicon import render_identicon
 
 bp = Blueprint('main', __name__)
