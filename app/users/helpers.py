@@ -79,7 +79,7 @@ def get_jobs():
         for j in jobs:
             doc = get_db().companies.find_one({'id': j['company_id']})
             j['name'] = doc['info']['name'] if doc.get('info') else doc['name']
-        return new_jobs
+        return jobs
     return dict(get_jobs=_get_jobs)
 
 
