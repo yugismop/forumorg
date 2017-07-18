@@ -33,7 +33,7 @@ def get_resumes():
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
     jobs = list(get_db().jobs.find({'company_id': company_id}))
-    // Casting id to prevent errors
+    # Casting id to prevent errors
     for j in jobs:
         j['_id'] = str(j['_id'])
     return jobs
