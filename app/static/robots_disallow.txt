@@ -1,0 +1,4 @@
+# robots.txt for heroku created apps
+
+User-agent: *
+Disallow: /

@@ -1,4 +1,0 @@
-# robots.txt for https://forumorg-staging.herokuapp.com/
-
-User-agent: *
-Disallow: /
