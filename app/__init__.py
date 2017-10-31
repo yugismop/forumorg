@@ -1,18 +1,19 @@
+import boto3
 import os
+
+from .admin.views import CompanyView, JobView, StatisticsView, StreamView, UserView
 from flask import Flask, g, request
-from flask_bcrypt import Bcrypt
+from flask_admin import Admin
+from flask_admin.base import MenuLink
 from flask_assets import Environment
+from flask_babelex import Babel, Domain
+from flask_bcrypt import Bcrypt
+from flask_cdn import CDN
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 from flask_qrcode import QRcode
 from flask_sslify import SSLify
-from flask_cdn import CDN
-from flask_admin import Admin
-from flask_babelex import Babel, Domain
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_admin.base import MenuLink
-from .admin.views import CompanyView, UserView, StatisticsView, JobView, StreamView
 from pymongo import MongoClient
-import boto3
 
 
 # Storage init
@@ -35,6 +36,7 @@ app.config['CDN_DEBUG'] = app.debug
 app.config['CDN_HTTPS'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['BABEL_DEFAULT_LOCALE'] = 'fr'
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
 # Login Manager
@@ -52,7 +54,6 @@ qrcode.init_app(app)
 # Babel
 domain = Domain(dirname='translations')
 babel = Babel(default_domain=domain)
-babel.localeselector(lambda: request.accept_languages.best_match(['fr']))  # TODO: add 'en' at some point
 babel.init_app(app)
 
 # Toolbar
@@ -95,7 +96,7 @@ from .companies.views import bp as bp_companies
 app.register_blueprint(bp_companies, url_prefix='/recruteurs')
 
 # Init
-from .users import helpers
-from .companies import helpers
+from . import helpers, login, storage
 from .admin import helpers
-from . import helpers, storage, login
+from .companies import helpers
+from .users import helpers
