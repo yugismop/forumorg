@@ -135,18 +135,18 @@
                   <tr>
                     <td>
                       <label for="nom_complet" class="text-uppercase">{{ _("Nom complet") }}</label>
-                      <input type="text" id="nom_complet" name="nom_complet" class="form-control" placeholder="ex. Henry Martin">
+                      <input type="text" id="nom_complet" name="nom_complet" class="form-control" placeholder="ex. Albert Dupont">
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <label for="email" class="text-uppercase">Adresse e-mail</label>
-                      <input type="email" id="email" name="email" class="form-control" placeholder="ex. m.stanley@jpmorgan.com">
+                      <input type="email" id="email" name="email" class="form-control" placeholder="ex. a.dupont@monentreprise.fr">
                     </td>
                   </tr>
                   <td>
                     <label for="tel" class="text-uppercase">{{ _("Téléphone") }}</label>
-                    <input type="tel" id="tel" name="tel" class="form-control" placeholder="ex. 06 65 59 90 15">
+                    <input type="tel" id="tel" name="tel" class="form-control" placeholder="ex. 06 12 34 56 78">
                   </td>
                 </tr>
                 <tr>
@@ -163,7 +163,7 @@
                 <tr>
                   <td>
                     <label for="nom" class="text-uppercase">{{ _("Nom de la structure") }}</label>
-                    <input type="text" id="nom" name="nom" class="form-control" placeholder="ex. JP Morgan">
+                    <input type="text" id="nom" name="nom" class="form-control" placeholder="ex. Mon Entreprise">
                   </td>
                 </tr>
               </tbody>
@@ -289,6 +289,7 @@
 {% endblock style %}
 {% block js_files %}
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB9-7e6zhICE7j2thUbFfpdRWVtzDwdN4k"></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
 {{ super() }}
 {% endblock js_files %}
 {% block scripts %}

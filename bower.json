@@ -18,12 +18,11 @@
     "app/static/bower_components/"
   ],
   "dependencies": {
-    "recaptcha": "https://www.google.com/recaptcha/api.js?hl=fr",
     "AdminLTE": "admin-lte#^2.3.11",
     "select2": "^4.0.3",
     "PACE": "pace#^1.0.2",
     "jquery.inputmask": "^3.3.4",
-    "datatables.net": "^2.1.1",
+    "datatables.net": "^1.10.16",
     "datatables.net-bs": "^2.1.1",
     "font-awesome": "fontawesome#^4.7.0",
     "intl-tel-input": "^11.0.0",
@@ -35,6 +34,7 @@
     "notify-js": "https://github.com/mehdibaha/Notify.js.git#1.0.1"
   },
   "resolutions": {
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "chart.js": "^2.5.0"
   }
 }

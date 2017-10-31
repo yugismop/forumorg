@@ -20,7 +20,6 @@ bundles = {
     ### HOME ###
     'js_home': Bundle(
         Bundle(
-            'recaptcha/index.js',
             'typed.js/dist/typed.min.js',
             'jquery.scrollTo/jquery.scrollTo.min.js',
         ),
@@ -60,7 +59,7 @@ bundles = {
             'intl-tel-input/build/js/intlTelInput.min.js',
             'datatables.net/js/jquery.dataTables.min.js',
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
-            'AdminLTE/dist/js/app.min.js',
+            'AdminLTE/dist/js/adminlte.min.js',
             'jquery.countdown/dist/jquery.countdown.min.js',
             'dropzone/dist/min/dropzone.min.js',
         ),
