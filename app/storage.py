@@ -1,8 +1,8 @@
 import datetime
 
-from app import get_db
-
 from .models import User
+from app import bcrypt
+from app import get_db
 
 
 def get_user(id):
@@ -24,6 +24,11 @@ def confirm_user(user):
         {'$set': {'confirmed': True, 'confirmed_on': datetime.datetime.now()}}
     )
 
+def change_password(user, password):
+    return get_db().users.update_one(
+        {'id':user.id},
+        {'$set': {'password': bcrypt.generate_password_hash(password).decode('utf-8')}}
+    )
 
 def set_user(user_id, user_data):
     return get_db().users.replace_one({'id': user_id}, user_data)

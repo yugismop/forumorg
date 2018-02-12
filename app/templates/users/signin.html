@@ -20,17 +20,23 @@
           {% if "no_user_found" in error %}
             <span class="text-orange">Aucun utilisateur n'est associé à cet email.</span>
           {% endif %}
+          {% if "update_password" in error %}
+            <span class="text-green">Un mail de réinitialisation vous a été envoyé.<br/>Il sera valide pendant 10 min !</span>
+          {% endif %}
           {% if "user_not_confirmed" in error %}
             <span class="text-orange">Vous n'avez pas encore confirmé votre compte.</span>
           {% endif %}
           {% if "user_registered" in error %}
             <span class="text-green">Un email d'activation vous a été envoyé (checkez vos spams) !</span>
           {% endif %}
+          {% if "reset_password" in error %}
+            <span class="text-green">{{ _("Votre mot de passe a été changé.") }} </span>
+          {% endif %}
           {% if "account_confirmed" in error %}
             <span class="text-green">{{ _("Votre compte a été confirmé!") }}</span>
           {% endif %}
           {% if "confirm_link_expired" in error %}
-            <span class="text-red">{{ _("Lien de confirmation expiré ou invalide. Tentez de vous réinscrire.") }}</span>
+            <span class="text-red">{{ _("Lien de confirmation expiré ou invalide.<br/>Veuillez Réessayer.") }}</span>
           {% endif %}
           {% if "account_already_confirmed" in error %}
             <span class="text-red">{{ _("Votre compte est déjà confirmé.") }}</span>
@@ -49,6 +55,9 @@
     <div>
       <a href="{{ url_for('users.signup')}} " class="panel-footer text-center">Nouveau sur la plateforme?
         <span>Inscrivez-vous</span>
+      </a>
+      <a href="{{ url_for('users.reset_password_request')}} " class="panel-footer text-center">Mot de passe oublié?
+        <span>Cliquez ici</span>
       </a>
     </div>
   </div>

@@ -8,10 +8,11 @@ from app.login import (confirm_token, generate_confirmation_token,
                        validate_login)
 from app.models import User
 from app.storage import (confirm_user, get_events, get_user, get_users,
-                         new_user, set_user, user_exists)
+                         new_user, set_user, user_exists, change_password)
 from flask_login import current_user, login_required, login_user
 
 from .mailing import send_mail
+from app import bcrypt
 
 bp = Blueprint('users', __name__)
 
@@ -21,6 +22,9 @@ bp = Blueprint('users', __name__)
 @bp.route('/<page>')
 def index(page='index'):
     session['section'] = 'users'
+    # block access to password reset
+    if page in ['reset_password']:
+        return redirect(url_for('users.index'))
     return render_template(f'users/{page}.html')
 
 
@@ -81,6 +85,60 @@ def signup():
             return redirect(url_for('users.signin'))
     return render_template('users/signup.html')
 
+#reset pass request , get email adress
+@bp.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if request.method == 'POST':
+        # get the user's mail
+        email = request.form.get('email').lower()
+        user = get_user(id=email) #get user from db
+        if not email:
+            flash('empty_fields')
+            return render_template('users/reset_password_request.html')
+        if not user: #user not found in db
+            return render_template('users/reset_password_request.html', error='user_does_not_exist')
+        else:
+            #generate token
+            token = generate_confirmation_token(email)
+            #generate unique URL
+            confirm_url = url_for(
+                'users.reset_password', token=token, _external=True)
+            # send the confirmation mail
+            # use the passwordreset template
+            send_mail(email, confirm_url, 'dd8c6e2a-7d33-42e5-b749-1354c1b357d6')
+            flash('update_password')
+            return redirect(url_for('users.signin'))
+    return render_template('users/reset_password_request.html')
+
+#reset pass , get new pass
+@bp.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    #confirm user's idendity
+    # we use a shorter expiration time , defined in the PASSWORD_TOKEN_EXPIRATION Environment variable
+    email = confirm_token(token,expiration='PASSWORD_TOKEN_EXPIRATION')
+    if not email:
+        flash('confirm_link_expired', 'danger')
+        return redirect(url_for('users.signin'))
+    if request.method == 'POST':
+        #get user from db
+        user = get_user(id=email)
+        if not user:
+            flash('error')
+            return redirect(url_for('users.signin'))
+        #get the new password from the form
+        password=request.form.get('password')
+        try:
+            #try to change the password in the db
+            changed = change_password(user,password)
+            if(changed):
+                flash('reset_password')
+            else:
+                flash('error')
+        except Exception as e:
+            print('error', e, user, user.data)
+        return redirect(url_for('users.signin'))
+    return render_template('users/reset_password.html',token=token)
+
 
 # ADMIN
 @bp.route('/dashboard/')
@@ -89,7 +147,7 @@ def signup():
 def dashboard(page=None):
     if page:
         if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
-            render_template('users/dashboard/sections/fra.html')
+            return render_template('users/dashboard/sections/fra.html')
         return render_template(f'users/dashboard/sections/{page}.html')
     else:
         return render_template('users/dashboard/sections/dashboard.html')

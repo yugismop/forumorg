@@ -31,6 +31,7 @@ app.debug = bool(os.environ.get('DEBUG', False))
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'my_debug_key')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('FLASK_PASSWORD_SALT', 'my_debug_salt')
 app.config['TOKEN_EXPIRATION'] = int(os.environ.get('TOKEN_EXPIRATION', 7200))
+app.config['PASSWORD_TOKEN_EXPIRATION'] = int(os.environ.get('PASSWORD_TOKEN_EXPIRATION',600))#needs to be shorter for security reasons
 app.config['CDN_DOMAIN'] = os.environ.get('CLOUDFRONT_DOMAIN')
 app.config['CDN_DEBUG'] = app.debug
 app.config['CDN_HTTPS'] = True

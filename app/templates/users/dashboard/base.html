@@ -1,6 +1,6 @@
 {% extends 'base_dashboard.html' %}
 {% set body_class = 'hold-transition skin-blue sidebar-mini' %}
-{% set identicode = '%s-%s' | format(user.id[: 5], user.confirmed_on) %}
+{% set identicode = '%s-%s' | format(user.id[:5], user.confirmed_on) %}
 {% block user_menu %}
   <!-- User Account Menu -->
 <li class="dropdown user user-menu">
