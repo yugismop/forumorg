@@ -12,7 +12,7 @@ from flask_admin.helpers import get_redirect_target
 
 def find_qty(key, size):
     size = str(int(float(size))) if size != 4.5 else size
-    path = os.path.join(os.path.dirname(__file__), '../data/furnitures.json')
+    path = os.path.join(os.path.dirname(__file__), '../../data/furnitures.json')
     data = json.load(open(path))
     res = [row for row in data if row['id'] == key]
     res = res[0].get('quantities').get(size)
