@@ -106,33 +106,10 @@
         <p class="lead">En devenant ambassadeur, tu t’engages à libérer les journées où tu participes, ta présence est ainsi
           <strong>obligatoire</strong>
           car il y a un unique ambassadeur par entreprise.</p>
-        <form id="confirm_ambassador">
-          <div class="box-body">
-            <div class="row r-center">
-              {% for day in['mercredi',
-                'jeudi'] %}
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>choisis une entreprise à parrainer pour
-                      {{ day }}</label>
-                    <select class="form-control select2 company_{{loop.index}}" style="width: 100%;">
-                      {% set companies = day | to_companies | sort(attribute = 'id') %}
-                      <option value="none">Aucune</option>
-                      {% for c in companies %}
-                        <option {{ 'selected' if user.events.fra.get('ambassador', {}).get(day) == c.id else '' }} value="{{c.id}}" {{ 'disabled' if c.is_filled and not user.events.fra.get('ambassador', {}).get(day) == c.id else ''}}>{{c.name}}
-                          {{ '(complet)' if c.is_filled else '' }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-              {% endfor %}
-              <!-- /.input group -->
-            </div>
+        <p class="lead">Pour devenir ambassadeur, c'est très simple il faut remplir un Google Form.</p>
+         <div class="box-footer">
+             <a href="https://docs.google.com/forms/d/e/1FAIpQLSejhco1gxeTXmy6Wkr2x65e4DRKXDJAfVXA697mlSUnNPV2UA/viewform?edit_requested=true"><button class="btn btn-primary">Devenir ambassadeur</button></a>
           </div>
-          <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
-        </form>
         <!-- /.input group -->
       </div>
       <!-- /.box-body -->
