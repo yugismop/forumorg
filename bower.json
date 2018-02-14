@@ -12,8 +12,6 @@
     "**/.*",
     "test",
     "tests",
-    "forum/static/bower_components",
-    "node_modules",
     "bower_components",
     "app/static/bower_components/"
   ],
