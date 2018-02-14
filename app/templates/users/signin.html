@@ -24,8 +24,8 @@
             <span class="text-green">Un mail de réinitialisation vous a été envoyé.<br/>Il sera valide pendant 10 min !</span>
           {% endif %}
           {% if "user_not_confirmed" in error %}
-            <span class="text-orange">Vous n'avez pas encore confirmé votre compte.<br/><br/></span>
-                  <button type="submit" name ="submit" value="Remail" class="btn btn-primary btn-block btn-lg">{{ _("Renvoyer le mail d'activation") }}</button>
+            <span class="text-orange">Vous n'avez pas encore confirmé votre compte.<br/></span>
+                  <button type="submit" name ="submit" value="Remail" class="btn btn-link btn-block ">{{ _("Renvoyer le mail d'activation") }}</button>
           {% endif %}
           {% if "user_registered" in error %}
             <span class="text-green">Un email d'activation vous a été envoyé (checkez vos spams) !</span>
@@ -50,15 +50,14 @@
       <div class="row">
         <div class="col-xs-12">
           <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg">{{ _("Se connecter") }}</button>
+           <a href="{{ url_for('users.reset_password_request')}} " class="btn btn-link">Mot de passe oublié?
+      </a>
         </div>
       </div>
     </form>
     <div>
       <a href="{{ url_for('users.signup')}} " class="panel-footer text-center">Nouveau sur la plateforme?
         <span>Inscrivez-vous</span>
-      </a>
-      <a href="{{ url_for('users.reset_password_request')}} " class="panel-footer text-center">Mot de passe oublié?
-        <span>Cliquez ici</span>
       </a>
     </div>
   </div>
