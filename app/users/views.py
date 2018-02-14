@@ -35,19 +35,28 @@ def signin():
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-            return render_template('users/signin.html', error=['no_user_found'])
+              return render_template('users/signin.html', error=['no_user_found'])
         if not validate_login(user.password, password, 'users'):
-            return render_template('users/signin.html', error=['wrong_password'])
-        if not user.confirmed:
-            return render_template('users/signin.html', error=['user_not_confirmed'])
-        # all is good
-        user = User(id=email, password=password)
-        print(f'connected_as: {email}')
-        login_user(user)
-        return redirect(url_for('users.dashboard'))
+              return render_template('users/signin.html', error=['wrong_password'])
+        if request.form['submit']== "Remail":
+            if not user.confirmed:
+              token = generate_confirmation_token(email)
+              confirm_url = url_for(
+                    'users.confirm_email', token=token, _external=True)
+              send_mail(email, confirm_url)
+              return render_template('users/signin.html', error=['user_registered'])
+            return render_template('users/signin.html', error=['account_already_confirmed'])     
+        else:
+            if not user.confirmed:
+              return render_template('users/signin.html', error=['user_not_confirmed'])
+            # all is good
+            user = User(id=email, password=password)
+            print(f'connected_as: {email}')
+            login_user(user)
+            return redirect(url_for('users.dashboard'))
     print(f'flash: {get_flashed_messages()}')
     return render_template('users/signin.html', error=get_flashed_messages())
-
+ 
 
 @bp.route('/inscription', methods=['GET', 'POST'])
 def signup():
