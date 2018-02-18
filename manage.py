@@ -40,8 +40,8 @@ def drop_schools_():
 
 @manager.command
 def complete_companies():
-    path = os.path.join(os.path.dirname(__file__), 'data/new_companies.csv')
-    reader = csv.DictReader(open(path, 'rb'))
+    path = os.path.join(os.path.dirname(__file__), 'data/Entreprises2018.csv')
+    reader = csv.DictReader(open(path,'rt', encoding='utf8'), delimiter=';')
     for row in reader:
         get_db().companies.update_one({'id': row['id_entreprise']}, {'$set': {'info': row}})
         get_db().companies.update_one({'id': row['id_entreprise']}, {'$unset': {'info.id_entreprise': 1}})
