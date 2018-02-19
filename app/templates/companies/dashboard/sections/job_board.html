@@ -193,7 +193,7 @@
       dur = $('.duration').val()
     }
     var job = {
-      company_id: "{{ current_user.id }}",
+      company_id: "{{ company.id }}",
       title: $(".title").val(),
       type: $(".type").val(),
       duration: dur,

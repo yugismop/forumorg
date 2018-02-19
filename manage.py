@@ -51,15 +51,24 @@ def complete_companies():
 def create_transport():
     get_db().users.update_many({}, {'$set': {'events.fra.transports': []}})
 
+
 # set registred fra false for all users
 @manager.command
 def set_registered_false():
     get_db().users.update_many({}, {'$set' : {'events': {'fra': {'registered': False}, 'joi': {'registered': False }, 'styf': {'registered': False}, 'master_class':{'registered': False}}}})
 
+
 # change admin password
 @manager.command
 def set_admin_password(password):
     get_db().companies.update_one({'id': 'admin'}, {'$set': {'password': password}})
+
+
+#delete 2017 jobs
+@manager.command
+def delete_jobs():
+    get_db().jobs.delete_many({})
+
 
 if __name__ == '__main__':
     manager.run()
