@@ -34,6 +34,7 @@ def generate_vals(writer, export_type, data):
         titles += ['fra', 'styf', 'master_class', 'joi', 'ambassadeur']
         titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
         titles += ['registered_on', 'transports']
+        titles += ['cv']
         yield writer.writerow(titles)
         for row in data:
             vals = []
@@ -45,6 +46,7 @@ def generate_vals(writer, export_type, data):
                 vals.append(row.get('profile', {}).get(t, ''))
             vals.append(row.get('registered_on'))
             vals.append(row['events']['fra'].get('transports'))
+            vals.append(row['profile'].get('resume_id'))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     else:
