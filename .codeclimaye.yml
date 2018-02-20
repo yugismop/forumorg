@@ -5,11 +5,7 @@ plugins:
     config:
       languages:
       - python
-  markdownlint:
-    enabled: true
   pep8:
-    enabled: true
-  sonarpython:
     enabled: true
 exclude_patterns:
 - "data/"
