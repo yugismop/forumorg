@@ -6,13 +6,15 @@ plugins:
       languages:
       - python
   markdownlint:
-    enabled: false
+    enabled: true
   pep8:
     enabled: true
   sonarpython:
     enabled: true
 exclude_patterns:
 - "data/"
-- "translation/"
+- "translations/"
 - "app/static/"
 - "app/templates/"
+- "**/*.js"
+- "identicon.py"
