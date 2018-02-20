@@ -1,0 +1,18 @@
+version: "2"
+plugins:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  markdownlint:
+    enabled: false
+  pep8:
+    enabled: true
+  sonarpython:
+    enabled: true
+exclude_patterns:
+- "data/"
+- "translation/"
+- "app/static/"
+- "app/templates/"
