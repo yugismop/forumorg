@@ -1,16 +1,16 @@
 version: "2"
+checks:
+  argument-count:
+    enabled: false
 plugins:
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - python
   pep8:
     enabled: true
+  sonar-python:
+    enabled: false
 exclude_patterns:
 - "data/"
 - "translations/"
 - "app/static/"
 - "app/templates/"
 - "**/*.js"
-- "identicon.py"
+- "app/identicon.py"
