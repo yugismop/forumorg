@@ -9,9 +9,15 @@ def get_stats():
     def _get_stats():
         result = defaultdict(dict)
         sections = ['equipement', 'restauration', 'badges', 'transport', 'programme']
+        poles = ['fra', 'cm', 'si', 'school']
+        # initialise all the sections of all the poles to 0
+        for p in poles:
+            for s in sections:
+                result[p][s] = 0.0
         for s in sections:
-            cur = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': '$pole', 'all': {
-                '$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
+            # match stage to ignore admin
+            cur = get_db().companies.aggregate([{'$match': {'id': {'$ne': 'admin'}}}, {'$group': {
+                '_id': '$pole', 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
             for c in cur:
                 pole, total, validated = c['_id'], c['all'], c['validated']
                 result[pole][s] = round(100.0 * validated / total, 2)
@@ -26,7 +32,7 @@ def get_users():
     def _get_users():
         start = datetime.datetime(2017, 1, 9)  # pre-launch date
         days = (datetime.datetime.today() - start).days
-        dates = [start + datetime.timedelta(inc) for inc in range(1, days + 2, 10)] # Stats every 10 days
+        dates = [start + datetime.timedelta(inc) for inc in range(1, days + 2, 10)]  # Stats every 10 days
         result = {}
         confirmed = []
         registered = []
