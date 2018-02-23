@@ -70,5 +70,12 @@ def delete_jobs():
     get_db().jobs.delete_many({})
 
 
+@manager.command
+def update_event():
+    get_db().events.delete_one({'id':"networking"})
+    get_db().events.delete_one({'id':"conference"})
+    get_db().events.insert_one({'image': "images/vie.jpg", 'id':"vie" , 'price':0, 'description':"Volontariat international en entreprise.", 'name' : "V.I.E."})
+
+
 if __name__ == '__main__':
     manager.run()
