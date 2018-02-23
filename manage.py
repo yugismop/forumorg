@@ -64,10 +64,16 @@ def set_admin_password(password):
     get_db().companies.update_one({'id': 'admin'}, {'$set': {'password': password}})
 
 
-#delete 2017 jobs
+# delete 2017 jobs
 @manager.command
 def delete_jobs():
     get_db().jobs.delete_many({})
+
+
+# delete 2017 stream
+@manager.command
+def delete_stream():
+    get_db().stream.delete_many({})
 
 
 @manager.command
