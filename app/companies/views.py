@@ -36,11 +36,14 @@ def signin():
         company = get_company(company_id)
         # checking stuff out
         if not company_id or not password:
-            return render_template('companies/signin.html', error="blank_fields")
+            return render_template(
+                'companies/signin.html', error="blank_fields")
         if not company:
-            return render_template('companies/signin.html', error="no_company_found")
+            return render_template(
+                'companies/signin.html', error="no_company_found")
         if not validate_login(company['password'], password, 'companies'):
-            return render_template('companies/signin.html', error="wrong_password")
+            return render_template(
+                'companies/signin.html', error="wrong_password")
         # all is good
         company = Company(id=company_id, password=password)
         print(f'connected_as: {company_id}')
@@ -63,8 +66,10 @@ def dashboard(page=None):
             return redirect('/admin')
         company = get_company(session['company_id'])
     if not page or page == 'accueil':
-        return render_template('companies/dashboard/sections/dashboard.html', company=company)
-    return render_template('companies/dashboard/sections/{}.html'.format(page), company=company)
+        return render_template(
+            'companies/dashboard/sections/dashboard.html', company=company)
+    return render_template(
+        'companies/dashboard/sections/{}.html'.format(page), company=company)
 
 
 @bp.route('/update_company', methods=["POST"])
@@ -76,7 +81,8 @@ def update_company():
     else:
         company = request.form.get('company')
         company = json.loads(company)
-        old_company = get_db().companies.find_one({'id': company['id']}, {'_id': 0})
+        old_company = get_db().companies.find_one(
+            {'id': company['id']}, {'_id': 0})
         set_company(company['id'], company)
         send_event(old_company, company, page)
         return "success"
@@ -90,8 +96,13 @@ def send_event(old_company, company, page):
     except Exception as e:
         diff = {'error': e}
     if diff:
-        get_db().stream.insert({'delivered': False, 'validated': False, 'section': page,
-                                'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
+        get_db().stream.insert({'delivered': False,
+                                'validated': False,
+                                'section': page,
+                                'zone': zone,
+                                'created_on': dt,
+                                'company': company_id,
+                                'diff': diff})
 
 
 @bp.route('/validate_section', methods=["POST"])
@@ -99,7 +110,8 @@ def send_event(old_company, company, page):
 def validate_section():
     page = request.form.get('page')
     if not current_user.data.get(page):
-        get_db().companies.update_one({'id': current_user.id}, {'$set': {page: True}})
+        get_db().companies.update_one(
+            {'id': current_user.id}, {'$set': {page: True}})
         return "success"
     else:
         return "error"
@@ -149,7 +161,11 @@ def send_request():
     # ReCaptcha
     base_url = 'https://www.google.com/recaptcha/api/siteverify'
     secret = os.environ.get('RECAPTCHA_SECRET_KEY')
-    res = requests.post(base_url, data={'response': captcha, 'secret': secret}).json()
+    res = requests.post(
+        base_url,
+        data={
+            'response': captcha,
+            'secret': secret}).json()
 
     # Sending mail...
     if res.get('success'):

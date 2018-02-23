@@ -16,7 +16,8 @@ def formatter(view, context, model, name):
         url = url_for('admin.index')
     else:
         url = url_for('companies.dashboard', id=model['id'])
-    return Markup("<a target='_blank' href='{}'>{}</a>".format(url, model['id']))
+    return Markup(
+        "<a target='_blank' href='{}'>{}</a>".format(url, model['id']))
 
 
 class AdminView(ModelView):
@@ -47,7 +48,13 @@ class CompanyView(AdminView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
                             'restauration', 'badges', 'programme']
-    export_types = ['equipement', 'transport', 'restauration', 'badges', 'programme', 'secteurs']
+    export_types = [
+        'equipement',
+        'transport',
+        'restauration',
+        'badges',
+        'programme',
+        'secteurs']
     form_rules = [
         rules.FieldSet(('id', 'password', 'name', 'pole', 'zone'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
@@ -62,7 +69,8 @@ class CompanyView(AdminView):
     column_filters = (
         FilterField(column='pole', name='pole', options=(('fra', 'Entreprises France'), ('si', 'Section Internationale'),
                                                          ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up'))),
-        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
+        FilterField(column='zone', name='zone', options=[
+                    ["zone{}".format(i)] * 2 for i in range(1, 9)]),
         FilterField(column='duration', name='jours', options=[('wed', 'Mercredi'), ('thu', 'Jeudi')]))
     column_labels = dict(id='Identifiant')
     column_formatters = dict(id=formatter)
@@ -74,14 +82,26 @@ class CompanyView(AdminView):
     def _on_model_change(self, form, model, is_created):
         if is_created:
             model['sections'] = {
-                'furnitures': {}, 'catering': {'wed': {}, 'thu': {}}, 'events': {},
-                'persons': [], 'transports': [], 'profile': {'stand': {}, 'facturation': {}}
-            }
+                'furnitures': {},
+                'catering': {
+                    'wed': {},
+                    'thu': {}},
+                'events': {},
+                'persons': [],
+                'transports': [],
+                'profile': {
+                    'stand': {},
+                    'facturation': {}}}
 
 
 class UserView(AdminView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on', 'profile']
-    column_labels = dict(id='Email', confirmed_on='Confirmation', registered_on='Inscription', profile='Profil', events='Participations')
+    column_labels = dict(
+        id='Email',
+        confirmed_on='Confirmation',
+        registered_on='Inscription',
+        profile='Profil',
+        events='Participations')
     export_types = ['general']
     can_export = True
     can_edit = False
@@ -106,8 +126,16 @@ class UserView(AdminView):
 
 
 class JobView(AdminView):
-    column_list = ['company_id', 'title', 'location', 'duration', 'description']
-    column_labels = dict(company_id='Entreprise', duration='Duree', location='Lieu')
+    column_list = [
+        'company_id',
+        'title',
+        'location',
+        'duration',
+        'description']
+    column_labels = dict(
+        company_id='Entreprise',
+        duration='Duree',
+        location='Lieu')
     can_edit = False
     can_delete = False
     form = JobForm
@@ -118,20 +146,42 @@ class JobView(AdminView):
 
 
 class StreamView(AdminView):
-    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied', 'comment']
+    column_list = [
+        'created_on',
+        'company',
+        'zone',
+        'section',
+        'diff',
+        'validated',
+        'delivered',
+        'denied',
+        'comment']
     column_default_sort = ('_id', True)
-    column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
-                         validated=u'Validé', delivered=u'Livré', denied=u'Refusé', comment='Commentaire')
+    column_labels = dict(
+        created_on=u'Créé le',
+        company='Entreprise',
+        diff='Message',
+        validated=u'Validé',
+        delivered=u'Livré',
+        denied=u'Refusé',
+        comment='Commentaire')
     form = StreamForm
     can_delete = False
     column_filters = (
-        FilterField(column='validated', name='validation', options=(
-            ('oui', 'oui'), ('non', 'non'))),
-        FilterField(column='delivered', name='livraison', options=(
-            ('oui', 'oui'), ('non', 'non'))),
-        FilterField(column='denied', name='refus', options=(
-            ('oui', 'oui'), ('non', 'non'))),
-        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
-        FilterField(column='section', name='section', options=[['restauration', 'restauration'], [
-                    'transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
-    )
+        FilterField(
+            column='validated', name='validation', options=(
+                ('oui', 'oui'), ('non', 'non'))), FilterField(
+            column='delivered', name='livraison', options=(
+                ('oui', 'oui'), ('non', 'non'))), FilterField(
+            column='denied', name='refus', options=(
+                ('oui', 'oui'), ('non', 'non'))), FilterField(
+            column='zone', name='zone', options=[
+                [
+                    "zone{}".format(i)] * 2 for i in range(
+                    1, 9)]), FilterField(
+            column='section', name='section', options=[
+                [
+                    'restauration', 'restauration'], [
+                    'transport', 'transport'], [
+                    'badges', 'badges'], [
+                    'equipement', 'equipement']]))

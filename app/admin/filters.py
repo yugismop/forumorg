@@ -20,7 +20,8 @@ class FilterField(FilterEqual, BasePyMongoFilter):
         if self.column in ['validated', 'delivered', 'denied']:
             value = (value == 'oui')
         if self.column == 'duration':
-            query.append({'$or': [{self.column: value}, {self.column: 'both'}]})
+            query.append(
+                {'$or': [{self.column: value}, {self.column: 'both'}]})
             return query
         query.append({self.column: value})
         return query

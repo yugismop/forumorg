@@ -35,20 +35,25 @@ def signin():
         password = request.form.get('password')
         user = get_user(id=email)
         if not user:
-              return render_template('users/signin.html', error=['no_user_found'])
+            return render_template('users/signin.html',
+                                   error=['no_user_found'])
         if not validate_login(user.password, password, 'users'):
-              return render_template('users/signin.html', error=['wrong_password'])
-        if request.form['submit']== "Remail":
+            return render_template('users/signin.html',
+                                   error=['wrong_password'])
+        if request.form['submit'] == "Remail":
             if not user.confirmed:
-              token = generate_confirmation_token(email)
-              confirm_url = url_for(
+                token = generate_confirmation_token(email)
+                confirm_url = url_for(
                     'users.confirm_email', token=token, _external=True)
-              send_mail(email, confirm_url)
-              return render_template('users/signin.html', error=['user_registered'])
-            return render_template('users/signin.html', error=['account_already_confirmed'])     
+                send_mail(email, confirm_url)
+                return render_template(
+                    'users/signin.html', error=['user_registered'])
+            return render_template('users/signin.html',
+                                   error=['account_already_confirmed'])
         else:
             if not user.confirmed:
-              return render_template('users/signin.html', error=['user_not_confirmed'])
+                return render_template(
+                    'users/signin.html', error=['user_not_confirmed'])
             # all is good
             user = User(id=email, password=password)
             print(f'connected_as: {email}')
@@ -56,7 +61,7 @@ def signin():
             return redirect(url_for('users.dashboard'))
     print(f'flash: {get_flashed_messages()}')
     return render_template('users/signin.html', error=get_flashed_messages())
- 
+
 
 @bp.route('/inscription', methods=['GET', 'POST'])
 def signup():
@@ -70,7 +75,8 @@ def signup():
         if user_exists(email):
             user = get_user(id=email)
             if user.confirmed:
-                return render_template('users/signup.html', error='user_already_exists')
+                return render_template(
+                    'users/signup.html', error='user_already_exists')
             else:
                 token = generate_confirmation_token(email)
                 confirm_url = url_for(
@@ -81,7 +87,10 @@ def signup():
         else:
             user = User(id=email, password=password, created=True)
             token = generate_confirmation_token(email)
-            confirm_url = url_for('users.confirm_email', token=token, _external=True)
+            confirm_url = url_for(
+                'users.confirm_email',
+                token=token,
+                _external=True)
             try:
                 created = new_user(user)
                 if created:
@@ -94,51 +103,61 @@ def signup():
             return redirect(url_for('users.signin'))
     return render_template('users/signup.html')
 
-#reset pass request , get email adress
+# reset pass request , get email adress
+
+
 @bp.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if request.method == 'POST':
         # get the user's mail
         email = request.form.get('email').lower()
-        user = get_user(id=email) #get user from db
+        user = get_user(id=email)  # get user from db
         if not email:
             flash('empty_fields')
             return render_template('users/reset_password_request.html')
-        if not user: #user not found in db
-            return render_template('users/reset_password_request.html', error='user_does_not_exist')
+        if not user:  # user not found in db
+            return render_template(
+                'users/reset_password_request.html',
+                error='user_does_not_exist')
         else:
-            #generate token
+            # generate token
             token = generate_confirmation_token(email)
-            #generate unique URL
+            # generate unique URL
             confirm_url = url_for(
                 'users.reset_password', token=token, _external=True)
             # send the confirmation mail
             # use the passwordreset template
-            send_mail(email, confirm_url, 'dd8c6e2a-7d33-42e5-b749-1354c1b357d6')
+            send_mail(
+                email,
+                confirm_url,
+                'dd8c6e2a-7d33-42e5-b749-1354c1b357d6')
             flash('update_password')
             return redirect(url_for('users.signin'))
     return render_template('users/reset_password_request.html')
 
-#reset pass , get new pass
+# reset pass , get new pass
+
+
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
-    #confirm user's idendity
-    # we use a shorter expiration time , defined in the PASSWORD_TOKEN_EXPIRATION Environment variable
-    email = confirm_token(token,expiration='PASSWORD_TOKEN_EXPIRATION')
+    # confirm user's idendity
+    # we use a shorter expiration time , defined in the
+    # PASSWORD_TOKEN_EXPIRATION Environment variable
+    email = confirm_token(token, expiration='PASSWORD_TOKEN_EXPIRATION')
     if not email:
         flash('confirm_link_expired', 'danger')
         return redirect(url_for('users.signin'))
     if request.method == 'POST':
-        #get user from db
+        # get user from db
         user = get_user(id=email)
         if not user:
             flash('error')
             return redirect(url_for('users.signin'))
-        #get the new password from the form
-        password=request.form.get('password')
+        # get the new password from the form
+        password = request.form.get('password')
         try:
-            #try to change the password in the db
-            changed = change_password(user,password)
+            # try to change the password in the db
+            changed = change_password(user, password)
             if(changed):
                 flash('reset_password')
             else:
@@ -146,7 +165,7 @@ def reset_password(token):
         except Exception as e:
             print('error', e, user, user.data)
         return redirect(url_for('users.signin'))
-    return render_template('users/reset_password.html',token=token)
+    return render_template('users/reset_password.html', token=token)
 
 
 # ADMIN
@@ -155,7 +174,10 @@ def reset_password(token):
 @login_required
 def dashboard(page=None):
     if page:
-        if page in ['companies', 'ticket', 'jobs'] and not current_user.events['fra'].get('registered'):
+        if page in [
+            'companies',
+            'ticket',
+                'jobs'] and not current_user.events['fra'].get('registered'):
             return render_template('users/dashboard/sections/fra.html')
         return render_template(f'users/dashboard/sections/{page}.html')
     else:
@@ -166,7 +188,8 @@ def dashboard(page=None):
 @login_required
 def companies(company_id=None):
     company = get_db().companies.find_one({'id': company_id})
-    return render_template('users/dashboard/sections/company.html', company=company)
+    return render_template(
+        'users/dashboard/sections/company.html', company=company)
 
 
 @bp.route('/confirmation/<token>')
@@ -198,7 +221,8 @@ def update_profile():
         form['school'] = form.get('school_')
     form.pop('school_', None)
     for k, v in form.items():
-        users.update_one({'id': current_user.id}, {'$set': {'profile.{}'.format(k): v}})
+        users.update_one({'id': current_user.id},
+                         {'$set': {'profile.{}'.format(k): v}})
     flash('profile_completed')
     return redirect(url_for('users.dashboard', page='profile'))
 
@@ -236,14 +260,14 @@ def update_event():
             doc = {'name': name, 'registered': True}
             if mtype == 'table_ronde':
                 doc = {'name': name, 'registered': True, 'time': time}
-                events.update_one({'name': old_name, 'type': mtype},
-                                  {'$inc': {'places_left.{}'.format(time): 1}}) if old_name else None
+                events.update_one({'name': old_name, 'type': mtype}, {
+                                  '$inc': {'places_left.{}'.format(time): 1}}) if old_name else None
                 events.update_one({'name': name, 'type': mtype}, {
                                   '$inc': {'places_left.{}'.format(time): -1}})
             else:
                 doc = {'name': name, 'registered': True}
-                events.update_one({'name': old_name, 'type': mtype},
-                                  {'$inc': {'places_left': 1}}) if old_name else None
+                events.update_one({'name': old_name, 'type': mtype}, {
+                                  '$inc': {'places_left': 1}}) if old_name else None
                 events.update_one({'name': name, 'type': mtype},
                                   {'$inc': {'places_left': -1}})
             users.update_one({'id': current_user.id}, {
@@ -254,8 +278,10 @@ def update_event():
     else:
         users = get_users()
         user = current_user
-        if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('school') and user.profile.get('year') and user.profile.get('specialty'):
-            users.update_one({'id': current_user.id}, {'$set': {'events.fra.registered': True}})
+        if user.profile.get('first_name') and user.profile.get('name') and user.profile.get(
+                'school') and user.profile.get('year') and user.profile.get('specialty'):
+            users.update_one({'id': current_user.id},
+                             {'$set': {'events.fra.registered': True}})
             return 'success'
         else:
             return 'incomplete_profile'
@@ -269,12 +295,16 @@ def update_styf():
     places_left = events.find_one({'name': 'styf'}).get('places_left')
 
     user = current_user
-    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
+    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get(
+            'tel') and user.profile.get('school') and user.profile.get('year'):
         if places_left > 0 or current_user.events['styf'].get('registered'):
-            users.update_one({'id': current_user.id}, {'$set': {'events.styf': request.form}})
-            users.update_one({'id': current_user.id}, {'$set': {'events.styf.registered': True}})
+            users.update_one({'id': current_user.id},
+                             {'$set': {'events.styf': request.form}})
+            users.update_one({'id': current_user.id},
+                             {'$set': {'events.styf.registered': True}})
             if not current_user.events['styf'].get('registered'):
-                events.update_one({'name': 'styf'}, {'$inc': {'places_left': -1}})
+                events.update_one({'name': 'styf'}, {
+                                  '$inc': {'places_left': -1}})
             return 'success'
         else:
             return 'full_event'
@@ -289,8 +319,10 @@ def update_master_class():
     registered = True if registered == 'true' else False
     users = get_users()
     user = current_user
-    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get('tel') and user.profile.get('school') and user.profile.get('year'):
-        users.update_one({'id': current_user.id}, {'$set': {'events.master_class.registered': registered}})
+    if user.profile.get('first_name') and user.profile.get('name') and user.profile.get(
+            'tel') and user.profile.get('school') and user.profile.get('year'):
+        users.update_one({'id': current_user.id},
+                         {'$set': {'events.master_class.registered': registered}})
         return 'success'
     else:
         return 'incomplete_profile'
@@ -300,13 +332,18 @@ def update_master_class():
 @login_required
 def update_ambassador():
     def _update_ambassador(value, day):
-        old_val = get_db().users.find_one({'id': current_user.id}, {'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
+        old_val = get_db().users.find_one({'id': current_user.id}, {
+            'events.fra.ambassador': 1})['events']['fra'].get('ambassador')
         if old_val and old_val.get(day):
-            get_db().companies.update_one({'id': old_val.get(day)}, {'$unset': {'ambassadors.{}'.format(day): 1}})
-            get_db().users.update_one({'id': current_user.id}, {'$unset': {'events.fra.ambassador.{}'.format(day): 1}})
+            get_db().companies.update_one({'id': old_val.get(day)}, {
+                '$unset': {'ambassadors.{}'.format(day): 1}})
+            get_db().users.update_one({'id': current_user.id}, {
+                '$unset': {'events.fra.ambassador.{}'.format(day): 1}})
         if value != 'none':
-            get_db().companies.update_one({'id': value}, {'$set': {'ambassadors.{}'.format(day): current_user.id}})
-            get_db().users.update_one({'id': current_user.id}, {'$set': {'events.fra.ambassador.{}'.format(day): value}})
+            get_db().companies.update_one({'id': value}, {
+                '$set': {'ambassadors.{}'.format(day): current_user.id}})
+            get_db().users.update_one({'id': current_user.id}, {
+                '$set': {'events.fra.ambassador.{}'.format(day): value}})
     first = request.form.get('first')
     second = request.form.get('second')
     _update_ambassador(first, 'mercredi')

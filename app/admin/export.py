@@ -12,7 +12,9 @@ from flask_admin.helpers import get_redirect_target
 
 def find_qty(key, size):
     size = str(int(float(size))) if size != 4.5 else size
-    path = os.path.join(os.path.dirname(__file__), '../../data/furnitures.json')
+    path = os.path.join(
+        os.path.dirname(__file__),
+        '../../data/furnitures.json')
     data = json.load(open(path))
     res = [row for row in data if row['id'] == key]
     res = res[0].get('quantities').get(size)
@@ -52,9 +54,22 @@ def generate_vals(writer, export_type, data):
     else:
         titles = ['id_entreprise', 'valide']
     if export_type == 'equipement':
-        titles += ['duration', 'equiped', 'banner', 'size', 'emplacement', 'pole']
-        titles += ['chaise', 'table', 'banque_hotesse', 'tabouret', 'portemanteau', 'chauffeuse', u'mange_debout',
-                   u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
+        titles += ['duration', 'equiped', 'banner',
+                   'size', 'emplacement', 'pole']
+        titles += ['chaise',
+                   'table',
+                   'banque_hotesse',
+                   'tabouret',
+                   'portemanteau',
+                   'chauffeuse',
+                   u'mange_debout',
+                   u'presentoir',
+                   u'ecran_32',
+                   u'ecran_42',
+                   u'poste_2',
+                   u'poste_3',
+                   u'poste_6',
+                   u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
@@ -96,7 +111,8 @@ def generate_vals(writer, export_type, data):
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'transport':
-        titles += ['departure_place', 'arrival_place', 'nb_persons', 'comment', 'phone', 'departure_time']
+        titles += ['departure_place', 'arrival_place',
+                   'nb_persons', 'comment', 'phone', 'departure_time']
         yield writer.writerow(titles)
         for row in data:
             for t in row['sections']['transports']:
@@ -134,7 +150,8 @@ def generate_vals(writer, export_type, data):
             yield writer.writerow(vals)
     if export_type == 'secteurs':
         titles += ['duration', 'emplacement']
-        titles += [u'name', u'salary', u'city', u'sector', u'revenue', u'country', u'enrollment']
+        titles += [u'name', u'salary', u'city', u'sector',
+                   u'revenue', u'country', u'enrollment']
         yield writer.writerow(titles)
         for row in data:
             vals = []

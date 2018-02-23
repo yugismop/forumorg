@@ -45,14 +45,18 @@ def resume(oid=None):
             oid = ObjectId()
             s3_client.put_object(Bucket=os.environ.get('BUCKET_NAME'), Metadata={'filename': filename},
                                  ContentType=file.content_type, Body=file, Key=f'resumes/{oid}.pdf')
-            get_db().users.update_one({'id': current_user.id}, {'$set': {'profile.resume_id': str(oid)}})
+            get_db().users.update_one({'id': current_user.id}, {
+                '$set': {'profile.resume_id': str(oid)}})
             return 'success'
         else:
             abort(500)
     if request.method == 'DELETE':
         oid = request.form['oid']
-        s3_client.delete_object(Bucket=os.environ.get('BUCKET_NAME'), Key=f'resumes/{oid}.pdf')
-        get_db().users.update_one({'id': current_user.id}, {'$unset': {'profile.resume_id': 1}})
+        s3_client.delete_object(
+            Bucket=os.environ.get('BUCKET_NAME'),
+            Key=f'resumes/{oid}.pdf')
+        get_db().users.update_one({'id': current_user.id}, {
+            '$unset': {'profile.resume_id': 1}})
         return 'success'
 
 

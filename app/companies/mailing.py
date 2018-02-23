@@ -35,5 +35,5 @@ def send_mail(email, contact_name, company_name, telephone):
     try:
         sg.client.mail.send.post(request_body=mail.get())
         return 'Email sent.'
-    except:
+    except BaseException:
         return 'Email not sent.'

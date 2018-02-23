@@ -8,7 +8,12 @@ from app import app, get_db
 def get_stats():
     def _get_stats():
         result = defaultdict(dict)
-        sections = ['equipement', 'restauration', 'badges', 'transport', 'programme']
+        sections = [
+            'equipement',
+            'restauration',
+            'badges',
+            'transport',
+            'programme']
         poles = ['fra', 'cm', 'si', 'school']
         # initialise all the sections of all the poles to 0
         for p in poles:
@@ -32,15 +37,24 @@ def get_users():
     def _get_users():
         start = datetime.datetime(2017, 1, 9)  # pre-launch date
         days = (datetime.datetime.today() - start).days
-        dates = [start + datetime.timedelta(inc) for inc in range(1, days + 2, 10)]  # Stats every 10 days
+        dates = [
+            start +
+            datetime.timedelta(inc) for inc in range(
+                1,
+                days +
+                2,
+                10)]  # Stats every 10 days
         result = {}
         confirmed = []
         registered = []
         fra = []
         for d in dates:
-            registered.append(get_db().users.find({'registered_on': {'$lte': d}}).count())
-            confirmed.append(get_db().users.find({'confirmed': True, 'registered_on': {'$lte': d}}).count())
-            fra.append(get_db().users.find({'events.fra.registered': True, 'registered_on': {'$lte': d}}).count())
+            registered.append(get_db().users.find(
+                {'registered_on': {'$lte': d}}).count())
+            confirmed.append(get_db().users.find(
+                {'confirmed': True, 'registered_on': {'$lte': d}}).count())
+            fra.append(get_db().users.find(
+                {'events.fra.registered': True, 'registered_on': {'$lte': d}}).count())
         result['labels'] = [d.strftime('%d-%m') for d in dates]
         result['fra'] = fra
         result['confirmed'] = confirmed
