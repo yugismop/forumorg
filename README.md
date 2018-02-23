@@ -24,7 +24,7 @@ To install the necessary dependencies:
 
 ```sh
 git clone https://github.com/ForumOrganisation/forumorg.git
-cd forumorg && pip install -r requirements.txt
+pip install -r requirements.txt && pip install -r requirements-dev.txt
 bower install
 ```
 
