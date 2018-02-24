@@ -121,10 +121,13 @@
           <div style="margin-bottom:0px">
             <form id="dropzone" style="margin-bottom:0px" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
               <div class="dz-message">
-                Glisse ton CV ou clique ici pour l'uploader.<br>
+                Glisse ton CV ou clique ici pour l'uploader.<br/>Et tente de gagner un MacBook Air le jour du salon. *
                 <span class="note">(Seuls les documents PDF sont acceptés.)</span>
               </div>
             </form>
+            <div class="dz-message">
+                <a href={{url_for('static', filename='reglement.pdf')}} target="_blank">* Modalités du jeu concours</a>
+            </div>
           </div>
         </div>
         <!-- /.box-body -->

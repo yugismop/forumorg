@@ -9,13 +9,13 @@
             <!-- REPLACE WITH YOUR LOGO -->
             <br>
           </div>
-          <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon">15 Février, Amphi Emilie Du Châtelet - BMC</p>
+          <p class="heading-pre-suf text-center text-uppercase" data-selector="Coming Soon"><strong>Cet évènement est cloturé pour cette édition</strong></p>
           <h1 class="heading-text" data-selector="Coming Soon">{{ _("Master Class") }}</h1>
           <p class="sub-heading" data-selector="Coming Soon">Rendez-vous avec l'EM Lyon, l'IE Business School
             <br>et bien d'autres pour débattre sur les Masters Spécialisés !<br></p>
           <div class="home-download-btn">
-            <a href="{{ url_for('users.dashboard', page='master_class') }}" class="btn btn-white btn-lg">
-              {{ 'Modifier ma participation' if current_user.is_authenticated else "S'inscrire à la Master Class" }}
+            <a href="{{ url_for('users.dashboard') }}" class="btn btn-white btn-lg">
+                Indisponible
             </a>
           </div>
         </div>
