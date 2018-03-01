@@ -2,6 +2,7 @@
 
 [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://www.forumorg.org)
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/15ea52785113c7b99f74/maintainability)](https://codeclimate.com/github/ForumOrganisation/forumorg/maintainability)
 
 This is the repository of [Forum Organisation](https://www.forumorg.org)'s official website.
