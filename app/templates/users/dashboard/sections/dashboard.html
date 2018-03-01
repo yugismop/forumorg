@@ -56,7 +56,8 @@
                 {% if user.events.fra.registered %}
                   <tr>
                     <td colspan="4">
-                      <h2 class="lead text-center">Inscription au Forum Rhône-Alpes validée.<br>Dépose ton CV pour tenter de gagner un Macbook Air.
+                      <h2 class="lead text-center">Inscription au Forum Rhône-Alpes validée.<br>Dépose ton CV pour tenter de gagner un Macbook Air.<br> Pour accéder à ton ticket, 
+                      <a href="{{ url_for('users.dashboard', page='ticket') }}">clique ici</a>.  
                       </h2>
                       <p class="text-center">Rendez-vous le 7 et 8 Mars au Double Mixte !</p>
                     </td>
