@@ -22,7 +22,7 @@ class CompanyForm(form.Form):
     equiped = fields.BooleanField('Equipe?')
     pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'),
                                                ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up')])
-    zone = fields.SelectField('Zone', choices=[["zone{}".format(i)] * 2 for i in range(1, 9)])
+    zone = fields.SelectField('Zone', choices=[["zone{}".format(i)] * 2 for i in range(1, 10)])
     # Dashboard
     equipement = fields.BooleanField('Equipement valide?')
     restauration = fields.BooleanField('Restauration valide?')

@@ -62,7 +62,7 @@ class CompanyView(AdminView):
     column_filters = (
         FilterField(column='pole', name='pole', options=(('fra', 'Entreprises France'), ('si', 'Section Internationale'),
                                                          ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up'))),
-        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
+        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 10)]),
         FilterField(column='duration', name='jours', options=[('wed', 'Mercredi'), ('thu', 'Jeudi')]))
     column_labels = dict(id='Identifiant')
     column_formatters = dict(id=formatter)
@@ -131,7 +131,7 @@ class StreamView(AdminView):
             ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='denied', name='refus', options=(
             ('oui', 'oui'), ('non', 'non'))),
-        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
+        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 10)]),
         FilterField(column='section', name='section', options=[['restauration', 'restauration'], [
                     'transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
     )
