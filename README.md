@@ -74,6 +74,8 @@ Contributions are very welcome! If you find a bug or some improvements, feel fre
 * **Mehdi BAHA** - [mehdibaha](https://github.com/mehdibaha)
 * **Juliette BRICOUT** - [jbricout](https://github.com/jbricout)
 * **Mohammed MEGZARI** - [momeg](https://github.com/momeg)
+* **Hatim BINANI** - [TheHeisenberg](https://github.com/TheHeisenberg)
+* **Ismail Zemmouri** - [IsmailZemmouri](https://github.com/IsmailZemmouri)
 
 (Note to contributors: Add yourself!)
 
