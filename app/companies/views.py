@@ -84,7 +84,7 @@ def update_company():
 
 def send_event(old_company, company, page):
     zone, company_id = company.get('zone'), company.get('name')
-    dt = datetime.datetime.now().strftime('%A %H:%M:%S')
+    dt = (datetime.datetime.utcnow() + datetime.timedelta(hours = 1)).strftime('%A %H:%M:%S')
     try:
         diff = get_diff(old_company, company)
     except Exception as e:
