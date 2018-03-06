@@ -57,6 +57,7 @@ class CompanyView(AdminView):
                         'emplacement'), 'Equipement'),
     ]
     can_export = True
+    can_delete = False
     column_searchable_list = ['id']
     column_sortable_list = ['id']
     column_filters = (
