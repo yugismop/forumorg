@@ -45,17 +45,13 @@ python runserver.py
 ```
 
 ## Deploying
-We use Heroku for Cloud hosting and Continuous Integration.
+We use Heroku for Cloud hosting and Continuous Integration, using this continuous delivery workflow:
 
-On ```push to master```:
-
-- A build is triggered on our [staging app](https://forumorg-staging.herokuapp.com) (useful for testing in a production-like environment).
-
-On ```any pull request```:
-
-- A review app is created, which can be live tested.
-- If everything is working OK, the PR can be merged to `master`.
-- If the app is working well, it is promoted to [production](https://www.forumorg.org).
+- A developer creates a pull request to make a change to the codebase.
+- Heroku automatically creates a review app for the pull request, allowing developers to test the change.
+- When the change is ready, it’s merged into the codebase’s master branch.
+- The master branch is automatically deployed to [staging](https://forumorg-staging.herokuapp.com) for further testing.
+- When it’s ready, the staging app is promoted to [production](https://www.forumorg.org), where the change is available to end users of the app.
 
 ## Localization
 The app is localized using:
@@ -63,7 +59,7 @@ The app is localized using:
 - Flask-Babel: used to indicate which strings needs to be translated (surrounded with `_('STRING')`)
 - PhraseApp: provides a nice UI to translate the strings
 
-You can cet familiar with the process [by following this tutorial](https://phraseapp.com/blog/posts/python-localization-flask-applications/).
+You can get familiar with the process [by following this tutorial](https://phraseapp.com/blog/posts/python-localization-flask-applications/).
 
 ## Contributions
 
